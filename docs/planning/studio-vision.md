@@ -28,8 +28,8 @@ OUTPUT: Live preview + exportable code + tokens
 | Engine | Input | Output | Status |
 |--------|-------|--------|--------|
 | **Layout Engine** | goal, content type, item count | grid-template + regions + score | DONE -- `useLayoutAdvice` (51 recipes, scoring) |
-| **Theme Engine** | context, audience, mood | tokens + effects + typography | NEXT -- registry + recommendTheme() + CSS vars |
-| **Component Engine** | goal, layout slots | component composition for each slot | FUTURE -- after Theme Engine |
+| **Theme Engine** | context, audience, mood | tokens + effects + typography | DONE -- registry, dual theme, 5 presets |
+| **Component Engine** | goal, layout slots | component composition for each slot | NEXT -- context-aware compositions |
 
 ---
 
@@ -197,27 +197,52 @@ Mapping:
 ```
 src/
   app/
-    globals.css                    -- 143 lines (shadcn :root/.dark + WCAG focus)
-    page.tsx                       -- 117 lines (3 variants: Studio/Explorer/Canvas)
+    globals.css                    -- 143 lines (@theme inline + WCAG focus)
+    page.tsx                       -- 17 lines (provider wrappers + AppContent)
   lib/layout/
-    theme.tsx                      -- 152 lines (ThemeProvider + useLayoutTheme)
-    presets.ts                     -- 347 lines (5 presets + metadata + pair maps)
+    theme.tsx                      -- 104 lines (LayoutThemeProvider + StudioThemeProvider alias)
+    project-theme.tsx              -- 107 lines (ProjectThemeProvider + useProjectTheme)
+    theme-types.ts                 -- PresetDefinition, ThemeTokens, ThemeMode
+    theme-registry.ts              -- registerPreset(), getAll(), getByMode(), getPair()
     tokens.ts                      -- 221 lines (colors, spacing, typography, darkTokens, lightTokens)
     types.ts                       -- 109 lines (LayoutRecipe, LayoutAdviceInput, etc.)
     scoring.ts                     -- scoring engine for useLayoutAdvice
     use-ai-prompt.ts               -- AI prompt parsing
+    presets/
+      champagne.ts                 -- Champagne preset (dark, gold, Playfair Display)
+      champagne-light.ts           -- Champagne Light preset
+      cyan-night.ts                -- Cyan Night preset (dark, cyan, Inter)
+      cyan-morning.ts              -- Cyan Morning preset
+      zinc.ts                      -- Zinc preset (dark, emerald, Inter)
+  app/
+    themes/
+      champagne.css                -- [data-theme="champagne"] selectors
+      champagne-light.css
+      cyan-night.css
+      cyan-morning.css
+      zinc.css
   components/layout/
-    theme-preset-selector.tsx      -- 187 lines (dropdown + dark/light toggle)
-    layout-explorer.tsx            -- 181 lines
-    prompt-studio.tsx              -- Prompt Studio variant
-    ai-canvas.tsx                  -- AI Canvas variant
-    explorer-sidebar.tsx           -- sidebar for Layout Explorer
-    grid-preview.tsx               -- grid wireframe renderer
-    grid-code-block.tsx            -- code output
-    score-gauge.tsx                -- score visualization
-    wireframe-preview.tsx          -- wireframe component
-    pipeline-node.tsx              -- pipeline visualization
-    code-drawer.tsx                -- code drawer
+    variant-tabs.tsx               -- StudioNavBar + BrandLogo + VariantTabs + RecipeCounter
+    theme-preset-selector.tsx      -- 66 lines (selector shell)
+    theme-dropdown.tsx             -- 72 lines (dropdown content)
+    theme-mode-toggle.tsx          -- 43 lines (Sun/Moon mode toggle)
+    preset-list.tsx                -- 101 lines (PresetList + Swatch + PresetInfo)
+    prompt-studio.tsx              -- 97 lines (hero + chips + empty state)
+    prompt-input.tsx               -- 89 lines (input + submit button)
+    parse-pipeline.tsx             -- 91 lines (ParsePipeline + BestMatch)
+    use-ranked-recipes.ts          -- hook for ranking
+    layout-explorer.tsx            -- 116 lines
+    explorer-sidebar.tsx           -- 137 lines
+    explorer-grid-view.tsx         -- 61 lines
+    explorer-list-view.tsx         -- 42 lines
+    ai-canvas.tsx                  -- 146 lines
+    wireframe-preview.tsx          -- 139 lines
+    grid-preview.tsx               -- 129 lines
+    grid-code-block.tsx            -- 103 lines
+    code-drawer.tsx                -- 72 lines
+    score-gauge.tsx                -- 39 lines
+    pipeline-node.tsx              -- 48 lines
+    syntax-highlight.tsx           -- 59 lines
   data/
     recipes.json                   -- 51 layout recipes
 ```
@@ -225,23 +250,26 @@ src/
 ### What Works
 
 - Layout Engine (51 recipes, scoring, recommendations)
+- Theme Engine (registry, 5 presets, CSS vars, data-theme attribute)
+- Dual Theme System (Studio + Project providers, independent themes)
 - 3 variant views (Prompt Studio, Layout Explorer, AI Canvas)
 - Theme switching (5 presets, dark/light toggle, paired switching)
 - WCAG 2.4.7 focus indicators
 - Reduced motion support
+- Anti-Monolith compliance (all files within line limits)
 
 ### What's Missing
 
-- Theme Engine (recommendation, registry, CSS variables)
-- Dual theme system (studio vs project)
+- `recommendTheme({ goal, mood, audience })` -- context-aware theme recommendation
 - Component Engine (context-aware composition)
 - Unified flow (one input -> full output)
-- Live preview with project theme
+- Live preview with project theme (wireframe in project theme)
 - Code export
 - Token fine-tuning (sliders for radius, accent, etc.)
 - Layout Explorer stubs (Search, Layers, Code/Docs/Playground tabs)
 - WCAG 2.1 AA audit across all existing components
 - Typography audit (fontFamily vs fontFamilyMono)
+- Smooth CSS transition on theme change (from Code-Realm analysis)
 
 ---
 
@@ -273,7 +301,7 @@ src/
 - Studied Google Stitch -- AI UI generator from prompt/sketch
 - Conclusion: we combine the best of all three + add unique value (layout scoring, context themes, npm package)
 
-### Session 6: Dual Theme System
+### Session 6: Dual Theme System -- DONE
 - User identified critical distinction: "studio colors vs project colors"
 - Decided: two independent theme providers
   - StudioThemeProvider: stable, neutral (Zinc dark default)
@@ -296,47 +324,43 @@ src/
   - **Hardcoded colors** in page.tsx — DON'T TAKE, we use design tokens
 - Full analysis saved: `docs/planning/code-realm-analysis.md`
 
+### Session 9: Theme Engine + Dual Theme Implementation -- DONE
+- Implemented Theme Engine: registry (Map), theme-types.ts, theme-registry.ts, per-file presets, CSS [data-theme] selectors
+- Refactored globals.css: removed `:root`/`.dark`, added `@theme inline` mapping
+- Connected LayoutThemeProvider to registry + `data-theme` attribute on `<html>`
+- Implemented Dual Theme System:
+  - Created ProjectThemeProvider + useProjectTheme() (src/lib/layout/project-theme.tsx)
+  - Added StudioThemeProvider/useStudioTheme aliases in theme.tsx
+  - Studio chrome (nav, sidebar) uses StudioTheme (Zinc, stable)
+  - Project preview (GridPreview) uses ProjectTheme (dynamic)
+  - Theme selector controls PROJECT theme, styled via STUDIO theme
+
+### Session 10: Anti-Monolith Compliance -- DONE
+- Split all files exceeding Rule 1 limits (all components now <= 150 lines)
+- Updated docs: phase-plan.md, architecture.md, core.md marked Phase 2/3 as DONE
+
 ---
 
 ## 7. Next Steps
 
-### Immediate: Theme Engine Refactoring (updated after Code-Realm study)
+### Immediate: Component Engine + Unified Studio Flow
 
-1. Create `theme-types.ts` with `PresetDefinition` interface (incl. `icon`, `color` from registry pattern)
-2. Create `use-mounted.ts` — SSR-safe mounting via `useSyncExternalStore` (from Code-Realm)
-3. Create `color-harmony.ts` — 7 harmony algorithms (from Code-Realm palette.tsx)
-4. Create `contrast.ts` — WCAG AA/AAA contrast utility (from Code-Realm palette.tsx)
-5. Create `theme-registry.ts` with `registerPreset()`, `getPreset()`, `getByMode()`, `getPair()`
-6. Split `presets.ts` into individual files under `presets/`
-7. Create CSS files under `themes/` with `[data-theme]` selectors
-8. Refactor `globals.css` -- remove `:root`/`.dark`, add `@theme inline` mapping
-9. Refactor `LayoutThemeProvider` to use registry + `data-theme` attribute
-10. Implement `recommendTheme()` function
-11. Add smooth CSS transition on theme change (from Code-Realm)
+1. Implement `recommendTheme()` — context-aware theme recommendation
+2. Map goals to component compositions per layout slot
+3. Per-slot component selection with variant system (light/dark, minimal/rich)
+4. Merge 3 variants into one unified workspace (Prompt Studio, Layout Explorer, AI Canvas)
+5. Left panel: context input (goal, style, audience)
+6. Right panel: live preview with project theme
+7. Bottom panel: exportable code
+8. Context changes → layout + theme + components update together
 
-### After Theme Engine: Dual Theme System
+### Future: Polish
 
-1. Create `StudioThemeProvider` (outer, stable)
-2. Create `ProjectThemeProvider` (inner, dynamic)
-3. Create `useStudioTheme()` and `useProjectTheme()` hooks
-4. Refactor all existing components to use correct provider
-5. CSS variable prefixes: `--studio-*` / `--project-*`
-
-### After Dual Theme: Unified Studio Flow
-
-1. Merge 3 variants into one unified workspace
-2. Left panel: context input (goal, style, audience)
-3. Right panel: live preview with project theme
-4. Bottom panel: exportable code
-5. Context changes -> layout + theme + components update together
-
-### After Unified Flow: Component Engine
-
-1. Map goals to component compositions
-2. Per-slot component selection
-3. Variant system (light/dark, minimal/rich)
-4. Code generation with proper imports
-
+- Layout Explorer stubs (Search, Layers, Code/Docs/Playground tabs)
+- Smooth CSS transition on theme change (from Code-Realm analysis)
+- WCAG 2.1 AA audit across all existing components
+- Typography audit (fontFamily vs fontFamilyMono)
+- Token fine-tuning UI (sliders for radius, accent, etc.)
 ---
 
 ## 8. Key Terminology
@@ -349,7 +373,7 @@ src/
 | **Project theme** | Colors/typography of the interface being created (dynamic, context-dependent) |
 | **Theme Engine** | System that recommends and applies themes based on context |
 | **Layout Engine** | System that recommends layouts based on goals (DONE) |
-| **Component Engine** | System that recommends components based on context + layout (FUTURE) |
+| **Component Engine** | System that recommends components based on context + layout (NEXT) |
 | **Preset** | A complete set of design tokens (colors, fonts, radius, shadows) |
 | **Registry** | Central Map<string, PresetDefinition> for all presets |
 | **recommendTheme()** | Function that maps context -> theme preset |

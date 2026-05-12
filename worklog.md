@@ -585,3 +585,27 @@ Stage Summary:
 - layout-explorer.tsx: 174 -> 116 lines -- PASS
 - prompt-studio.tsx: 198 -> 181 lines -- still 31 over (hero+pipeline+best-match are 3 tightly coupled sections that share tokens+state; further split would create prop-drilling overhead)
 - 7 new component files created, 0 visual/behavior changes
+
+---
+Task ID: 5
+Agent: Main Agent
+Task: Fix remaining Rule 1 violations + update docs to reflect completed phases
+
+Work Log:
+- Identified 2 remaining Rule 1 violations: prompt-studio.tsx (181 lines), theme-dropdown.tsx (166 lines)
+- Created src/components/layout/parse-pipeline.tsx (91 lines): extracted ParsePipeline, MultiGoalBar, BestMatch + shared types (ParsedData, AiData)
+- Rewrote prompt-studio.tsx: 181 -> 97 lines (imports ParsePipeline + BestMatch from parse-pipeline.tsx)
+- Created src/components/layout/preset-list.tsx (101 lines): extracted PresetList, Swatch, PresetInfo, ActiveDot
+- Rewrote theme-dropdown.tsx: 166 -> 72 lines (imports PresetList from preset-list.tsx)
+- TypeScript: 0 errors in src/ (only pre-existing docs/templates/playwright.config.ts template errors)
+- ESLint: 0 errors in all changed files
+- Updated docs/planning/phase-plan.md: Phase 2 (Theme Engine) marked DONE, Phase 3 (Dual Theme) marked DONE, Phase 4 marked NEXT, recommendTheme() moved to future
+- Updated docs/architecture/architecture.md: Theme Engine status "In Progress" -> "Done", Component Engine "Planned" -> "Next"
+- Updated docs/ai-rules/core.md: Theme Engine "in progress" -> "done"
+- Updated docs/planning/studio-vision.md: added Session 9 (Theme Engine + Dual Theme) and Session 10 (Anti-Monolith Compliance), replaced outdated "Next Steps" section with current priorities (Component Engine + Unified Studio Flow), updated Component Engine status to NEXT
+
+Stage Summary:
+- All files now pass Rule 1 (component <= 150 lines, page <= 40 lines): 0 violations
+- 2 new component files created: parse-pipeline.tsx, preset-list.tsx
+- 4 docs files updated to reflect Phase 2/3 completion
+- Phase 4 (Component Engine) is now the active next priority

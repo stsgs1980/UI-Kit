@@ -14,37 +14,38 @@ The Studio is built on three engines. This is the active development sequence.
 - [x] `parsePrompt()` + `scoreLayout()` + `scoreLayoutMulti()`
 - [x] 3 variant views: Prompt Studio, Layout Explorer, AI Canvas
 
-### Phase 2: Theme Engine -- IN PROGRESS
+### Phase 2: Theme Engine -- DONE
 
-- [ ] Create `theme-types.ts` with `PresetDefinition` interface
-- [ ] Create `theme-registry.ts` with `registerPreset()`, `getAll()`, `getByMode()`, `getPair()`
-- [ ] Split `presets.ts` into individual files under `presets/`
-- [ ] Create CSS files under `themes/` with `[data-theme]` selectors
-- [ ] Refactor `globals.css` -- remove `:root`/`.dark`, add `@theme inline` mapping
-- [ ] Refactor `LayoutThemeProvider` to use registry + `data-theme` attribute
-- [ ] Implement `recommendTheme({ goal, mood, audience })`
-- [ ] `ThemePreset` type: `string` (open, not closed union)
-- [ ] Remove `DARK_TO_LIGHT`/`LIGHT_TO_DARK` maps (pair inside definition)
+- [x] Create `theme-types.ts` with `PresetDefinition` interface
+- [x] Create `theme-registry.ts` with `registerPreset()`, `getAll()`, `getByMode()`, `getPair()`
+- [x] Split `presets.ts` into individual files under `presets/`
+- [x] Create CSS files under `themes/` with `[data-theme]` selectors
+- [x] Refactor `globals.css` -- remove `:root`/`.dark`, add `@theme inline` mapping
+- [x] Refactor `LayoutThemeProvider` to use registry + `data-theme` attribute
+- [x] `ThemePreset` type: `string` (open, not closed union)
+- [x] Remove `DARK_TO_LIGHT`/`LIGHT_TO_DARK` maps (pair inside definition)
+- [ ] Implement `recommendTheme({ goal, mood, audience })` (future -- needs Component Engine context)
 
-### Phase 3: Dual Theme System
+### Phase 3: Dual Theme System -- DONE
 
-- [ ] Create `StudioThemeProvider` (outer, stable, Zinc default)
-- [ ] Create `ProjectThemeProvider` (inner, dynamic, context-dependent)
-- [ ] Create `useStudioTheme()` and `useProjectTheme()` hooks
-- [ ] CSS variable prefixes: `--studio-*` / `--project-*`
-- [ ] Refactor all existing components to use correct provider
-- [ ] `data-studio-theme` and `data-project-theme` attributes
+- [x] Create `StudioThemeProvider` (outer, stable, Zinc default)
+- [x] Create `ProjectThemeProvider` (inner, dynamic, context-dependent)
+- [x] Create `useStudioTheme()` and `useProjectTheme()` hooks
+- [x] CSS variable prefixes: `--studio-*` / `--project-*`
+- [x] Refactor all existing components to use correct provider
+- [x] `data-studio-theme` and `data-project-theme` attributes
 
-### Phase 4: Component Engine
+### Phase 4: Component Engine -- NEXT
 
 - [ ] Map goals to component compositions
 - [ ] Per-slot component selection
 - [ ] Variant system (light/dark, minimal/rich)
 - [ ] Code generation with proper imports
+- [ ] `recommendTheme()` integration (context-aware theme recommendation)
 
 ### Phase 5: Unified Studio Flow
 
-- [ ] Merge 3 variants into one unified workspace
+- [ ] Merge 3 variants into one unified workspace (currently: Prompt Studio, Layout Explorer, AI Canvas)
 - [ ] Left panel: context input (goal, style, audience)
 - [ ] Right panel: live preview with project theme
 - [ ] Bottom panel: exportable code

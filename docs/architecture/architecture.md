@@ -50,15 +50,15 @@ The Studio is built on **three engines** sitting on top of a **6-layer component
 - **Scoring**: Multi-goal scoring with conflict mitigation
 - **Output**: Recommended layout with grid-template + regions + score
 
-### Theme Engine (In Progress)
+### Theme Engine (Done)
 - **Hook**: `useProjectTheme()` / `useStudioTheme()`
-- **Function**: `recommendTheme({ goal, mood, audience })`
 - **Registry**: Open Map<string, PresetDefinition> (not closed union)
 - **CSS**: `[data-theme]` selectors with `--stsgs-*` custom properties
 - **Dual**: Studio theme (stable) + Project theme (dynamic)
 - **Output**: Complete token set (colors, fonts, radius, shadows)
+- **Future**: `recommendTheme({ goal, mood, audience })` -- planned for Component Engine phase
 
-### Component Engine (Planned)
+### Component Engine (Next)
 - **Function**: `recommendComponents({ goal, layout, slots })`
 - **Mapping**: Goal -> component composition per layout slot
 - **Variants**: Light/dark, minimal/rich per component

@@ -9,7 +9,7 @@
 
 Three engines drive the Studio:
 1. **Layout Engine** (done) -- `useLayoutAdvice()`, 51 recipes, scoring
-2. **Theme Engine** (in progress) -- `recommendTheme()`, registry, dual theme
+2. **Theme Engine** (done) -- registry, dual theme, `useStudioTheme()`, `useProjectTheme()`
 3. **Component Engine** (planned) -- context-aware compositions
 
 For the full vision, decisions, and discussion history, see `docs/planning/studio-vision.md`.
