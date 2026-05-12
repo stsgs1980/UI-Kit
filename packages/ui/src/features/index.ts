@@ -29,3 +29,10 @@ export type { ScrollProgressBarProps } from './scroll-progress-bar'
 // Extracted from Component-Browser
 export { ActivityTimeline } from './activity-timeline'
 export type { ActivityTimelineProps, ActivityEntry, ActivityKind } from './activity-timeline'
+
+// Before/after comparison slider
+export { CompareSlider } from './compare-slider'
+export type { CompareSliderProps } from './compare-slider'
+
+export { useCompareSlider } from './compare-slider'
+export type { UseCompareSliderOptions, UseCompareSliderReturn } from './compare-slider'
