@@ -2,11 +2,12 @@
  * @stsgs/prompting -- Barrel Export
  * Complete prompting library for AI-assisted development.
  *
- * 18 files across 4 modules:
- *   core/        -- types, techniques, frameworks, system-prompt
- *   templates/   -- intent-templates, agent-templates, flow-templates
- *   evaluation/  -- scoring, blind-compare, benchmark
- *   agents/      -- cognitive-formulas, orchestration, resilience
+ * 5 modules:
+ *   core/           -- types, techniques (20), frameworks (11), system-prompt (5 layers)
+ *   templates/      -- intent-templates (12), agent-templates (12), flow-templates (8)
+ *   evaluation/     -- scoring (6 dims), blind-compare, benchmark (CORE-EEAT 40)
+ *   agents/         -- cognitive-formulas (20), orchestration (12), resilience (8)
+ *   instructions.ts -- behavioral rules (6) + ai-rules (4) with typed API
  */
 
 // ─── Core ────────────────────────────────────────────────────
@@ -139,6 +140,25 @@ export {
   renderPatternSteps,
   patterns,
 } from './agents/orchestration'
+
+// ─── Instructions (6 behavioral + 4 architectural) ────────
+export type {
+  InstructionCategory,
+  InstructionMeta,
+  InstructionEntry,
+} from './instructions'
+export {
+  getAllInstructions,
+  getInstructionMeta,
+  getInstruction,
+  getInstructionContent,
+  getInstructionsByCategory,
+  searchInstructions,
+  getInstructionIds,
+  getAllInstructionContent,
+  INSTRUCTIONS,
+  AI_RULES,
+} from './instructions'
 
 // ─── Resilience (retry, circuit breaker, timeout, debounce, throttle, fallback, bulkhead) ───
 export {
