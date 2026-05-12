@@ -461,3 +461,31 @@ Stage Summary:
 - Dual theme system decided: StudioThemeProvider (stable) + ProjectThemeProvider (dynamic)
 - Theme Engine architecture decided: registry, per-file presets, CSS variables, recommendTheme()
 - Full vision document created at docs/planning/studio-vision.md
+
+---
+Task ID: 1
+Agent: main (Super Z)
+Task: Clone and integrate UI-Kit + agent-toolkit into /home/z/my-project/
+
+Work Log:
+- Explored UI-Kit structure: Next.js 16 + React 19 + Tailwind 4, monorepo (3 packages), 58 components, 5 themes, 3 engines
+- Explored agent-toolkit: documentation-only governance system, 13 standards, 8 skills, 6 instructions, 3 templates
+- Confirmed root project is empty (only .env, skills/, download/)
+- Set git remote to https://github.com/stsgs1980/UI-Kit.git
+- Removed nested .git from both clone directories
+- Copied UI-Kit files to root via rsync (preserved .env, skills/, download/)
+- Compared STD-GIT-001: root v1.2 is strict superset of agent-toolkit v1.0 (extra 230 lines: checkpoints, deadlock prevention, recovery)
+- Compared AGENT_RULES.md: agent-toolkit v1.8.3 (newer, generic) vs root v1.5.0 (project-specific)
+- Merged AGENT_RULES.md into v1.9.0: took v1.8.3 base + added project-specific sections (Architecture, Push Policy, SVG rule)
+- Instructions: 6/6 files byte-identical between repos - kept docs/ as canonical
+- Copied 7 new standards: Frontend, Testing, Security, Error Handling, Code Examples, Implementation Order, Standard ID System
+- Copied new templates: e2e/, workflows/, playwright.config.ts
+- Copied assets/ (favicon, logo, banner) and scripts/setup.sh
+- Cleaned up original clone directories
+
+Stage Summary:
+- 2 commits made locally (push requires GitHub token setup)
+- Project fully integrated: Next.js app + 15 standards + 6 instructions + 3 template groups + 60+ skills
+- STD-GIT-001 already complete at v1.2 with sandbox deadlock prevention
+- AGENT_RULES.md merged to v1.9.0 with all project-specific and toolkit rules
+- @stsgs/prompting (src/lib/prompting/) NOT FOUND anywhere - needs recreation
