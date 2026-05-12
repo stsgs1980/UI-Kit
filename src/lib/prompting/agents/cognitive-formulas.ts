@@ -295,7 +295,7 @@ export function applyFormula(id: string, vars: Record<string, string>): string |
 
 /** Get all cognitive categories. */
 export function getCognitiveCategories(): CognitiveCategory[] {
-  return [...new Set(formulas.map(f => f.category))]
+  return Array.from(new Set(formulas.map(f => f.category)))
 }
 
 export { formulas }

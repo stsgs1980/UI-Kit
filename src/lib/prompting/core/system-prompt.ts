@@ -91,7 +91,7 @@ const LAYERS: LayerConfig[] = [
  * All 5 layers are composed in order: identity, context, constraints, output, behavior.
  */
 export function buildSystemPrompt(ctx: PromptContext): string {
-  return buildSystemPromptCustom(ctx, LAYERS.map(l => l.layer))
+  return buildSystemPromptCustom(ctx, LAYERS.map(l => ({ layer: l.layer })))
 }
 
 /**

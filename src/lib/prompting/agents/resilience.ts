@@ -373,20 +373,24 @@ export async function withResilience<T>(
   } = {}
 ): Promise<ResilienceResult<T>> {
   const circuit = new CircuitBreaker(options.circuit)
+  const startTime = Date.now()
+  const errors: string[] = []
 
-  return circuit.execute(() => {
+  return circuit.execute(async () => {
     if (options.timeout) {
-      return withTimeout(fn, options.timeout)
+      // Use withTimeout — it already returns ResilienceResult<T>,
+      // so we unwrap and re-wrap through circuit breaker
+      const result = await withTimeout(fn, options.timeout)
+      errors.push(...result.errors)
+      if (result.success) return result.data!
+      throw new Error(errors.join('; '))
     }
-    return fn().then(data => ({
-      success: true as const,
-      data,
-      attempts: 1,
-      totalDuration: 0,
-      errors: [],
-      circuitState: { state: 'closed' as const, failures: 0, successes: 1, lastFailure: null, nextRetry: null },
-    }))
-  })
+    return fn()
+  }).then(result => ({
+    ...result,
+    totalDuration: Date.now() - startTime,
+    errors: [...errors, ...result.errors],
+  }))
 }
 
 // ─── Utility ─────────────────────────────────────────────────

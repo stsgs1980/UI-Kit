@@ -232,7 +232,7 @@ export interface OrchestrationPattern {
 export interface OrchestrationStep {
   agentRole: string
   inputFrom: number | number[] | '*'
-  outputTo: number | '*'
+  outputTo: number | number[] | '*'
   promptTemplate: string
   aggregation?: 'merge' | 'vote' | 'chain' | 'select-best'
 }

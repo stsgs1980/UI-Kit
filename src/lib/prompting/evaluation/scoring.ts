@@ -291,4 +291,15 @@ export function getScoreDimensions(): Array<{ name: string; weight: number; desc
   return DIMENSIONS.map(d => ({ name: d.name, weight: d.weight, description: d.description }))
 }
 
+/**
+ * Estimate the number of tokens in a text string.
+ * Uses a simple heuristic: ~1.3 tokens per word (average for English).
+ * Useful for cost estimation and context window planning.
+ */
+export function estimateTokens(text: string): number {
+  if (!text?.trim()) return 0
+  const words = text.split(/\s+/).filter(Boolean).length
+  return Math.ceil(words * 1.3)
+}
+
 export { DIMENSIONS, numericToGrade }

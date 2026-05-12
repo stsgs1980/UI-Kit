@@ -421,7 +421,7 @@ export function getChecksByCategory(category: string): BenchmarkCheck[] {
  * Get all benchmark categories.
  */
 export function getBenchmarkCategories(): string[] {
-  return [...new Set(CHECKS.map(c => c.category))]
+  return Array.from(new Set(CHECKS.map(c => c.category)))
 }
 
 export { CHECKS }

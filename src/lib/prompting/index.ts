@@ -100,6 +100,7 @@ export {
   scorePrompt,
   quickScore,
   getScoreDimensions,
+  estimateTokens,
   DIMENSIONS,
   numericToGrade,
 } from './evaluation/scoring'
@@ -139,10 +140,14 @@ export {
   patterns,
 } from './agents/orchestration'
 
-// ─── Resilience (retry, circuit breaker, timeout) ───────────
+// ─── Resilience (retry, circuit breaker, timeout, debounce, throttle, fallback, bulkhead) ───
 export {
   withRetry,
   CircuitBreaker,
   withTimeout,
   withResilience,
+  debounce,
+  throttle,
+  fallback,
+  bulkhead,
 } from './agents/resilience'
