@@ -32,3 +32,7 @@ export type { UseLocalStorageOptions, UseLocalStorageReturn } from './use-local-
 // Keyboard
 export { useKeyboardShortcuts } from './use-keyboard-shortcuts'
 export type { ShortcutMap, UseKeyboardShortcutsOptions } from './use-keyboard-shortcuts'
+
+// Active section tracking (Z.Code-Guide)
+export { useActiveSection } from './use-active-section'
+export type { UseActiveSectionOptions, UseActiveSectionReturn } from './use-active-section'

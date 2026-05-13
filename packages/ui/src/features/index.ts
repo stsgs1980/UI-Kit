@@ -51,6 +51,22 @@ export type { UseCompareSliderOptions, UseCompareSliderReturn } from './compare-
 export { ScrollProgressBar } from './scroll-progress-bar'
 export type { ScrollProgressBarProps } from './scroll-progress-bar'
 
+// ─── Extracted from Z.Code-Guide ──────────────────────────────
+export { MobilePageHeader } from './mobile-page-header'
+export type { MobilePageHeaderProps } from './mobile-page-header'
+
+export { IconSidebarNav } from './icon-sidebar-nav'
+export type { IconSidebarNavProps, SidebarNavItem } from './icon-sidebar-nav'
+
+export { KeyboardShortcutsGrid } from './keyboard-shortcuts-grid'
+export type { KeyboardShortcutsGridProps, ShortcutItem } from './keyboard-shortcuts-grid'
+
+export { PipelineStepper } from './pipeline-stepper'
+export type { PipelineStepperProps, PipelineStep } from './pipeline-stepper'
+
+export { VersionHistory } from './version-history'
+export type { VersionHistoryProps, VersionEntry } from './version-history'
+
 // ─── Tier 1: Sci-Fi Primitives ────────────────────────────────
 export { HudCard } from './hud-card'
 export type { HudCardProps } from './hud-card'
