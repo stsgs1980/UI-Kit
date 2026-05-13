@@ -396,3 +396,20 @@ export type {
   AssetRowProps,
   CorrelationSparklineProps,
 } from './scifi-correlation-dashboard'
+
+// ─── Batch 8: Naval Presence Extractions ──────────────────
+
+// ScifiVersusPanel
+export { ScifiVersusPanel } from './scifi-versus-panel'
+export { VersusBar, VersusTeamCard } from './scifi-versus-panel'
+export type { ScifiVersusPanelProps, VersusTeam, VersusStat, VersusBarItem, VersusBarProps, VersusTeamCardProps } from './scifi-versus-panel'
+
+// ScifiTrackedAssets
+export { ScifiTrackedAssets, AssetCard, ThreatBar } from './scifi-tracked-assets'
+export { getThreatColor, getThreatGlow } from './scifi-tracked-assets'
+export type { ScifiTrackedAssetsProps, TrackedAsset, TrackedAssetsInfo, ThreatBarProps, AssetCardProps } from './scifi-tracked-assets'
+
+// ScifiTacticalMap
+export { ScifiTacticalMap } from './scifi-tactical-map'
+export { MapMarkers, MapLabels } from './scifi-tactical-map'
+export type { ScifiTacticalMapProps, TacticalMarker, TacticalLabel, MapMarkersProps, MapLabelsProps } from './scifi-tactical-map'
