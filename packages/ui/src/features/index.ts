@@ -298,3 +298,101 @@ export { FactorControls, ScoreDisplay } from './scifi-scenario-engine'
 export type { FactorControlsProps } from './scifi-scenario-engine'
 export type { FactorConfig, FactorValues, ScenarioPreset, ScenarioInfo, EngineTab } from './scifi-scenario-engine'
 export { computeCompositeScore, getScoreColor, getScoreRgb, getFactorColor, matchScenario } from './scifi-scenario-engine'
+
+// ─── Batch 7: Remaining Tier 4-5 Extractions ──────────────
+
+// ScifiAssetTracker
+export { ScifiAssetTracker } from './scifi-asset-tracker'
+export type { ScifiAssetTrackerProps, AssetRegionStatus, AssetRegion } from './scifi-asset-tracker'
+
+// ScifiChainTracker
+export { ScifiChainTracker } from './scifi-chain-tracker'
+export type { ScifiChainTrackerProps, DisruptionStatus, DisruptionSeverity, DisruptionTrend, KpiItem, DisruptionEvent } from './scifi-chain-tracker'
+
+// ScifiComplianceTracker
+export { ScifiComplianceTracker, ComplianceGauge, EntityRow, TimelineItem } from './scifi-compliance-tracker'
+export type { ScifiComplianceTrackerProps, ComplianceEntity, TimelineEvent as ComplianceTimeline, Severity, ComplianceCategory } from './scifi-compliance-tracker'
+export { SEVERITY_CONFIG as ComplianceSeverityConfig, CATEGORY_COLORS } from './scifi-compliance-tracker'
+
+// ScifiDemandCurve
+export { ScifiDemandCurve, DemandChart, ImpactRows } from './scifi-demand-curve'
+export type { ScifiDemandCurveProps, DemandChartProps, ImpactRowsProps, KeyMetric, CountryImpact, SectorImpact, CurvePoint, ImpactSeverity } from './scifi-demand-curve'
+export { SEVERITY_CONFIG as DemandSeverityConfig } from './scifi-demand-curve'
+
+// ScifiDisruptionPanel
+export { ScifiDisruptionPanel } from './scifi-disruption-panel'
+export type { ScifiDisruptionPanelProps, DisruptionItemStatus, DisruptionItemType, DisruptionItem } from './scifi-disruption-panel'
+
+// ScifiEnergyDashboard
+export { ScifiEnergyDashboard, BalanceGauge, DashboardPanels } from './scifi-energy-dashboard'
+export type { ScifiEnergyDashboardProps, BalanceGaugeProps, DashboardPanelsProps, ProducerData, UtilizationData, StatItem as EnergyStatItem, TrendDirection } from './scifi-energy-dashboard'
+export { getTrendColor } from './scifi-energy-dashboard'
+
+// ScifiEnvironmentalImpact
+export { ScifiEnvironmentalImpact, ConditionPanel, ForecastChart as EnvForecastChart, StormRiskGauge } from './scifi-environmental-impact'
+export type { ScifiEnvironmentalImpactProps, ConditionPanelProps, ForecastChartProps as EnvForecastChartProps, StormRiskGaugeProps, ConditionMetric, ForecastData, ImpactItem, ConditionSeverity } from './scifi-environmental-impact'
+export { useAnimatedValue as useEnvAnimatedValue, getBarColor, getBarGlow, getGaugeColor, getRiskStatus } from './scifi-environmental-impact'
+
+// ScifiFleetMonitor
+export { ScifiFleetMonitor } from './scifi-fleet-monitor'
+export type { ScifiFleetMonitorProps, VesselStatus, ThreatLevel, Vessel, SecurityZone } from './scifi-fleet-monitor'
+export { useAnimatedValue as useFleetAnimatedValue } from './scifi-fleet-monitor'
+
+// ScifiFlowTracker
+export { ScifiFlowTracker } from './scifi-flow-tracker'
+export type { ScifiFlowTrackerProps, PriceRegion, StorageLevel, PipelineFlow, TradeEntry } from './scifi-flow-tracker'
+
+// ScifiForecastPanel
+export { ScifiForecastPanel, FuturesCurveChart, ForecastChart as PriceForecastChart, ForecastLegend, SignalList } from './scifi-forecast-panel'
+export type { ScifiForecastPanelProps, CurvePoint as ForecastCurvePoint, ForecastModel, SignalItem } from './scifi-forecast-panel'
+
+// ScifiIndicatorPanel
+export { ScifiIndicatorPanel, RSIChart, MACDChart, BollingerChart, IndicatorSignalCard, SummaryCard as IndicatorSummaryCard } from './scifi-indicator-panel'
+export type { ScifiIndicatorPanelProps, IndicatorSignalProps, IndicatorConfig } from './scifi-indicator-panel'
+export { calculateRSI, calculateEMA, calculateMACD, calculateBollinger } from './scifi-indicator-panel'
+
+// ScifiInfrastructureMap
+export { ScifiInfrastructureMap, InfraMap, NodeCard } from './scifi-infrastructure-map'
+export type { ScifiInfrastructureMapProps, InfraMapProps, NodeCardProps, InfrastructureNode, NodeStatus, ThreatLevel as InfraThreatLevel, InfrastructureType, MapCoordinates } from './scifi-infrastructure-map'
+export { STATUS_CONFIG, THREAT_CONFIG, TYPE_CONFIG } from './scifi-infrastructure-map'
+
+// ScifiLevelAnalysis
+export { ScifiLevelAnalysis, LevelChart as AnalysisLevelChart, LevelCards } from './scifi-level-analysis'
+export type { ScifiLevelAnalysisProps, PricePoint, AnalysisLevel, IndicatorCard } from './scifi-level-analysis'
+
+// ScifiProcessingPanel
+export { ScifiProcessingPanel, TrendChart as ProcessingTrendChart, MiniSparkline as ProcessingSparkline, SpreadPanel, ProductPanel, UtilizationPanel } from './scifi-processing-panel'
+export type { ScifiProcessingPanelProps, SpreadData, ProductData, UtilData, TrendPoint } from './scifi-processing-panel'
+export { getUtilColor, getUtilLabel } from './scifi-processing-panel'
+
+// ScifiSankeyFlow
+export { ScifiSankeyFlow, SankeyDiagram } from './scifi-sankey-flow'
+export type { ScifiSankeyFlowProps, SankeyDiagramProps, FlowNode, FlowRoute } from './scifi-sankey-flow'
+export { SANKEY_LAYOUT, getControlX, getPathStartX, getPathEndX, buildBezierPath, getStrokeWidth } from './scifi-sankey-flow'
+
+// ScifiStatsSection
+export { ScifiStatsSection } from './scifi-stats-section'
+export type { ScifiStatsSectionProps, StatMetric, GaugeEntry } from './scifi-stats-section'
+
+// ScifiTransitMonitor
+export { ScifiTransitMonitor } from './scifi-transit-monitor'
+export type { ScifiTransitMonitorProps, MetricCard, VesselType } from './scifi-transit-monitor'
+
+// ScifiPeriodSelector
+export { ScifiPeriodSelector } from './scifi-period-selector'
+export type { ScifiPeriodSelectorProps, PeriodOption } from './scifi-period-selector'
+
+// ScifiCorrelationDashboard
+export { ScifiCorrelationDashboard, CorrelationRow, AssetRow, CorrelationSparkline } from './scifi-correlation-dashboard'
+export type {
+  ScifiCorrelationDashboardProps,
+  CorrelationItem,
+  CorrelationAsset,
+  CorrelationStat,
+  CorrelationTrend,
+  ColumnHeader,
+  CorrelationPanelConfig,
+  CorrelationRowProps,
+  AssetRowProps,
+  CorrelationSparklineProps,
+} from './scifi-correlation-dashboard'
