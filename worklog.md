@@ -1293,3 +1293,28 @@ Stage Summary:
 - Re-evaluation criterion: OKLCH usage is NOT a skip reason
 - Library total: 97+ features, 54 UI components, 8 hooks, 15 sections
 - Pushed to GitHub successfully
+
+---
+Task ID: checklist-fix
+Agent: Main Agent
+Task: Create ui-kit-checklist.xlsx with Plan vs Fact structure per source
+
+Work Log:
+- Read full project file tree to count all features, hooks, ui primitives
+- Counted 150 total components: 98 features (97 scifi + 1 non-scifi), 51 ui primitives, 9 hooks
+- Created comprehensive xlsx with 6 sheets:
+  1. Summary (per-source totals + grand total + progress bar)
+  2. Ormuz-monitor (62 components: 61 extracted, 1 planned)
+  3. Code-Realm (21 components: 11 features + 4 ui + 6 hooks)
+  4. Component-Browser (7 components: 4 ui + 2 hooks + 1 feature)
+  5. Z.Code-Guide (8 components: 2 ui + 1 hook + 5 features)
+  6. Anti-Monolith rules (9 rules, all PASS)
+- Each source sheet has columns: #, Component, Plan (description), Fact (status), Type, Files, Lines
+- Color coding: green = EXTRACTED, amber = PLANNED, red = SKIP
+- Used openpyxl with professional design tokens from xlsx skill base.py
+
+Stage Summary:
+- ui-kit-checklist.xlsx created at /home/z/my-project/download/ui-kit-checklist.xlsx
+- 149 extracted, 1 planned (scifi-supply-chain from Ormuz), 0 skipped
+- All 9 anti-monolith rules: PASS
+- Grand total: 150 components across 4 sources + shadcn/ui primitives
