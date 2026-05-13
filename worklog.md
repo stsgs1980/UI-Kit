@@ -1203,3 +1203,25 @@ Stage Summary:
 - 2 new components extracted and exported
 - Total UI-Kit: 62+ features fully wired
 - Commit f57b238 pushed to main
+---
+Task ID: 2
+Agent: main
+Task: Extract last 3 naval-presence components
+
+Work Log:
+- Read 4 naval-presence source files (force-comparison-panel, naval-assets-panel, deployment-map, naval-presence-tracker)
+- Read shared types.ts, utils.ts, data.tsx
+- Decided to skip naval-presence-tracker (just a tab wrapper, already have ScifiTabbedView)
+- Extracted ScifiVersusPanel (3 files: versus-panel, versus-bar, versus-team-card + types)
+- Extracted ScifiTrackedAssets (3 files: tracked-assets, asset-card, threat-utils + types)
+- Extracted ScifiTacticalMap (3 files: tactical-map, map-markers, map-labels + types)
+- Fixed tactical-map.tsx from 172 to 88 lines (under 150 limit)
+- All 15 new files pass TypeScript check (0 errors)
+- Added barrel exports for all 3 features in features/index.ts
+- Commit bfb6601 pushed to main
+
+Stage Summary:
+- 3 new features: ScifiVersusPanel, ScifiTrackedAssets, ScifiTacticalMap
+- 15 new files, 1118 lines total
+- Ormuz-monitor is now FULLY extracted (74 features total in UI-Kit)
+- All components generalized (no military/oil domain naming)
