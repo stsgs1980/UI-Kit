@@ -1182,3 +1182,24 @@ Stage Summary:
 - All anti-monolith rules verified: <=150 lines, <=3 useState, forwardRef, data-slot, JSDoc
 - Zero SKIP — all components generalized (oil/sanctions/military → generic)
 - All Russian text replaced with English
+---
+Task ID: 1
+Agent: main
+Task: Wire 17 barrel exports + extract PeriodSelector & CorrelationDashboard
+
+Work Log:
+- Scanned Ormuz-monitor source to identify remaining components
+- Found 17 features already extracted but NOT in barrel export
+- Found 2 components not extracted at all: currency-impact.tsx, period-selector.tsx
+- Added barrel exports for all 17 features with alias resolution for naming conflicts
+- Extracted ScifiPeriodSelector (generic toggle group) from period-selector.tsx
+- Extracted ScifiCorrelationDashboard from currency-impact.tsx (539→6 files, all ≤150 lines)
+- Fixed stopOpacity typo in correlation-sparkline.tsx
+- Extracted ColumnHeaders/Legend/StatCards into dashboard-parts.tsx to meet 150-line limit
+- All files pass TypeScript check (0 errors)
+
+Stage Summary:
+- 17 features now publicly importable via barrel
+- 2 new components extracted and exported
+- Total UI-Kit: 62+ features fully wired
+- Commit f57b238 pushed to main
