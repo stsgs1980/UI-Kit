@@ -774,3 +774,45 @@ Stage Summary:
 - Estimated total: ~15,000 lines of new scifi-themed dashboard components for @stsgs/ui
 - globals.css already split into 12 CSS modules (done in previous session)
 - Next: Begin Tier 1 extraction (7 primitives, ready to copy with minimal changes)
+- globals.css already split into 12 CSS modules (done in previous session)
+
+---
+Task ID: 11
+Agent: Main Agent
+Task: Tier 1 Extraction -- 7 Ormuz-monitor sci-fi primitives into @stsgs/ui features/
+
+Work Log:
+- Located all 7 Tier 1 source components in ormuz-monitor/src/components/scifi/
+- Read and analyzed each source for generalization opportunities
+- Created shared utility tokens/color-utils.ts with hexToChannels() (used by HudCard + BackToTop)
+- Extracted and generalized 7 components into packages/ui/src/features/:
+  1. HudCard (129 lines) -- sci-fi panel with accent glow, corner brackets, title bar, scanline
+     - Generalized: accentColor preset union -> any hex string, added showCorners/showScanline/bgColor/padding props
+  2. ScifiSectionHeader (127 lines) -- animated label + title + subtitle header
+     - Generalized: hardcoded #00e5ff -> accentColor prop, added titleFont/subtitleColor props
+  3. AnimatedCounter (112 lines) -- number counting up when scrolled into view
+     - Generalized: added color/fontFamily props, forwardRef, JSDoc @example
+     - Note: useAnimatedCounter hook already existed in hooks/; this is the visual component wrapper
+  4. MiniSparkline (134 lines) -- tiny SVG sparkline with gradient fill
+     - Generalized: added negativeColor/showFill/showGlow props, forwardRef, useId for unique SVG IDs
+  5. TypingEffect (134 lines) -- character-by-character typing with blinking cursor
+     - Generalized: added showCursor/cursorWidth/onComplete props, extracted blink keyframe
+  6. ScifiScrollProgress (114 lines) -- glowing animated scroll progress bar
+     - Generalized: added color/colorEnd/height/glow/threshold/zIndex props
+     - Note: simpler ScrollProgressBar already existed in features/; this adds spring physics + glow
+  7. BackToTop (143 lines) -- floating hexagonal/circular/diamond scroll-to-top button
+     - Generalized: hardcoded hexagon -> shape prop (hexagon|circle|diamond), added pulse/offset/size props
+     - Split: extracted BackToTopPulse (60 lines) for animated ring + keyframe injection
+- All 7 components follow anti-monolith rules: forwardRef, JSDoc + @example, cn(), data-slot, <=150 lines, <=3 useState
+- Updated features/index.ts barrel exports with new "Tier 1: Ormuz-monitor Sci-Fi Primitives" section
+- TypeScript: 0 errors
+- New files created: 7 component files + 7 index.ts barrels + 1 shared utility = 15 files, 980 lines
+
+Stage Summary:
+- Tier 1 extraction COMPLETE: 7/7 primitives extracted and generalized
+- All hardcoded colors replaced with generic props (any hex string)
+- All domain-specific naming replaced with generic equivalents
+- Shared utility hexToChannels() created to avoid code duplication
+- BackToTop split into main (143) + pulse sub-component (60) to pass 150-line limit
+- Library status: 17 features (was 10), 52 UI components, 7 hooks, 15 sections, 1 provider
+- Next: Tier 2 extraction (5 navigation components: PeriodSelector, NavBar, LoadingScreen, TabbedChronology)
