@@ -30,6 +30,20 @@ export type { ActivityTimelineProps, ActivityEntry, ActivityKind } from './activ
 export { CompareSlider } from './compare-slider'
 export type { CompareSliderProps } from './compare-slider'
 
+// ─── Generic comparison modal (Component-Browser) ────────────
+export { CompareModal } from './compare-modal'
+export type { CompareModalProps, CompareItem, DiffLine } from './compare-modal'
+export { DiffTable } from './compare-modal'
+export type { DiffTableProps } from './compare-modal'
+
+// ─── Generic stats dashboard (Component-Browser) ─────────────
+export { StatsDashboard } from './stats-dashboard'
+export type { StatsDashboardProps, StatsItem } from './stats-dashboard'
+export { StatCard } from './stats-dashboard'
+export type { StatCardProps } from './stats-dashboard'
+export { SizeDonut } from './stats-dashboard'
+export type { SizeDonutProps } from './stats-dashboard'
+
 export { useCompareSlider } from './compare-slider'
 export type { UseCompareSliderOptions, UseCompareSliderReturn } from './compare-slider'
 

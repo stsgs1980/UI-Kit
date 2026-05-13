@@ -28,3 +28,7 @@ export type { UseScrollProgressOptions, UseScrollProgressReturn } from './use-sc
 // Storage
 export { useLocalStorage } from './use-local-storage'
 export type { UseLocalStorageOptions, UseLocalStorageReturn } from './use-local-storage'
+
+// Keyboard
+export { useKeyboardShortcuts } from './use-keyboard-shortcuts'
+export type { ShortcutMap, UseKeyboardShortcutsOptions } from './use-keyboard-shortcuts'
