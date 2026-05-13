@@ -843,3 +843,23 @@ Stage Summary:
 - ScifiGauge replaces 100+ gauge instances across 17 files
 - ScifiCanvasChart replaces 20+ canvas chart implementations across 14 files
 - Next: Tier 2 extraction (PeriodSelector, Chronology)
+---
+Task ID: 11
+Agent: Main Agent
+Task: Extract Tier 2 -- ScifiButtonGroup + ScifiTabbedView
+
+Work Log:
+- Read PeriodSelector source (84 lines) from ormuz-monitor/src/components/scifi/period-selector.tsx
+- Read Chronology source (95 lines) from ormuz-monitor/src/components/scifi/chronology.tsx
+- Created ScifiButtonGroup (114 lines): controlled button group with corner accents, glow, framer-motion hover/tap
+- Created ScifiTabbedView (138 lines): tabbed container with layoutId indicator, AnimatePresence transitions, controlled/uncontrolled modes
+- Updated features/index.ts barrel with Tier 2 exports
+- TypeScript: 0 errors
+- Pushed: e948da3
+
+Stage Summary:
+- Tier 2 complete: 2 components, 4 files (2 component + 2 barrel), 252 lines
+- ScifiButtonGroup: generic options via ButtonGroupOption[], configurable color, groupLabel, showCorners
+- ScifiTabbedView: TabDefinition[] with per-tab color/icon, children render prop, layoutId uniqueness
+- Zero domain-specific references
+- Next: Tier 3 (11 medium widgets)
