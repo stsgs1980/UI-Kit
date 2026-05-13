@@ -863,3 +863,322 @@ Stage Summary:
 - ScifiTabbedView: TabDefinition[] with per-tab color/icon, children render prop, layoutId uniqueness
 - Zero domain-specific references
 - Next: Tier 3 (11 medium widgets)
+---
+Task ID: tier4-5-batch1
+Agent: Extract Agent
+Task: Extract Batch 1 -- 6 small-medium Ormuz-monitor components
+
+Work Log:
+- Read all 6 source files from ormuz-monitor/src/components/scifi/
+- Created 17 files across 6 component directories under packages/ui/src/features/
+- Generalized all domain-specific terms (Ormuz Strait, oil, sanctions, military -> generic equivalents)
+- Replaced all Russian text with English generic equivalents
+- Replaced all hardcoded data arrays with configurable props
+- Split oversized files to stay under 150-line limit
+- Updated features/index.ts barrel with all 6 new component exports
+
+Stage Summary:
+- Components extracted: scifi-cta-section, scifi-event-calendar, scifi-transit-overview, scifi-scenario-analysis, scifi-impact-beneficiaries, scifi-nav-bar
+- Total files created: 17 (13 component files + 4 barrel index.ts files)
+- All 17 component files pass Rule 1 (<=150 lines)
+- Line counts: cta-section(108), event-calendar(145+40), transit-overview(139+31), scenario-analysis(140+45), impact-beneficiaries(139+48), nav-bar(139+110+51)
+- All components use forwardRef, data-slot, cn(), JSDoc with @example, displayName
+- Default accent color: #00e5ff on all components
+---
+Task ID: Batch-3-extraction
+Agent: Extract Agent
+Task: Extract Batch 3: 6 data components from Ormuz-monitor into @stsgs/ui
+
+Work Log:
+- Read all 6 source files from ormuz-monitor/src/components/scifi/:
+  1. risk-matrix.tsx (387 lines) - Russian oil risk matrix
+  2. market-heatmap.tsx (282 lines) - Russian oil asset correlation heatmap
+  3. market-pulse.tsx (464 lines) - Russian oil market pulse meter
+  4. sentiment-gauge.tsx (733 lines) - Russian oil market sentiment gauge
+  5. geopolitical-tension-index.tsx (530 lines) - Russian geopolitical tension index
+  6. currency-impact.tsx (539 lines) - Russian currency/commodity impact table
+- Studied established patterns from existing scifi-* features in @stsgs/ui
+- Created 6 feature directories with 35 total files (2,684 lines)
+- All Russian text translated to English
+- All domain-specific terms (oil/sanctions/military) generalized to generic props
+- Each file verified <=150 lines (max: 148)
+- All files use 'use client', forwardRef, cn() from ../../tokens/cn, data-slot, JSDoc with @example
+
+Components created:
+1. scifi-risk-matrix/ (5 files, 441 lines)
+   - types.ts: RiskItem, ScifiRiskMatrixProps, cellColor/probBarColor/impactBadgeColor helpers
+   - risk-matrix-grid.tsx: 3xN animated matrix grid with probability x impact dots
+   - risk-matrix-details.tsx: sidebar list with probability bars and impact badges
+   - scifi-risk-matrix.tsx: main composite with legend
+
+2. scifi-asset-heatmap/ (5 files, 362 lines)
+   - types.ts: Asset, Sector, ScifiAssetHeatmapProps, correlation color helpers
+   - correlation-grid.tsx: NxN matrix with hover highlighting and tooltips
+   - sector-bars.tsx: animated horizontal performance bars
+   - scifi-asset-heatmap.tsx: main composite
+
+3. scifi-pulse-meter/ (6 files, 430 lines)
+   - types.ts: SectorData, SentimentData, SentimentType, ScifiPulseMeterProps, getScoreColor
+   - pulse-ring.tsx: SVG ring gauge with color zones and pulsing center dot
+   - sector-bars.tsx: animated sector performance bars with legend
+   - scifi-pulse-meter.tsx: main composite with sentiment cards
+
+4. scifi-sentiment-gauge/ (7 files, 579 lines)
+   - types.ts: SentimentIndicator, ScifiSentimentGaugeProps, getSentimentLabel
+   - main-gauge.tsx: SVG arc gauge (210-330 deg) with gradient, ticks, needle dot
+   - mini-gauge.tsx: individual indicator card with arc, icon, change badge, sparkline
+   - trend-chart.tsx: canvas-based area chart with grid and neutral line
+   - scifi-sentiment-gauge.tsx: main composite with fear/greed bar
+
+5. scifi-tension-index/ (8 files, 490 lines)
+   - types.ts: RegionData, DriverData, ScifiTensionIndexProps, getTensionColor/Label
+   - tension-gauge.tsx: canvas radial gauge (270 deg) with conic gradient
+   - tension-sparkline.tsx: canvas sparkline for historical trend data
+   - region-row.tsx: animated region bar row
+   - driver-row.tsx: animated driver row with impact bar
+   - scifi-tension-index.tsx: main composite with weight distribution
+
+6. scifi-correlation-table/ (6 files, 382 lines)
+   - types.ts: CorrelationItem, ScifiCorrelationTableProps, correlation helpers
+   - sparkline-mini.tsx: tiny inline SVG sparkline with gradient fill
+   - correlation-row.tsx: row with label, value, change, correlation bar, sparkline
+   - scifi-correlation-table.tsx: main composite with dual-panel layout
+
+- Updated features/index.ts barrel with all 6 new feature exports
+- All 33 files pass 150-line limit
+- Total: 2,684 lines of new library code
+
+Stage Summary:
+- 6 sci-fi data components extracted from ormuz-monitor
+- 35 new files across 6 feature directories
+- All domain-specific terms generalized (oil/military/sanctions removed)
+- All Russian text translated to English
+- Zero hardcoded data -- everything passed via props
+- Sci-fi visual style preserved (glows, monospace fonts, dark bg, animations)
+
+---
+Task ID: tier4-5-batch2
+Agent: Extract Agent
+Task: Extract Batch 2 — 6 medium Ormuz-monitor components into @stsgs/ui
+
+Work Log:
+- Read all 6 source files from ormuz-monitor/src/components/scifi/
+- Created scifi-hero: floating-particles.tsx (81L), radar-animation.tsx (58L), scifi-hero.tsx (130L), index.ts (8L)
+- Created scifi-loading-screen: loading-data.ts (50L), hex-loader.tsx (114L), data-stream.tsx (55L), scifi-loading-screen.tsx (140L), index.ts (11L)
+- Created scifi-alert-panel: alert-types.ts (63L), alert-row.tsx (108L), scifi-alert-panel.tsx (128L), index.ts (19L)
+- Created scifi-alert-dashboard: types.ts (54L), threat-gauge.tsx (112L), alert-stats.tsx (119L), scifi-alert-dashboard.tsx (120L), index.ts (11L)
+- Created scifi-news-feed: types.ts (50L), threat-gauge.tsx (106L), scifi-news-feed.tsx (148L), index.ts (8L)
+- Created scifi-chart-grid: types.ts (34L), chart-card.tsx (141L), scifi-chart-grid.tsx (70L), index.ts (7L)
+- All Russian text replaced with English generic equivalents
+- All domain-specific terms (oil, sanctions, military) replaced with generic monitoring terms
+- All components use 'use client', forwardRef, cn(), data-slot, JSDoc, displayName
+- Updated features/index.ts barrel with all 6 new component directories
+- Verified all files <= 150 lines with wc -l
+
+Stage Summary:
+- Components: scifi-hero, scifi-loading-screen, scifi-alert-panel, scifi-alert-dashboard, scifi-news-feed, scifi-chart-grid
+- Total files: 24 (20 component files + 4 barrel index.ts)
+- Total lines: 1,945
+- All files pass Rule 1 (<=150 lines)
+- All files follow established pattern (forwardRef, cn(), data-slot, JSDoc, displayName)
+
+---
+Task ID: batch-4
+Agent: Extract Agent
+Task: Extract Batch 4 — 6 tracker components from Ormuz-monitor into @stsgs/ui
+
+Work Log:
+- Read all 6 source files from ormuz-monitor/src/components/scifi/ (total 3,158 lines)
+- Created 6 feature directories under packages/ui/src/features/
+- Extracted and generalized all domain-specific terms (oil/sanctions/military → generic equivalents)
+- All Russian text translated to English
+- Each file verified under 150-line limit
+- TypeScript compilation: 0 errors in new files (pre-existing error in scifi-sentiment-gauge.tsx unrelated)
+
+Files created (31 files, 2,224 lines total):
+
+1. scifi-chain-tracker/ (5 files, 372 lines):
+   - types.ts (73L) — DisruptionEvent, KpiItem, status/severity/trend types
+   - disruption-row.tsx (100L) — DisruptionRow with status/severity/trend badges
+   - risk-meter.tsx (88L) — RiskMeter with animated segmented bar + glow marker
+   - scifi-chain-tracker.tsx (101L) — Main component with summary strip + disruption list
+   - index.ts (10L) — Barrel exports
+
+2. scifi-disruption-panel/ (5 files, 341 lines):
+   - types.ts (45L) — DisruptionItem, status/type types
+   - disruption-row.tsx (94L) — Desktop table + mobile card layout
+   - disruption-gauge.tsx (98L) — Canvas arc gauge with DPR scaling, tick marks, animated needle
+   - scifi-disruption-panel.tsx (100L) — Dashboard with gauge + summary + table
+   - index.ts (4L) — Barrel exports
+
+3. scifi-asset-tracker/ (4 files, 295 lines):
+   - types.ts (33L) — AssetRegion, status type
+   - trend-chart.tsx (130L) — Canvas line chart with gradient fill, dots, grid
+   - scifi-asset-tracker.tsx (128L) — Hero counter + utilization bar + regional breakdown + trend
+   - index.ts (4L) — Barrel exports
+
+4. scifi-transit-monitor/ (5 files, 436 lines):
+   - types.ts (42L) — MetricCard, VesselType
+   - traffic-chart.tsx (145L) — Canvas bar chart with peak/low zones, current time indicator
+   - traffic-flow.tsx (121L) — SVG animated flow with ship icons, directional arrows
+   - scifi-transit-monitor.tsx (108L) — Metrics row + flow viz + chart + status panel
+   - index.ts (4L) — Barrel exports
+
+5. scifi-fleet-monitor/ (6 files, 396 lines):
+   - types.ts (60L) — Vessel, SecurityZone, status/threat types
+   - use-animated-value.ts (38L) — Shared animated counter hook
+   - vessel-table.tsx (93L) — Desktop + mobile vessel table with status badges
+   - threat-map.tsx (91L) — SVG map with pulsing zone markers + zone cards
+   - scifi-fleet-monitor.tsx (104L) — Main with table + stats + threat map
+   - index.ts (10L) — Barrel exports
+
+6. scifi-flow-tracker/ (5 files, 390 lines):
+   - types.ts (62L) — PriceRegion, StorageLevel, PipelineFlow, TradeEntry
+   - storage-gauge.tsx (65L) — SVG arc gauge with critical threshold marker
+   - flow-panels.tsx (118L) — Pipeline flow bars + trade bar chart (SVG)
+   - scifi-flow-tracker.tsx (146L) — 4-panel layout: prices, storage, pipelines, trade
+   - index.ts (9L) — Barrel exports
+
+Pattern compliance:
+- 'use client' directive on all .tsx files
+- forwardRef + cn() from ../../tokens/cn on all main components
+- data-slot attributes on root elements
+- JSDoc with @example on all main component props
+- Default accent '#00e5ff', configurable via props
+- Zero Russian text, zero domain-specific terms
+- All files <= 150 lines
+- Barrel index.ts per folder with type re-exports
+
+Stage Summary:
+- 6 tracker components extracted (31 files, 2,224 lines)
+- All source domain terms generalized to generic equivalents
+- Canvas charts use useRef + useEffect with DPR scaling
+- SVG charts use framer-motion for animations
+- Zero TypeScript errors in new files
+
+## Batch 6B: 5 Feature Components Extracted (2025-01-XX)
+
+### Components Created (25 files, 2,287 lines)
+
+#### 1. ScifiCostCalculator (6 files, 550 lines)
+Source: oil-price-calculator.tsx (718L) → Generic cost/revenue calculator
+- types.ts (84L) — CalculatorInput, CalculatorOutput, BreakdownItem, SelectOption, ScifiCostCalculatorProps
+- scifi-slider.tsx (103L) — Animated range slider with glowing track/thumb
+- scifi-select.tsx (72L) — Themed dropdown with color indicator
+- output-panel.tsx (142L) — Metric cards with optional cost breakdown bar
+- scifi-cost-calculator.tsx (129L) — Main layout: left inputs, right outputs
+- index.ts (11L) — Barrel exports
+
+#### 2. ScifiRegionMap (5 files, 481 lines)
+Source: interactive-map.tsx (557L) → Generic interactive SVG region map
+- types.ts (67L) — MapRegion, MapRoute, MapBase, RiskLevel, RISK_CONFIG
+- region-map-svg.tsx (148L) — Interactive SVG with grid, routes, regions, markers
+- region-detail.tsx (126L) — Sidebar detail panel for selected region
+- scifi-region-map.tsx (110L) — Main wrapper with tooltip + legend
+- index.ts (11L) — Barrel exports
+
+#### 3. ScifiGlobeView (5 files, 479 lines)
+Source: oil-globe.tsx (551L) → 3D globe with labeled nodes + route arcs
+- types.ts (111L) — GlobeNode, GlobeRoute, GlobeStat + 3D helpers (latLonToVec3, generateArcPoints)
+- globe-scene.tsx (149L) — Three.js globe grid, node markers, route arcs via @react-three/fiber
+- globe-overlays.tsx (134L) — HUD overlays, loading spinner, route legend, stat cards
+- scifi-globe-view.tsx (76L) — Canvas wrapper with Suspense
+- index.ts (9L) — Barrel exports
+
+#### 4. ScifiReserveMonitor (5 files, 416 lines)
+Source: oil-reserves.tsx (492L) → Storage/reserve monitor with gauges
+- types.ts (66L) — ReserveRegion, SummaryStat, Trend, TREND_CONFIG
+- reserve-gauges.tsx (88L) — CircularGauge (SVG ring), SparklineMini
+- reserve-cards.tsx (122L) — StorageGaugeCard + SummaryCard + ReserveCards
+- scifi-reserve-monitor.tsx (129L) — Global fill bar + ReserveCards layout
+- index.ts (11L) — Barrel exports
+
+#### 5. ScifiScenarioEngine (4 files, 496 lines)
+Source: scenario-simulator.tsx (600L) → Multi-factor scenario engine
+- types.ts (123L) — FactorConfig, FactorValues, ScenarioPreset, ScenarioInfo, EngineTab + engine helpers
+- factor-controls.tsx (120L) — FactorSlider, ScoreDisplay, FactorControls
+- scifi-scenario-engine.tsx (138L) — Main component with composite score, tabs, presets
+- index.ts (8L) — Barrel exports
+
+### Generalizations Applied
+- Oil → generic "cost/revenue/calculator"
+- Persian Gulf countries → generic MapRegions with SVG paths
+- Oil ports/routes → generic GlobeNodes/GlobeRoutes with lat/lon
+- Oil reserves → generic ReserveRegions with capacity tracking
+- Oil scenario factors → generic FactorConfig[] with weights
+- All Russian text → English
+- All domain-specific constants removed (OIL, SCENARIO_POINTS, etc.)
+- Hardcoded data → props-driven configuration
+
+### Pattern Compliance
+- 'use client' directive on all .tsx files
+- forwardRef + cn() from ../../tokens/cn on all main components
+- data-slot attributes on root elements
+- JSDoc with @example on main components
+- Default accent '#00e5ff', configurable via props
+- Zero Russian text, zero domain-specific terms
+- All files ≤150 lines (max 149L)
+- Barrel index.ts per folder with type re-exports
+- All 5 components re-exported from features/index.ts
+
+### Notable: Three.js Dependency
+- ScifiGlobeView uses @react-three/fiber, @react-three/drei, and three as peer dependencies
+- latLonToVec3 and generateArcPoints are pure-math exports for consumers
+- GlobeCanvas is exported for advanced use cases
+---
+Task ID: 6A
+Agent: Extract Agent
+Task: Extract Batch 6A — 5 large sci-fi dashboard components from ormuz-monitor into @stsgs/ui
+
+Work Log:
+- Read all 5 source files: weather-impact.tsx (634L), demand-destruction.tsx (647L), trade-flow.tsx (467L), energy-infrastructure.tsx (687L), energy-dashboard.tsx (562L)
+- Extracted 5 feature components, splitting each into multiple files (total 24 files, 2212 lines)
+- Generalized all domain terms: oil/sanctions/military to generic (resource/production/flow/infrastructure)
+- Translated all Russian text to English throughout
+- Applied library pattern: use client, forwardRef, TypeScript props, cn(), data-slot, JSDoc with @example, default accent #00e5ff
+- Canvas: DPR scaling in demand-chart.tsx; SVG: framer-motion animations throughout
+- All files verified at <=150 lines
+- File 1: weather-impact -> scifi-environmental-impact (6 files): types.ts, condition-panel.tsx, forecast-chart.tsx, storm-gauge.tsx, scifi-environmental-impact.tsx, index.ts
+- File 2: demand-destruction -> scifi-demand-curve (5 files): types.ts, demand-chart.tsx, impact-rows.tsx, scifi-demand-curve.tsx, index.ts
+- File 3: trade-flow -> scifi-sankey-flow (4 files): types.ts, sankey-diagram.tsx, scifi-sankey-flow.tsx, index.ts
+- File 4: energy-infrastructure -> scifi-infrastructure-map (5 files): types.ts, infra-map.tsx, node-card.tsx, scifi-infrastructure-map.tsx, index.ts
+- File 5: energy-dashboard -> scifi-energy-dashboard (5 files): types.ts, balance-gauge.tsx, dashboard-panels.tsx, scifi-energy-dashboard.tsx, index.ts
+
+Stage Summary:
+- 24 files created across 5 feature directories
+- Total lines: 2212 (from 5 source files totaling 2997 lines)
+- All files pass 150-line Rule 1 limit (max 150)
+- All Russian text translated to English
+- All domain terms generalized to reusable abstractions
+- Each component exports types + helpers from barrel index.ts
+---
+
+---
+Task ID: tier4-5-extraction
+Agent: Main Agent (Super Z)
+Task: Extract all remaining 33+ Tier 4-5 Ormuz-monitor components into @stsgs/ui
+
+Work Log:
+- Analyzed all 67 source files in ormuz-monitor/src/components/scifi/ (23,942 lines)
+- Identified ~40 remaining files after excluding Tier 1-2 and previously extracted components
+- Launched 10 parallel subagent batches for extraction
+- Batch 1: 6 small-medium (cta-section, event-calendar, transit-overview, scenario-analysis, impact-beneficiaries, nav-bar) — 17 files
+- Batch 2: 6 medium (hero, loading-screen, alert-panel, alert-dashboard, news-feed, chart-grid) — 24 files
+- Batch 3: 6 data (risk-matrix, asset-heatmap, pulse-meter, sentiment-gauge, tension-index, correlation-table) — 35 files
+- Batch 4: 6 tracker (chain-tracker, disruption-panel, asset-tracker, transit-monitor, fleet-monitor, flow-tracker) — 31 files
+- Batch 5: 6 large analytics (compliance-tracker, incident-tracker, level-analysis, indicator-panel, processing-panel, forecast-panel) — 37 files
+- Batch 6A: 5 components (environmental-impact, demand-curve, sankey-flow, infrastructure-map, energy-dashboard) — 25 files
+- Batch 6B: 5 components (cost-calculator, region-map, globe-view, reserve-monitor, scenario-engine) — 25 files
+- Fixed 2 JSX syntax errors (sankey-flow arrow, sentiment-gauge mismatched div)
+- Fixed nav-bar useState violation (4→3 by consolidating scrolled+mobileOpen)
+- Fixed 60 TypeScript errors (duplicate exports, missing imports, type mismatches, 3D deps)
+- Final verification: 0 TypeScript errors, 0 files >150 lines, 0 Russian text, 0 domain terms
+
+Stage Summary:
+- 33+ components extracted across 6 parallel batches
+- ~230+ new files created in packages/ui/src/features/
+- 56 scifi-* feature directories total (was ~20 before)
+- 21,324 lines in features/ directory
+- All anti-monolith rules verified: <=150 lines, <=3 useState, forwardRef, data-slot, JSDoc
+- Zero SKIP — all components generalized (oil/sanctions/military → generic)
+- All Russian text replaced with English

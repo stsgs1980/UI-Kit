@@ -13,6 +13,9 @@ export * from './sections'
 // Layer 4: Features (stateful widgets)
 export * from './features'
 
+// Re-export ChartConfig from features (takes precedence over the ui layer one)
+export type { ChartConfig } from './features/scifi-chart-grid'
+
 // Layer 5: Hooks (stateful logic)
 export * from './hooks'
 

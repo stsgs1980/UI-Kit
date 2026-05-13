@@ -109,7 +109,7 @@ export { ChartMultiLine } from './scifi-canvas-chart'
 
 // ─── ScifiTimeline ───────────────────────────────────────────
 export { ScifiTimeline } from './scifi-timeline'
-export type { ScifiTimelineProps, TimelineEvent, EventImportance } from './scifi-timeline'
+export type { ScifiTimelineProps, TimelineEvent, EventImportance as TimelineEventImportance } from './scifi-timeline'
 
 // ─── ScifiCorrelationGrid ───────────────────────────────────
 export { ScifiCorrelationGrid } from './scifi-correlation-grid'
@@ -122,7 +122,7 @@ export type { MatrixAsset, CorrelationData, PerformanceBar } from './scifi-corre
 
 // ─── ScifiScenarioCards ──────────────────────────────────────
 export { ScifiScenarioCards } from './scifi-scenario-cards'
-export type { ScifiScenarioCardsProps, Scenario, ScenarioSeverity } from './scifi-scenario-cards'
+export type { ScifiScenarioCardsProps, Scenario as ScenarioCard, ScenarioSeverity as CardsScenarioSeverity } from './scifi-scenario-cards'
 
 // ─── ScifiTickerBar ─────────────────────────────────────────
 export { ScifiTickerBar } from './scifi-ticker-bar'
@@ -148,3 +148,153 @@ export { ScifiTimelinePanel } from './scifi-actor-grid'
 export type { ScifiTimelinePanelProps } from './scifi-actor-grid'
 
 export type { Actor, StanceType, TimelineEventEntry, EventSeverity } from './scifi-actor-grid'
+
+// ─── Tier 4-5: Ormuz-monitor Extractions (Batch 1) ───────────
+export { ScifiCtaSection } from './scifi-cta-section'
+export type { ScifiCtaSectionProps, CtaMetric } from './scifi-cta-section'
+
+export { ScifiEventCalendar } from './scifi-event-calendar'
+export type { ScifiEventCalendarProps, CalendarEvent, EventImportance as CalendarEventImportance, EventCategory } from './scifi-event-calendar'
+
+export { ScifiTransitOverview } from './scifi-transit-overview'
+export type { ScifiTransitOverviewProps, TransitStat, ExporterData, DependencyGauge, RiskLevel as TransitRiskLevel } from './scifi-transit-overview'
+
+export { ScifiScenarioAnalysis } from './scifi-scenario-analysis'
+export type { ScifiScenarioAnalysisProps, Scenario as AnalysisScenario, ScenarioSeverity as AnalysisScenarioSeverity, TimelineEvent as AnalysisTimeline, InfluenceFactor } from './scifi-scenario-analysis'
+
+export { ScifiImpactBeneficiaries } from './scifi-impact-beneficiaries'
+export type { ScifiImpactBeneficiariesProps, Beneficiary, BeneficiaryCategory, SummaryStat, AnalysisColumn } from './scifi-impact-beneficiaries'
+
+export { ScifiNavBar, ScifiNavMobile } from './scifi-nav-bar'
+export type { ScifiNavBarProps, NavSection, NavGroup } from './scifi-nav-bar'
+
+// ─── Tier 4-5: Ormuz-monitor Extractions (Batch 2) ───────────
+
+// ScifiHero
+export { ScifiHero } from './scifi-hero'
+export type { ScifiHeroProps, HeroMetric } from './scifi-hero'
+export { FloatingParticles } from './scifi-hero'
+export type { FloatingParticlesProps, ParticleSeed } from './scifi-hero'
+export { RadarAnimation } from './scifi-hero'
+export type { RadarAnimationProps } from './scifi-hero'
+
+// ScifiLoadingScreen
+export { ScifiLoadingScreen } from './scifi-loading-screen'
+export type { ScifiLoadingScreenProps } from './scifi-loading-screen'
+export { HexLoader } from './scifi-loading-screen'
+export type { HexLoaderProps } from './scifi-loading-screen'
+export { DataStream } from './scifi-loading-screen'
+export type { DataStreamProps } from './scifi-loading-screen'
+export type { LoadingMilestone } from './scifi-loading-screen'
+
+// ScifiAlertPanel
+export { ScifiAlertPanel } from './scifi-alert-panel'
+export type { ScifiAlertPanelProps } from './scifi-alert-panel'
+export { AlertRow } from './scifi-alert-panel'
+export type { AlertRowProps } from './scifi-alert-panel'
+export type { AlertItem as PanelAlertItem, AlertCategoryType, SeverityLevel, AlertCategoryConfig } from './scifi-alert-panel'
+
+// ScifiAlertDashboard
+export { ScifiAlertDashboard } from './scifi-alert-dashboard'
+export type { ScifiAlertDashboardProps } from './scifi-alert-dashboard'
+export { ThreatGauge } from './scifi-alert-dashboard'
+export type { ThreatGaugeProps } from './scifi-alert-dashboard'
+export { AlertStatsPanel } from './scifi-alert-dashboard'
+export type { AlertStatsPanelProps } from './scifi-alert-dashboard'
+export type { DashboardAlert, DashboardSeverity, DashboardCategory, AlertStats } from './scifi-alert-dashboard'
+
+// ScifiNewsFeed
+export { ScifiNewsFeed } from './scifi-news-feed'
+export type { ScifiNewsFeedProps } from './scifi-news-feed'
+export { HorizontalThreatGauge } from './scifi-news-feed'
+export type { HorizontalThreatGaugeProps } from './scifi-news-feed'
+export type { NewsItem, NewsSeverity, TrendingTopic } from './scifi-news-feed'
+
+// ScifiChartGrid
+export { ScifiChartGrid } from './scifi-chart-grid'
+export type { ScifiChartGridProps } from './scifi-chart-grid'
+export { ChartCard } from './scifi-chart-grid'
+export type { ChartCardProps } from './scifi-chart-grid'
+export type { ChartType as GridChartType, DataPoint as GridDataPoint, ChartConfig } from './scifi-chart-grid'
+
+// ─── Batch 3: Ormuz-monitor Extractions (Data Components) ──
+export { ScifiRiskMatrix } from './scifi-risk-matrix'
+export type { RiskItem, ScifiRiskMatrixProps } from './scifi-risk-matrix'
+export { RiskMatrixGrid } from './scifi-risk-matrix'
+export { RiskMatrixDetails } from './scifi-risk-matrix'
+
+export { ScifiAssetHeatmap } from './scifi-asset-heatmap'
+export type { Asset, Sector, ScifiAssetHeatmapProps } from './scifi-asset-heatmap'
+export { CorrelationGrid } from './scifi-asset-heatmap'
+export { SectorBars } from './scifi-asset-heatmap'
+
+export { ScifiPulseMeter } from './scifi-pulse-meter'
+export type { SectorData, SentimentData, SentimentType, ScifiPulseMeterProps } from './scifi-pulse-meter'
+export { PulseRing } from './scifi-pulse-meter'
+export { PulseSectorBars } from './scifi-pulse-meter'
+
+export { ScifiSentimentGauge } from './scifi-sentiment-gauge'
+export type { SentimentIndicator, ScifiSentimentGaugeProps } from './scifi-sentiment-gauge'
+export { MainGauge } from './scifi-sentiment-gauge'
+export { MiniGaugeCard } from './scifi-sentiment-gauge'
+export { TrendChart } from './scifi-sentiment-gauge'
+
+export { ScifiTensionIndex } from './scifi-tension-index'
+export type { RegionData, DriverData, ScifiTensionIndexProps } from './scifi-tension-index'
+export { TensionGauge } from './scifi-tension-index'
+export { TensionSparkline } from './scifi-tension-index'
+export { RegionRow } from './scifi-tension-index'
+export { DriverRow } from './scifi-tension-index'
+
+export { ScifiCorrelationTable } from './scifi-correlation-table'
+export type { CorrelationItem, ScifiCorrelationTableProps } from './scifi-correlation-table'
+export { SparklineMini } from './scifi-correlation-table'
+export { CorrelationRow } from './scifi-correlation-table'
+
+// ─── Batch 6: Ormuz-monitor Extractions (Batch 6B) ──────────
+
+// ScifiCostCalculator
+export { ScifiCostCalculator } from './scifi-cost-calculator'
+export type { ScifiCostCalculatorProps, CalculatorInput, CalculatorOutput, BreakdownItem, SelectOption } from './scifi-cost-calculator'
+export { ScifiSlider } from './scifi-cost-calculator'
+export type { ScifiSliderProps } from './scifi-cost-calculator'
+export { ScifiSelect } from './scifi-cost-calculator'
+export type { ScifiSelectProps } from './scifi-cost-calculator'
+export { OutputPanel } from './scifi-cost-calculator'
+export type { OutputPanelProps } from './scifi-cost-calculator'
+
+// ScifiRegionMap
+export { ScifiRegionMap } from './scifi-region-map'
+export type { ScifiRegionMapProps } from './scifi-region-map'
+export { RegionMapSvg } from './scifi-region-map'
+export type { RegionMapSvgProps } from './scifi-region-map'
+export { RegionDetail } from './scifi-region-map'
+export type { RegionDetailProps } from './scifi-region-map'
+export type { MapRegion, MapRoute, MapBase, RiskLevel as MapRiskLevel } from './scifi-region-map'
+export { RISK_CONFIG } from './scifi-region-map'
+
+// ScifiGlobeView
+export { ScifiGlobeView } from './scifi-globe-view'
+export type { ScifiGlobeViewProps } from './scifi-globe-view'
+export { GlobeCanvas } from './scifi-globe-view'
+export { GlobeLoader, GlobeHudOverlays, GlobeLegend, GlobeStatCards, RouteLegendItem } from './scifi-globe-view'
+export type { GlobeNode, GlobeRoute, GlobeStat } from './scifi-globe-view'
+export { latLonToVec3, generateArcPoints, GLOBE_RADIUS, ARC_SEGMENTS } from './scifi-globe-view'
+
+// ScifiReserveMonitor
+export { ScifiReserveMonitor } from './scifi-reserve-monitor'
+export type { ScifiReserveMonitorProps } from './scifi-reserve-monitor'
+export { ReserveCards } from './scifi-reserve-monitor'
+export type { ReserveCardsProps } from './scifi-reserve-monitor'
+export { CircularGauge, SparklineMini as ReserveSparklineMini, getTrendFillColor } from './scifi-reserve-monitor'
+export type { CircularGaugeProps } from './scifi-reserve-monitor'
+export type { ReserveRegion, SummaryStat as ReserveSummaryStat, Trend } from './scifi-reserve-monitor'
+export { TREND_CONFIG } from './scifi-reserve-monitor'
+
+// ScifiScenarioEngine
+export { ScifiScenarioEngine } from './scifi-scenario-engine'
+export type { ScifiScenarioEngineProps } from './scifi-scenario-engine'
+export { FactorControls, ScoreDisplay } from './scifi-scenario-engine'
+export type { FactorControlsProps } from './scifi-scenario-engine'
+export type { FactorConfig, FactorValues, ScenarioPreset, ScenarioInfo, EngineTab } from './scifi-scenario-engine'
+export { computeCompositeScore, getScoreColor, getScoreRgb, getFactorColor, matchScenario } from './scifi-scenario-engine'
