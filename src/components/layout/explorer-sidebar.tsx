@@ -1,35 +1,42 @@
 'use client'
 
+import { useState } from 'react'
 import { Search } from 'lucide-react'
-import type { LayoutAdviceInput, ParsedPrompt } from '@/lib/layout/types'
-import { GOALS, CATEGORIES, categoryMeta } from '@/lib/layout/types'
+import type { LayoutAdviceInput } from '@/lib/layout/types'
+import { CATEGORIES, categoryMeta } from '@/lib/layout/types'
 import { useLayoutTheme } from '@/lib/layout/theme'
 import { fontSize, fontWeight } from '@/lib/layout/tokens'
+import registryData from '@/data/component-registry.json'
+import { ExpandableLayers } from './expandable-layers'
+import { GoalFilters } from './goal-filters'
 
-// ─── Layer Groups ────────────────────────────────────────────
+// ─── Registry data ─────────────────────────────────────────
 
-const LAYER_GROUPS = [
-  { title: 'Layers', items: [
-    { icon: '◆', label: 'ui/', count: 50, key: 'ui' },
-    { icon: '◇', label: 'sections/', count: 100, key: 'sections' },
-    { icon: '◈', label: 'features/', count: 50, key: 'features' },
-    { icon: '⟳', label: 'hooks/', count: 8, key: 'hooks' },
-    { icon: '▢', label: 'providers/', count: 4, key: 'providers' },
-  ]},
-  { title: 'Categories', items: CATEGORIES.map(cat => ({
-    icon: categoryMeta[cat]?.label === 'Classic' ? '▤'
-      : categoryMeta[cat]?.label === 'Bento' ? '⬡'
-      : categoryMeta[cat]?.label === 'Artistic' ? '◈'
-      : categoryMeta[cat]?.label === 'Math' ? '△'
-      : categoryMeta[cat]?.label === 'App' ? '◉'
-      : '⬚',
-    label: categoryMeta[cat]?.label ?? cat,
-    count: 0,
-    key: cat,
-  }))},
+type RegistryTotals = Record<string, number>
+type ComponentEntry = { name: string; layer: string; description: string }
+const totals = (registryData as { totals: RegistryTotals }).totals
+const layers = (registryData as { layers: Record<string, ComponentEntry[]> }).layers
+
+const LAYER_ITEMS = [
+  { icon: '\u25C6', label: 'ui/',        count: totals.ui ?? 0,        key: 'ui' },
+  { icon: '\u25C7', label: 'sections/',   count: totals.sections ?? 0,  key: 'sections' },
+  { icon: '\u25C8', label: 'features/',   count: totals.features ?? 0,  key: 'features' },
 ]
+// hooks (7) и providers (1) — не визуальные, не показываем в браузере компонентов.
+// Их место в API-документации, а не в визуальном превью.
 
-// ─── Explorer Sidebar ────────────────────────────────────────
+const CATEGORY_ITEMS = CATEGORIES.map(cat => ({
+  icon: categoryMeta[cat]?.label === 'Classic' ? '\u25A4'
+    : categoryMeta[cat]?.label === 'Bento' ? '\u2B21'
+    : categoryMeta[cat]?.label === 'Artistic' ? '\u25C8'
+    : categoryMeta[cat]?.label === 'Math' ? '\u25B3'
+    : categoryMeta[cat]?.label === 'App' ? '\u25C9'
+    : '\u2B1A',
+  label: categoryMeta[cat]?.label ?? cat,
+  key: cat,
+}))
+
+// ─── Sidebar ───────────────────────────────────────────────
 
 interface ExplorerSidebarProps {
   recipeCount: number
@@ -38,99 +45,105 @@ interface ExplorerSidebarProps {
   activeLayer: string
   onLayerChange: (layer: string) => void
   input: LayoutAdviceInput
-  onGoalSelect: (parsed: ParsedPrompt) => void
+  onGoalSelect: (parsed: LayoutAdviceInput) => void
   catCounts: Record<string, number>
 }
 
 export function ExplorerSidebar({
-  recipeCount, selectedCategory, onCategoryChange,
+  selectedCategory, onCategoryChange,
   activeLayer, onLayerChange, input, onGoalSelect, catCounts,
 }: ExplorerSidebarProps) {
   const { tokens } = useLayoutTheme()
+  const [expanded, setExpanded] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
 
   return (
-    <nav aria-label="Навигация по компонентам" style={{
-      width: 300, flexShrink: 0,
+    <nav aria-label="Component navigation" style={{
+      width: 240, flexShrink: 0,
       background: tokens.sidebarBg, color: tokens.sidebarText,
       display: 'flex', flexDirection: 'column',
       borderRight: `1px solid ${tokens.sidebarBorder}`,
       transition: 'background 0.3s',
     }}>
-      {/* Header */}
-      <div style={{ padding: '28px 28px 20px', borderBottom: `1px solid ${tokens.sidebarBorder}` }}>
-        <div style={{ fontSize: fontSize.xl, fontWeight: fontWeight.black, color: tokens.textPrimary, fontFamily: tokens.fontFamilyDisplay, display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 10, height: 10, borderRadius: '50%', background: tokens.accentPrimary }} />
-          @stsgs/ui
-        </div>
-        <div style={{ fontSize: fontSize.base, color: tokens.sidebarMuted, marginTop: 6, fontFamily: tokens.fontFamilyBody }}>v1.0.0 · {recipeCount} layouts</div>
-      </div>
-
       {/* Search */}
-      <div role="search" style={{ margin: '16px 20px', padding: '10px 16px', background: `${tokens.sidebarBorder}`, border: `1px solid ${tokens.sidebarBorder}`, borderRadius: tokens.cornerRadius, fontSize: fontSize.md, color: tokens.sidebarMuted, fontFamily: tokens.fontFamilyBody, display: 'flex', alignItems: 'center', gap: 10 }}>
-        <Search style={{ width: 16, height: 16 }} aria-hidden="true" />
-        <span>Search...</span>
-        <kbd style={{ fontSize: fontSize.sm, background: `${tokens.sidebarBorder}`, padding: '2px 8px', borderRadius: 3, marginLeft: 'auto', fontFamily: tokens.fontFamilyMono }}>/</kbd>
+      <div style={{ padding: '12px 12px 8px' }}>
+        <div role="search" style={{
+          padding: '6px 10px', background: `${tokens.sidebarBorder}`,
+          border: `1px solid ${tokens.sidebarBorder}`, borderRadius: tokens.cornerRadius,
+          fontSize: 11, color: tokens.sidebarMuted, fontFamily: tokens.fontFamilyBody,
+          display: 'flex', alignItems: 'center', gap: 6,
+        }}>
+          <Search style={{ width: 12, height: 12 }} aria-hidden="true" />
+          <input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search..."
+            style={{
+              flex: 1, background: 'transparent', border: 'none', outline: 'none',
+              fontSize: 11, fontFamily: tokens.fontFamilyBody, color: tokens.textPrimary,
+            }}
+          />
+          {!search && (
+            <kbd style={{
+              fontSize: 9, background: `${tokens.sidebarBorder}`,
+              padding: '1px 5px', borderRadius: 3, fontFamily: tokens.fontFamilyMono,
+            }}>/</kbd>
+          )}
+        </div>
       </div>
+      {/* Nav sections */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '4px 0' }}>
+        <ExpandableLayers
+          items={LAYER_ITEMS}
+          layers={layers}
+          expanded={expanded}
+          onToggle={setExpanded}
+          onLayerChange={onLayerChange}
+          activeLayer={activeLayer}
+          filterSearch={search.toLowerCase()}
+        />
 
-      {/* Nav */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
-        {LAYER_GROUPS.map(group => (
-          <div key={group.title} style={{ marginBottom: 8 }}>
-            <div style={{ fontSize: fontSize.sm, fontWeight: fontWeight.bold, textTransform: 'uppercase', letterSpacing: 1.2, color: tokens.sidebarMuted, padding: '16px 28px 8px', fontFamily: tokens.fontFamilyBody }}>{group.title}</div>
-            {group.items.map(item => {
-              const isCat = CATEGORIES.includes(item.key as typeof CATEGORIES[number])
-              const isActive = isCat ? selectedCategory === item.key : activeLayer === item.key
-              const count = isCat ? (catCounts[item.key] ?? 0) : item.count
-              return (
-                <button key={item.key}
-                  onClick={() => isCat ? onCategoryChange(selectedCategory === item.key ? null : item.key) : onLayerChange(item.key)}
-                  aria-pressed={isActive}
-                  aria-label={item.label}
-                  style={{
-                    fontSize: fontSize.lg, fontFamily: tokens.fontFamilyBody, padding: '9px 28px',
-                    display: 'flex', alignItems: 'center', gap: 10,
-                    cursor: 'pointer', transition: 'background 0.15s',
-                    background: isActive ? `${tokens.accentPrimary}18` : 'transparent',
-                    borderRight: isActive ? `2px solid ${tokens.accentPrimary}` : '2px solid transparent',
-                    borderLeft: 'none', borderTop: 'none', borderBottom: 'none',
-                    color: isActive ? tokens.accentPrimary : tokens.sidebarText,
-                    width: '100%', textAlign: 'left', minHeight: 44 /* WCAG 2.5.5 */,
-                  }}>
-                  <span style={{ fontSize: 16, opacity: isActive ? 1 : 0.5, width: 24, textAlign: 'center' }}>{item.icon}</span>
-                  {item.label}
-                  {count > 0 && (
-                    <span style={{ fontSize: fontSize.sm, marginLeft: 'auto', background: `${tokens.sidebarBorder}`, padding: '2px 8px', borderRadius: 10, color: tokens.sidebarMuted, fontFamily: tokens.fontFamilyMono }}>{count}</span>
-                  )}
-                </button>
-              )
-            })}
-          </div>
-        ))}
-
-        {/* Goal Filters */}
-        <div style={{ marginBottom: 8 }}>
-          <div style={{ fontSize: fontSize.sm, fontWeight: fontWeight.bold, textTransform: 'uppercase', letterSpacing: 1.2, color: tokens.sidebarMuted, padding: '16px 28px 8px', fontFamily: tokens.fontFamilyBody }}>Best For</div>
-          {GOALS.slice(0, 8).map(g => {
-            const isActive = input.goal === g.value
+        {/* Categories */}
+        <div style={{ marginBottom: 4 }}>
+          <div style={{
+            fontSize: 9, fontWeight: fontWeight.bold, textTransform: 'uppercase',
+            letterSpacing: 1, color: tokens.sidebarMuted, padding: '10px 16px 4px',
+            fontFamily: tokens.fontFamilyBody,
+          }}>Categories</div>
+          {CATEGORY_ITEMS.map(item => {
+            const isActive = selectedCategory === item.key
+            const count = catCounts[item.key] ?? 0
             return (
-              <button key={g.value}
-                onClick={() => onGoalSelect({ goal: g.value, contentType: 'cards', itemCount: 6, needsSidebar: false, needsHeader: true, needsFooter: false, detected: [g.label], goalWeights: { [g.value]: 1 } })}
-                aria-pressed={isActive}
-                aria-label={g.label}
+              <button key={item.key}
+                onClick={() => onCategoryChange(selectedCategory === item.key ? null : item.key)}
+                aria-pressed={isActive} aria-label={item.label}
                 style={{
-                  fontSize: fontSize.lg, fontFamily: tokens.fontFamilyBody, padding: '9px 28px',
-                  display: 'flex', alignItems: 'center', gap: 10,
+                  fontSize: 12, fontFamily: tokens.fontFamilyBody,
+                  padding: '5px 16px', display: 'flex', alignItems: 'center', gap: 8,
                   cursor: 'pointer', transition: 'background 0.15s',
                   background: isActive ? `${tokens.accentPrimary}18` : 'transparent',
-                  border: 'none', color: isActive ? tokens.accentPrimary : tokens.sidebarText,
-                  width: '100%', textAlign: 'left', minHeight: 44 /* WCAG 2.5.5 */,
+                  borderRight: isActive ? `2px solid ${tokens.accentPrimary}` : '2px solid transparent',
+                  borderLeft: 'none', borderTop: 'none', borderBottom: 'none',
+                  color: isActive ? tokens.accentPrimary : tokens.sidebarText,
+                  width: '100%', textAlign: 'left',
                 }}>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: g.color, opacity: isActive ? 1 : 0.5 }} />
-                {g.label}
+                <span style={{ fontSize: 12, opacity: isActive ? 1 : 0.5, width: 18, textAlign: 'center' }}>
+                  {item.icon}
+                </span>
+                {item.label}
+                {count > 0 && (
+                  <span style={{
+                    fontSize: 9, marginLeft: 'auto', background: `${tokens.sidebarBorder}`,
+                    padding: '1px 6px', borderRadius: 8, color: tokens.sidebarMuted,
+                    fontFamily: tokens.fontFamilyMono,
+                  }}>{count}</span>
+                )}
               </button>
             )
           })}
         </div>
+
+        <GoalFilters input={input} onGoalSelect={onGoalSelect} />
       </div>
     </nav>
   )

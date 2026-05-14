@@ -26,6 +26,8 @@ export interface ThreeColumnBrowserProps<C extends ThreeColumnBrowserItem = Thre
   renderDetail: (item: C) => ReactNode
   /** Filter items by category */
   filterByCategory?: (item: C, categoryId: string) => boolean
+  /** Placeholder text when no item is selected */
+  emptyDetailText?: string
 }
 
 /**
@@ -43,7 +45,7 @@ export interface ThreeColumnBrowserProps<C extends ThreeColumnBrowserItem = Thre
  * ```
  */
 export const ThreeColumnBrowser = forwardRef<HTMLDivElement, ThreeColumnBrowserProps>(
-  ({ categories, items, selectedCategoryId, selectedItemId, onCategorySelect, onItemSelect, renderDetail, filterByCategory, className, ...props }, ref) => {
+  ({ categories, items, selectedCategoryId, selectedItemId, onCategorySelect, onItemSelect, renderDetail, filterByCategory, emptyDetailText = 'Select an item to view details', className, ...props }, ref) => {
     const filteredItems = selectedCategoryId && filterByCategory
       ? items.filter(item => filterByCategory(item, selectedCategoryId))
       : items
@@ -88,7 +90,7 @@ export const ThreeColumnBrowser = forwardRef<HTMLDivElement, ThreeColumnBrowserP
         <div className="overflow-auto p-4">
           {selectedItem ? renderDetail(selectedItem) : (
             <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-              Select an item to view details
+              {emptyDetailText}
             </div>
           )}
         </div>

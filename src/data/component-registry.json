@@ -1,0 +1,1781 @@
+{
+  "generatedAt": "2026-05-13T21:51:07.816Z",
+  "layers": {
+    "ui": [
+      {
+        "name": "accordion",
+        "layer": "ui",
+        "lines": 67,
+        "description": "Stack of collapsible panels powered by Radix Accordion. Each item consists of a trigger button and a content region that animates open/closed via height transition. Use for FAQs, settings groups, or any grouped content where only one section should be visible at a time. Supports custom animation duration and disabled states.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "alert",
+        "layer": "ui",
+        "lines": 67,
+        "description": "Non-modal inline status banner for communicating feedback to the user. Ships with four semantic variants — info, warning, error, and success — each with a matching icon and color treatment. Renders a title, optional description, and dismiss action. Ideal for form validation summaries, system notifications, and contextual tips.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "alert-dialog",
+        "layer": "ui",
+        "lines": 158,
+        "description": "Modal confirmation dialog built on Radix AlertDialog for actions that require explicit user consent, such as deletions or irreversible changes. Prevents accidental dismissal by requiring a two-step close flow. Includes title, description, cancel and confirm buttons with customizable destructive styling.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "aspect-ratio",
+        "layer": "ui",
+        "lines": 12,
+        "description": "Non-visual utility wrapper that constrains a child element to a fixed width-to-height ratio using the CSS aspect-ratio property. Commonly wraps images, videos, or embeds to prevent layout shift during loading. Supports standard ratios like 16:9, 4:3, 1:1, or any arbitrary numeric value.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "avatar",
+        "layer": "ui",
+        "lines": 54,
+        "description": "Circular user representation that displays an image, initials fallback, or a generic icon. Supports multiple preset sizes (sm, md, lg, xl) and includes a secondary status indicator dot for online/offline states. Images are lazy-loaded and gracefully degrade to initials extracted from a name string.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "badge",
+        "layer": "ui",
+        "lines": 47,
+        "description": "Small inline label used for categorization, status tagging, or metadata display. Provides semantic color variants (default, secondary, destructive, outline) and can render as a dot indicator instead of text. Frequently paired with avatars, table cells, and list items to communicate state at a glance.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "bento-grid",
+        "layer": "ui",
+        "lines": 103,
+        "description": "CSS Grid-based asymmetric layout inspired by Apple's bento design. Each BentoItem spans a configurable number of columns and rows, enabling visually rich compositions of mixed-size cards. Includes a BentoGrid wrapper that defines column count and gap. Ideal for feature showcases, dashboards, and marketing pages.",
+        "exports": [
+          "BentoGridProps",
+          "BentoItemProps",
+          "BentoGrid",
+          "BentoItem"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "breadcrumb",
+        "layer": "ui",
+        "lines": 110,
+        "description": "Hierarchical navigation trail that shows the user's current location within a site or app structure. Renders a horizontal sequence of clickable links separated by chevron icons. Automatically highlights the last item as the current (non-interactive) page. Supports custom separators and truncation for deep paths.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "button",
+        "layer": "ui",
+        "lines": 60,
+        "description": "Core action element with a comprehensive variant system. Offers default, destructive, outline, secondary, ghost, and link visual treatments across three sizes. Includes loading spinner state, icon-only mode, and as-child composition for wrapping custom elements. Forwarded ref enables imperative focus management.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "calendar",
+        "layer": "ui",
+        "lines": 214,
+        "description": "Full date picker grid built on react-day-picker with month navigation, year range selection, and multi-date selection modes. Renders a 7-column weekday header and clickable date cells with today highlight and selected range styling. Designed as a building block for date input compositions.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "card",
+        "layer": "ui",
+        "lines": 93,
+        "description": "Versatile content container structured as a composition of CardHeader, CardTitle, CardDescription, CardContent, and CardFooter slots. Each sub-component applies consistent padding, spacing, and border treatments. Used as the base for dashboards, product cards, settings panels, and profile views.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "carousel",
+        "layer": "ui",
+        "lines": 242,
+        "description": "Touch-friendly horizontal content slider with auto-play, loop, and keyboard navigation support. Exposes Prev/Next navigation buttons and a dot indicator row for direct slide access. Uses CSS transforms for smooth GPU-accelerated transitions. Suitable for testimonials, product galleries, and hero banners.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "chart",
+        "layer": "ui",
+        "lines": 354,
+        "description": "Recharts wrapper that provides typed chart configurations and a theming layer consistent with shadcn/ui tokens. Supports line, bar, area, pie, and radar chart types through declarative ChartConfig objects. Includes a ChartTooltip and ChartLegend composition for standardized data overlays.",
+        "exports": [
+          "ChartConfig"
+        ],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "checkbox",
+        "layer": "ui",
+        "lines": 33,
+        "description": "Binary input control with label text and optional description. Built on Radix Checkbox for full keyboard accessibility (space to toggle) and proper ARIA checked state. Supports indeterminate state for parent-child selection hierarchies. Renders a custom styled box with animated checkmark icon.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "cluster",
+        "layer": "ui",
+        "lines": 92,
+        "description": "Layout primitive that wraps children in a horizontal flex container with configurable gap. Accepts standard named gap tokens (sm, md, lg) and cross-axis alignment (start, center, end, stretch). Unlike Stack, Cluster only supports horizontal direction. Useful for button groups, tag lists, and toolbar items.",
+        "exports": [
+          "ClusterProps",
+          "Cluster"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "code-block",
+        "layer": "ui",
+        "lines": 133,
+        "description": "Syntax-highlighted code display component with optional line numbers, language label badge, and one-click copy button. Renders in a monospace font with a themed background. Supports multi-line code snippets and includes a loading skeleton state for async content. Built with data-slot attributes for easy theme overrides.",
+        "exports": [
+          "CodeBlockProps",
+          "CodeBlock"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "collapsible",
+        "layer": "ui",
+        "lines": 34,
+        "description": "Primitive for conditionally showing/hiding content with a smooth CSS height animation. Wraps Radix Collapsible and exposes a Trigger component that toggles the open state. Simpler than Accordion — manages a single collapsible region. Used as a building block for mobile menus, advanced filters, and expandable sections.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "color-picker-input",
+        "layer": "ui",
+        "lines": 96,
+        "description": "Compact form control for selecting hex colors. Renders a native color picker input alongside a text field displaying the hex value, with a circular swatch preview. Validates input to ensure valid hex format. Designed for settings panels, theme customizers, and brand color configuration.",
+        "exports": [
+          "ColorPickerInputProps",
+          "ColorPickerInput"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "column-browser",
+        "layer": "ui",
+        "lines": 299,
+        "description": "Multi-column drill-down browser inspired by macOS Finder column view. Displays a chain of category columns where selecting an item in one column populates the next. Supports deeply nested hierarchies with breadcrumb-style navigation. Ideal for file explorers, category selectors, and data catalogs.",
+        "exports": [
+          "ColumnCategory",
+          "BrowserItem",
+          "ColumnTab",
+          "ColumnBrowserProps",
+          "ColumnBrowser"
+        ],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "command",
+        "layer": "ui",
+        "lines": 185,
+        "description": "Floating command palette built on cmdk for rapid keyboard-driven actions. Supports fuzzy search, grouped results, keyboard navigation, and configurable placeholder text. Triggered via Cmd+K shortcut. Used for app-wide search, quick actions, settings navigation, and recent items access.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "container",
+        "layer": "ui",
+        "lines": 73,
+        "description": "Centered layout wrapper that applies a max-width constraint and horizontal auto margins. Supports responsive max-width breakpoints via named size tokens (sm, md, lg, xl, 2xl) and optional horizontal padding. Acts as the top-level content constraint for every page section.",
+        "exports": [
+          "ContainerProps",
+          "Container"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "context-menu",
+        "layer": "ui",
+        "lines": 253,
+        "description": "Custom right-click context menu rendered in a floating portal. Supports grouped items with labels, separators, checkboxes, radio items, and nested submenus. Built on Radix ContextMenu for keyboard navigation and viewport-aware positioning. Use for file actions, text editing operations, and table row interactions.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "copy-button",
+        "layer": "ui",
+        "lines": 76,
+        "description": "Standalone button that copies a provided text string to the clipboard. Displays a checkmark icon with success feedback after copying, then reverts to the copy icon after a configurable delay. Handles clipboard API errors gracefully with a fallback for older browsers.",
+        "exports": [
+          "CopyButtonProps",
+          "CopyButton"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "dialog",
+        "layer": "ui",
+        "lines": 144,
+        "description": "Modal overlay built on Radix Dialog with proper focus trapping, escape-to-close, and portal rendering. Structure includes DialogOverlay (backdrop), DialogContent (centered panel), DialogHeader, DialogTitle, DialogDescription, DialogFooter, and DialogClose. Supports controlled open state and custom animation.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "drawer",
+        "layer": "ui",
+        "lines": 136,
+        "description": "Bottom-sliding panel for mobile-first detail views or form inputs. Slides up from the bottom edge with a drag handle for touch dismissal. Built on Vaul Drawer with configurable snap points and overlay backdrop. Alternative to Dialog on small screens where vertical space is prioritized.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "dropdown-menu",
+        "layer": "ui",
+        "lines": 258,
+        "description": "Floating action menu triggered by a button click. Supports items, labels, separators, checkboxes, radio groups, and nested submenus with proper keyboard navigation. Built on Radix DropdownMenu with viewport collision detection. Use for action menus, filter selectors, and user profile menus.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "force-graph",
+        "layer": "ui",
+        "lines": 127,
+        "description": "Canvas-based network graph that renders nodes and edges using a force-directed physics simulation. Supports zoom, pan, node drag, and click interactions. Nodes are rendered as circles with labels, edges as lines with optional arrows. Designed for dependency graphs, social networks, and topology visualization.",
+        "exports": [
+          "ForceGraph"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "form",
+        "layer": "ui",
+        "lines": 168,
+        "description": "Reactive form wrapper built on react-hook-form with Zod schema validation. Integrates with shadcn/ui form controls (Input, Select, Checkbox, etc.) through FormField and FormItem composition. Provides real-time field-level error messages, dirty state tracking, and programmatic submit/reset.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "grid",
+        "layer": "ui",
+        "lines": 162,
+        "description": "Responsive CSS Grid wrapper with declarative column configuration per breakpoint. GridItem children can span specific column counts and control their own alignment. Accepts named gap tokens (sm, md, lg). Exported ResponsiveColumns type enables type-safe responsive grid definitions across sm/md/lg/xl breakpoints.",
+        "exports": [
+          "ResponsiveColumns",
+          "GapSize",
+          "GridProps",
+          "GridItemProps",
+          "Grid",
+          "GridItem"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "hover-card",
+        "layer": "ui",
+        "lines": 45,
+        "description": "Lightweight informational popover that appears when hovering over a trigger element. Built on Radix HoverCard with configurable open delay and close delay. Renders an arrow pointing at the trigger. Use for user profile previews, term definitions, link previews, and image thumbnails without modal commitment.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "input",
+        "layer": "ui",
+        "lines": 22,
+        "description": "Text input field with consistent border, padding, and focus ring styling. Accepts placeholder text, disabled state, and error state (red border + message). Designed to be composed with Label for accessible forms. Forwarded ref allows external focus control.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "input-otp",
+        "layer": "ui",
+        "lines": 78,
+        "description": "Multi-character input for one-time password codes, verification pins, and serial numbers. Renders individual character slots with auto-focus advancement on entry, backspace navigation, and paste support for full codes. Configurable slot count (default 6), separator rendering, and input mode restriction.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "label",
+        "layer": "ui",
+        "lines": 25,
+        "description": "Accessible label element linked to a form control via htmlFor attribute. Renders with consistent font size, weight, and spacing. Integrates with form validation by displaying error messages when the associated input fails validation. Required for WCAG-compliant forms.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "layout",
+        "layer": "ui",
+        "lines": 239,
+        "description": "Page-level composition primitive that provides a top-nav or sidebar-based structure with named slots (header, sidebar, content, footer). Manages responsive breakpoints to switch between sidebar and top-nav layouts. Designed as the outermost shell for application pages with consistent navigation chrome.",
+        "exports": [
+          "LayoutProps",
+          "LayoutSlotProps",
+          "Layout"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "masonry-grid",
+        "layer": "ui",
+        "lines": 106,
+        "description": "CSS Columns-based waterfall layout that arranges items of varying heights without gaps. Items flow top-to-bottom within columns, then left-to-right across columns. Supports configurable column count, gap, and responsive breakpoints. Ideal for image galleries, card feeds, and Pinterest-style interfaces.",
+        "exports": [
+          "MasonryGridProps",
+          "MasonryGrid"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "menubar",
+        "layer": "ui",
+        "lines": 277,
+        "description": "Application-style horizontal menu bar with dropdown submenus. Supports checkbox items, radio groups, separators, and keyboard shortcuts display. Built on Radix Menubar with proper arrow key navigation between items and submenus. Use for application menus (File, Edit, View) and configuration panels.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "navigation-menu",
+        "layer": "ui",
+        "lines": 169,
+        "description": "Horizontal navigation with viewport-aware dropdown positioning. Built on Radix NavigationMenu with content viewport detection to prevent overflow. Supports horizontal and vertical subnavigation, active indicator animation, and viewport collision handling. Used for primary site navigation with rich dropdown content.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "pagination",
+        "layer": "ui",
+        "lines": 128,
+        "description": "Page navigation control that renders previous/next buttons with numbered page links and ellipsis truncation for large page ranges. Supports controlled current page state via onChange callback. Configurable sibling and boundary page count for tuning the displayed page window.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "popover",
+        "layer": "ui",
+        "lines": 49,
+        "description": "Floating content panel anchored to a trigger element that opens on click. Built on Radix Popover with configurable side (top/right/bottom/left) and alignment (start/center/end). Includes an arrow pointer and dismisses on outside click or escape. Use for date pickers, color pickers, and contextual tools.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "progress",
+        "layer": "ui",
+        "lines": 32,
+        "description": "Horizontal progress indicator with a colored fill bar and optional text label. Accepts a numeric value (0-100) and supports indeterminate animation state for unknown progress. The fill bar animates smoothly between value changes. Use for upload progress, multi-step forms, and loading indicators.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "radio-group",
+        "layer": "ui",
+        "lines": 46,
+        "description": "Single-select option group built on Radix RadioGroup. Each RadioGroupItem renders a circular button with animated dot indicator when selected. Supports horizontal and vertical orientation, disabled states, and an accessible group label. Used for settings, preference selection, and filtered categories.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "resizable",
+        "layer": "ui",
+        "lines": 57,
+        "description": "Resizable panel layout built on react-resizable-panels. Supports horizontal and vertical split directions with draggable handle bars between panels. Panels can be configured with minimum/maximum sizes, collapsible behavior, and programmatic resize. Use for code editors, split views, and adjustable sidebars.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "scroll-area",
+        "layer": "ui",
+        "lines": 59,
+        "description": "Custom-styled scrollable container that replaces the native scrollbar with a thin, styled rail and thumb. Built on Radix ScrollArea with cross-browser consistent behavior. Supports vertical and horizontal scroll, corner decorations, and programmatic scroll-to. Use for sidebars, dropdown menus, and long content panels.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "searchable-grid",
+        "layer": "ui",
+        "lines": 186,
+        "description": "Combines a text search input with category tag filters to dynamically filter a grid of items. Items are matched against search text and selected category tags simultaneously. Supports lazy loading, empty state, and result count display. Designed for component browsers, product catalogs, and documentation indexes.",
+        "exports": [
+          "FilterableItem",
+          "FilterCategory",
+          "SearchableFilterableGridProps",
+          "SearchableFilterableGrid"
+        ],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "select",
+        "layer": "ui",
+        "lines": 186,
+        "description": "Dropdown selector built on Radix Select for consistent cross-browser styling. Supports searchable options via filter, grouped options with labels, multi-select mode, and custom option rendering. Includes a trigger button with selected value display and a floating panel with keyboard navigation.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "separator",
+        "layer": "ui",
+        "lines": 29,
+        "description": "Visual divider rendered as a horizontal or vertical line between content sections. Uses CSS border styling with theme-aware color tokens. Supports horizontal (default) and vertical orientation. Commonly placed between navigation groups, form sections, and card regions.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "sheet",
+        "layer": "ui",
+        "lines": 140,
+        "description": "Slide-in overlay panel that appears from any screen edge (top, right, bottom, left). Built on Radix Dialog with Vaul for smooth spring-based animations. Includes a drag handle on mobile, overlay backdrop, and close button. Use for detail panels, mobile navigation drawers, and form overlays.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "sidebar",
+        "layer": "ui",
+        "lines": 727,
+        "description": "Full application sidebar with collapsible toggle, header, content, and footer regions. Supports nested menu groups with icons, badges, and expandable sub-items. Built on Radix primitives with keyboard navigation and collapsed icon-only mode. Designed as the primary navigation element for dashboard applications.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "skeleton",
+        "layer": "ui",
+        "lines": 14,
+        "description": "Loading placeholder that renders a pulsing animation in a rectangular shape to indicate content is loading. Supports rounded corners and customizable width/height. Matches the component it replaces in shape to prevent layout shift. Used in loading states for cards, lists, and profile views.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "slider",
+        "layer": "ui",
+        "lines": 64,
+        "description": "Range input control built on Radix Slider with a draggable thumb along a track. Supports single or dual-thumb (range) mode, configurable min/max values and step increments. Renders tick marks and value labels. Use for volume controls, price range filters, and settings adjustments.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "slider-control",
+        "layer": "ui",
+        "lines": 87,
+        "description": "Composed slider input with a label, min/max value annotations, and live numeric value display. Wraps the base Slider component into a ready-to-use form control. Supports step configuration and disabled state. Ideal for settings panels, filter controls, and parameter tuning interfaces.",
+        "exports": [
+          "SliderControlProps",
+          "SliderControl"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "sonner",
+        "layer": "ui",
+        "lines": 26,
+        "description": "Toast notification provider powered by the Sonner library. Renders a stacking queue of transient messages at the corner of the viewport with auto-dismiss timing. Supports title, description, action button, and multiple visual styles. Mounted once at the app root to enable toast notifications throughout.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "stack",
+        "layer": "ui",
+        "lines": 100,
+        "description": "Flex container primitive that stacks children vertically (default) or horizontally with configurable gap and alignment. Supports named gap tokens (sm, md, lg, xl), cross-axis and main-axis alignment, and wrapping. Used as the structural base for layouts, card internals, form groups, and toolbars.",
+        "exports": [
+          "StackProps",
+          "Stack"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "switch",
+        "layer": "ui",
+        "lines": 32,
+        "description": "Toggle control for binary on/off settings built on Radix Switch. Renders a pill-shaped track with a sliding thumb and accessible checked/unchecked states. Supports labeled variants and disabled mode. Used for preference toggles, feature flags, and enable/disable settings.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "table",
+        "layer": "ui",
+        "lines": 117,
+        "description": "Data table composition with TableHeader, TableBody, TableRow, TableHead, and TableCell slots. Applies consistent borders, padding, and text styling. Supports sticky header, responsive horizontal scroll, and alternating row backgrounds. Base component for sortable, filterable, and paginated data grids.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "tabs",
+        "layer": "ui",
+        "lines": 67,
+        "description": "Tabbed content switcher built on Radix Tabs. Renders a horizontal tab list with a sliding active indicator and corresponding content panels. Supports keyboard arrow navigation, controlled/uncontrolled active tab, and vertical orientation. Used for settings panels, document sections, and multi-view displays.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "textarea",
+        "layer": "ui",
+        "lines": 19,
+        "description": "Multi-line text input with consistent border, padding, and focus ring styling. Supports configurable minimum and maximum row count, placeholder text, and auto-resize behavior. Forwarded ref enables external focus management. Composed with Label for accessible form fields.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "toast",
+        "layer": "ui",
+        "lines": 130,
+        "description": "Imperative toast notification component with title, description, optional action button, and close control. Supports multiple variants (default, success, error, warning) with auto-dismiss timing. Renders via the Toaster container component. Used for operation confirmations, error alerts, and informational messages.",
+        "exports": [],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "toaster",
+        "layer": "ui",
+        "lines": 36,
+        "description": "Portal-mounted container that renders a stacking queue of toast notifications. Manages position (top-right, top-left, bottom-right, bottom-left), maximum visible count, and swipe-to-dismiss gestures. Requires Sonner provider to function. Place once at the app root layout.",
+        "exports": [
+          "Toaster"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "toggle",
+        "layer": "ui",
+        "lines": 48,
+        "description": "Two-state button that toggles between pressed (active) and unpressed states. Supports default, outline, and ghost variants with size options. Multiple toggles can be grouped with ToggleGroup for single or multi-selection behavior. Used for toolbar actions, format controls, and view mode switches.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "toggle-group",
+        "layer": "ui",
+        "lines": 74,
+        "description": "Container for managing a group of Toggle buttons with single or multi-selection enforcement. Built on Radix ToggleGroup with keyboard navigation between items. Supports horizontal and vertical orientation. Commonly used for text formatting toolbars, view mode switchers, and filter groups.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "tooltip",
+        "layer": "ui",
+        "lines": 62,
+        "description": "Small informational popup that appears when hovering over or focusing a trigger element. Built on Radix Tooltip with configurable side, alignment, and delay. Renders a compact content panel with an arrow pointer. Used for icon button labels, term definitions, and truncated text hints.",
+        "exports": [],
+        "hasForwardRef": false,
+        "hasCn": true
+      }
+    ],
+    "sections": [
+      {
+        "name": "contact-section",
+        "layer": "sections",
+        "lines": 102,
+        "description": "Full-width contact form section with a heading, optional description, and configurable form fields (name, email, message, etc.). Supports custom field types via ContactField array, horizontal or stacked layout, and a submit button with loading state. Designed for landing page footers and support pages.",
+        "exports": [
+          "ContactField",
+          "ContactSectionProps",
+          "ContactSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "cta-banner",
+        "layer": "sections",
+        "lines": 61,
+        "description": "Full-width call-to-action section with a heading, subtitle, primary action button, and optional secondary link. Supports background image or gradient, centered or left-aligned text layout, and configurable max-width. Used as a conversion driver at the bottom of marketing pages and documentation sites.",
+        "exports": [
+          "CTABannerProps",
+          "CTABanner"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "faq-section",
+        "layer": "sections",
+        "lines": 84,
+        "description": "Expandable FAQ section built on the Accordion component. Renders a list of question/answer pairs where clicking a question reveals the answer with a smooth height animation. Supports max-open-items constraint and categorization of questions. Commonly placed before contact forms to reduce support inquiries.",
+        "exports": [
+          "FaqItem",
+          "FaqSectionProps",
+          "FaqSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "features-section",
+        "layer": "sections",
+        "lines": 122,
+        "description": "Grid-based feature showcase section displaying a configurable list of features as cards with icon, title, and description. Supports 2, 3, or 4 column layouts with responsive breakpoint adjustments. Each FeatureItem can use any Lucide icon. Used on product pages and marketing sites.",
+        "exports": [
+          "FeatureItem",
+          "FeaturesSectionProps",
+          "FeaturesSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "footer-section",
+        "layer": "sections",
+        "lines": 62,
+        "description": "Page footer with multi-column link groups, a copyright notice, and optional social media links. Supports configurable number of columns, each with a title and list of link items. Renders a horizontal divider above the copyright line. Designed as the bottom-most section on every page.",
+        "exports": [
+          "FooterSectionProps",
+          "FooterSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "four-column-browser",
+        "layer": "sections",
+        "lines": 73,
+        "description": "Drill-down browsing interface with four linked panels: category list, item list, detail view, and optional preview. Selecting an item in any column populates the next column's content. Built on the ColumnBrowser component. Used for documentation browsers, product configurators, and data catalogs.",
+        "exports": [
+          "FourColumnBrowserProps",
+          "FourColumnBrowser"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "hero-section",
+        "layer": "sections",
+        "lines": 72,
+        "description": "Primary page hero with a main heading, subtitle paragraph, optional stats row with numeric metrics, and up to two CTA buttons. Supports centered or left-aligned layout, badge/label above the heading, and background decorations. The most prominent section on any landing or documentation page.",
+        "exports": [
+          "HeroSectionProps",
+          "HeroSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "logo-cloud",
+        "layer": "sections",
+        "lines": 78,
+        "description": "Horizontal strip of partner, integration, or technology logos rendered as grayscale images with hover color reveal. Supports configurable item count, row layout, optional heading, and lazy loading. Used for trust-building social proof on landing pages and integration pages.",
+        "exports": [
+          "LogoItem",
+          "LogoCloudProps",
+          "LogoCloud"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "navbar-section",
+        "layer": "sections",
+        "lines": 67,
+        "description": "Fixed or sticky top navigation bar with a brand element (logo/text), navigation links, and optional right-side action slots (button, avatar, theme toggle). Supports mobile hamburger menu mode and scroll-aware background transition. The most reused section across all pages.",
+        "exports": [
+          "NavbarSectionProps",
+          "NavbarSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "newsletter-section",
+        "layer": "sections",
+        "lines": 84,
+        "description": "Email subscription section with a heading, optional description, and an inline form combining a text input with a submit button. Supports success/error feedback states and horizontal or stacked layout. Used for capturing leads on landing pages and blog footers.",
+        "exports": [
+          "NewsletterSectionProps",
+          "NewsletterSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "pricing-cards",
+        "layer": "sections",
+        "lines": 101,
+        "description": "Side-by-side pricing tier comparison section displaying configurable plan cards with name, price, feature list, and CTA button. Supports highlighting a recommended plan with a 'popular' badge and visual emphasis. Includes optional monthly/yearly toggle. Central to SaaS marketing pages.",
+        "exports": [
+          "PricingTier",
+          "PricingCardsProps",
+          "PricingCards"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "staggered-hero",
+        "layer": "sections",
+        "lines": 61,
+        "description": "Animated hero section where the title text appears word-by-word with staggered delay, creating a typewriter-like reveal effect. Supports custom stagger delay, animation easing, and optional subtitle and CTA that animate in after the title completes. Used for product launches and attention-grabbing headers.",
+        "exports": [
+          "StaggeredHeroProps",
+          "StaggeredHero"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "stats-section",
+        "layer": "sections",
+        "lines": 98,
+        "description": "Horizontal row of numeric key metrics, each with a value, label, and optional prefix/suffix. Supports configurable column count and responsive stacking on mobile. Values can optionally use the AnimatedCounter for a count-up effect. Placed below hero sections for immediate credibility impact.",
+        "exports": [
+          "StatItem",
+          "StatsSectionProps",
+          "StatsSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "testimonials-section",
+        "layer": "sections",
+        "lines": 120,
+        "description": "Customer testimonial carousel or grid displaying quotes with avatar, name, and role of each reviewer. Supports card, carousel, and stacked layout modes with navigation controls. Each Testimonial includes the quote text, author info, and optional star rating. Social proof section for landing pages.",
+        "exports": [
+          "Testimonial",
+          "TestimonialsSectionProps",
+          "TestimonialsSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "three-column-browser",
+        "layer": "sections",
+        "lines": 102,
+        "description": "Three-panel drill-down browser showing categories, items, and item details in a linked column layout. Selecting a category filters the item list; selecting an item shows its details. Supports icons, badges, and rich content in the detail panel. Used for documentation, settings, and data exploration.",
+        "exports": [
+          "ThreeColumnBrowserItem",
+          "ThreeColumnBrowserProps",
+          "ThreeColumnBrowser"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      }
+    ],
+    "features": [
+      {
+        "name": "activity-timeline",
+        "layer": "features",
+        "lines": 132,
+        "description": "Vertical timeline component that renders a chronological feed of activity entries. Each entry supports an icon, timestamp, title, description, and kind-based color coding (info, success, warning, error). Includes a connecting line between entries and alternating left/right layout. Used for audit logs, changelogs, and user activity feeds.",
+        "exports": [
+          "ActivityKind",
+          "ActivityEntry",
+          "ActivityTimelineProps",
+          "ActivityTimeline"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "animated-counter",
+        "layer": "features",
+        "lines": 113,
+        "description": "Numeric display that animates from zero to a target value on mount using requestAnimationFrame. Supports configurable duration, easing function, prefix/suffix text, and decimal precision. Triggers animation on scroll into viewport via IntersectionObserver. Used in stats sections, dashboards, and hero metrics.",
+        "exports": [
+          "AnimatedCounterProps",
+          "AnimatedCounter"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "back-to-top",
+        "layer": "features",
+        "lines": 144,
+        "description": "Floating action button fixed to the bottom-right corner that smoothly scrolls the page to the top when clicked. Appears after the user scrolls past a configurable threshold and hides when near the top. Supports custom icon, tooltip, and smooth scroll behavior. Standard UX pattern for long content pages.",
+        "exports": [
+          "BackToTopProps",
+          "BackToTop"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "command-palette",
+        "layer": "features",
+        "lines": 83,
+        "description": "Application-level command palette modal built on the Command component. Renders a full-screen overlay with a centered search input and categorized command results. Supports keyboard shortcuts display, recently used commands, and dynamic result filtering. Triggered via Cmd+K. Used for app navigation and quick actions.",
+        "exports": [
+          "CommandPaletteProps",
+          "CommandPalette"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "compare-slider",
+        "layer": "features",
+        "lines": 150,
+        "description": "Before/after image comparison component with a draggable vertical divider. Renders two overlapping images with a handle that the user drags left/right to reveal different proportions. Supports labels on each side, initial position, and touch dragging. Used for product comparisons, photo editing results, and design iterations.",
+        "exports": [
+          "CompareSliderProps",
+          "CompareSlider"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "floating-decorations",
+        "layer": "features",
+        "lines": 134,
+        "description": "Ambient background decoration component that renders floating code symbols (brackets, operators, tags) with gentle drift and rotation animations. Symbols move randomly with configurable speed, density, and opacity. Creates a developer-themed atmospheric background for hero sections and landing pages.",
+        "exports": [
+          "FloatingSymbol",
+          "FloatingDecorationsProps",
+          "FloatingDecorations"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "hud-card",
+        "layer": "features",
+        "lines": 130,
+        "description": "Head-up display style metric card inspired by sci-fi dashboards. Displays a label, large numeric value, unit indicator, and status dot (green/yellow/red). Features a subtle border glow and optional mini-sparkline in the corner. Used for dashboard KPIs, system metrics, and monitoring panels.",
+        "exports": [
+          "HudCardProps",
+          "HudCard"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "ide-layout",
+        "layer": "features",
+        "lines": 112,
+        "description": "Static IDE mockup component for showcasing code in a realistic development environment. Renders a title bar with traffic light dots, file tabs with active state, a syntax-highlighted code area, and an optional terminal panel. Supports light/dark themes via IdeTheme. Used in documentation, landing pages, and presentations.",
+        "exports": [
+          "IdeFile",
+          "IdeTheme",
+          "IdeLayoutProps",
+          "IdeLayout"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "mini-sparkline",
+        "layer": "features",
+        "lines": 135,
+        "description": "Compact inline SVG sparkline chart designed for embedding within cards, tables, and tight spaces. Renders a simple line from a numeric data array with optional fill gradient, min/max dots, and hover value tooltip. No external charting library dependency. Used for trend indicators in metric cards and list items.",
+        "exports": [
+          "MiniSparklineProps",
+          "MiniSparkline"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "responsive-showcase",
+        "layer": "features",
+        "lines": 84,
+        "description": "Device frame preview component that renders content inside a desktop, tablet, or mobile device frame. Supports interactive breakpoint switching via toggle buttons. The device frame includes a realistic bezel, notch, and status bar. Used for showcasing responsive designs and marketing product screenshots.",
+        "exports": [
+          "ResponsiveShowcaseProps",
+          "ResponsiveShowcase"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-actor-grid",
+        "layer": "features",
+        "lines": 107,
+        "description": "Grid of entity cards styled for a sci-fi operations dashboard. Each card displays an entity name, role/stance badge (ally, neutral, hostile), influence progress bar, and status indicator. Supports avatar images and action buttons per card. Used for stakeholder analysis, character sheets, and game UI.",
+        "exports": [
+          "ScifiActorGridProps",
+          "ScifiActorGrid"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-alert-dashboard",
+        "layer": "features",
+        "lines": 121,
+        "description": "High-level alert overview panel showing severity breakdown counts (critical, warning, info) as colored badges and a scrollable list of recent alerts with timestamps and status. Includes a summary header with total alert count and trend indicator. Used for monitoring dashboards and incident response interfaces.",
+        "exports": [
+          "ScifiAlertDashboardProps",
+          "ScifiAlertDashboard"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-alert-panel",
+        "layer": "features",
+        "lines": 129,
+        "description": "Scrollable alert feed component displaying individual alerts with severity icons, timestamps, source labels, status badges, and optional expandable detail text. Supports filtering by severity and auto-scroll for live updates. Used for NOC monitors, security dashboards, and real-time alert streams.",
+        "exports": [
+          "ScifiAlertPanelProps",
+          "ScifiAlertPanel"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-asset-heatmap",
+        "layer": "features",
+        "lines": 58,
+        "description": "Color-coded matrix grid where each cell represents an asset and its color indicates operational status (online, warning, offline). Supports tooltips on hover showing asset name and status, and click-to-drill-down. Used for infrastructure monitoring, server farm status, and equipment tracking.",
+        "exports": [
+          "ScifiAssetHeatmap"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-asset-tracker",
+        "layer": "features",
+        "lines": 129,
+        "description": "Table-based asset tracking component showing regional assets with utilization progress bars, status badges, and capacity metrics. Supports sorting by columns, status filtering, and summary row with totals. Used for fleet management, resource allocation, and capacity planning dashboards.",
+        "exports": [
+          "ScifiAssetTrackerProps",
+          "ScifiAssetTracker"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-badge",
+        "layer": "features",
+        "lines": 132,
+        "description": "Sci-fi themed status badge with glow variants (default, success, warning, danger, info) and size options (sm, md, lg). Features a subtle outer glow effect, optional pulse animation, and preset color schemes. Used for status indicators, alert levels, and role tags in dashboard interfaces.",
+        "exports": [
+          "BadgeVariant",
+          "BadgeSize",
+          "BadgePreset",
+          "ScifiBadgeProps",
+          "ScifiBadge"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-button-group",
+        "layer": "features",
+        "lines": 115,
+        "description": "Segmented control component for selecting one option from a group. Renders a row of buttons with a sliding active indicator and glow effect. Supports icons alongside labels and controlled selection state. Used for view switching, metric toggling, and filter selection in dashboard toolbars.",
+        "exports": [
+          "ButtonGroupOption",
+          "ScifiButtonGroupProps",
+          "ScifiButtonGroup"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-canvas-chart",
+        "layer": "features",
+        "lines": 81,
+        "description": "Lightweight canvas-rendered line chart with grid lines, axis labels, and interactive data point dots. Optimized for performance with large datasets. Supports line color, fill gradient, and hover tooltips. No external charting library. Used for real-time data feeds and embedded dashboard panels.",
+        "exports": [
+          "ScifiCanvasChart"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-chain-tracker",
+        "layer": "features",
+        "lines": 102,
+        "description": "Supply chain visualization showing a linear sequence of nodes connected by directional flow lines. Each node displays location, status, and throughput. Flow lines are animated to show direction and volume. Used for logistics tracking, supply chain monitoring, and process flow diagrams.",
+        "exports": [
+          "ScifiChainTrackerProps",
+          "ScifiChainTracker"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-chart-grid",
+        "layer": "features",
+        "lines": 71,
+        "description": "Multi-panel grid layout that arranges multiple small metric charts (sparklines, gauges, bars) in a uniform grid. Each cell includes a label, value, and mini visualization. Supports configurable rows and columns. Used for dashboard overviews, KPI walls, and monitoring command centers.",
+        "exports": [
+          "ScifiChartGridProps",
+          "ScifiChartGrid"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-comparison-grid",
+        "layer": "features",
+        "lines": 127,
+        "description": "Side-by-side comparison layout for evaluating two or more options across multiple criteria rows. Each option is a column with values in each row, and differences can be highlighted. Supports winner indicators, feature checkmarks, and header badges. Used for pricing comparisons and product evaluations.",
+        "exports": [
+          "ScifiComparisonGridProps",
+          "ScifiComparisonGrid"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-compliance-tracker",
+        "layer": "features",
+        "lines": 118,
+        "description": "Checklist-style compliance monitoring component showing rules or requirements with pass/fail status icons, descriptions, and last-audit dates. Supports grouping by category, progress percentage calculation, and severity indicators for failed items. Used for regulatory compliance, security audits, and quality assurance.",
+        "exports": [
+          "ScifiComplianceTracker"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-correlation-grid",
+        "layer": "features",
+        "lines": 69,
+        "description": "Compact matrix visualization where cell background color intensity represents correlation coefficient strength between two variables. Supports tooltip display of exact values on hover and a color legend. Used for feature analysis, statistical dashboards, and financial correlation views.",
+        "exports": [
+          "ScifiCorrelationGridProps",
+          "ScifiCorrelationGrid"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-correlation-table",
+        "layer": "features",
+        "lines": 122,
+        "description": "Detailed tabular correlation display showing numeric correlation values in a matrix format with conditional color coding (red for negative, green for positive). Includes column/row headers and diagonal identity markers. Used for statistical analysis, risk assessment, and data science dashboards.",
+        "exports": [
+          "ScifiCorrelationTable"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-cost-calculator",
+        "layer": "features",
+        "lines": 130,
+        "description": "Interactive calculator with multiple input fields (sliders, selects) that compute a running total in real time. Displays individual cost line items and a prominent total value. Supports currency formatting and export. Used for pricing estimators, budget planners, and ROI calculators.",
+        "exports": [
+          "ScifiCostCalculator"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-cta-section",
+        "layer": "features",
+        "lines": 109,
+        "description": "Sci-fi themed call-to-action section with a glowing border, metric highlight cards, and a primary action button. Features animated accent lines and optional background grid pattern. Used for dashboard conversion prompts, trial signup sections, and upgrade nudges.",
+        "exports": [
+          "CtaMetric",
+          "ScifiCtaSectionProps",
+          "ScifiCtaSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-demand-curve",
+        "layer": "features",
+        "lines": 101,
+        "description": "Forecasting visualization showing a demand curve chart alongside key metric summary cards (peak demand, average, trend). Supports time range selection and overlay of multiple demand curves. Used for supply chain dashboards, energy forecasting, and capacity planning interfaces.",
+        "exports": [
+          "ScifiDemandCurveProps",
+          "ScifiDemandCurve"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-disruption-panel",
+        "layer": "features",
+        "lines": 101,
+        "description": "Event list component showing disruption or incident events sorted by severity and timeline. Each entry displays a severity indicator, event title, impact description, affected systems, and resolution status. Supports filtering by severity and timeline range. Used for incident management and operational dashboards.",
+        "exports": [
+          "ScifiDisruptionPanelProps",
+          "ScifiDisruptionPanel"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-energy-dashboard",
+        "layer": "features",
+        "lines": 131,
+        "description": "Energy sector dashboard displaying production and consumption metrics with a producer breakdown chart, total capacity gauge, and renewable vs non-renewable split. Supports time range selection and regional filtering. Used for energy management systems and sustainability monitoring.",
+        "exports": [
+          "ScifiEnergyDashboardProps",
+          "ScifiEnergyDashboard"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-environmental-impact",
+        "layer": "features",
+        "lines": 135,
+        "description": "Environmental monitoring component displaying condition metrics (air quality, water, soil) with threshold-based color indicators. Shows each metric against a normal/warning/danger scale with trend arrows. Used for environmental compliance, sustainability dashboards, and IoT monitoring.",
+        "exports": [
+          "ScifiEnvironmentalImpactProps",
+          "ScifiEnvironmentalImpact"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-event-calendar",
+        "layer": "features",
+        "lines": 146,
+        "description": "Timeline-based calendar view showing events along a horizontal timeline with color coding by importance or category. Each event displays a title, date, duration bar, and importance badge. Supports zoom and pan. Used for project planning, release calendars, and event management.",
+        "exports": [
+          "ScifiEventCalendarProps",
+          "ScifiEventCalendar"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-fleet-monitor",
+        "layer": "features",
+        "lines": 105,
+        "description": "Fleet tracking overview showing a list of vehicles or units with status cards (active, idle, maintenance), route progress bars, and a summary statistics row. Supports filtering by status and sorting. Used for logistics, transportation, and field service management.",
+        "exports": [
+          "ScifiFleetMonitorProps",
+          "ScifiFleetMonitor"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-flow-tracker",
+        "layer": "features",
+        "lines": 147,
+        "description": "Resource flow visualization showing movement from source nodes to destination nodes with animated flow lines and volume indicators. Each connection displays flow rate, capacity, and status. Supports multiple flow types with distinct colors. Used for data pipeline monitoring, financial flows, and network traffic.",
+        "exports": [
+          "ScifiFlowTrackerProps",
+          "ScifiFlowTracker"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-forecast-panel",
+        "layer": "features",
+        "lines": 105,
+        "description": "Forecasting display with predicted metric values shown alongside confidence interval bands. Renders a line chart with shaded uncertainty range and key forecast statistics. Supports multiple forecast models overlay. Used for sales forecasting, demand planning, and predictive analytics dashboards.",
+        "exports": [
+          "ScifiForecastPanel"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-gauge",
+        "layer": "features",
+        "lines": 55,
+        "description": "SVG-based arc gauge meter displaying a single value within a range. Features a colored arc with threshold zones (green/yellow/red), a needle indicator, and a center value label. Supports configurable min/max and threshold breakpoints. Used for KPI displays, capacity meters, and system health indicators.",
+        "exports": [
+          "ScifiGauge"
+        ],
+        "hasForwardRef": true,
+        "hasCn": false
+      },
+      {
+        "name": "scifi-globe-view",
+        "layer": "features",
+        "lines": 78,
+        "description": "Stylized globe visualization rendered as an SVG or canvas element showing geographic regions with status overlays. Supports hotspot markers, region highlighting, and rotation animation. Used for global operations dashboards, logistics monitoring, and international business views.",
+        "exports": [
+          "ScifiGlobeView"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-hero",
+        "layer": "features",
+        "lines": 132,
+        "description": "Dashboard hero bar occupying the top section with a greeting, date display, key metric summary cards, and status badges. Supports a collapsible state and quick-action buttons. Used as the landing view of operational and analytical dashboards.",
+        "exports": [
+          "HeroMetric",
+          "ScifiHeroProps",
+          "ScifiHero"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-impact-beneficiaries",
+        "layer": "features",
+        "lines": 140,
+        "description": "Impact analysis component showing how different beneficiary categories are affected, with progress bars per category, total impact score, and breakdown charts. Supports before/after comparison and target vs actual visualization. Used for social impact reporting, NGO dashboards, and policy analysis.",
+        "exports": [
+          "ScifiImpactBeneficiariesProps",
+          "ScifiImpactBeneficiaries"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-incident-tracker",
+        "layer": "features",
+        "lines": 80,
+        "description": "Compact incident list with severity-colored dots, incident titles, timestamps, and status labels (open, investigating, resolved). Supports sorting by severity or time and click-to-expand details. Used for IT operations, security monitoring, and customer support ticket queues.",
+        "exports": [
+          "ScifiIncidentTracker"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-indicator-panel",
+        "layer": "features",
+        "lines": 130,
+        "description": "Multi-metric panel displaying several KPI indicators in a row, each with a label, value, trend arrow (up/down/stable), and inline sparkline. Supports configurable color thresholds and time range. Used for executive dashboards, KPI walls, and monitoring overview panels.",
+        "exports": [
+          "ScifiIndicatorPanel"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-infrastructure-map",
+        "layer": "features",
+        "lines": 151,
+        "description": "Node-graph visualization showing infrastructure topology with nodes representing servers/services and edges representing connections. Nodes are color-coded by health status and support click-to-select with a detail sidebar. Used for network monitoring, microservice maps, and architecture views.",
+        "exports": [
+          "ScifiInfrastructureMapProps",
+          "ScifiInfrastructureMap"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-level-analysis",
+        "layer": "features",
+        "lines": 114,
+        "description": "Multi-tier analysis breakdown showing stacked horizontal bars per level/category. Each tier displays sub-metrics with proportional coloring and numeric values. Supports comparison mode and drill-down. Used for organizational analysis, competency assessments, and performance breakdowns.",
+        "exports": [
+          "ScifiLevelAnalysis"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-live-feed",
+        "layer": "features",
+        "lines": 122,
+        "description": "Real-time scrolling feed of timestamped entries with type badges (info, alert, action, error), icons, and message text. Supports auto-scroll with pause-on-hover, entry filtering by type, and max-visible-entry limit. Used for activity monitors, log viewers, and notification feeds.",
+        "exports": [
+          "FeedItem",
+          "ScifiLiveFeedProps",
+          "ScifiLiveFeed"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-loading-screen",
+        "layer": "features",
+        "lines": 141,
+        "description": "Full-screen loading overlay with an animated progress bar, system name label, and optional status text. Features a pulsing background effect and smooth entry/exit animations. Supports progress percentage display and custom duration. Used for application initialization and data loading states.",
+        "exports": [
+          "ScifiLoadingScreenProps",
+          "ScifiLoadingScreen"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-nav-bar",
+        "layer": "features",
+        "lines": 139,
+        "description": "Sci-fi styled top navigation bar with glowing active indicator, icon+text nav items, and optional action slots (avatar, notifications, settings). Features a subtle animated border-bottom glow and supports collapsible mobile mode. Used as the primary navigation for dashboard and monitoring applications.",
+        "exports": [
+          "ScifiNavBarProps",
+          "ScifiNavBar"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-news-feed",
+        "layer": "features",
+        "lines": 149,
+        "description": "News article list component displaying headlines, source attribution, publication timestamps, and category badges in a scrollable feed. Supports image thumbnails, reading time estimates, and category filtering. Used for news aggregators, internal communications, and content dashboards.",
+        "exports": [
+          "ScifiNewsFeedProps",
+          "ScifiNewsFeed"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-processing-panel",
+        "layer": "features",
+        "lines": 79,
+        "description": "Data processing status display showing a multi-step pipeline with step indicators (pending, running, completed, error), progress bar, and log output. Supports auto-retry and step-level error messages. Used for ETL dashboards, build pipelines, and batch processing monitors.",
+        "exports": [
+          "ScifiProcessingPanel"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-pulse-meter",
+        "layer": "features",
+        "lines": 144,
+        "description": "Animated radial visualization that displays a pulsing circle expanding from center, sized by a metric value. Features concentric rings with glow effects and heartbeat animation at intervals. Used for health metrics, server heartbeat monitors, and real-time system status indicators.",
+        "exports": [
+          "ScifiPulseMeter"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-region-map",
+        "layer": "features",
+        "lines": 111,
+        "description": "Geographic overview component showing regions or zones with color-coded status indicators. Each region is clickable for drill-down to detailed metrics. Supports hover tooltips with summary data and a legend. Used for sales territory views, disaster monitoring, and regional performance analysis.",
+        "exports": [
+          "ScifiRegionMap"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-reserve-monitor",
+        "layer": "features",
+        "lines": 130,
+        "description": "Resource reserve tracking component showing remaining capacity as progress bars, allocation breakdown by consumer, and historical usage trend. Supports threshold alerts and projected depletion date. Used for financial reserves, resource planning, and inventory management dashboards.",
+        "exports": [
+          "ScifiReserveMonitor"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-risk-matrix",
+        "layer": "features",
+        "lines": 92,
+        "description": "Probability vs impact grid with dots positioned according to risk scores. Each dot represents a risk item with tooltip details. Supports color-coded zones (low, medium, high, critical) and item clustering. Used for risk assessment, project management, and compliance reporting.",
+        "exports": [
+          "ScifiRiskMatrix"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-route-table",
+        "layer": "features",
+        "lines": 139,
+        "description": "Table displaying route or path information with origin, destination, status, risk severity badges, and timeline columns. Supports sorting, status filtering, and expandable detail rows. Used for logistics tracking, network routing, and transportation management.",
+        "exports": [
+          "RouteRisk",
+          "RouteItem",
+          "ScifiRouteTableProps",
+          "ScifiRouteTable"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-sankey-flow",
+        "layer": "features",
+        "lines": 140,
+        "description": "Sankey diagram visualization showing flow proportions between source and destination nodes via curved paths with width proportional to flow volume. Supports interactive hover highlighting, color-coded categories, and node click events. Used for budget allocation, energy flow, and user journey analysis.",
+        "exports": [
+          "ScifiSankeyFlowProps",
+          "ScifiSankeyFlow"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-scenario-analysis",
+        "layer": "features",
+        "lines": 141,
+        "description": "Scenario comparison tool showing side-by-side metrics for multiple scenarios with delta indicators showing the difference from baseline. Supports configurable scenarios, metric weighting, and composite scores. Used for strategic planning, financial modeling, and decision analysis.",
+        "exports": [
+          "ScifiScenarioAnalysisProps",
+          "ScifiScenarioAnalysis"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-scenario-cards",
+        "layer": "features",
+        "lines": 130,
+        "description": "Card-based scenario overview displaying key statistics, progress gauges, and summary text for each scenario in a grid layout. Supports featured/highlighted scenario treatment and comparison mode. Used for planning dashboards, simulation results, and portfolio analysis.",
+        "exports": [
+          "ScifiScenarioCardsProps",
+          "ScifiScenarioCards"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-scenario-engine",
+        "layer": "features",
+        "lines": 139,
+        "description": "Multi-factor scenario analysis tool with adjustable sliders for each input factor, real-time composite score calculation, and result visualization. Supports save/load scenarios and sensitivity analysis mode. Used for what-if analysis, risk modeling, and decision support tools.",
+        "exports": [
+          "ScifiScenarioEngine"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-scroll-progress",
+        "layer": "features",
+        "lines": 115,
+        "description": "Thin gradient progress bar fixed to the top of the viewport that fills from left to right as the user scrolls down the page. Supports configurable gradient colors, height, and z-index. Uses a scroll event listener with requestAnimationFrame throttling. Used for reading progress and section navigation.",
+        "exports": [
+          "ScifiScrollProgressProps",
+          "ScifiScrollProgress"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-section-header",
+        "layer": "features",
+        "lines": 128,
+        "description": "Sci-fi themed section header component with an accent label (tag), main title, optional description, and decorative line accents. Features a subtle glow effect on the accent label. Used as a consistent heading treatment across dashboard and monitoring sections.",
+        "exports": [
+          "ScifiSectionHeaderProps",
+          "ScifiSectionHeader"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-sentiment-gauge",
+        "layer": "features",
+        "lines": 148,
+        "description": "Animated gauge meter displaying sentiment score on a negative-to-positive spectrum with color gradient from red through yellow to green. Features an animated needle and numeric score display. Used for social media monitoring, customer satisfaction, and brand sentiment dashboards.",
+        "exports": [
+          "ScifiSentimentGauge"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-stats-section",
+        "layer": "features",
+        "lines": 142,
+        "description": "Key metrics overview row displaying 3-6 stat cards, each with a label, large numeric value, optional gauge or sparkline, and trend indicator. Supports emphasized primary stat with larger treatment. Used as the primary KPI section in dashboards and reports.",
+        "exports": [
+          "StatMetric",
+          "GaugeEntry",
+          "ScifiStatsSectionProps",
+          "ScifiStatsSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-tabbed-view",
+        "layer": "features",
+        "lines": 139,
+        "description": "Tabbed content switcher with sci-fi styled tab headers featuring active glow indicator and animated underline. Supports lazy-loaded panels, badge counts on tabs, and keyboard navigation. Used for dashboard views, settings panels, and detail page organization.",
+        "exports": [
+          "TabDefinition",
+          "ScifiTabbedViewProps",
+          "ScifiTabbedView"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-tension-index",
+        "layer": "features",
+        "lines": 121,
+        "description": "Tension index meter segmented into threshold bands (low, elevated, high, critical) with a needle or fill indicator showing the current level. Features color transitions between bands and numeric value display. Used for geopolitical analysis, conflict monitoring, and stress level dashboards.",
+        "exports": [
+          "ScifiTensionIndex"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-ticker-bar",
+        "layer": "features",
+        "lines": 132,
+        "description": "Horizontally scrolling news ticker displaying real-time data items (prices, alerts, scores) as a continuous marquee. Each item shows a label, value, and change indicator. Supports configurable scroll speed, pause-on-hover, and item click events. Used for financial dashboards, live scores, and news feeds.",
+        "exports": [
+          "TickerItem",
+          "ScifiTickerBarProps",
+          "ScifiTickerBar"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-timeline",
+        "layer": "features",
+        "lines": 142,
+        "description": "Vertical timeline with event cards positioned along a central or left-aligned line. Each event shows a timestamp, title, description, and importance color coding. Supports icons, badges, and expandable detail sections. Used for project timelines, historical event views, and incident chronologies.",
+        "exports": [
+          "EventImportance",
+          "TimelineEvent",
+          "ScifiTimelineProps",
+          "ScifiTimeline"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-transit-monitor",
+        "layer": "features",
+        "lines": 109,
+        "description": "Transit system status panel showing route tracking with real-time position indicators, delay badges, and on-time performance metrics. Supports route filtering and status sorting. Used for public transit dashboards, logistics tracking, and delivery monitoring.",
+        "exports": [
+          "ScifiTransitMonitorProps",
+          "ScifiTransitMonitor"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-transit-overview",
+        "layer": "features",
+        "lines": 140,
+        "description": "High-level transit system overview showing total routes, average capacity utilization, active alerts, and on-time performance percentage in a summary card layout. Supports regional breakdown and trend indicators. Used for transportation management and logistics dashboards.",
+        "exports": [
+          "ScifiTransitOverviewProps",
+          "ScifiTransitOverview"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scroll-progress-bar",
+        "layer": "features",
+        "lines": 59,
+        "description": "Minimal page scroll progress indicator rendered as a thin colored bar at the top of the viewport. Fills proportionally to the scroll position and resets on navigation. Lightweight implementation using scroll event and CSS width transition. Universal reading progress pattern.",
+        "exports": [
+          "ScrollProgressBarProps",
+          "ScrollProgressBar"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "search-panel",
+        "layer": "features",
+        "lines": 85,
+        "description": "Expandable search panel that slides down from a trigger button, containing a search input with debounced filtering, optional category chips, and result list. Supports keyboard navigation within results and escape-to-close. Used for documentation search, command search, and global app search.",
+        "exports": [
+          "SearchPanelProps",
+          "SearchPanel"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "theme-toggle",
+        "layer": "features",
+        "lines": 51,
+        "description": "Dark/light theme switching button with a smooth icon transition animation between sun and moon icons. Reads the current theme from the data-theme attribute and toggles between modes. Persists preference to localStorage. Includes accessible aria-label for screen readers.",
+        "exports": [
+          "ThemeToggleProps",
+          "ThemeToggle"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "typing-effect",
+        "layer": "features",
+        "lines": 135,
+        "description": "Text animation component that types out a string character by character with a blinking cursor. Supports configurable typing speed, delay before start, loop mode with configurable pause between cycles, and custom cursor styling. Used for hero sections, terminal emulators, and attention-grabbing headlines.",
+        "exports": [
+          "TypingEffectProps",
+          "TypingEffect"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "landing-premium",
+        "layer": "features",
+        "lines": 72,
+        "description": "Pre-composed landing page feature assembling NavbarSection, HeroSection, FeaturesSection, StatsSection, PricingCards, and CTABanner into a full marketing page with cohesive content and champagne-light theme styling. Imports as a single component for rapid page deployment.",
+        "exports": [
+          "LandingPremiumProps",
+          "LandingPremium"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      }
+    ],
+    "hooks": [
+      {
+        "name": "use-animated-counter",
+        "layer": "hooks",
+        "lines": 104,
+        "description": "Hook for animating a numeric value from start to target with easing.",
+        "exports": [
+          "UseAnimatedCounterOptions",
+          "UseAnimatedCounterReturn",
+          "useAnimatedCounter"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "use-breakpoint",
+        "layer": "hooks",
+        "lines": 119,
+        "description": "Reactive hook returning the current Tailwind CSS breakpoint name.",
+        "exports": [
+          "BreakpointState",
+          "useBreakpoint"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "use-copy-to-clipboard",
+        "layer": "hooks",
+        "lines": 73,
+        "description": "Copy text to clipboard with auto-resetting success state.",
+        "exports": [
+          "UseCopyToClipboardOptions",
+          "UseCopyToClipboardReturn",
+          "useCopyToClipboard"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "use-layout-advice",
+        "layer": "hooks",
+        "lines": 325,
+        "description": "AI-powered layout recommendation hook scoring recipes against context.",
+        "exports": [
+          "LayoutRecommendation",
+          "UseLayoutAdviceResult",
+          "useLayoutAdvice"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "use-local-storage",
+        "layer": "hooks",
+        "lines": 101,
+        "description": "Persistent state hook backed by localStorage with serializer.",
+        "exports": [
+          "UseLocalStorageOptions",
+          "UseLocalStorageReturn",
+          "useLocalStorage"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "use-mounted",
+        "layer": "hooks",
+        "lines": 31,
+        "description": "Returns true after the component has mounted on the client.",
+        "exports": [
+          "useMounted"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      },
+      {
+        "name": "use-scroll-progress",
+        "layer": "hooks",
+        "lines": 69,
+        "description": "Tracks scroll progress as a 0-1 value within a container or window.",
+        "exports": [
+          "UseScrollProgressOptions",
+          "UseScrollProgressReturn",
+          "useScrollProgress"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      }
+    ],
+    "providers": [
+      {
+        "name": "layout-provider",
+        "layer": "providers",
+        "lines": 90,
+        "description": "Provides layout context with viewport breakpoint and grid configuration.",
+        "exports": [
+          "LayoutProviderValue",
+          "useLayoutContext",
+          "LayoutProviderProps",
+          "LayoutProvider"
+        ],
+        "hasForwardRef": false,
+        "hasCn": false
+      }
+    ]
+  },
+  "totals": {
+    "ui": 62,
+    "sections": 15,
+    "features": 71,
+    "hooks": 7,
+    "providers": 1
+  },
+  "grandTotal": 156
+}

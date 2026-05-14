@@ -13,14 +13,29 @@ export interface FourColumnBrowserProps<C extends { id: string; name: string; [k
   renderPreview: (item: C) => ReactNode
   renderCode: (item: C) => ReactNode
   filterByCategory?: (item: C, categoryId: string) => boolean
+  /** Placeholder text when no item selected (preview panel) */
+  emptyPreviewText?: string
+  /** Placeholder text when no item selected (code panel) */
+  emptyCodeText?: string
 }
 
 /**
  * FourColumnBrowser — 4-column browser (Categories→Items→Variants→Preview/Code).
  * Layer 3: No own state. Fully prop-driven.
+ *
+ * @example
+ * ```tsx
+ * <FourColumnBrowser
+ *   categories={[{ id: 'ui', label: 'UI' }]}
+ *   items={components}
+ *   selectedCategoryId="ui"
+ *   renderPreview={(item) => <PreviewCard {...item} />}
+ *   renderCode={(item) => <CodeBlock code={item.source} />}
+ * />
+ * ```
  */
 export const FourColumnBrowser = forwardRef<HTMLDivElement, FourColumnBrowserProps>(
-  ({ categories, items, selectedCategoryId, selectedItemId, onCategorySelect, onItemSelect, renderPreview, renderCode, filterByCategory, className, ...props }, ref) => {
+  ({ categories, items, selectedCategoryId, selectedItemId, onCategorySelect, onItemSelect, renderPreview, renderCode, filterByCategory, emptyPreviewText = 'Preview', emptyCodeText = 'Code', className, ...props }, ref) => {
     const filteredItems = selectedCategoryId && filterByCategory
       ? items.filter(item => filterByCategory(item, selectedCategoryId))
       : items
@@ -45,10 +60,10 @@ export const FourColumnBrowser = forwardRef<HTMLDivElement, FourColumnBrowserPro
           ))}
         </div>
         <div className="border-r border-border overflow-auto p-4">
-          {selectedItem ? renderPreview(selectedItem) : <div className="flex h-full items-center justify-center text-sm text-muted-foreground">Preview</div>}
+          {selectedItem ? renderPreview(selectedItem) : <div className="flex h-full items-center justify-center text-sm text-muted-foreground">{emptyPreviewText}</div>}
         </div>
         <div className="overflow-auto p-4">
-          {selectedItem ? renderCode(selectedItem) : <div className="flex h-full items-center justify-center text-sm text-muted-foreground">Code</div>}
+          {selectedItem ? renderCode(selectedItem) : <div className="flex h-full items-center justify-center text-sm text-muted-foreground">{emptyCodeText}</div>}
         </div>
       </div>
     )

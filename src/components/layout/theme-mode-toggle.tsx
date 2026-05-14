@@ -16,7 +16,7 @@ export function ThemeModeToggle() {
     <button onClick={toggle}
       aria-label={mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
       style={{
-        width: 36, height: 36, borderRadius: studioTokens.cornerRadius,
+        width: 30, height: 30, borderRadius: studioTokens.cornerRadius,
         border: `1px solid ${studioTokens.borderDefault}`,
         background: studioTokens.bgSurface, color: studioTokens.textMuted,
         cursor: 'pointer', transition: 'all 0.2s',
@@ -29,14 +29,14 @@ export function ThemeModeToggle() {
         transform: mode === 'dark' ? 'rotate(0deg)' : 'rotate(180deg)',
         opacity: mode === 'dark' ? 1 : 0, position: 'absolute',
       }}>
-        <Moon style={{ width: 16, height: 16 }} />
+        <Moon style={{ width: 14, height: 14 }} />
       </div>
       <div style={{
         transition: 'transform 0.3s, opacity 0.3s',
         transform: mode === 'light' ? 'rotate(0deg)' : 'rotate(-180deg)',
         opacity: mode === 'light' ? 1 : 0, position: 'absolute',
       }}>
-        <Sun style={{ width: 16, height: 16 }} />
+        <Sun style={{ width: 14, height: 14 }} />
       </div>
     </button>
   )

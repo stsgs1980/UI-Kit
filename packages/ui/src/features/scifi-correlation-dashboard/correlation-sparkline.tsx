@@ -1,7 +1,7 @@
 'use client';
 
 import { forwardRef, useId } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../tokens/cn';
 
 /**
  * Minimal inline sparkline rendered as an SVG polyline with gradient fill.

@@ -39,8 +39,8 @@ export const FooterSection = forwardRef<HTMLElement, FooterSectionProps>(
             <div key={col.title}>
               <h4 className="mb-3 text-sm font-semibold text-foreground">{col.title}</h4>
               <ul className="space-y-2">
-                {col.links.map(link => (
-                  <li key={link.href}>
+                {col.links.map((link, i) => (
+                  <li key={`${col.title}-${link.label}-${i}`}>
                     <a href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
                       {link.label}
                     </a>

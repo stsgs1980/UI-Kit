@@ -40,7 +40,7 @@ The Studio is built on three engines. This is the active development sequence.
 > Component Engine deferred until library has real components to recommend.
 > Currently: 7 sections + 6 features in packages/ui/src/. Need Wave 1 (~30 components).
 
-- [ ] De-hardcode 6 backlog components (ThreeColumnBrowser, FourColumnBrowser, CTABanner, StaggeredHero, IdeLayout, ResponsiveShowcase)
+- [x] De-hardcode 6 backlog components (ThreeColumnBrowser, FourColumnBrowser, CTABanner, StaggeredHero, IdeLayout, ResponsiveShowcase)
 - [ ] Build/extract Wave 1 core components (~30): Hero, Navbar, Footer, FAQ, Testimonials, Stats, PricingCards, Contact...
 - [ ] Build/extract Wave 2 domain components (~25): LivePreview, CodePlayground, DecisionTree...
 - [ ] After Wave 1-2 complete -> resume Component Engine (Phase 4b)
@@ -93,13 +93,13 @@ The Studio is built on three engines. This is the active development sequence.
 | `ResponsiveShowcase` | 019_ResponsiveShowcase.tsx | Ready for de-hardcoding | Responsive design tool: device-frame preview, breakpoint visualizer, unit converter, CSS output. Fully prop-driven. |
 
 ### De-hardcoding checklist (applies to all 6)
-- [ ] Replace hardcoded `@/` imports with `@stsgs/ui` layer imports
-- [ ] Replace inline Tailwind with Layout/Slot composition from tokens
-- [ ] Extract any remaining hardcoded strings/labels into props
-- [ ] Add TypeScript strict props interfaces
-- [ ] Add JSDoc documentation
-- [ ] Write barrel export (index.ts)
-- [ ] Verify: no upward layer imports (eslint-plugin-stsgs)
+- [x] Replace hardcoded `@/` imports with `@stsgs/ui` layer imports
+- [x] Replace inline Tailwind with Layout/Slot composition from tokens
+- [x] Extract any remaining hardcoded strings/labels into props
+- [x] Add TypeScript strict props interfaces
+- [x] Add JSDoc documentation with @example
+- [x] Write barrel export (index.ts)
+- [x] Verify: no upward layer imports (eslint-plugin-stsgs)
 
 ---
 

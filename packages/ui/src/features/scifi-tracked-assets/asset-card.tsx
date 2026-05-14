@@ -2,7 +2,7 @@
 
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { cn } from '../../tokens/cn';
 import { getThreatColor, getThreatGlow } from './threat-utils';
 import type { TrackedAsset } from './tracked-types';
 

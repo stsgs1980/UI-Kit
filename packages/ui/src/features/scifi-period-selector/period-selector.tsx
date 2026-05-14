@@ -2,7 +2,7 @@
 
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { cn } from '../../tokens/cn';
 
 /**
  * A single period option in the selector.

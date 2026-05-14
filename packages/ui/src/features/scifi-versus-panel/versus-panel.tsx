@@ -2,7 +2,7 @@
 
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { cn } from '../../tokens/cn';
 import { VersusBar } from './versus-bar';
 import { VersusTeamCard } from './versus-team-card';
 import type { ScifiVersusPanelProps } from './versus-types';

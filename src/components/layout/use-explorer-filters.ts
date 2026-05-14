@@ -14,7 +14,7 @@ interface FilterState {
 
 const initialFilters: FilterState = {
   selectedCategory: null,
-  activeLayer: 'ui',
+  activeLayer: '',
   viewTab: 'preview',
   viewMode: 'grid',
 }

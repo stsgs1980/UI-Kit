@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef } from 'react'
+import { forwardRef, useRef, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { cn } from '../../tokens/cn'
 import type { MapRegion, MapRoute, MapBase } from './types'
@@ -23,11 +23,16 @@ export interface RegionMapSvgProps {
 /** Interactive SVG region map with animated routes and markers. */
 export const RegionMapSvg = forwardRef<HTMLDivElement, RegionMapSvgProps>(
   ({ regions, routes = [], bases = [], width = 250, height = 220, selectedId, hoveredId, onSelect, onHover, accentColor = '#00e5ff', className }, ref) => {
-    const containerRef = (ref as React.RefObject<HTMLDivElement | null>) ?? undefined
-    const isInView = useInView(ref as React.RefObject<HTMLDivElement | null>, { once: true })
+    const localRef = useRef<HTMLDivElement>(null)
+    const isInView = useInView(localRef, { once: true })
+    useEffect(() => {
+      if (ref && typeof ref === 'object' && localRef.current) {
+        (ref as React.MutableRefObject<HTMLDivElement | null>).current = localRef.current
+      }
+    }, [ref])
 
     return (
-      <div ref={containerRef} className={cn('relative w-full', className)} style={{ minHeight: '400px' }}>
+      <div ref={localRef} className={cn('relative w-full', className)} style={{ minHeight: '400px' }}>
         <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto" style={{ minHeight: '400px' }}>
           <defs>
             <radialGradient id="rg-seaGrad" cx="50%" cy="50%" r="50%">

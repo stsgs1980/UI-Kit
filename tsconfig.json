@@ -26,6 +26,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@stsgs/ui/*": [
+        "./packages/ui/src/*"
       ]
     }
   },

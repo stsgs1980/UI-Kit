@@ -56,6 +56,7 @@ export const LogoCloud = forwardRef<HTMLElement, LogoCloudProps>(
 
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-8">
           {visible.map((logo, i) => {
+            if (!logo.src) return null
             const img = (
               <img
                 key={i}

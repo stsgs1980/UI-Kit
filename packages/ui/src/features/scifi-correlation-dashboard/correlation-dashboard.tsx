@@ -1,7 +1,7 @@
 'use client';
 
 import { forwardRef, useRef } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../tokens/cn';
 import { CorrelationRow } from './correlation-row';
 import { AssetRow } from './asset-row';
 import { ColumnHeaders, Legend, StatCards } from './dashboard-parts';

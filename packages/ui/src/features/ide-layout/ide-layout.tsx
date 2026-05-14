@@ -16,6 +16,8 @@ export interface IdeTheme {
   accent: string
   sidebarBg: string
   border: string
+  /** Monospace font family for code areas */
+  fontFamily?: string
 }
 
 const defaultTheme: IdeTheme = {
@@ -25,6 +27,7 @@ const defaultTheme: IdeTheme = {
   accent: '#60A5FA',
   sidebarBg: '#0C0F1A',
   border: '#1E293B',
+  fontFamily: "'JetBrains Mono', monospace",
 }
 
 export interface IdeLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -38,14 +41,29 @@ export interface IdeLayoutProps extends HTMLAttributes<HTMLDivElement> {
   statusText?: string
   /** Theme overrides */
   theme?: Partial<IdeTheme>
+  /** Label for file tree panel header */
+  explorerLabel?: string
+  /** Label for terminal panel header */
+  terminalLabel?: string
 }
 
 /**
  * IdeLayout — Full IDE mock with file tree, code editor, terminal, and status bar.
  * Layer 4: Has own state (active file, expanded folders).
+ *
+ * @example
+ * ```tsx
+ * <IdeLayout
+ *   files={[
+ *     { name: 'layout.tsx', language: 'tsx', content: 'export default...' },
+ *     { name: 'theme.ts', language: 'ts', content: 'const tokens = ...' },
+ *   ]}
+ *   terminalLines={['$ pnpm build', 'Done in 1.2s']}
+ * />
+ * ```
  */
 export const IdeLayout = forwardRef<HTMLDivElement, IdeLayoutProps>(
-  ({ files, activeFileIndex: controlledIndex, terminalLines, statusText, theme: themeOverride, className, ...props }, ref) => {
+  ({ files, activeFileIndex: controlledIndex, terminalLines, statusText, theme: themeOverride, explorerLabel = 'Explorer', terminalLabel = 'Terminal', className, ...props }, ref) => {
     const [internalIndex, setInternalIndex] = useState(0)
     const activeIndex = controlledIndex ?? internalIndex
     const t = { ...defaultTheme, ...themeOverride }
@@ -56,7 +74,7 @@ export const IdeLayout = forwardRef<HTMLDivElement, IdeLayoutProps>(
         <div className="flex flex-1 overflow-hidden">
           {/* File Tree */}
           <div className="w-48 shrink-0 border-r p-2" style={{ background: t.sidebarBg, borderColor: t.border }}>
-            <div className="mb-2 px-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: t.muted }}>Explorer</div>
+            <div className="mb-2 px-2 text-[10px] font-bold uppercase tracking-widest" style={{ color: t.muted }}>{explorerLabel}</div>
             {files.map((file, i) => (
               <button key={file.name} onClick={() => setInternalIndex(i)}
                 className="flex w-full items-center gap-2 rounded px-2 py-1 text-left text-xs transition-colors"
@@ -67,7 +85,7 @@ export const IdeLayout = forwardRef<HTMLDivElement, IdeLayoutProps>(
           </div>
           {/* Code Editor */}
           <div className="flex-1 overflow-auto p-4" style={{ background: t.bg }}>
-            <pre className="text-xs leading-6" style={{ color: t.text, fontFamily: "'JetBrains Mono', monospace" }}>
+            <pre className="text-xs leading-6" style={{ color: t.text, fontFamily: t.fontFamily }}>
               {activeFile?.content}
             </pre>
           </div>
@@ -75,9 +93,9 @@ export const IdeLayout = forwardRef<HTMLDivElement, IdeLayoutProps>(
         {/* Terminal */}
         {terminalLines && (
           <div className="border-t p-3" style={{ background: t.sidebarBg, borderColor: t.border }}>
-            <div className="mb-1 text-[10px] font-bold uppercase tracking-widest" style={{ color: t.muted }}>Terminal</div>
+            <div className="mb-1 text-[10px] font-bold uppercase tracking-widest" style={{ color: t.muted }}>{terminalLabel}</div>
             {terminalLines.map((line, i) => (
-              <div key={i} className="text-xs" style={{ color: t.text, fontFamily: "'JetBrains Mono', monospace" }}>{line}</div>
+              <div key={i} className="text-xs" style={{ color: t.text, fontFamily: t.fontFamily }}>{line}</div>
             ))}
           </div>
         )}

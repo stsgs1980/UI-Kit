@@ -47,12 +47,6 @@ export { useForceGraph } from './force-graph'
 export { runPhysics } from './force-graph'
 export type { ForceGraphProps, ForceGraphNode, ForceGraphEdge, PhysicsConfig } from './force-graph'
 
-// ─── Extracted from Z.Code-Guide ──────────────────────────────
-export { SectionHeader } from './section-header'
-export type { SectionHeaderProps } from './section-header'
-export { StatusDot } from './status-dot'
-export type { StatusDotProps, StatusVariant } from './status-dot'
-
 // ─── shadcn/ui Components (48) ────────────────────────────────
 // Extracted from Component-Browser-Public-v1.0 browser-app
 

@@ -2,6 +2,10 @@
 // Complex interactive widgets with internal state.
 // Has state and hooks, but self-contained. Data comes via props.
 
+// ─── Page Compositions (Layer 5) ─────────────────────────────
+export { LandingPremium } from './landing-premium'
+export type { LandingPremiumProps } from './landing-premium'
+
 // ─── Original ────────────────────────────────────────────────
 export { IdeLayout } from './ide-layout'
 export type { IdeLayoutProps, IdeFile, IdeTheme } from './ide-layout'
@@ -30,42 +34,12 @@ export type { ActivityTimelineProps, ActivityEntry, ActivityKind } from './activ
 export { CompareSlider } from './compare-slider'
 export type { CompareSliderProps } from './compare-slider'
 
-// ─── Generic comparison modal (Component-Browser) ────────────
-export { CompareModal } from './compare-modal'
-export type { CompareModalProps, CompareItem, DiffLine } from './compare-modal'
-export { DiffTable } from './compare-modal'
-export type { DiffTableProps } from './compare-modal'
-
-// ─── Generic stats dashboard (Component-Browser) ─────────────
-export { StatsDashboard } from './stats-dashboard'
-export type { StatsDashboardProps, StatsItem } from './stats-dashboard'
-export { StatCard } from './stats-dashboard'
-export type { StatCardProps } from './stats-dashboard'
-export { SizeDonut } from './stats-dashboard'
-export type { SizeDonutProps } from './stats-dashboard'
-
 export { useCompareSlider } from './compare-slider'
 export type { UseCompareSliderOptions, UseCompareSliderReturn } from './compare-slider'
 
 // ─── Scroll progress ─────────────────────────────────────────
 export { ScrollProgressBar } from './scroll-progress-bar'
 export type { ScrollProgressBarProps } from './scroll-progress-bar'
-
-// ─── Extracted from Z.Code-Guide ──────────────────────────────
-export { MobilePageHeader } from './mobile-page-header'
-export type { MobilePageHeaderProps } from './mobile-page-header'
-
-export { IconSidebarNav } from './icon-sidebar-nav'
-export type { IconSidebarNavProps, SidebarNavItem } from './icon-sidebar-nav'
-
-export { KeyboardShortcutsGrid } from './keyboard-shortcuts-grid'
-export type { KeyboardShortcutsGridProps, ShortcutItem } from './keyboard-shortcuts-grid'
-
-export { PipelineStepper } from './pipeline-stepper'
-export type { PipelineStepperProps, PipelineStep } from './pipeline-stepper'
-
-export { VersionHistory } from './version-history'
-export type { VersionHistoryProps, VersionEntry } from './version-history'
 
 // ─── Tier 1: Sci-Fi Primitives ────────────────────────────────
 export { HudCard } from './hud-card'
@@ -413,10 +387,10 @@ export { ScifiPeriodSelector } from './scifi-period-selector'
 export type { ScifiPeriodSelectorProps, PeriodOption } from './scifi-period-selector'
 
 // ScifiCorrelationDashboard
-export { ScifiCorrelationDashboard, CorrelationRow, AssetRow, CorrelationSparkline } from './scifi-correlation-dashboard'
+export { ScifiCorrelationDashboard, CorrelationRow as DashboardCorrelationRow, AssetRow, CorrelationSparkline } from './scifi-correlation-dashboard'
 export type {
   ScifiCorrelationDashboardProps,
-  CorrelationItem,
+  CorrelationItem as DashboardCorrelationItem,
   CorrelationAsset,
   CorrelationStat,
   CorrelationTrend,

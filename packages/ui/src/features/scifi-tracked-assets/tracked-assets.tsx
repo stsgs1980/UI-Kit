@@ -3,7 +3,7 @@
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { Ship, AlertTriangle, Radar } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../tokens/cn';
 import { AssetCard } from './asset-card';
 import type { ScifiTrackedAssetsProps, TrackedAssetsInfo } from './tracked-types';
 

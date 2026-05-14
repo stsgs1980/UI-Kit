@@ -1,7 +1,7 @@
 'use client'
 
 import type { LayoutRecipe } from '@/lib/layout/types'
-import { GOALS, categoryMeta } from '@/lib/layout/types'
+import { categoryMeta } from '@/lib/layout/types'
 import { CodeDrawer } from './code-drawer'
 import { ExplorerSidebar } from './explorer-sidebar'
 import { useLayoutTheme } from '@/lib/layout/theme'
@@ -11,6 +11,8 @@ import type { ViewTab, ViewMode } from './use-explorer-filters'
 import { useExplorerSelection } from './use-explorer-selection'
 import { ExplorerGridView } from './explorer-grid-view'
 import { ExplorerListView } from './explorer-list-view'
+import { ComponentBrowserView } from './component-browser-view'
+import { SegmentedControl } from './segmented-control'
 import { Eye, Code2, FileCode, Play, Grid3X3, List } from 'lucide-react'
 
 // ─── Layout Explorer ─────────────────────────────────────────
@@ -32,6 +34,18 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
 
   const viewProps = { filtered, best, selectedRecipe, setSelectedRecipe, tokens }
 
+  const viewTabs: { key: ViewTab; label: string; Icon: typeof Eye }[] = [
+    { key: 'preview', label: 'Preview', Icon: Eye },
+    { key: 'code', label: 'Code', Icon: Code2 },
+    { key: 'docs', label: 'Docs', Icon: FileCode },
+    { key: 'playground', label: 'Play', Icon: Play },
+  ]
+
+  const modeTabs: { key: ViewMode; label: string; Icon: typeof Grid3X3 }[] = [
+    { key: 'grid', label: 'Grid', Icon: Grid3X3 },
+    { key: 'list', label: 'List', Icon: List },
+  ]
+
   return (
     <div style={{ flex: 1, display: 'flex', background: tokens.bgDeep, color: tokens.textPrimary, overflow: 'hidden', transition: 'background 0.3s, color 0.3s' }}>
       <ExplorerSidebar
@@ -43,73 +57,62 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
       />
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        {/* Topbar */}
+        {/* Contextual bar */}
         <div style={{
-          height: 56, borderBottom: `1px solid ${tokens.borderSubtle}`,
-          display: 'flex', alignItems: 'center', padding: '0 32px', gap: 20,
+          height: 36, borderBottom: `1px solid ${tokens.borderSubtle}`,
+          display: 'flex', alignItems: 'center', padding: '0 20px',
           background: tokens.bgBase, transition: 'background 0.3s',
         }}>
-          <div style={{ fontSize: fontSize.lg, fontFamily: tokens.fontFamilyBody, color: tokens.textMuted }}>
-            @stsgs/ui / <strong style={{ color: tokens.textPrimary }}>layouts/</strong>
+          <div style={{
+            fontSize: 12, fontFamily: tokens.fontFamilyMono, color: tokens.textDim,
+          }}>
+            <span style={{ color: activeLayer ? tokens.textPrimary : tokens.textMuted }}>
+              {activeLayer ? `${activeLayer}/` : 'layouts'}
+            </span>
           </div>
-          <div role="tablist" aria-label="Вид отображения" style={{ display: 'flex', gap: 0, marginLeft: 'auto' }}>
-            {([
-              { key: 'preview' as ViewTab, label: 'Preview', Icon: Eye },
-              { key: 'code' as ViewTab, label: 'Code', Icon: Code2 },
-              { key: 'docs' as ViewTab, label: 'Docs', Icon: FileCode },
-              { key: 'playground' as ViewTab, label: 'Playground', Icon: Play },
-            ]).map((tab, i, arr) => (
-              <button key={tab.key} onClick={() => setViewTab(tab.key)}
-                role="tab" aria-selected={viewTab === tab.key} aria-label={tab.label}
-                style={{
-                fontSize: fontSize.md, fontWeight: fontWeight.medium, fontFamily: tokens.fontFamilyBody, padding: '8px 18px',
-                border: `1px solid ${viewTab === tab.key ? tokens.accentPrimary : tokens.borderDefault}`,
-                background: viewTab === tab.key ? tokens.accentPrimary : tokens.bgBase,
-                color: viewTab === tab.key ? tokens.textOnAccent : tokens.textMuted,
-                cursor: 'pointer', transition: 'all 0.15s', display: 'flex', alignItems: 'center', gap: 8,
-                borderRadius: i === 0 ? '8px 0 0 8px' : i === arr.length - 1 ? '0 8px 8px 0' : 0,
-              }}>
-                <tab.Icon style={{ width: 14, height: 14 }} />{tab.label}
-              </button>
-            ))}
+
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+            {!activeLayer && (
+              <SegmentedControl items={viewTabs} active={viewTab} onChange={setViewTab} tokens={tokens} />
+            )}
+            {!activeLayer && (
+              <SegmentedControl items={modeTabs} active={viewMode} onChange={setViewMode} tokens={tokens} />
+            )}
           </div>
         </div>
 
         {/* Content */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: 32 }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 32 }}>
-            <div>
-              <div style={{ fontSize: fontSize['2xl'], fontWeight: fontWeight.bold, fontFamily: tokens.fontFamilyDisplay }}>{selectedCategory ? (categoryMeta[selectedCategory]?.label ?? selectedCategory) : 'Layouts'} — All Recipes</div>
-              <div style={{ fontSize: fontSize.lg, fontFamily: tokens.fontFamilyBody, color: tokens.textSecondary, marginTop: 6 }}>{filtered.length} layouts ranked. {ranked.filter(r => r.verdict === 'recommended').length} recommended for &quot;{GOALS.find(g => g.value === input.goal)?.label ?? input.goal}&quot;</div>
-            </div>
-          <div role="tablist" aria-label="Режим отображения" style={{ display: 'flex', gap: 0 }}>
-            {([
-              { key: 'grid' as ViewMode, label: 'Grid', Icon: Grid3X3 },
-              { key: 'list' as ViewMode, label: 'List', Icon: List },
-            ]).map((vm, i, arr) => (
-              <button key={vm.key} onClick={() => setViewMode(vm.key)}
-                role="tab" aria-selected={viewMode === vm.key} aria-label={vm.label}
-                style={{
-                  fontSize: fontSize.md, fontWeight: fontWeight.semibold, fontFamily: tokens.fontFamilyBody, padding: '10px 20px',
-                  border: `1px solid ${viewMode === vm.key ? tokens.accentPrimary : tokens.borderDefault}`,
-                  background: viewMode === vm.key ? tokens.accentPrimary : tokens.bgBase,
-                  color: viewMode === vm.key ? tokens.textOnAccent : tokens.textSecondary,
-                  cursor: 'pointer', transition: 'all 0.15s', display: 'flex', alignItems: 'center', gap: 8,
-                  borderRadius: i === 0 ? '8px 0 0 8px' : '0 8px 8px 0',
-                }}>
-                  <vm.Icon style={{ width: 16, height: 16 }} />{vm.label}
-                </button>
-              ))}
-            </div>
+        {activeLayer ? (
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            <ComponentBrowserView activeLayer={activeLayer} tokens={tokens} />
           </div>
+        ) : (
+          <div style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{
+                fontSize: 16, fontWeight: fontWeight.bold,
+                fontFamily: tokens.fontFamilyDisplay,
+              }}>
+                {selectedCategory ? (categoryMeta[selectedCategory]?.label ?? selectedCategory) : 'Layouts'}
+              </div>
+              <div style={{
+                fontSize: 12, fontFamily: tokens.fontFamilyBody,
+                color: tokens.textSecondary, marginTop: 4,
+              }}>
+                {filtered.length} layouts{ranked.filter(r => r.verdict === 'recommended').length > 0
+                  ? `. ${ranked.filter(r => r.verdict === 'recommended').length} recommended`
+                  : ''}
+              </div>
+            </div>
 
-          {viewMode === 'grid'
-            ? <ExplorerGridView {...viewProps} />
-            : <ExplorerListView {...viewProps} />
-          }
-        </div>
+            {viewMode === 'grid'
+              ? <ExplorerGridView {...viewProps} />
+              : <ExplorerListView {...viewProps} />
+            }
+          </div>
+        )}
 
-        {selected && <CodeDrawer recipe={selected.recipe} />}
+        {selected && !activeLayer && <CodeDrawer recipe={selected.recipe} />}
       </div>
     </div>
   )

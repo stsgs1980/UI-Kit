@@ -23,6 +23,19 @@ const DEFAULT_VIEWPORTS = [
 /**
  * ResponsiveShowcase — Device-frame preview with viewport switcher.
  * Layer 4: Has own state (selected viewport).
+ *
+ * @example
+ * ```tsx
+ * <ResponsiveShowcase
+ *   viewports={[
+ *     { key: 'mobile', label: 'Mobile', width: '375px' },
+ *     { key: 'desktop', label: 'Desktop', width: '100%' },
+ *   ]}
+ *   showBreakpoints
+ * >
+ *   <MyPage />
+ * </ResponsiveShowcase>
+ * ```
  */
 export const ResponsiveShowcase = forwardRef<HTMLDivElement, ResponsiveShowcaseProps>(
   ({ children, viewports = DEFAULT_VIEWPORTS, defaultViewport = 'desktop', showBreakpoints = false, className, ...props }, ref) => {

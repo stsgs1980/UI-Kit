@@ -45,9 +45,9 @@ export const NavbarSection = forwardRef<HTMLElement, NavbarSectionProps>(
       )}
       {links && links.length > 0 && (
         <div className="flex items-center gap-1">
-          {links.map(link => (
+          {links.map((link, i) => (
             <a
-              key={link.href}
+              key={`${link.label}-${i}`}
               href={link.href}
               className={cn(
                 'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',

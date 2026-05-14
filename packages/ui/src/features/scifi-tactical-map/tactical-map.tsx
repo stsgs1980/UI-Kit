@@ -2,7 +2,7 @@
 
 import { forwardRef, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { cn } from '../../tokens/cn';
 import { MapLabels } from './map-labels';
 import { MapMarkers } from './map-markers';
 import type { ScifiTacticalMapProps } from './map-types';
