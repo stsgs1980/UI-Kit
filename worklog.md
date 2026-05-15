@@ -1512,3 +1512,27 @@ Stage Summary:
 - Root cause: Radix UI portal components (dialog, alert-dialog, popover, dropdown-menu, hover-card) rendered with defaultOpen=true, creating fixed overlays that covered the entire page when ComponentBrowserView mounted all 62 cards simultaneously
 - Fix: 4 files changed, 27 insertions, 6 deletions
 - Commit: 308bf4c fix(overlay): prevent Radix portals from covering page in ComponentBrowserView
+
+---
+Task ID: 10
+Agent: Main Agent
+Task: Fix "ui/" click bug in sidebar -- 5 root causes
+
+Work Log:
+- Investigated all sidebar-related components (13 files)
+- Identified 5 root causes of the "ui/" click bug
+- Fix 1 (P0): Changed globals.css data-preview-mode from `display:none` to `z-index:1` -- portals no longer hidden, just contained
+- Fix 2 (P0): Added pagination to ComponentBrowserView (18 per page, "Show more" button) -- prevents 62 simultaneous renders
+- Fix 3 (P1): Updated use-explorer-filters.ts setActiveLayer to clear selectedCategory when entering layer view
+- Fix 4 (P1): Replaced SidebarProvider (727 lines, keyboard shortcuts, portals) with static HTML mock in ui-demos-complex.tsx
+- Fix 5 (P2): Overlay demos (Dialog, Sheet, etc.) now work properly with reduced z-index instead of being hidden
+- Extracted PaginatedGrid component with key={activeLayer} for clean state reset on layer change
+- 0 TypeScript errors, 0 ESLint errors, build passes clean
+
+Stage Summary:
+- Commit 0af9a83 pushed to GitHub
+- 5 files changed: globals.css, component-browser-view.tsx, layout-explorer.tsx, use-explorer-filters.ts, ui-demos-complex.tsx
+- "ui/" click now shows 18 components initially with pagination
+- No more page freeze from 62 simultaneous renders
+- No more broken portal-based component demos
+- Category state properly resets when switching between layouts and layer views
