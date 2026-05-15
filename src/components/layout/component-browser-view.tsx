@@ -85,8 +85,8 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
           <span style={{ fontSize: 14, fontWeight: fontWeight.semibold, color: tokens.textPrimary, fontFamily: tokens.fontFamilyBody }}>{selected?.name ?? 'Select a component'}</span>
           {selected?.description && <span style={{ fontSize: 11, color: tokens.textMuted, fontFamily: tokens.fontFamilyBody, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selected.description}</span>}
         </div>
-        <div style={{ flex: 1, overflow: 'auto', padding: 20, background: tokens.bgDeep, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
-          <div style={{ width: '100%', maxWidth: 480 }}>
+        <div style={{ flex: 1, overflow: 'auto', background: tokens.bgDeep, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+          <div style={{ width: '100%', maxWidth: 460, minHeight: 260, background: tokens.bgBase, border: `1px solid ${tokens.borderSubtle}`, borderRadius: tokens.cornerRadius, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {selected ? (
               <Suspense fallback={<PreviewPlaceholder name={selected.name} tokens={tokens} />}>
                 {hasHook
