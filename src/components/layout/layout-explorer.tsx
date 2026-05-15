@@ -47,6 +47,14 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
     if (parsed) setSelectedCategory(null)
   }, [parsed, setSelectedCategory])
 
+  // Sync: block Radix portals while ComponentBrowserView is active
+  useEffect(() => {
+    if (activeLayer) {
+      document.body.setAttribute('data-preview-mode', '')
+      return () => document.body.removeAttribute('data-preview-mode')
+    }
+  }, [activeLayer])
+
   // Sync: scroll to active component card in the grid
   const contentRef = useRef<HTMLDivElement>(null)
   useEffect(() => {

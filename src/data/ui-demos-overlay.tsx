@@ -4,10 +4,11 @@ import type { ReactNode } from 'react'
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+  AlertDialogTrigger,
 } from '@stsgs/ui/ui/alert-dialog/alert-dialog'
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter,
-  DialogHeader, DialogTitle,
+  DialogHeader, DialogTitle, DialogTrigger,
 } from '@stsgs/ui/ui/dialog/dialog'
 import {
   Sheet, SheetContent, SheetDescription,
@@ -35,7 +36,10 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@stsgs/ui/u
 
 function AlertDialogDemo() {
   return (
-    <AlertDialog defaultOpen>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <button style={{ margin: 16, padding: '6px 16px', borderRadius: 6, border: '1px solid #334155', background: 'transparent', color: 'inherit', cursor: 'pointer' }}>Open Alert</button>
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete project?</AlertDialogTitle>
@@ -52,7 +56,10 @@ function AlertDialogDemo() {
 
 function DialogDemo() {
   return (
-    <Dialog defaultOpen>
+    <Dialog>
+      <DialogTrigger asChild>
+        <button style={{ margin: 16, padding: '6px 16px', borderRadius: 6, border: '1px solid #334155', background: 'transparent', color: 'inherit', cursor: 'pointer' }}>Open Dialog</button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Profile</DialogTitle>
@@ -90,7 +97,7 @@ function DrawerDemo() {
 
 function PopoverDemo() {
   return (
-    <Popover defaultOpen>
+    <Popover>
       <PopoverTrigger asChild>
         <button style={{ margin: 16, padding: '6px 16px', borderRadius: 6, border: '1px solid #334155', background: 'transparent', color: 'inherit', cursor: 'pointer' }}>Open Popover</button>
       </PopoverTrigger>
@@ -144,7 +151,7 @@ function ContextMenuDemo() {
 
 function DropdownMenuDemo() {
   return (
-    <DropdownMenu defaultOpen>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button style={{ margin: 16, padding: '6px 16px', borderRadius: 6, border: '1px solid #334155', background: 'transparent', color: 'inherit', cursor: 'pointer' }}>Open Menu</button>
       </DropdownMenuTrigger>
@@ -184,7 +191,7 @@ function MenubarDemo() {
 
 function HoverCardDemo() {
   return (
-    <HoverCard open>
+    <HoverCard>
       <HoverCardTrigger asChild>
         <span style={{ margin: 16, fontSize: 14, textDecoration: 'underline', cursor: 'pointer' }}>Hover over me</span>
       </HoverCardTrigger>
