@@ -13,8 +13,17 @@ import { useEffect, useRef } from 'react'
 import { ExplorerGridView } from './explorer-grid-view'
 import { ExplorerListView } from './explorer-list-view'
 import { ComponentBrowserView } from './component-browser-view'
+import { ComponentGridView } from './component-grid-view'
 import { SegmentedControl } from './segmented-control'
 import { Eye, Code2, FileCode, Play, Grid3X3, List } from 'lucide-react'
+import registryData from '@/data/component-registry.json'
+
+// ─── Component registry (for grid view) ──────────────────
+
+interface CompEntry { name: string; layer: string; lines: number; description: string; exports: string[]; hasForwardRef: boolean; hasCn: boolean }
+type RegistryLayers = Record<string, CompEntry[]>
+const registryLayers = (registryData as { layers: RegistryLayers }).layers
+const allComponents = Object.values(registryLayers).flat()
 
 // ─── Layout Explorer ─────────────────────────────────────────
 
@@ -94,53 +103,31 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
           <div style={{
             fontSize: 13, fontWeight: fontWeight.medium, fontFamily: tokens.fontFamilyMono, color: tokens.textDim,
           }}>
-            <span style={{ color: activeLayer ? tokens.textPrimary : tokens.textMuted }}>
-              {activeLayer ? `${activeLayer}/` : 'layouts'}
+            <span style={{ color: activeComponent ? tokens.textPrimary : tokens.textMuted }}>
+              {activeComponent ? `${activeLayer}/${activeComponent}` : activeLayer ? `${activeLayer}/` : '@stsgs/ui'}
             </span>
           </div>
 
-          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
-            {!activeLayer && (
-              <SegmentedControl items={viewTabs} active={viewTab} onChange={setViewTab} tokens={tokens} />
-            )}
-            {!activeLayer && (
-              <SegmentedControl items={modeTabs} active={viewMode} onChange={setViewMode} tokens={tokens} />
-            )}
-          </div>
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }} />
         </div>
 
         {/* Content */}
-        {activeLayer ? (
+        {activeComponent ? (
           <div ref={contentRef} style={{ flex: 1, overflow: 'hidden' }}>
-            <ComponentBrowserView activeLayer={activeLayer} activeComponent={activeComponent} tokens={tokens} onSelectComponent={setActiveComponent} />
+            <ComponentBrowserView activeLayer={activeLayer || 'ui'} activeComponent={activeComponent} tokens={tokens} onSelectComponent={setActiveComponent} />
           </div>
         ) : (
-          <div style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
-            <div style={{ marginBottom: 16 }}>
-              <div style={{
-                fontSize: 16, fontWeight: fontWeight.bold,
-                fontFamily: tokens.fontFamilyDisplay,
-              }}>
-                {selectedCategory ? (categoryMeta[selectedCategory]?.label ?? selectedCategory) : 'Layouts'}
-              </div>
-              <div style={{
-                fontSize: 12, fontFamily: tokens.fontFamilyBody,
-                color: tokens.textSecondary, marginTop: 4,
-              }}>
-                {filtered.length} layouts{ranked.filter(r => r.verdict === 'recommended').length > 0
-                  ? `. ${ranked.filter(r => r.verdict === 'recommended').length} recommended`
-                  : ''}
-              </div>
-            </div>
-
-            {viewMode === 'grid'
-              ? <ExplorerGridView {...viewProps} />
-              : <ExplorerListView {...viewProps} />
+          <ComponentGridView
+            components={activeLayer ? (registryLayers[activeLayer] ?? []) : allComponents}
+            activeComponent={activeComponent}
+            onSelectComponent={setActiveComponent}
+            tokens={tokens}
+            title={activeLayer
+              ? `${activeLayer}/ Components`
+              : 'All Components'
             }
-          </div>
+          />
         )}
-
-        {selected && !activeLayer && <CodeDrawer recipe={selected.recipe} />}
       </div>
     </div>
   )
