@@ -26,7 +26,7 @@ export function CodeMetaPanel({ comp, layer, meta, tokens }: {
 
   return (
     <div style={{
-      width: 240, flexShrink: 0, borderLeft: `1px solid ${tokens.borderSubtle}`,
+      flex: '1 1 0', minWidth: 180, borderLeft: `1px solid ${tokens.borderSubtle}`,
       display: 'flex', flexDirection: 'column', overflow: 'auto',
     }}>
       {/* Import */}

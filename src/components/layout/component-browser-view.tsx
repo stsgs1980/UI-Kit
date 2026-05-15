@@ -41,7 +41,7 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
   return (
     <div style={{ display: 'flex', height: '100%', overflow: 'hidden' }}>
       {/* Panel 1: List */}
-      <div style={{ width: 200, flexShrink: 0, borderRight: `1px solid ${tokens.borderSubtle}`, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: '1 1 0', minWidth: 180, borderRight: `1px solid ${tokens.borderSubtle}`, display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '10px 12px', borderBottom: `1px solid ${tokens.borderSubtle}` }}>
           <div style={{ fontSize: 13, fontWeight: fontWeight.bold, color: tokens.textPrimary, fontFamily: tokens.fontFamilyDisplay }}>
             {activeLayer}/<span style={{ color: tokens.textMuted, fontWeight: fontWeight.regular }}> {meta.label}</span>
@@ -69,7 +69,7 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
                 onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent' }}
               >
                 <div style={{ fontWeight: active ? fontWeight.medium : fontWeight.regular, marginBottom: 1 }}>{comp.name}</div>
-                <div style={{ fontSize: 10, fontFamily: tokens.fontFamilyBody, color: tokens.textDim, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 170 }}>{comp.description.slice(0, 50)}</div>
+                <div style={{ fontSize: 10, fontFamily: tokens.fontFamilyBody, color: tokens.textDim, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{comp.description.slice(0, 50)}</div>
               </button>
             )
           })}
@@ -77,7 +77,7 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
       </div>
 
       {/* Panel 2: Preview */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+      <div style={{ flex: '1.4 1 0', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         <div style={{ padding: '10px 16px', borderBottom: `1px solid ${tokens.borderSubtle}`, display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 9, fontWeight: fontWeight.bold, fontFamily: tokens.fontFamilyMono, padding: '2px 6px', borderRadius: 4, background: `${meta.color}15`, color: meta.color, textTransform: 'uppercase' }}>
             {selected?.layer ?? activeLayer}
@@ -86,7 +86,7 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
           {selected?.description && <span style={{ fontSize: 11, color: tokens.textMuted, fontFamily: tokens.fontFamilyBody, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selected.description}</span>}
         </div>
         <div style={{ flex: 1, overflow: 'auto', background: tokens.bgDeep, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-          <div style={{ width: '100%', maxWidth: 460, minHeight: 260, background: tokens.bgBase, border: `1px solid ${tokens.borderSubtle}`, borderRadius: tokens.cornerRadius, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: '100%', minHeight: 260, background: tokens.bgBase, border: `1px solid ${tokens.borderSubtle}`, borderRadius: tokens.cornerRadius, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {selected ? (
               <Suspense fallback={<PreviewPlaceholder name={selected.name} tokens={tokens} />}>
                 {hasHook
