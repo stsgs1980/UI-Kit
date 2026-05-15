@@ -1494,3 +1494,21 @@ Stage Summary:
 - ColumnBrowser crash fixed (added required renderDetail prop)
 - All 62/62 UI components now have live demos
 - Files changed: src/data/ui-demos-complex.tsx, src/data/ui-demos-display-b.tsx
+---
+Task ID: 1
+Agent: main
+Task: Fix "старая проблема" при нажатии на ui/ в sidebar
+
+Work Log:
+- Investigated UI-Kit project state: git remote correct (origin/UI-Kit.git), latest commit 63fd67a pushed
+- Build passes cleanly, all 62 ui components in registry, code chain (activeComponent/onSelectComponent) correct
+- Used agent-browser to click ui/ in dev server — discovered that Radix UI portals from live demos cover the entire page
+- Found 5 components in ui-demos-overlay.tsx using defaultOpen/open: AlertDialog, Dialog, Popover, DropdownMenu, HoverCard
+- These render modal overlays (role=dialog, role=alertdialog) with fixed positioning and z-50+ that block all interaction
+- Fixed by: (1) removing defaultOpen/open from all 5 demos, adding trigger buttons instead; (2) adding AlertDialogTrigger/DialogTrigger imports; (3) adding data-preview-mode body attribute when ComponentBrowserView is active; (4) adding CSS rule to hide Radix portals in preview mode
+- Build verified clean, pushed as 308bf4c
+
+Stage Summary:
+- Root cause: Radix UI portal components (dialog, alert-dialog, popover, dropdown-menu, hover-card) rendered with defaultOpen=true, creating fixed overlays that covered the entire page when ComponentBrowserView mounted all 62 cards simultaneously
+- Fix: 4 files changed, 27 insertions, 6 deletions
+- Commit: 308bf4c fix(overlay): prevent Radix portals from covering page in ComponentBrowserView
