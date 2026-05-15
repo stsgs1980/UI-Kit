@@ -55,14 +55,7 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
     }
   }, [activeLayer])
 
-  // Sync: scroll to active component card in the grid
   const contentRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (activeComponent && activeLayer) {
-      const el = contentRef.current?.querySelector(`[data-comp="${activeComponent}"]`)
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    }
-  }, [activeComponent, activeLayer])
 
   const viewProps = { filtered, best, selectedRecipe, setSelectedRecipe, tokens }
 
@@ -118,8 +111,8 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
 
         {/* Content */}
         {activeLayer ? (
-          <div ref={contentRef} style={{ flex: 1, overflowY: 'auto' }}>
-            <ComponentBrowserView activeLayer={activeLayer} activeComponent={activeComponent} tokens={tokens} />
+          <div ref={contentRef} style={{ flex: 1, overflow: 'hidden' }}>
+            <ComponentBrowserView activeLayer={activeLayer} activeComponent={activeComponent} tokens={tokens} onSelectComponent={setActiveComponent} />
           </div>
         ) : (
           <div style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
