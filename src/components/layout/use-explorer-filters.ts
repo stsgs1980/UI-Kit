@@ -27,7 +27,7 @@ export function useExplorerFilters() {
   const [filters, setFilters] = useState<FilterState>(initialFilters)
 
   const setSelectedCategory = (v: string | null) => setFilters(f => ({ ...f, selectedCategory: v }))
-  const setActiveLayer = (v: string) => setFilters(f => ({ ...f, activeLayer: v, activeComponent: '' }))
+  const setActiveLayer = (v: string) => setFilters(f => ({ ...f, activeLayer: v, activeComponent: '', selectedCategory: v ? null : f.selectedCategory }))
   const setActiveComponent = (v: string) => setFilters(f => ({ ...f, activeComponent: v }))
   const setViewTab = (v: ViewTab) => setFilters(f => ({ ...f, viewTab: v }))
   const setViewMode = (v: ViewMode) => setFilters(f => ({ ...f, viewMode: v }))

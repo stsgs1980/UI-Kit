@@ -47,7 +47,7 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
     if (parsed) setSelectedCategory(null)
   }, [parsed, setSelectedCategory])
 
-  // Sync: block Radix portals while ComponentBrowserView is active
+  // Sync: contain preview area to prevent portal bleed-through
   useEffect(() => {
     if (activeLayer) {
       document.body.setAttribute('data-preview-mode', '')

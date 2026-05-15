@@ -3,10 +3,8 @@
 import type { ReactNode } from 'react'
 import { Calendar } from '@stsgs/ui/ui/calendar/calendar'
 import {
-  type CarouselApi, Carousel, CarouselContent,
-  CarouselItem, CarouselNext, CarouselPrevious,
+  Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,
 } from '@stsgs/ui/ui/carousel/carousel'
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from '@stsgs/ui/ui/sidebar/sidebar'
 import {
   ChartContainer, ChartTooltip, ChartTooltipContent,
 } from '@stsgs/ui/ui/chart/chart'
@@ -48,30 +46,24 @@ function CarouselDemo() {
   )
 }
 
+// SidebarProvider + Sidebar are too heavy for inline preview (727 lines, keyboard shortcuts, portals).
+// Show a lightweight static mock instead.
 function SidebarDemo() {
   return (
     <div style={{ padding: 16 }}>
-      <SidebarProvider>
-        <div style={{ display: 'flex', height: 200, width: '100%', borderRadius: 8, overflow: 'hidden', border: '1px solid #334155' }}>
-          <Sidebar>
-            <SidebarHeader style={{ padding: '12px 16px', fontSize: 14, fontWeight: 600 }}>Studio</SidebarHeader>
-            <SidebarContent>
-              <SidebarGroup>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {['Layouts', 'Themes', 'Components', 'Settings'].map(label => (
-                      <SidebarMenuItem key={label}>
-                        <SidebarMenuButton>{label}</SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
-            </SidebarContent>
-          </Sidebar>
-          <div style={{ flex: 1, padding: 16, fontSize: 13, color: '#94A3B8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Main Content Area</div>
+      <div style={{ display: 'flex', height: 200, width: '100%', borderRadius: 8, overflow: 'hidden', border: '1px solid #334155' }}>
+        <div style={{ width: 180, background: '#1E293B', padding: '12px 0', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+          <div style={{ padding: '12px 16px', fontSize: 13, fontWeight: 600, color: '#E2E8F0', borderBottom: '1px solid #334155' }}>Studio</div>
+          {['Layouts', 'Themes', 'Components', 'Settings'].map((label, i) => (
+            <div key={label} style={{
+              padding: '6px 16px', fontSize: 12, color: i === 0 ? '#10B981' : '#94A3B8',
+              background: i === 0 ? '#10B98118' : 'transparent',
+              borderRight: i === 0 ? '2px solid #10B981' : '2px solid transparent',
+            }}>{label}</div>
+          ))}
         </div>
-      </SidebarProvider>
+        <div style={{ flex: 1, padding: 16, fontSize: 13, color: '#94A3B8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Main Content Area</div>
+      </div>
     </div>
   )
 }
