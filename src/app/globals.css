@@ -143,9 +143,12 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* ─── Preview mode: block Radix portals from leaking ─── */
+/* ─── Preview mode: block Radix portals and fullscreen overlays ─── */
 body[data-preview-mode] [data-radix-popper-anchor-wrapper],
 body[data-preview-mode] [data-radix-portal] {
+  display: none !important;
+}
+body[data-preview-mode] [data-slot="scifi-loading-screen"] {
   display: none !important;
 }
 

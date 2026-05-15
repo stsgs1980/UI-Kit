@@ -5,6 +5,7 @@ import { LivePreview, HookPreview, PreviewPlaceholder, resolvePreview, type Prev
 import { ExpandedCard } from './expanded-card'
 import { UI_DEMO_MAP } from '@/data/ui-demos'
 import { ErrorBoundary } from './error-boundary'
+import { LazyPreview } from '@/components/lazy-preview'
 import type { ThemeTokens } from '@/lib/layout/theme-types'
 import { fontWeight } from '@/lib/layout/tokens'
 
@@ -18,6 +19,18 @@ export function ComponentPreview(info: PreviewInfo & { tokens: ThemeTokens }) {
 
   const isHook = layer === 'hooks'
   const previewBadge = isHook ? '#F59E0B' : (canPreview ? '#10B981' : undefined)
+
+  const previewContent = (
+    <Suspense fallback={<PreviewPlaceholder name={name} tokens={tokens} />}>
+      {hasComp && demo
+        ? <LivePreview name={name} demo={demo!} />
+        : hasHook
+          ? <HookPreview name={name} tokens={tokens} />
+          : hasUi
+            ? <ErrorBoundary><div key={name}>{UI_DEMO_MAP[name]()}</div></ErrorBoundary>
+            : <PreviewPlaceholder name={name} tokens={tokens} />}
+    </Suspense>
+  )
 
   return (
     <>
@@ -49,15 +62,11 @@ export function ComponentPreview(info: PreviewInfo & { tokens: ThemeTokens }) {
           paddingTop: 8,
         }}>
           <div style={{ width: '92%', maxWidth: 340, overflow: 'hidden' }}>
-            <Suspense fallback={<PreviewPlaceholder name={name} tokens={tokens} />}>
-              {hasComp && demo
-                ? <LivePreview name={name} demo={demo!} />
-                : hasHook
-                  ? <HookPreview name={name} tokens={tokens} />
-                  : hasUi
-                    ? <ErrorBoundary><div key={name}>{UI_DEMO_MAP[name]()}</div></ErrorBoundary>
-                    : <PreviewPlaceholder name={name} tokens={tokens} />}
-            </Suspense>
+            {canPreview
+              ? <LazyPreview placeholder={<PreviewPlaceholder name={name} tokens={tokens} />}>
+                  {previewContent}
+                </LazyPreview>
+              : previewContent}
           </div>
 
           {previewBadge && (

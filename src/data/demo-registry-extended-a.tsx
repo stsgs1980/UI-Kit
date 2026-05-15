@@ -8,7 +8,7 @@ export const EXTENDED_DEMOS_A: Record<string, DemoConfig> = {
   // ── Zero-config ──
   'search-panel': { props: {} },
   'scifi-hero': { props: {} },
-  'scifi-loading-screen': { props: {} },
+  // scifi-loading-screen omitted: fixed inset-0 z-[9999] covers entire page
   'scifi-live-feed': {
     props: {
       items: [

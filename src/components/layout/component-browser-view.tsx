@@ -87,6 +87,10 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens }: {
                 outline: isHighlighted ? `2px solid ${meta.color}` : 'none',
                 outlineOffset: -2,
                 transition: 'outline 0.2s',
+                overflow: 'hidden',
+                contain: 'layout style paint',
+                position: 'relative',
+                isolation: 'isolate',
               }}
             >
               <ComponentPreview {...info} tokens={tokens} />
