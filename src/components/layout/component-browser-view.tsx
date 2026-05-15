@@ -24,7 +24,7 @@ const LAYER_META: Record<string, { label: string; color: string; description: st
 
 // ─── Component ────────────────────────────────────────────
 
-export function ComponentBrowserView({ activeLayer, tokens }: { activeLayer: string; tokens: ThemeTokens }) {
+export function ComponentBrowserView({ activeLayer, activeComponent, tokens }: { activeLayer: string; activeComponent: string; tokens: ThemeTokens }) {
   const components = registry.layers[activeLayer] ?? []
   const meta = LAYER_META[activeLayer]
   const totalForLayer = registry.totals[activeLayer] ?? 0
@@ -77,7 +77,21 @@ export function ComponentBrowserView({ activeLayer, tokens }: { activeLayer: str
             hasForwardRef: comp.hasForwardRef, hasCn: comp.hasCn,
             layerColor: meta.color,
           }
-          return <ComponentPreview key={comp.name} {...info} tokens={tokens} />
+          const isHighlighted = activeComponent === comp.name
+          return (
+            <div
+              key={comp.name}
+              data-comp={comp.name}
+              style={{
+                borderRadius: 8,
+                outline: isHighlighted ? `2px solid ${meta.color}` : 'none',
+                outlineOffset: -2,
+                transition: 'outline 0.2s',
+              }}
+            >
+              <ComponentPreview {...info} tokens={tokens} />
+            </div>
+          )
         })}
       </div>
     </div>

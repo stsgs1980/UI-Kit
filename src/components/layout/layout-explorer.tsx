@@ -9,6 +9,7 @@ import { fontSize, fontWeight } from '@/lib/layout/tokens'
 import { useExplorerFilters } from './use-explorer-filters'
 import type { ViewTab, ViewMode } from './use-explorer-filters'
 import { useExplorerSelection } from './use-explorer-selection'
+import { useEffect, useRef } from 'react'
 import { ExplorerGridView } from './explorer-grid-view'
 import { ExplorerListView } from './explorer-list-view'
 import { ComponentBrowserView } from './component-browser-view'
@@ -22,15 +23,38 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
   const {
     selectedCategory, setSelectedCategory,
     activeLayer, setActiveLayer,
+    activeComponent, setActiveComponent,
     viewTab, setViewTab,
     viewMode, setViewMode,
+    searchQuery, setSearchQuery,
   } = useExplorerFilters()
   const {
     selectedRecipe, setSelectedRecipe,
     parsed, setParsed,
     ranked, filtered, selected, best,
     catCounts, input,
-  } = useExplorerSelection(recipes, selectedCategory)
+  } = useExplorerSelection(recipes, selectedCategory, searchQuery)
+
+  // Sync: auto-clear category if it produces 0 results
+  useEffect(() => {
+    if (selectedCategory && (catCounts[selectedCategory] ?? 0) === 0) {
+      setSelectedCategory(null)
+    }
+  }, [catCounts, selectedCategory, setSelectedCategory])
+
+  // Sync: reset category when goal filter changes
+  useEffect(() => {
+    if (parsed) setSelectedCategory(null)
+  }, [parsed, setSelectedCategory])
+
+  // Sync: scroll to active component card in the grid
+  const contentRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (activeComponent && activeLayer) {
+      const el = contentRef.current?.querySelector(`[data-comp="${activeComponent}"]`)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [activeComponent, activeLayer])
 
   const viewProps = { filtered, best, selectedRecipe, setSelectedRecipe, tokens }
 
@@ -52,19 +76,22 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
         recipeCount={recipes.length}
         selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory}
         activeLayer={activeLayer} onLayerChange={setActiveLayer}
-        input={input} onGoalSelect={setParsed}
+        activeComponent={activeComponent} onSelectComponent={setActiveComponent}
+        activeGoal={parsed?.goal ?? input.goal}
+        onGoalSelect={setParsed}
         catCounts={catCounts}
+        searchQuery={searchQuery} onSearchChange={setSearchQuery}
       />
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         {/* Contextual bar */}
         <div style={{
-          height: 36, borderBottom: `1px solid ${tokens.borderSubtle}`,
+          height: 40, borderBottom: `1px solid ${tokens.borderSubtle}`,
           display: 'flex', alignItems: 'center', padding: '0 20px',
           background: tokens.bgBase, transition: 'background 0.3s',
         }}>
           <div style={{
-            fontSize: 12, fontFamily: tokens.fontFamilyMono, color: tokens.textDim,
+            fontSize: 13, fontWeight: fontWeight.medium, fontFamily: tokens.fontFamilyMono, color: tokens.textDim,
           }}>
             <span style={{ color: activeLayer ? tokens.textPrimary : tokens.textMuted }}>
               {activeLayer ? `${activeLayer}/` : 'layouts'}
@@ -83,8 +110,8 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
 
         {/* Content */}
         {activeLayer ? (
-          <div style={{ flex: 1, overflowY: 'auto' }}>
-            <ComponentBrowserView activeLayer={activeLayer} tokens={tokens} />
+          <div ref={contentRef} style={{ flex: 1, overflowY: 'auto' }}>
+            <ComponentBrowserView activeLayer={activeLayer} activeComponent={activeComponent} tokens={tokens} />
           </div>
         ) : (
           <div style={{ flex: 1, overflowY: 'auto', padding: 20 }}>

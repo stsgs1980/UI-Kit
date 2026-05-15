@@ -20,14 +20,16 @@ interface ExpandableLayersProps {
   expanded: string | null
   onToggle: (key: string | null) => void
   onLayerChange: (layer: string) => void
+  onSelectComponent: (name: string) => void
   activeLayer: string
+  activeComponent: string
   filterSearch: string
 }
 
 // ─── Expandable Layer List ────────────────────────────────
 
 export function ExpandableLayers({
-  items, layers, expanded, onToggle, onLayerChange, activeLayer, filterSearch,
+  items, layers, expanded, onToggle, onLayerChange, onSelectComponent, activeLayer, activeComponent, filterSearch,
 }: ExpandableLayersProps) {
   const { tokens } = useLayoutTheme()
 
@@ -54,7 +56,8 @@ export function ExpandableLayers({
               onClick={() => {
                 const next = isExpanded ? null : item.key
                 onToggle(next)
-                if (!isExpanded) onLayerChange(item.key)
+                if (isExpanded) onLayerChange('')
+                else onLayerChange(item.key)
               }}
               aria-expanded={isExpanded}
               aria-label={item.label}
@@ -93,18 +96,19 @@ export function ExpandableLayers({
                 {children.map(comp => (
                   <button
                     key={comp.name}
-                    onClick={() => onLayerChange(item.key)}
+                    onClick={() => onSelectComponent(comp.name)}
                     style={{
                       fontSize: 11, fontFamily: tokens.fontFamilyMono,
                       padding: '3px 16px 3px 42px',
                       display: 'block', width: '100%', textAlign: 'left',
-                      color: tokens.sidebarMuted, background: 'transparent',
+                      color: activeComponent === comp.name ? tokens.accentPrimary : tokens.sidebarMuted,
+                      background: activeComponent === comp.name ? `${tokens.accentPrimary}10` : 'transparent',
                       border: 'none', cursor: 'pointer',
-                      transition: 'color 0.1s', whiteSpace: 'nowrap',
+                      transition: 'color 0.1s, background 0.1s', whiteSpace: 'nowrap',
                       overflow: 'hidden', textOverflow: 'ellipsis',
                     }}
-                    onMouseEnter={e => { e.currentTarget.style.color = tokens.textSecondary }}
-                    onMouseLeave={e => { e.currentTarget.style.color = tokens.sidebarMuted }}
+                    onMouseEnter={e => { if (activeComponent !== comp.name) e.currentTarget.style.color = tokens.textSecondary }}
+                    onMouseLeave={e => { if (activeComponent !== comp.name) e.currentTarget.style.color = tokens.sidebarMuted }}
                   >
                     {comp.name}
                   </button>

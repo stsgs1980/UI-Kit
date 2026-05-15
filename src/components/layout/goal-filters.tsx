@@ -1,6 +1,6 @@
 'use client'
 
-import type { LayoutAdviceInput } from '@/lib/layout/types'
+import type { ParsedPrompt } from '@/lib/layout/types'
 import { GOALS } from '@/lib/layout/types'
 import { useLayoutTheme } from '@/lib/layout/theme'
 import { fontSize, fontWeight } from '@/lib/layout/tokens'
@@ -8,11 +8,11 @@ import { fontSize, fontWeight } from '@/lib/layout/tokens'
 // ─── Goal Filters ─────────────────────────────────────────
 
 interface GoalFiltersProps {
-  input: LayoutAdviceInput
-  onGoalSelect: (parsed: LayoutAdviceInput) => void
+  activeGoal: string
+  onGoalSelect: (parsed: ParsedPrompt) => void
 }
 
-export function GoalFilters({ input, onGoalSelect }: GoalFiltersProps) {
+export function GoalFilters({ activeGoal, onGoalSelect }: GoalFiltersProps) {
   const { tokens } = useLayoutTheme()
 
   return (
@@ -22,8 +22,8 @@ export function GoalFilters({ input, onGoalSelect }: GoalFiltersProps) {
         letterSpacing: 1, color: tokens.sidebarMuted, padding: '10px 16px 4px',
         fontFamily: tokens.fontFamilyBody,
       }}>Best For</div>
-      {GOALS.slice(0, 8).map(g => {
-        const isActive = input.goal === g.value
+      {GOALS.map(g => {
+        const isActive = activeGoal === g.value
         return (
           <button key={g.value}
             onClick={() => onGoalSelect({

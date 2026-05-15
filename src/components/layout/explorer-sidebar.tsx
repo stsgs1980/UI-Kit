@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Search } from 'lucide-react'
-import type { LayoutAdviceInput } from '@/lib/layout/types'
+import type { ParsedPrompt } from '@/lib/layout/types'
 import { CATEGORIES, categoryMeta } from '@/lib/layout/types'
 import { useLayoutTheme } from '@/lib/layout/theme'
 import { fontSize, fontWeight } from '@/lib/layout/tokens'
@@ -22,8 +22,6 @@ const LAYER_ITEMS = [
   { icon: '\u25C7', label: 'sections/',   count: totals.sections ?? 0,  key: 'sections' },
   { icon: '\u25C8', label: 'features/',   count: totals.features ?? 0,  key: 'features' },
 ]
-// hooks (7) и providers (1) — не визуальные, не показываем в браузере компонентов.
-// Их место в API-документации, а не в визуальном превью.
 
 const CATEGORY_ITEMS = CATEGORIES.map(cat => ({
   icon: categoryMeta[cat]?.label === 'Classic' ? '\u25A4'
@@ -44,18 +42,24 @@ interface ExplorerSidebarProps {
   onCategoryChange: (cat: string | null) => void
   activeLayer: string
   onLayerChange: (layer: string) => void
-  input: LayoutAdviceInput
-  onGoalSelect: (parsed: LayoutAdviceInput) => void
+  activeComponent: string
+  onSelectComponent: (name: string) => void
+  activeGoal: string
+  onGoalSelect: (parsed: ParsedPrompt) => void
   catCounts: Record<string, number>
+  searchQuery: string
+  onSearchChange: (q: string) => void
 }
 
 export function ExplorerSidebar({
   selectedCategory, onCategoryChange,
-  activeLayer, onLayerChange, input, onGoalSelect, catCounts,
+  activeLayer, onLayerChange, activeComponent, onSelectComponent,
+  activeGoal, onGoalSelect, catCounts,
+  searchQuery, onSearchChange,
 }: ExplorerSidebarProps) {
   const { tokens } = useLayoutTheme()
   const [expanded, setExpanded] = useState<string | null>(null)
-  const [search, setSearch] = useState('')
+  const [searchFocused, setSearchFocused] = useState(false)
 
   return (
     <nav aria-label="Component navigation" style={{
@@ -68,22 +72,24 @@ export function ExplorerSidebar({
       {/* Search */}
       <div style={{ padding: '12px 12px 8px' }}>
         <div role="search" style={{
-          padding: '6px 10px', background: `${tokens.sidebarBorder}`,
-          border: `1px solid ${tokens.sidebarBorder}`, borderRadius: tokens.cornerRadius,
+          padding: '7px 10px', background: `${tokens.sidebarBorder}`,
+          border: `1px solid ${searchFocused ? tokens.accentPrimary + '50' : tokens.sidebarBorder}`, borderRadius: tokens.cornerRadius,
           fontSize: 11, color: tokens.sidebarMuted, fontFamily: tokens.fontFamilyBody,
           display: 'flex', alignItems: 'center', gap: 6,
         }}>
           <Search style={{ width: 12, height: 12 }} aria-hidden="true" />
           <input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search..."
+            value={searchQuery}
+            onChange={e => onSearchChange(e.target.value)}
+            placeholder="Search layouts..."
             style={{
               flex: 1, background: 'transparent', border: 'none', outline: 'none',
               fontSize: 11, fontFamily: tokens.fontFamilyBody, color: tokens.textPrimary,
             }}
+            onFocus={() => setSearchFocused(true)}
+            onBlur={() => setSearchFocused(false)}
           />
-          {!search && (
+          {!searchQuery && (
             <kbd style={{
               fontSize: 9, background: `${tokens.sidebarBorder}`,
               padding: '1px 5px', borderRadius: 3, fontFamily: tokens.fontFamilyMono,
@@ -92,15 +98,17 @@ export function ExplorerSidebar({
         </div>
       </div>
       {/* Nav sections */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '4px 0' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '4px 0', scrollbarGutter: 'stable' }}>
         <ExpandableLayers
           items={LAYER_ITEMS}
           layers={layers}
           expanded={expanded}
           onToggle={setExpanded}
           onLayerChange={onLayerChange}
+          onSelectComponent={onSelectComponent}
           activeLayer={activeLayer}
-          filterSearch={search.toLowerCase()}
+          activeComponent={activeComponent}
+          filterSearch={searchQuery.toLowerCase()}
         />
 
         {/* Categories */}
@@ -126,7 +134,14 @@ export function ExplorerSidebar({
                   borderLeft: 'none', borderTop: 'none', borderBottom: 'none',
                   color: isActive ? tokens.accentPrimary : tokens.sidebarText,
                   width: '100%', textAlign: 'left',
-                }}>
+                }}
+                onMouseEnter={e => {
+                  if (!isActive) e.currentTarget.style.background = tokens.sidebarBorder
+                }}
+                onMouseLeave={e => {
+                  if (!isActive) e.currentTarget.style.background = 'transparent'
+                }}
+              >
                 <span style={{ fontSize: 12, opacity: isActive ? 1 : 0.5, width: 18, textAlign: 'center' }}>
                   {item.icon}
                 </span>
@@ -143,7 +158,7 @@ export function ExplorerSidebar({
           })}
         </div>
 
-        <GoalFilters input={input} onGoalSelect={onGoalSelect} />
+        <GoalFilters activeGoal={activeGoal} onGoalSelect={onGoalSelect} />
       </div>
     </nav>
   )
