@@ -207,10 +207,8 @@ body[data-preview-mode] [data-slot="scifi-loading-screen"] {
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
   pointer-events: none;
   z-index: 1;
 }
