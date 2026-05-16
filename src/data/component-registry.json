@@ -7,7 +7,12 @@
         "layer": "ui",
         "lines": 67,
         "description": "Stack of collapsible panels powered by Radix Accordion. Each item consists of a trigger button and a content region that animates open/closed via height transition. Use for FAQs, settings groups, or any grouped content where only one section should be visible at a time. Supports custom animation duration and disabled states.",
-        "exports": [],
+        "exports": [
+          "Accordion",
+          "AccordionItem",
+          "AccordionTrigger",
+          "AccordionContent"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -15,8 +20,12 @@
         "name": "alert",
         "layer": "ui",
         "lines": 67,
-        "description": "Non-modal inline status banner for communicating feedback to the user. Ships with four semantic variants — info, warning, error, and success — each with a matching icon and color treatment. Renders a title, optional description, and dismiss action. Ideal for form validation summaries, system notifications, and contextual tips.",
-        "exports": [],
+        "description": "Non-modal inline status banner for communicating feedback to the user. Ships with four semantic variants \u2014 info, warning, error, and success \u2014 each with a matching icon and color treatment. Renders a title, optional description, and dismiss action. Ideal for form validation summaries, system notifications, and contextual tips.",
+        "exports": [
+          "Alert",
+          "AlertTitle",
+          "AlertDescription"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -25,7 +34,19 @@
         "layer": "ui",
         "lines": 158,
         "description": "Modal confirmation dialog built on Radix AlertDialog for actions that require explicit user consent, such as deletions or irreversible changes. Prevents accidental dismissal by requiring a two-step close flow. Includes title, description, cancel and confirm buttons with customizable destructive styling.",
-        "exports": [],
+        "exports": [
+          "AlertDialog",
+          "AlertDialogPortal",
+          "AlertDialogOverlay",
+          "AlertDialogTrigger",
+          "AlertDialogContent",
+          "AlertDialogHeader",
+          "AlertDialogFooter",
+          "AlertDialogTitle",
+          "AlertDialogDescription",
+          "AlertDialogAction",
+          "AlertDialogCancel"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -34,7 +55,9 @@
         "layer": "ui",
         "lines": 12,
         "description": "Non-visual utility wrapper that constrains a child element to a fixed width-to-height ratio using the CSS aspect-ratio property. Commonly wraps images, videos, or embeds to prevent layout shift during loading. Supports standard ratios like 16:9, 4:3, 1:1, or any arbitrary numeric value.",
-        "exports": [],
+        "exports": [
+          "AspectRatio"
+        ],
         "hasForwardRef": false,
         "hasCn": false
       },
@@ -43,7 +66,11 @@
         "layer": "ui",
         "lines": 54,
         "description": "Circular user representation that displays an image, initials fallback, or a generic icon. Supports multiple preset sizes (sm, md, lg, xl) and includes a secondary status indicator dot for online/offline states. Images are lazy-loaded and gracefully degrade to initials extracted from a name string.",
-        "exports": [],
+        "exports": [
+          "Avatar",
+          "AvatarImage",
+          "AvatarFallback"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -52,7 +79,10 @@
         "layer": "ui",
         "lines": 47,
         "description": "Small inline label used for categorization, status tagging, or metadata display. Provides semantic color variants (default, secondary, destructive, outline) and can render as a dot indicator instead of text. Frequently paired with avatars, table cells, and list items to communicate state at a glance.",
-        "exports": [],
+        "exports": [
+          "Badge",
+          "badgeVariants"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -75,7 +105,15 @@
         "layer": "ui",
         "lines": 110,
         "description": "Hierarchical navigation trail that shows the user's current location within a site or app structure. Renders a horizontal sequence of clickable links separated by chevron icons. Automatically highlights the last item as the current (non-interactive) page. Supports custom separators and truncation for deep paths.",
-        "exports": [],
+        "exports": [
+          "Breadcrumb",
+          "BreadcrumbList",
+          "BreadcrumbItem",
+          "BreadcrumbLink",
+          "BreadcrumbPage",
+          "BreadcrumbSeparator",
+          "BreadcrumbEllipsis"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -84,7 +122,10 @@
         "layer": "ui",
         "lines": 60,
         "description": "Core action element with a comprehensive variant system. Offers default, destructive, outline, secondary, ghost, and link visual treatments across three sizes. Includes loading spinner state, icon-only mode, and as-child composition for wrapping custom elements. Forwarded ref enables imperative focus management.",
-        "exports": [],
+        "exports": [
+          "Button",
+          "buttonVariants"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -93,7 +134,10 @@
         "layer": "ui",
         "lines": 214,
         "description": "Full date picker grid built on react-day-picker with month navigation, year range selection, and multi-date selection modes. Renders a 7-column weekday header and clickable date cells with today highlight and selected range styling. Designed as a building block for date input compositions.",
-        "exports": [],
+        "exports": [
+          "Calendar",
+          "CalendarDayButton"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -102,7 +146,15 @@
         "layer": "ui",
         "lines": 93,
         "description": "Versatile content container structured as a composition of CardHeader, CardTitle, CardDescription, CardContent, and CardFooter slots. Each sub-component applies consistent padding, spacing, and border treatments. Used as the base for dashboards, product cards, settings panels, and profile views.",
-        "exports": [],
+        "exports": [
+          "Card",
+          "CardHeader",
+          "CardFooter",
+          "CardTitle",
+          "CardAction",
+          "CardDescription",
+          "CardContent"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -111,7 +163,14 @@
         "layer": "ui",
         "lines": 242,
         "description": "Touch-friendly horizontal content slider with auto-play, loop, and keyboard navigation support. Exposes Prev/Next navigation buttons and a dot indicator row for direct slide access. Uses CSS transforms for smooth GPU-accelerated transitions. Suitable for testimonials, product galleries, and hero banners.",
-        "exports": [],
+        "exports": [
+          "CarouselApi",
+          "Carousel",
+          "CarouselContent",
+          "CarouselItem",
+          "CarouselPrevious",
+          "CarouselNext"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -131,7 +190,9 @@
         "layer": "ui",
         "lines": 33,
         "description": "Binary input control with label text and optional description. Built on Radix Checkbox for full keyboard accessibility (space to toggle) and proper ARIA checked state. Supports indeterminate state for parent-child selection hierarchies. Renders a custom styled box with animated checkmark icon.",
-        "exports": [],
+        "exports": [
+          "Checkbox"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -163,8 +224,12 @@
         "name": "collapsible",
         "layer": "ui",
         "lines": 34,
-        "description": "Primitive for conditionally showing/hiding content with a smooth CSS height animation. Wraps Radix Collapsible and exposes a Trigger component that toggles the open state. Simpler than Accordion — manages a single collapsible region. Used as a building block for mobile menus, advanced filters, and expandable sections.",
-        "exports": [],
+        "description": "Primitive for conditionally showing/hiding content with a smooth CSS height animation. Wraps Radix Collapsible and exposes a Trigger component that toggles the open state. Simpler than Accordion \u2014 manages a single collapsible region. Used as a building block for mobile menus, advanced filters, and expandable sections.",
+        "exports": [
+          "Collapsible",
+          "CollapsibleTrigger",
+          "CollapsibleContent"
+        ],
         "hasForwardRef": false,
         "hasCn": false
       },
@@ -200,7 +265,17 @@
         "layer": "ui",
         "lines": 185,
         "description": "Floating command palette built on cmdk for rapid keyboard-driven actions. Supports fuzzy search, grouped results, keyboard navigation, and configurable placeholder text. Triggered via Cmd+K shortcut. Used for app-wide search, quick actions, settings navigation, and recent items access.",
-        "exports": [],
+        "exports": [
+          "Command",
+          "CommandDialog",
+          "CommandInput",
+          "CommandList",
+          "CommandEmpty",
+          "CommandGroup",
+          "CommandItem",
+          "CommandShortcut",
+          "CommandSeparator"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -221,7 +296,23 @@
         "layer": "ui",
         "lines": 253,
         "description": "Custom right-click context menu rendered in a floating portal. Supports grouped items with labels, separators, checkboxes, radio items, and nested submenus. Built on Radix ContextMenu for keyboard navigation and viewport-aware positioning. Use for file actions, text editing operations, and table row interactions.",
-        "exports": [],
+        "exports": [
+          "ContextMenu",
+          "ContextMenuTrigger",
+          "ContextMenuContent",
+          "ContextMenuItem",
+          "ContextMenuCheckboxItem",
+          "ContextMenuRadioItem",
+          "ContextMenuLabel",
+          "ContextMenuSeparator",
+          "ContextMenuShortcut",
+          "ContextMenuGroup",
+          "ContextMenuPortal",
+          "ContextMenuSub",
+          "ContextMenuSubContent",
+          "ContextMenuSubTrigger",
+          "ContextMenuRadioGroup"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -242,7 +333,18 @@
         "layer": "ui",
         "lines": 144,
         "description": "Modal overlay built on Radix Dialog with proper focus trapping, escape-to-close, and portal rendering. Structure includes DialogOverlay (backdrop), DialogContent (centered panel), DialogHeader, DialogTitle, DialogDescription, DialogFooter, and DialogClose. Supports controlled open state and custom animation.",
-        "exports": [],
+        "exports": [
+          "Dialog",
+          "DialogClose",
+          "DialogContent",
+          "DialogDescription",
+          "DialogFooter",
+          "DialogHeader",
+          "DialogOverlay",
+          "DialogPortal",
+          "DialogTitle",
+          "DialogTrigger"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -251,7 +353,18 @@
         "layer": "ui",
         "lines": 136,
         "description": "Bottom-sliding panel for mobile-first detail views or form inputs. Slides up from the bottom edge with a drag handle for touch dismissal. Built on Vaul Drawer with configurable snap points and overlay backdrop. Alternative to Dialog on small screens where vertical space is prioritized.",
-        "exports": [],
+        "exports": [
+          "Drawer",
+          "DrawerPortal",
+          "DrawerOverlay",
+          "DrawerTrigger",
+          "DrawerClose",
+          "DrawerContent",
+          "DrawerHeader",
+          "DrawerFooter",
+          "DrawerTitle",
+          "DrawerDescription"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -260,7 +373,23 @@
         "layer": "ui",
         "lines": 258,
         "description": "Floating action menu triggered by a button click. Supports items, labels, separators, checkboxes, radio groups, and nested submenus with proper keyboard navigation. Built on Radix DropdownMenu with viewport collision detection. Use for action menus, filter selectors, and user profile menus.",
-        "exports": [],
+        "exports": [
+          "DropdownMenu",
+          "DropdownMenuPortal",
+          "DropdownMenuTrigger",
+          "DropdownMenuContent",
+          "DropdownMenuGroup",
+          "DropdownMenuLabel",
+          "DropdownMenuItem",
+          "DropdownMenuCheckboxItem",
+          "DropdownMenuRadioGroup",
+          "DropdownMenuRadioItem",
+          "DropdownMenuSeparator",
+          "DropdownMenuShortcut",
+          "DropdownMenuSub",
+          "DropdownMenuSubTrigger",
+          "DropdownMenuSubContent"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -280,7 +409,16 @@
         "layer": "ui",
         "lines": 168,
         "description": "Reactive form wrapper built on react-hook-form with Zod schema validation. Integrates with shadcn/ui form controls (Input, Select, Checkbox, etc.) through FormField and FormItem composition. Provides real-time field-level error messages, dirty state tracking, and programmatic submit/reset.",
-        "exports": [],
+        "exports": [
+          "useFormField",
+          "Form",
+          "FormItem",
+          "FormLabel",
+          "FormControl",
+          "FormDescription",
+          "FormMessage",
+          "FormField"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -305,7 +443,11 @@
         "layer": "ui",
         "lines": 45,
         "description": "Lightweight informational popover that appears when hovering over a trigger element. Built on Radix HoverCard with configurable open delay and close delay. Renders an arrow pointing at the trigger. Use for user profile previews, term definitions, link previews, and image thumbnails without modal commitment.",
-        "exports": [],
+        "exports": [
+          "HoverCard",
+          "HoverCardTrigger",
+          "HoverCardContent"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -314,7 +456,9 @@
         "layer": "ui",
         "lines": 22,
         "description": "Text input field with consistent border, padding, and focus ring styling. Accepts placeholder text, disabled state, and error state (red border + message). Designed to be composed with Label for accessible forms. Forwarded ref allows external focus control.",
-        "exports": [],
+        "exports": [
+          "Input"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -323,7 +467,12 @@
         "layer": "ui",
         "lines": 78,
         "description": "Multi-character input for one-time password codes, verification pins, and serial numbers. Renders individual character slots with auto-focus advancement on entry, backspace navigation, and paste support for full codes. Configurable slot count (default 6), separator rendering, and input mode restriction.",
-        "exports": [],
+        "exports": [
+          "InputOTP",
+          "InputOTPGroup",
+          "InputOTPSlot",
+          "InputOTPSeparator"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -332,7 +481,9 @@
         "layer": "ui",
         "lines": 25,
         "description": "Accessible label element linked to a form control via htmlFor attribute. Renders with consistent font size, weight, and spacing. Integrates with form validation by displaying error messages when the associated input fails validation. Required for WCAG-compliant forms.",
-        "exports": [],
+        "exports": [
+          "Label"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -366,7 +517,24 @@
         "layer": "ui",
         "lines": 277,
         "description": "Application-style horizontal menu bar with dropdown submenus. Supports checkbox items, radio groups, separators, and keyboard shortcuts display. Built on Radix Menubar with proper arrow key navigation between items and submenus. Use for application menus (File, Edit, View) and configuration panels.",
-        "exports": [],
+        "exports": [
+          "Menubar",
+          "MenubarPortal",
+          "MenubarMenu",
+          "MenubarTrigger",
+          "MenubarContent",
+          "MenubarGroup",
+          "MenubarSeparator",
+          "MenubarLabel",
+          "MenubarItem",
+          "MenubarShortcut",
+          "MenubarCheckboxItem",
+          "MenubarRadioGroup",
+          "MenubarRadioItem",
+          "MenubarSub",
+          "MenubarSubTrigger",
+          "MenubarSubContent"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -375,7 +543,17 @@
         "layer": "ui",
         "lines": 169,
         "description": "Horizontal navigation with viewport-aware dropdown positioning. Built on Radix NavigationMenu with content viewport detection to prevent overflow. Supports horizontal and vertical subnavigation, active indicator animation, and viewport collision handling. Used for primary site navigation with rich dropdown content.",
-        "exports": [],
+        "exports": [
+          "NavigationMenu",
+          "NavigationMenuList",
+          "NavigationMenuItem",
+          "NavigationMenuContent",
+          "NavigationMenuTrigger",
+          "NavigationMenuLink",
+          "NavigationMenuIndicator",
+          "NavigationMenuViewport",
+          "navigationMenuTriggerStyle"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -384,7 +562,15 @@
         "layer": "ui",
         "lines": 128,
         "description": "Page navigation control that renders previous/next buttons with numbered page links and ellipsis truncation for large page ranges. Supports controlled current page state via onChange callback. Configurable sibling and boundary page count for tuning the displayed page window.",
-        "exports": [],
+        "exports": [
+          "Pagination",
+          "PaginationContent",
+          "PaginationLink",
+          "PaginationItem",
+          "PaginationPrevious",
+          "PaginationNext",
+          "PaginationEllipsis"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -393,7 +579,12 @@
         "layer": "ui",
         "lines": 49,
         "description": "Floating content panel anchored to a trigger element that opens on click. Built on Radix Popover with configurable side (top/right/bottom/left) and alignment (start/center/end). Includes an arrow pointer and dismisses on outside click or escape. Use for date pickers, color pickers, and contextual tools.",
-        "exports": [],
+        "exports": [
+          "Popover",
+          "PopoverTrigger",
+          "PopoverContent",
+          "PopoverAnchor"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -402,7 +593,9 @@
         "layer": "ui",
         "lines": 32,
         "description": "Horizontal progress indicator with a colored fill bar and optional text label. Accepts a numeric value (0-100) and supports indeterminate animation state for unknown progress. The fill bar animates smoothly between value changes. Use for upload progress, multi-step forms, and loading indicators.",
-        "exports": [],
+        "exports": [
+          "Progress"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -411,7 +604,10 @@
         "layer": "ui",
         "lines": 46,
         "description": "Single-select option group built on Radix RadioGroup. Each RadioGroupItem renders a circular button with animated dot indicator when selected. Supports horizontal and vertical orientation, disabled states, and an accessible group label. Used for settings, preference selection, and filtered categories.",
-        "exports": [],
+        "exports": [
+          "RadioGroup",
+          "RadioGroupItem"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -420,7 +616,11 @@
         "layer": "ui",
         "lines": 57,
         "description": "Resizable panel layout built on react-resizable-panels. Supports horizontal and vertical split directions with draggable handle bars between panels. Panels can be configured with minimum/maximum sizes, collapsible behavior, and programmatic resize. Use for code editors, split views, and adjustable sidebars.",
-        "exports": [],
+        "exports": [
+          "ResizablePanelGroup",
+          "ResizablePanel",
+          "ResizableHandle"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -429,7 +629,10 @@
         "layer": "ui",
         "lines": 59,
         "description": "Custom-styled scrollable container that replaces the native scrollbar with a thin, styled rail and thumb. Built on Radix ScrollArea with cross-browser consistent behavior. Supports vertical and horizontal scroll, corner decorations, and programmatic scroll-to. Use for sidebars, dropdown menus, and long content panels.",
-        "exports": [],
+        "exports": [
+          "ScrollArea",
+          "ScrollBar"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -452,7 +655,18 @@
         "layer": "ui",
         "lines": 186,
         "description": "Dropdown selector built on Radix Select for consistent cross-browser styling. Supports searchable options via filter, grouped options with labels, multi-select mode, and custom option rendering. Includes a trigger button with selected value display and a floating panel with keyboard navigation.",
-        "exports": [],
+        "exports": [
+          "Select",
+          "SelectContent",
+          "SelectGroup",
+          "SelectItem",
+          "SelectLabel",
+          "SelectScrollDownButton",
+          "SelectScrollUpButton",
+          "SelectSeparator",
+          "SelectTrigger",
+          "SelectValue"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -461,7 +675,9 @@
         "layer": "ui",
         "lines": 29,
         "description": "Visual divider rendered as a horizontal or vertical line between content sections. Uses CSS border styling with theme-aware color tokens. Supports horizontal (default) and vertical orientation. Commonly placed between navigation groups, form sections, and card regions.",
-        "exports": [],
+        "exports": [
+          "Separator"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -470,7 +686,16 @@
         "layer": "ui",
         "lines": 140,
         "description": "Slide-in overlay panel that appears from any screen edge (top, right, bottom, left). Built on Radix Dialog with Vaul for smooth spring-based animations. Includes a drag handle on mobile, overlay backdrop, and close button. Use for detail panels, mobile navigation drawers, and form overlays.",
-        "exports": [],
+        "exports": [
+          "Sheet",
+          "SheetTrigger",
+          "SheetClose",
+          "SheetContent",
+          "SheetHeader",
+          "SheetFooter",
+          "SheetTitle",
+          "SheetDescription"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -479,7 +704,32 @@
         "layer": "ui",
         "lines": 727,
         "description": "Full application sidebar with collapsible toggle, header, content, and footer regions. Supports nested menu groups with icons, badges, and expandable sub-items. Built on Radix primitives with keyboard navigation and collapsed icon-only mode. Designed as the primary navigation element for dashboard applications.",
-        "exports": [],
+        "exports": [
+          "Sidebar",
+          "SidebarContent",
+          "SidebarFooter",
+          "SidebarGroup",
+          "SidebarGroupAction",
+          "SidebarGroupContent",
+          "SidebarGroupLabel",
+          "SidebarHeader",
+          "SidebarInput",
+          "SidebarInset",
+          "SidebarMenu",
+          "SidebarMenuAction",
+          "SidebarMenuBadge",
+          "SidebarMenuButton",
+          "SidebarMenuItem",
+          "SidebarMenuSkeleton",
+          "SidebarMenuSub",
+          "SidebarMenuSubButton",
+          "SidebarMenuSubItem",
+          "SidebarProvider",
+          "SidebarRail",
+          "SidebarSeparator",
+          "SidebarTrigger",
+          "useSidebar"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -488,7 +738,9 @@
         "layer": "ui",
         "lines": 14,
         "description": "Loading placeholder that renders a pulsing animation in a rectangular shape to indicate content is loading. Supports rounded corners and customizable width/height. Matches the component it replaces in shape to prevent layout shift. Used in loading states for cards, lists, and profile views.",
-        "exports": [],
+        "exports": [
+          "Skeleton"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -497,7 +749,9 @@
         "layer": "ui",
         "lines": 64,
         "description": "Range input control built on Radix Slider with a draggable thumb along a track. Supports single or dual-thumb (range) mode, configurable min/max values and step increments. Renders tick marks and value labels. Use for volume controls, price range filters, and settings adjustments.",
-        "exports": [],
+        "exports": [
+          "Slider"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -518,7 +772,9 @@
         "layer": "ui",
         "lines": 26,
         "description": "Toast notification provider powered by the Sonner library. Renders a stacking queue of transient messages at the corner of the viewport with auto-dismiss timing. Supports title, description, action button, and multiple visual styles. Mounted once at the app root to enable toast notifications throughout.",
-        "exports": [],
+        "exports": [
+          "SonnerToaster"
+        ],
         "hasForwardRef": false,
         "hasCn": false
       },
@@ -539,7 +795,9 @@
         "layer": "ui",
         "lines": 32,
         "description": "Toggle control for binary on/off settings built on Radix Switch. Renders a pill-shaped track with a sliding thumb and accessible checked/unchecked states. Supports labeled variants and disabled mode. Used for preference toggles, feature flags, and enable/disable settings.",
-        "exports": [],
+        "exports": [
+          "Switch"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -548,7 +806,16 @@
         "layer": "ui",
         "lines": 117,
         "description": "Data table composition with TableHeader, TableBody, TableRow, TableHead, and TableCell slots. Applies consistent borders, padding, and text styling. Supports sticky header, responsive horizontal scroll, and alternating row backgrounds. Base component for sortable, filterable, and paginated data grids.",
-        "exports": [],
+        "exports": [
+          "Table",
+          "TableHeader",
+          "TableBody",
+          "TableFooter",
+          "TableHead",
+          "TableRow",
+          "TableCell",
+          "TableCaption"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -557,7 +824,12 @@
         "layer": "ui",
         "lines": 67,
         "description": "Tabbed content switcher built on Radix Tabs. Renders a horizontal tab list with a sliding active indicator and corresponding content panels. Supports keyboard arrow navigation, controlled/uncontrolled active tab, and vertical orientation. Used for settings panels, document sections, and multi-view displays.",
-        "exports": [],
+        "exports": [
+          "Tabs",
+          "TabsList",
+          "TabsTrigger",
+          "TabsContent"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -566,7 +838,9 @@
         "layer": "ui",
         "lines": 19,
         "description": "Multi-line text input with consistent border, padding, and focus ring styling. Supports configurable minimum and maximum row count, placeholder text, and auto-resize behavior. Forwarded ref enables external focus management. Composed with Label for accessible form fields.",
-        "exports": [],
+        "exports": [
+          "Textarea"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -575,7 +849,17 @@
         "layer": "ui",
         "lines": 130,
         "description": "Imperative toast notification component with title, description, optional action button, and close control. Supports multiple variants (default, success, error, warning) with auto-dismiss timing. Renders via the Toaster container component. Used for operation confirmations, error alerts, and informational messages.",
-        "exports": [],
+        "exports": [
+          "ToastProps",
+          "ToastActionElement",
+          "ToastProvider",
+          "ToastViewport",
+          "Toast",
+          "ToastTitle",
+          "ToastDescription",
+          "ToastClose",
+          "ToastAction"
+        ],
         "hasForwardRef": true,
         "hasCn": true
       },
@@ -595,7 +879,10 @@
         "layer": "ui",
         "lines": 48,
         "description": "Two-state button that toggles between pressed (active) and unpressed states. Supports default, outline, and ghost variants with size options. Multiple toggles can be grouped with ToggleGroup for single or multi-selection behavior. Used for toolbar actions, format controls, and view mode switches.",
-        "exports": [],
+        "exports": [
+          "Toggle",
+          "toggleVariants"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -604,7 +891,10 @@
         "layer": "ui",
         "lines": 74,
         "description": "Container for managing a group of Toggle buttons with single or multi-selection enforcement. Built on Radix ToggleGroup with keyboard navigation between items. Supports horizontal and vertical orientation. Commonly used for text formatting toolbars, view mode switchers, and filter groups.",
-        "exports": [],
+        "exports": [
+          "ToggleGroup",
+          "ToggleGroupItem"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       },
@@ -613,7 +903,12 @@
         "layer": "ui",
         "lines": 62,
         "description": "Small informational popup that appears when hovering over or focusing a trigger element. Built on Radix Tooltip with configurable side, alignment, and delay. Renders a compact content panel with an arrow pointer. Used for icon button labels, term definitions, and truncated text hints.",
-        "exports": [],
+        "exports": [
+          "Tooltip",
+          "TooltipTrigger",
+          "TooltipContent",
+          "TooltipProvider"
+        ],
         "hasForwardRef": false,
         "hasCn": true
       }
