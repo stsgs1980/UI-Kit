@@ -23,16 +23,16 @@ const cyanNight: PresetDefinition = {
     bgSurface: '#161B2E',
     bgElevated: '#1E2540',
 
-    textPrimary: '#FFFFFF',
-    textSecondary: '#E2E8F0',
-    textMuted: '#94A3B8',
-    textDim: '#6E8099',
+    textPrimary: '#e5e5e5',
+    textSecondary: '#d4d4d4',
+    textMuted: '#a3a3a3',
+    textDim: '#737373',
 
     focusRing: '#00E5FF',
 
-    borderSubtle: 'rgba(255,255,255,0.08)',
-    borderDefault: 'rgba(255,255,255,0.1)',
-    borderBright: 'rgba(255,255,255,0.2)',
+    borderSubtle: '#404040',
+    borderDefault: '#525252',
+    borderBright: '#a3a3a3',
 
     accentPrimary: '#00E5FF',
     accentAI: '#FF6D00',
@@ -40,27 +40,27 @@ const cyanNight: PresetDefinition = {
     accentAIGlow: '#FF6D0014',
 
     sidebarBg: '#0C0F1A',
-    sidebarText: '#E2E8F0',
-    sidebarMuted: '#6E8099',
+    sidebarText: '#e5e5e5',
+    sidebarMuted: '#a3a3a3',
     sidebarHover: '#161B2E',
     sidebarBorder: 'rgba(0,229,255,0.1)',
 
     codeBg: '#0C0F1A',
-    codeText: '#E2E8F0',
-    codeMuted: '#94A3B8',
+    codeText: '#d4d4d4',
+    codeMuted: '#a3a3a3',
     codeAccent: '#00E5FF',
 
-    cardBorder: 'rgba(255,255,255,0.1)',
+    cardBorder: '#525252',
     cardSelected: '#00E5FF',
     cardHover: '#161B2E',
 
     cellBg: '#161B2E80',
     cellFeaturedBg: '#00E5FF12',
-    cellText: '#6E8099',
+    cellText: '#737373',
     cellFeaturedText: '#00E5FF',
 
     textOnAccent: '#080810',
-    bgOnAccent: '#FFFFFF',
+    bgOnAccent: '#e5e5e5',
 
     cardShadow: '0 4px 24px rgba(0,229,255,0.06)',
 

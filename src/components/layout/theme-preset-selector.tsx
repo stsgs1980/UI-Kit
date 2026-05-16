@@ -3,17 +3,16 @@
 import { useState, useRef, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { useLayoutTheme } from '@/lib/layout/theme'
-import { useProjectTheme } from '@/lib/layout/project-theme'
 import { getAllPresets } from '@/lib/layout/theme'
 import { ThemeModeToggle } from './theme-mode-toggle'
 import { ThemeDropdown } from './theme-dropdown'
 import { spacing, fontSize, fontWeight } from '@/lib/layout/tokens'
 
 // ─── Theme Preset Selector (trigger + dropdown) ───────────────
-// Styled by Studio theme, controls Project theme.
+// Controls the Studio (Layout) theme — affects all chrome + explorer.
 
 export function ThemePresetSelector() {
-  const { preset, setPreset } = useProjectTheme()
+  const { preset, setPreset } = useLayoutTheme()
   const { tokens: studioTokens } = useLayoutTheme()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)

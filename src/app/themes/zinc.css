@@ -9,14 +9,14 @@
   --stsgs-bg-surface: #16161A;
   --stsgs-bg-elevated: #1E1E23;
 
-  --stsgs-text-primary: #fafafa;
-  --stsgs-text-secondary: #C8C8CC;
-  --stsgs-text-muted: #83838C;
-  --stsgs-text-dim: #8A8A94;
+  --stsgs-text-primary: #e5e5e5;
+  --stsgs-text-secondary: #d4d4d4;
+  --stsgs-text-muted: #a3a3a3;
+  --stsgs-text-dim: #737373;
 
-  --stsgs-border-subtle: rgba(255,255,255,0.08);
-  --stsgs-border-default: rgba(255,255,255,0.1);
-  --stsgs-border-bright: rgba(255,255,255,0.2);
+  --stsgs-border-subtle: #404040;
+  --stsgs-border-default: #525252;
+  --stsgs-border-bright: #a3a3a3;
 
   --stsgs-accent: #10b981;
   --stsgs-accent-ai: #f59e0b;
@@ -26,14 +26,14 @@
   --stsgs-focus-ring: #34d399;
 
   --stsgs-sidebar-bg: #1E293B;
-  --stsgs-sidebar-text: #E2E8F0;
-  --stsgs-sidebar-muted: #94A3B8;
+  --stsgs-sidebar-text: #e5e5e5;
+  --stsgs-sidebar-muted: #a3a3a3;
   --stsgs-sidebar-hover: #334155;
   --stsgs-sidebar-border: rgba(255,255,255,0.08);
 
   --stsgs-code-bg: #0F172A;
-  --stsgs-code-text: #E2E8F0;
-  --stsgs-code-muted: #94A3B8;
+  --stsgs-code-text: #d4d4d4;
+  --stsgs-code-muted: #a3a3a3;
   --stsgs-code-accent: #60A5FA;
 
   --stsgs-card-border: #27272a;
@@ -42,11 +42,11 @@
 
   --stsgs-cell-bg: rgba(39,39,42,0.5);
   --stsgs-cell-featured-bg: #064e3b50;
-  --stsgs-cell-text: #83838C;
+  --stsgs-cell-text: #a3a3a3;
   --stsgs-cell-featured-text: #34d399;
 
   --stsgs-text-on-accent: #0A0A0F;
-  --stsgs-bg-on-accent: #fafafa;
+  --stsgs-bg-on-accent: #e5e5e5;
 
   --stsgs-card-shadow: 0 4px 24px rgba(0,0,0,0.08);
 
@@ -58,22 +58,22 @@
 
   /* shadcn/ui bridge */
   --background: #0A0A0F;
-  --foreground: #fafafa;
+  --foreground: #e5e5e5;
   --card: #16161A;
-  --card-foreground: #fafafa;
+  --card-foreground: #e5e5e5;
   --popover: #111114;
-  --popover-foreground: #fafafa;
+  --popover-foreground: #e5e5e5;
   --primary: #10b981;
   --primary-foreground: #0A0A0F;
   --secondary: #1E1E23;
-  --secondary-foreground: #C8C8CC;
+  --secondary-foreground: #d4d4d4;
   --muted: #16161A;
-  --muted-foreground: #83838C;
+  --muted-foreground: #a3a3a3;
   --accent: #1E1E23;
-  --accent-foreground: #fafafa;
+  --accent-foreground: #e5e5e5;
   --destructive: #ef4444;
-  --border: rgba(255,255,255,0.1);
-  --input: rgba(255,255,255,0.15);
+  --border: #525252;
+  --input: #525252;
   --ring: #34d399;
   --radius: 12px;
 }
