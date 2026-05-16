@@ -29,8 +29,9 @@ export function VariantPromptStudio({ recipes }: { recipes: LayoutRecipe[] }) {
 
   return (
     <div style={{
-      minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center',
+      flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center',
       paddingTop: spacing['3xl'], paddingBottom: spacing['4xl'], paddingInline: spacing.xl,
+      overflowY: 'auto',
       background: tokens.bgDeep, color: tokens.textPrimary,
       transition: 'background 0.3s, color 0.3s',
     }}>

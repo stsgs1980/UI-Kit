@@ -40,7 +40,7 @@ export function VariantAICanvas({ recipes }: { recipes: LayoutRecipe[] }) {
   const goalMeta = GOALS.find(g => g.value === input.goal)
 
   return (
-    <div style={{ minHeight: '100vh', background: tokens.bgDeep, color: tokens.textPrimary, display: 'flex', flexDirection: 'column', transition: 'background 0.3s, color 0.3s' }}>
+    <div style={{ flex: 1, overflow: 'hidden', background: tokens.bgDeep, color: tokens.textPrimary, display: 'flex', flexDirection: 'column', transition: 'background 0.3s, color 0.3s' }}>
       {/* Top Bar */}
       <div style={{ borderBottom: `1px solid ${tokens.borderSubtle}60`, padding: `${spacing.md}px ${spacing.xl}px`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: spacing.sm }}>

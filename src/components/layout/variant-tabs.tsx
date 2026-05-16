@@ -33,7 +33,7 @@ export function StudioHeader({
 
   return (
     <header style={{
-      position: 'sticky', top: 0, zIndex: 20,
+      position: 'relative', zIndex: 20, flexShrink: 0,
       borderBottom: `1px solid ${tokens.borderSubtle}`,
       background: tokens.bgBase,
       transition: 'background 0.3s, border-color 0.3s',
