@@ -48,7 +48,8 @@
     },
     "gap": "none",
     "minHeight": "100vh",
-    "preview": "+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n| BAR   |     CONTENT        |\n|       |                   |\n+-------+-------------------+"
+    "preview": "+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n| BAR   |     CONTENT        |\n|       |                   |\n+-------+-------------------+",
+    "css": "grid-template-columns: 280px 1fr; min-height: 100vh"
   },
   {
     "structure": "sidebar-right",
@@ -99,7 +100,8 @@
     },
     "gap": "none",
     "minHeight": "100vh",
-    "preview": "+-------------------+-------+\n|                   |       |\n|     MAIN          | SIDE  |\n|     CONTENT        | BAR   |\n|                   |       |\n+-------------------+-------+"
+    "preview": "+-------------------+-------+\n|                   |       |\n|     MAIN          | SIDE  |\n|     CONTENT        | BAR   |\n|                   |       |\n+-------------------+-------+",
+    "css": "grid-template-columns: 1fr 280px; min-height: 100vh"
   },
   {
     "structure": "top-nav",
@@ -150,7 +152,8 @@
     },
     "gap": "none",
     "minHeight": "100vh",
-    "preview": "+---------------------------+\n|         HEADER            |\n+---------------------------+\n|                           |\n|       MAIN CONTENT        |\n|                           |\n+---------------------------+\n|         FOOTER            |\n+---------------------------+"
+    "preview": "+---------------------------+\n|         HEADER            |\n+---------------------------+\n|                           |\n|       MAIN CONTENT        |\n|                           |\n+---------------------------+\n|         FOOTER            |\n+---------------------------+",
+    "css": "grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header\" \"main\" \"footer\"; min-height: 100vh"
   },
   {
     "structure": "two-columns",
@@ -197,7 +200,8 @@
       ]
     },
     "gap": "lg",
-    "preview": "+-------------+-------------+\n|             |             |\n|    LEFT     |    RIGHT    |\n|             |             |\n+-------------+-------------+"
+    "preview": "+-------------+-------------+\n|             |             |\n|    LEFT     |    RIGHT    |\n|             |             |\n+-------------+-------------+",
+    "css": "grid-template-columns: 1fr 1fr; gap: lg"
   },
   {
     "structure": "three-columns",
@@ -252,7 +256,8 @@
       ]
     },
     "gap": "md",
-    "preview": "+---------+---------+---------+\n|         |         |         |\n|  LEFT   | CENTER  |  RIGHT  |\n|         |         |         |\n+---------+---------+---------+"
+    "preview": "+---------+---------+---------+\n|         |         |         |\n|  LEFT   | CENTER  |  RIGHT  |\n|         |         |         |\n+---------+---------+---------+",
+    "css": "grid-template-columns: 1fr 1fr 1fr; gap: md"
   },
   {
     "structure": "holy-grail",
@@ -319,7 +324,8 @@
     },
     "gap": "none",
     "minHeight": "100vh",
-    "preview": "+-----------------------------+\n|          HEADER             |\n+-------+-------------+-------+\n|       |             |       |\n| SIDE  |    MAIN     | ASIDE |\n|       |             |       |\n+-------+-------------+-------+\n|          FOOTER             |\n+-----------------------------+"
+    "preview": "+-----------------------------+\n|          HEADER             |\n+-------+-------------+-------+\n|       |             |       |\n| SIDE  |    MAIN     | ASIDE |\n|       |             |       |\n+-------+-------------+-------+\n|          FOOTER             |\n+-----------------------------+",
+    "css": "grid-template-columns: 240px 1fr 240px; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header header\" \"sidebar main aside\" \"footer footer footer\"; min-height: 100vh"
   },
   {
     "structure": "split-screen",
@@ -369,7 +375,8 @@
       ]
     },
     "gap": "none",
-    "preview": "+-------------+-------------+\n|             |             |\n|             |             |\n|    LEFT     |    RIGHT    |\n|             |             |\n|             |             |\n+-------------+-------------+"
+    "preview": "+-------------+-------------+\n|             |             |\n|             |             |\n|    LEFT     |    RIGHT    |\n|             |             |\n|             |             |\n+-------------+-------------+",
+    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: 100vh"
   },
   {
     "structure": "cards-grid",
@@ -406,7 +413,8 @@
       "rows": "auto"
     },
     "gap": "lg",
-    "preview": "+-------+-------+-------+\n| CARD  | CARD  | CARD  |\n+-------+-------+-------+\n| CARD  | CARD  | CARD  |\n+-------+-------+-------+"
+    "preview": "+-------+-------+-------+\n| CARD  | CARD  | CARD  |\n+-------+-------+-------+\n| CARD  | CARD  | CARD  |\n+-------+-------+-------+",
+    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: lg"
   },
   {
     "structure": "magazine",
@@ -463,7 +471,8 @@
       ]
     },
     "gap": "lg",
-    "preview": "+---------------------------+\n|          HERO             |\n|   (featured content)      |\n+-------------+-------------+\n|  PRIMARY    |  SECONDARY  |\n+-------------+-------------+"
+    "preview": "+---------------------------+\n|          HERO             |\n|   (featured content)      |\n+-------------+-------------+\n|  PRIMARY    |  SECONDARY  |\n+-------------+-------------+",
+    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; grid-template-areas: \"hero hero\" \"primary secondary\"; gap: lg"
   },
   {
     "structure": "fullscreen-hero",
@@ -500,7 +509,8 @@
       ]
     },
     "gap": "none",
-    "preview": "+---------------------------+\n|                           |\n|                           |\n|      [CENTERED]           |\n|      CONTENT              |\n|                           |\n|                           |\n+---------------------------+"
+    "preview": "+---------------------------+\n|                           |\n|                           |\n|      [CENTERED]           |\n|      CONTENT              |\n|                           |\n|                           |\n+---------------------------+",
+    "css": "grid-template-columns: 1fr; grid-template-rows: 100vh"
   },
   {
     "structure": "bento-grid",
@@ -559,7 +569,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+-------+-------+---+---+\n|       |       | 1 | 2 |\n| HERO  | HERO  +---+---+\n|       |       | 3 | 4 |\n+-------+-------+---+---+\n|     WIDE CARD 5       |\n+-----------------------+"
+    "preview": "+-------+-------+---+---+\n|       |       | 1 | 2 |\n| HERO  | HERO  +---+---+\n|       |       | 3 | 4 |\n+-------+-------+---+---+\n|     WIDE CARD 5       |\n+-----------------------+",
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); grid-template-areas: \"hero hero card-1 card-2\" \"hero hero card-3 card-4\" \"card-5 card-5 card-5 card-5\"; gap: md"
   },
   {
     "structure": "bento-sidebar",
@@ -615,7 +626,8 @@
     },
     "gap": "md",
     "minHeight": "100vh",
-    "preview": "+-------+-------+-------+---+\n|       | HERO  | HERO  | 1 |\n| SIDE  +-------+-------+---+\n| BAR   |   2   |   3   | 3 |\n+-------+-------+-------+---+"
+    "preview": "+-------+-------+-------+---+\n|       | HERO  | HERO  | 1 |\n| SIDE  +-------+-------+---+\n| BAR   |   2   |   3   | 3 |\n+-------+-------+-------+---+",
+    "css": "grid-template-columns: 240px repeat(3, 1fr); grid-template-rows: repeat(2, 100px); grid-template-areas: \"sidebar hero hero card-1\" \"sidebar card-2 card-3 card-3\"; gap: md; min-height: 100vh"
   },
   {
     "structure": "bento-hero",
@@ -671,7 +683,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+---------------------------+\n|          HERO             |\n+-------+-------+---+-------+\n|  F1   |  F1   | F2| F3    |\n+-------+-------+   |       |\n|  F4   |  F4   +---+-------+\n+-------+-------+-----------+"
+    "preview": "+---------------------------+\n|          HERO             |\n+-------+-------+---+-------+\n|  F1   |  F1   | F2| F3    |\n+-------+-------+   |       |\n|  F4   |  F4   +---+-------+\n+-------+-------+-----------+",
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: auto repeat(2, 80px); grid-template-areas: \"hero hero hero hero\" \"feature-1 feature-1 feature-2 feature-3\" \"feature-4 feature-4 feature-2 feature-3\"; gap: md"
   },
   {
     "structure": "bento-masonry",
@@ -706,7 +719,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+-------+-------+-------+\n| AAA   | BB    | C     |\n| AAA   |       +-------+\n| AAA   +-------+ DDD   |\n+-------+ EEE   | DDD   |\n| FF    | EEE   +-------+\n+-------+-------+ GGG   |"
+    "preview": "+-------+-------+-------+\n| AAA   | BB    | C     |\n| AAA   |       +-------+\n| AAA   +-------+ DDD   |\n+-------+ EEE   | DDD   |\n| FF    | EEE   +-------+\n+-------+-------+ GGG   |",
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md"
   },
   {
     "structure": "masonry-grid",
@@ -743,7 +757,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+---+---+---+\n| A | D | G |\n| A | D |   |\n|   | E | H |\n| B |   |   |\n| B | F | I |\n|   |   | I |\n| C |   |   |\n| C |   |   |\n+---+---+---+"
+    "preview": "+---+---+---+\n| A | D | G |\n| A | D |   |\n|   | E | H |\n| B |   |   |\n| B | F | I |\n|   |   | I |\n| C |   |   |\n| C |   |   |\n+---+---+---+",
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md"
   },
   {
     "structure": "asymmetric-grid",
@@ -791,7 +806,8 @@
       ]
     },
     "gap": "lg",
-    "preview": "+-------------------+-----------+\n|                   |           |\n|    PRIMARY        | SECONDARY |\n|    (2/3 width)    | (1/3)     |\n|                   |           |\n+-------------------+-----------+"
+    "preview": "+-------------------+-----------+\n|                   |           |\n|    PRIMARY        | SECONDARY |\n|    (2/3 width)    | (1/3)     |\n|                   |           |\n+-------------------+-----------+",
+    "css": "grid-template-columns: 2fr 1fr; gap: lg"
   },
   {
     "structure": "span-grid",
@@ -847,7 +863,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+-------------------+---+\n|   FEATURED        | 1 |\n|   (spans 2 cols)  +---+\n+-----+-----+-------+\n|  2  |  3  |   4       |\n+-----+-----+-----------+"
+    "preview": "+-------------------+---+\n|   FEATURED        | 1 |\n|   (spans 2 cols)  +---+\n+-----+-----+-------+\n|  2  |  3  |   4       |\n+-----+-----+-----------+",
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto; grid-template-areas: \"featured featured card-1\" \"card-2 card-3 card-4\"; gap: md"
   },
   {
     "structure": "overlap-grid",
@@ -889,7 +906,8 @@
       ]
     },
     "gap": "none",
-    "preview": "+---------------+\n|  BG  |  FG    |\n|    +--+--+    |\n|    |  |  |    |\n|    +--+--+    |\n+---------------+"
+    "preview": "+---------------+\n|  BG  |  FG    |\n|    +--+--+    |\n|    |  |  |    |\n|    +--+--+    |\n+---------------+",
+    "css": "grid-template-columns: 1fr 1fr"
   },
   {
     "structure": "honeycomb-grid",
@@ -925,7 +943,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "   / \\ / \\ / \\ \n  | A | B | C |\n   \\ / \\ / \\ / \n  / \\ / \\ / \\   \n | D | E | F |\n  \\ / \\ / \\ /   "
+    "preview": "   / \\ / \\ / \\ \n  | A | B | C |\n   \\ / \\ / \\ / \n  / \\ / \\ / \\   \n | D | E | F |\n  \\ / \\ / \\ /   ",
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md"
   },
   {
     "structure": "mosaic-grid",
@@ -984,7 +1003,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+-------+-------+---+---+\n|   1   |   1   | 2 | 3 |\n|   1   |   1   +---+---+\n+-------+-------+ 4 | 4 |\n|     5     | 5     | 5 |\n+-----------+-------+---+"
+    "preview": "+-------+-------+---+---+\n|   1   |   1   | 2 | 3 |\n|   1   |   1   +---+---+\n+-------+-------+ 4 | 4 |\n|     5     | 5     | 5 |\n+-----------+-------+---+",
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); grid-template-areas: \"tile-1 tile-1 tile-2 tile-3\" \"tile-1 tile-1 tile-4 tile-4\" \"tile-5 tile-5 tile-5 tile-5\"; gap: md"
   },
   {
     "structure": "responsive-grid",
@@ -1014,7 +1034,8 @@
       "rows": "auto"
     },
     "gap": "lg",
-    "preview": "[280px] [280px] [280px] [280px]\n  ...    ...    ...    ...\n\n(Auto-fills based on container width)"
+    "preview": "[280px] [280px] [280px] [280px]\n  ...    ...    ...    ...\n\n(Auto-fills based on container width)",
+    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: lg"
   },
   {
     "structure": "fibonacci-grid",
@@ -1073,7 +1094,8 @@
       ]
     },
     "gap": "md",
-    "preview": "+--+--+----+------+----------+\n|1 |1 | 2  |  3   |    5     |\n+--+--+----+------+----------+\n  Fibonacci: 1 1 2 3 5"
+    "preview": "+--+--+----+------+----------+\n|1 |1 | 2  |  3   |    5     |\n+--+--+----+------+----------+\n  Fibonacci: 1 1 2 3 5",
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; gap: md"
   },
   {
     "structure": "fibonacci-columns",
@@ -1124,7 +1146,8 @@
       ]
     },
     "gap": "md",
-    "preview": "+------+----------+----------------+\n|      |          |                |\n| 1fr  | 1.618fr  |   2.618fr      |\n|      |          |                |\n+------+----------+----------------+"
+    "preview": "+------+----------+----------------+\n|      |          |                |\n| 1fr  | 1.618fr  |   2.618fr      |\n|      |          |                |\n+------+----------+----------------+",
+    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; gap: md"
   },
   {
     "structure": "fibonacci-tiles",
@@ -1179,7 +1202,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+---+---+-------+--------+\n| 1 | 2 |       |        |\n+---+---+   3   |   3    |\n|   4   |       |        |\n+---+---+-------+--------+\n|      5       |   5     |\n+--------------+---------+"
+    "preview": "+---+---+-------+--------+\n| 1 | 2 |       |        |\n+---+---+   3   |   3    |\n|   4   |       |        |\n+---+---+-------+--------+\n|      5       |   5     |\n+--------------+---------+",
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr; grid-template-rows: 1fr 1fr 2fr; grid-template-areas: \"tile-1 tile-2 tile-3 tile-3\" \"tile-4 tile-4 tile-3 tile-3\" \"tile-5 tile-5 tile-5 tile-5\"; gap: md"
   },
   {
     "structure": "fibonacci-responsive",
@@ -1213,7 +1237,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "Desktop:  1|1|2| 3 |   5   \nTablet:   1| 2 |   3   \nMobile:   |   1   |"
+    "preview": "Desktop:  1|1|2| 3 |   5   \nTablet:   1| 2 |   3   \nMobile:   |   1   |",
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; grid-template-rows: auto; gap: md"
   },
   {
     "structure": "fibonacci-masonry",
@@ -1243,7 +1268,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+---+-------+-----------+\n| A |   D   |     G     |\n| B |   D   |     G     |\n| B |       |     H     |\n| C |   E   |           |\n|   |   F   |     I     |\n+---+-------+-----------+"
+    "preview": "+---+-------+-----------+\n| A |   D   |     G     |\n| B |   D   |     G     |\n| B |       |     H     |\n| C |   E   |           |\n|   |   F   |     I     |\n+---+-------+-----------+",
+    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; grid-template-rows: auto; gap: md"
   },
   {
     "structure": "fibonacci-bento",
@@ -1293,7 +1319,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+---+---+-------+--------+\n| 1 | 2 |       HERO       |\n+---+---+-------+          |\n|    3    |      HERO       |\n+---------+----------------+"
+    "preview": "+---+---+-------+--------+\n| 1 | 2 |       HERO       |\n+---+---+-------+          |\n|    3    |      HERO       |\n+---------+----------------+",
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr; grid-template-rows: 1fr 2fr; grid-template-areas: \"card-1 card-2 hero hero\" \"card-3 card-3 hero hero\"; gap: md"
   },
   {
     "structure": "fibonacci-steps",
@@ -1353,7 +1380,8 @@
       ]
     },
     "gap": "md",
-    "preview": "|1|1| 2 |  3  |    5    |\n  Each column wider by phi"
+    "preview": "|1|1| 2 |  3  |    5    |\n  Each column wider by phi",
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; grid-template-rows: auto; gap: md"
   },
   {
     "structure": "fibonacci-cascade",
@@ -1413,7 +1441,8 @@
       ]
     },
     "gap": "md",
-    "preview": "|        S1           |\n   |      S2         |\n      |    S3      |\n         | S4    |"
+    "preview": "|        S1           |\n   |      S2         |\n      |    S3      |\n         | S4    |",
+    "css": "grid-template-columns: 1fr 2fr 3fr 5fr; grid-template-rows: auto auto auto auto; grid-template-areas: \"section-1 section-1 section-1 section-1\" \". section-2 section-2 section-2\" \". . section-3 section-3\" \". . . section-4\"; gap: md"
   },
   {
     "structure": "golden-ratio-grid",
@@ -1462,7 +1491,8 @@
       ]
     },
     "gap": "lg",
-    "preview": "+----------+------------------+\n|          |                  |\n|  38.2%   |     61.8%        |\n|  (minor) |     (major)      |\n|          |                  |\n+----------+------------------+"
+    "preview": "+----------+------------------+\n|          |                  |\n|  38.2%   |     61.8%        |\n|  (minor) |     (major)      |\n|          |                  |\n+----------+------------------+",
+    "css": "grid-template-columns: 1fr 1.618fr; gap: lg"
   },
   {
     "structure": "phi-grid",
@@ -1514,7 +1544,8 @@
       ]
     },
     "gap": "md",
-    "preview": "+------+----------+------------------+\n|      |          |                  |\n| 19%  |   31%    |      50%         |\n|      |          |                  |\n+------+----------+------------------+"
+    "preview": "+------+----------+------------------+\n|      |          |                  |\n| 19%  |   31%    |      50%         |\n|      |          |                  |\n+------+----------+------------------+",
+    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; gap: md"
   },
   {
     "structure": "rule-of-thirds",
@@ -1582,7 +1613,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+--------+--------+--------+\n| TL     | TC     | TR     |\n|   *    |        |   *    |\n+--------+--------+--------+\n| ML     | MC     | MR     |\n|        |   *    |        |\n+--------+--------+--------+\n| BL     | BC     | BR     |\n|   *    |        |   *    |\n+--------+--------+--------+\n  * = natural focal points"
+    "preview": "+--------+--------+--------+\n| TL     | TC     | TR     |\n|   *    |        |   *    |\n+--------+--------+--------+\n| ML     | MC     | MR     |\n|        |   *    |        |\n+--------+--------+--------+\n| BL     | BC     | BR     |\n|   *    |        |   *    |\n+--------+--------+--------+\n  * = natural focal points",
+    "css": "grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; grid-template-areas: \"top-left top-center top-right\" \"mid-left mid-center mid-right\" \"bottom-left bottom-center bottom-right\"; gap: md"
   },
   {
     "structure": "harmonic-series",
@@ -1637,7 +1669,8 @@
       ]
     },
     "gap": "md",
-    "preview": "+------------+------+----+---+\n|            |      |    |   |\n|   12fr     | 6fr  |4fr |3fr|\n|            |      |    |   |\n+------------+------+----+---+\n  Harmonic: 1, 1/2, 1/3, 1/4"
+    "preview": "+------------+------+----+---+\n|            |      |    |   |\n|   12fr     | 6fr  |4fr |3fr|\n|            |      |    |   |\n+------------+------+----+---+\n  Harmonic: 1, 1/2, 1/3, 1/4",
+    "css": "grid-template-columns: 12fr 6fr 4fr 3fr; gap: md"
   },
   {
     "structure": "prime-grid",
@@ -1671,7 +1704,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+---+---+---+---+---+\n|   |   |   |   |   |\n| 1 | 2 | 3 | 4 | 5 |\n|   |   |   |   |   |\n+---+---+---+---+---+\n  5 columns (prime)"
+    "preview": "+---+---+---+---+---+\n|   |   |   |   |   |\n| 1 | 2 | 3 | 4 | 5 |\n|   |   |   |   |   |\n+---+---+---+---+---+\n  5 columns (prime)",
+    "css": "grid-template-columns: repeat(5, 1fr); grid-template-rows: auto; gap: md"
   },
   {
     "structure": "sqrt-grid",
@@ -1722,7 +1756,8 @@
       ]
     },
     "gap": "md",
-    "preview": "+------+--------+----------+\n|      |        |          |\n| 1fr  | 1.41fr | 1.73fr   |\n|      |        |          |\n+------+--------+----------+\n  sqrt(1), sqrt(2), sqrt(3)"
+    "preview": "+------+--------+----------+\n|      |        |          |\n| 1fr  | 1.41fr | 1.73fr   |\n|      |        |          |\n+------+--------+----------+\n  sqrt(1), sqrt(2), sqrt(3)",
+    "css": "grid-template-columns: 1fr 1.414fr 1.732fr; gap: md"
   },
   {
     "structure": "modular-grid",
@@ -1778,7 +1813,8 @@
       ]
     },
     "gap": "md",
-    "preview": "+------+-------+---------+----------+\n|      |       |         |          |\n| 1fr  |1.25fr | 1.56fr  | 1.95fr   |\n|      |       |         |          |\n+------+-------+---------+----------+\n  Ratio: 1.25 (major third)"
+    "preview": "+------+-------+---------+----------+\n|      |       |         |          |\n| 1fr  |1.25fr | 1.56fr  | 1.95fr   |\n|      |       |         |          |\n+------+-------+---------+----------+\n  Ratio: 1.25 (major third)",
+    "css": "grid-template-columns: 1fr 1.25fr 1.563fr 1.953fr; gap: md"
   },
   {
     "structure": "dashboard",
@@ -1835,7 +1871,8 @@
     },
     "gap": "none",
     "minHeight": "100vh",
-    "preview": "+---------------------------+\n|         HEADER            |\n+-------+-------------------+\n|       |                   |\n| SIDE  |   WIDGET GRID     |\n| NAV   |   [1] [2] [3]     |\n|       |   [4] [5]         |\n+-------+-------------------+"
+    "preview": "+---------------------------+\n|         HEADER            |\n+-------+-------------------+\n|       |                   |\n| SIDE  |   WIDGET GRID     |\n| NAV   |   [1] [2] [3]     |\n|       |   [4] [5]         |\n+-------+-------------------+",
+    "css": "grid-template-columns: 260px 1fr; grid-template-rows: auto 1fr; grid-template-areas: \"header header\" \"sidebar main\"; min-height: 100vh"
   },
   {
     "structure": "blog",
@@ -1897,7 +1934,8 @@
     },
     "gap": "none",
     "minHeight": "100vh",
-    "preview": "+---------------------------+\n|         HEADER            |\n+-------------------+-------+\n|                   |       |\n|   MAIN CONTENT    | SIDE  |\n|   (articles)      | BAR   |\n|                   |       |\n+-------------------+-------+\n|         FOOTER            |\n+---------------------------+"
+    "preview": "+---------------------------+\n|         HEADER            |\n+-------------------+-------+\n|                   |       |\n|   MAIN CONTENT    | SIDE  |\n|   (articles)      | BAR   |\n|                   |       |\n+-------------------+-------+\n|         FOOTER            |\n+---------------------------+",
+    "css": "grid-template-columns: 2fr 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header\" \"main sidebar\" \"footer footer\"; min-height: 100vh"
   },
   {
     "structure": "grid-overlap",
@@ -1945,7 +1983,8 @@
       ]
     },
     "gap": "none",
-    "preview": "+-------------------+\n|  BASE (z:0)      |\n|  +-------------+  |\n|  | OVERLAY z:1 |  |\n|  +-------------+  |\n+-------------------+"
+    "preview": "+-------------------+\n|  BASE (z:0)      |\n|  +-------------+  |\n|  | OVERLAY z:1 |  |\n|  +-------------+  |\n+-------------------+",
+    "css": "grid-template-columns: 1fr"
   },
   {
     "structure": "full-bleed",
@@ -1981,7 +2020,8 @@
       "rows": "auto"
     },
     "gap": "none",
-    "preview": "+------+---content---+------+\n|      |  readable   |      |\n| full |  65ch max   | full |\n| bleed|  content    | bleed|\n+------+-------------+------+"
+    "preview": "+------+---content---+------+\n|      |  readable   |      |\n| full |  65ch max   | full |\n| bleed|  content    | bleed|\n+------+-------------+------+",
+    "css": "grid-template-columns: 1fr min(65ch, 100%) 1fr; grid-template-rows: auto"
   },
   {
     "structure": "container-query-grid",
@@ -2014,7 +2054,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "[Container Width >= 600px]\n+-------+-------+-------+\n| Card  | Card  | Card  |\n+-------+-------+-------+\n\n[Container Width < 600px]\n+-------------------+\n|      Card         |\n+-------------------+"
+    "preview": "[Container Width >= 600px]\n+-------+-------+-------+\n| Card  | Card  | Card  |\n+-------+-------+-------+\n\n[Container Width < 600px]\n+-------------------+\n|      Card         |\n+-------------------+",
+    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: md"
   },
   {
     "structure": "scroll-snap-grid",
@@ -2048,7 +2089,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "[<--- scroll --->]\n+-------+-------+-------+-------+\n| Card  | Card  | Card  | Card  |\n| snap  | snap  | snap  | snap  |\n+-------+-------+-------+-------+"
+    "preview": "[<--- scroll --->]\n+-------+-------+-------+-------+\n| Card  | Card  | Card  | Card  |\n| snap  | snap  | snap  | snap  |\n+-------+-------+-------+-------+",
+    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: md"
   },
   {
     "structure": "animated-grid",
@@ -2095,7 +2137,8 @@
     },
     "gap": "none",
     "minHeight": "100vh",
-    "preview": "+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n| 280px |     (1fr)          |\n|  <->  |                   |\n+-------+-------------------+\n  <-> = animated width change"
+    "preview": "+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n| 280px |     (1fr)          |\n|  <->  |                   |\n+-------+-------------------+\n  <-> = animated width change",
+    "css": "grid-template-columns: 280px 1fr; min-height: 100vh"
   },
   {
     "structure": "subgrid-sync",
@@ -2128,7 +2171,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+-------+-------+-------+-------+\n| Parent| Grid  | Track | Align |\n+-------+-------+-------+-------+\n| Child | sub-  | grid  | syncs |\n| inherits columns from parent   |"
+    "preview": "+-------+-------+-------+-------+\n| Parent| Grid  | Track | Align |\n+-------+-------+-------+-------+\n| Child | sub-  | grid  | syncs |\n| inherits columns from parent   |",
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: auto; gap: md"
   },
   {
     "structure": "auto-flow-column",
@@ -2163,7 +2207,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+---+---+---+\n| 1 | 4 | 7 |\n| 2 | 5 | 8 |\n| 3 | 6 | 9 |\n+---+---+---+\n  Vertical-first flow"
+    "preview": "+---+---+---+\n| 1 | 4 | 7 |\n| 2 | 5 | 8 |\n| 3 | 6 | 9 |\n+---+---+---+\n  Vertical-first flow",
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md"
   },
   {
     "structure": "dense-packing",
@@ -2197,7 +2242,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+-------+-------+---+---+\n| BIG   | BIG   | 3 | 4 |\n| BIG   | BIG   +---+---+\n+-------+-------+ 5 | 6 |\n| 7     | 8     +---+---+\n+-------+-------+-------+"
+    "preview": "+-------+-------+---+---+\n| BIG   | BIG   | 3 | 4 |\n| BIG   | BIG   +---+---+\n+-------+-------+ 5 | 6 |\n| 7     | 8     +---+---+\n+-------+-------+-------+",
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); gap: md"
   },
   {
     "structure": "login-split",
@@ -2244,7 +2290,8 @@
       ]
     },
     "gap": "none",
-    "preview": "+-------------+-------------+\n|             |             |\n|    BRAND    |    FORM     |\n| illustration|   login     |\n|             |   form      |\n+-------------+-------------+"
+    "preview": "+-------------+-------------+\n|             |             |\n|    BRAND    |    FORM     |\n| illustration|   login     |\n|             |   form      |\n+-------------+-------------+",
+    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: 100vh"
   },
   {
     "structure": "form-label-input",
@@ -2278,7 +2325,8 @@
       "rows": "auto"
     },
     "gap": "md",
-    "preview": "+--------+-------------------+\n| Label  | [Input..........] |\n| Label  | [Input..........] |\n|        | [Full-width btn ] |\n+--------+-------------------+"
+    "preview": "+--------+-------------------+\n| Label  | [Input..........] |\n| Label  | [Input..........] |\n|        | [Full-width btn ] |\n+--------+-------------------+",
+    "css": "grid-template-columns: auto 1fr; grid-template-rows: auto; gap: md"
   },
   {
     "structure": "nav-logo-action",
@@ -2327,7 +2375,8 @@
       ]
     },
     "gap": "md",
-    "preview": "+------+------------------+--------+\n| LOGO |   Nav Links      | [CTA]  |\n+------+------------------+--------+"
+    "preview": "+------+------------------+--------+\n| LOGO |   Nav Links      | [CTA]  |\n+------+------------------+--------+",
+    "css": "grid-template-columns: auto 1fr auto; grid-template-rows: auto; gap: md"
   },
   {
     "structure": "grid-template-shorthand",
@@ -2388,7 +2437,8 @@
     },
     "gap": "none",
     "minHeight": "100vh",
-    "preview": "+---------------------------+\n|         HEADER            |\n+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n|       |                   |\n+-------+-------------------+\n|         FOOTER            |\n+---------------------------+"
+    "preview": "+---------------------------+\n|         HEADER            |\n+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n|       |                   |\n+-------+-------------------+\n|         FOOTER            |\n+---------------------------+",
+    "css": "grid-template-columns: 240px 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header\" \"sidebar main\" \"footer footer\"; min-height: 100vh"
   },
   {
     "structure": "implicit-named-lines",
@@ -2421,6 +2471,7 @@
       "rows": "auto"
     },
     "gap": "none",
-    "preview": "+------+---content---+------+\n|      |  [content-  |      |\n| full |  start/end] | full |\n| area |  65ch max   | area |\n+------+-------------+------+"
+    "preview": "+------+---content---+------+\n|      |  [content-  |      |\n| full |  start/end] | full |\n| area |  65ch max   | area |\n+------+-------------+------+",
+    "css": "grid-template-columns: 1fr minmax(0, 65ch) 1fr; grid-template-rows: auto"
   }
 ]

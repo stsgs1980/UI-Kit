@@ -32,6 +32,7 @@ export interface LayoutRecipe {
   gap: string
   minHeight?: string
   preview: string
+  css: string
 }
 
 export interface LayoutAdviceInput {
