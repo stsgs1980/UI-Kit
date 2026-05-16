@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interface Studio — Layout Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #0C0E14;
+  --bg-base: #141720;
+  --bg-surface: #1A1E2A;
+  --bg-hover: #1F2436;
+  --text-primary: #E8E4DD;
+  --text-secondary: #8B92A0;
+  --text-muted: #5C6370;
+  --text-dim: #3E4451;
+  --border: #252A36;
+  --border-active: #3A4050;
+  --accent: #C9A96E;
+  --layer-ui: #4ADE80;
+  --layer-sections: #60A5FA;
+  --layer-features: #C084FC;
+  --sidebar-w: 220px;
+  --breadcrumb-h: 40px;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --transition: 0.15s ease;
+}
+
+html { font-size: 14px; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-active); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ═══════════════════════════════════════════
+   SIDEBAR
+   ═══════════════════════════════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--bg-base);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sidebar-brand-icon {
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--accent);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+}
+
+.sidebar-brand-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.sidebar-search {
+  position: relative;
+}
+
+.sidebar-search input {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px 6px 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.sidebar-search input::placeholder { color: var(--text-muted); }
+.sidebar-search input:focus { border-color: var(--border-active); }
+
+.sidebar-search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+/* ── Section Groups ── */
+.sidebar-section {
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 10px 14px 6px;
+  user-select: none;
+}
+
+/* ── Layer Filter Buttons ── */
+.layer-filters {
+  padding: 0 10px 10px;
+  display: flex;
+  gap: 4px;
+}
+
+.layer-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.layer-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-active);
+}
+
+.layer-btn.active {
+  border-color: var(--border-active);
+  border-right: 2px solid var(--accent);
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.layer-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.layer-dot--ui { background: var(--layer-ui); }
+.layer-dot--sections { background: var(--layer-sections); }
+.layer-dot--features { background: var(--layer-features); }
+
+.layer-count {
+  font-size: 9px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.layer-btn.active .layer-count { color: var(--text-secondary); }
+
+/* ── Category List ── */
+.category-list {
+  padding: 0 6px 8px;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition);
+  user-select: none;
+}
+
+.category-item:hover { background: var(--bg-hover); }
+
+.category-item.active {
+  background: var(--bg-hover);
+}
+
+.category-item.active .category-name { color: var(--text-primary); }
+.category-item.active .category-count { color: var(--accent); }
+
+.category-name {
+  font-size: 12px;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+
+.category-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+/* ── Best For ── */
+.bestfor-list {
+  padding: 4px 14px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+
+.bestfor-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.bestfor-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+/* ── Sidebar Footer ── */
+.sidebar-footer {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar-footer-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--layer-ui);
+  border-radius: 1px;
+}
+
+/* ═══════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════ */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Breadcrumb Bar ── */
+.breadcrumb-bar {
+  height: var(--breadcrumb-h);
+  min-height: var(--breadcrumb-h);
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 8px;
+}
+
+.breadcrumb-path {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumb-scope {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.breadcrumb-sep {
+  color: var(--text-dim);
+  font-size: 10px;
+}
+
+.breadcrumb-current {
+  color: var(--text-muted);
+}
+
+.breadcrumb-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 1px 7px;
+  border-radius: var(--radius-sm);
+  margin-left: auto;
+}
+
+.breadcrumb-badge strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.breadcrumb-spacer { flex: 1; }
+
+.breadcrumb-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px;
+}
+
+.breadcrumb-action-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+}
+
+.breadcrumb-action-btn:hover {
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+}
+
+/* ── Card Grid Area ── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: var(--bg-deep);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+/* ── Component Card ── */
+.card {
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: cardIn 0.3s ease forwards;
+}
+
+@keyframes cardIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-active);
+  border-left-color: var(--accent);
+}
+
+.card.selected {
+  background: var(--bg-hover);
+  border-color: var(--border-active);
+  border-left-color: var(--accent);
+}
+
+.card.selected::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.card--ui:hover,
+.card--ui.selected { border-left-color: var(--layer-ui); }
+
+.card--sections:hover,
+.card--sections.selected { border-left-color: var(--layer-sections); }
+
+.card--features:hover,
+.card--features.selected { border-left-color: var(--layer-features); }
+
+.card--ui.selected::after { background: var(--layer-ui); }
+.card--sections.selected::after { background: var(--layer-sections); }
+.card--features.selected::after { background: var(--layer-features); }
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.card-layer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.card-layer--ui {
+  color: var(--layer-ui);
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+}
+
+.card-layer--sections {
+  color: var(--layer-sections);
+  background: rgba(96, 165, 250, 0.08);
+  border: 1px solid rgba(96, 165, 250, 0.15);
+}
+
+.card-layer--features {
+  color: var(--layer-features);
+  background: rgba(192, 132, 252, 0.08);
+  border: 1px solid rgba(192, 132, 252, 0.15);
+}
+
+/* Card Body */
+.card-desc {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.card-meta-icon {
+  font-size: 9px;
+  opacity: 0.7;
+}
+
+.card-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* ═══════════════════════════════════════════
+   STAGGER ANIMATION DELAYS
+   ═══════════════════════════════════════════ */
+.card:nth-child(1)  { animation-delay: 0.02s; }
+.card:nth-child(2)  { animation-delay: 0.04s; }
+.card:nth-child(3)  { animation-delay: 0.06s; }
+.card:nth-child(4)  { animation-delay: 0.08s; }
+.card:nth-child(5)  { animation-delay: 0.10s; }
+.card:nth-child(6)  { animation-delay: 0.12s; }
+.card:nth-child(7)  { animation-delay: 0.14s; }
+.card:nth-child(8)  { animation-delay: 0.16s; }
+.card:nth-child(9)  { animation-delay: 0.18s; }
+.card:nth-child(10) { animation-delay: 0.20s; }
+.card:nth-child(11) { animation-delay: 0.22s; }
+.card:nth-child(12) { animation-delay: 0.24s; }
+.card:nth-child(13) { animation-delay: 0.26s; }
+.card:nth-child(14) { animation-delay: 0.28s; }
+.card:nth-child(15) { animation-delay: 0.30s; }
+.card:nth-child(16) { animation-delay: 0.32s; }
+.card:nth-child(17) { animation-delay: 0.34s; }
+.card:nth-child(18) { animation-delay: 0.36s; }
+.card:nth-child(19) { animation-delay: 0.38s; }
+.card:nth-child(20) { animation-delay: 0.40s; }
+
+/* ═══════════════════════════════════════════
+   STATUS BAR (bottom)
+   ═══════════════════════════════════════════ */
+.status-bar {
+  height: 24px;
+  min-height: 24px;
+  background: var(--bg-base);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: var(--text-muted);
+  gap: 16px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--layer-ui);
+  border-radius: 1px;
+}
+
+.status-spacer { flex: 1; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ SIDEBAR ══════════ -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">IS</div>
+      <span class="sidebar-brand-text">Interface Studio</span>
+    </div>
+    <div class="sidebar-search">
+      <span class="sidebar-search-icon">⌘</span>
+      <input type="text" placeholder="filter components..." />
+    </div>
+  </div>
+
+  <div class="sidebar-body">
+
+    <!-- LAYERS -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Layers</div>
+      <div class="layer-filters">
+        <button class="layer-btn active" data-layer="all">
+          <span class="layer-dot layer-dot--ui"></span>
+          ui
+          <span class="layer-count">62</span>
+        </button>
+        <button class="layer-btn" data-layer="sections">
+          <span class="layer-dot layer-dot--sections"></span>
+          sec
+          <span class="layer-count">15</span>
+        </button>
+        <button class="layer-btn" data-layer="features">
+          <span class="layer-dot layer-dot--features"></span>
+          feat
+          <span class="layer-count">10</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Categories</div>
+      <div class="category-list">
+        <div class="category-item active">
+          <span class="category-name">Classic</span>
+          <span class="category-count">24</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">Bento</span>
+          <span class="category-count">8</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">Artistic</span>
+          <span class="category-count">6</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">Math</span>
+          <span class="category-count">5</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">App</span>
+          <span class="category-count">18</span>
+        </div>
+        <div class="category-item">
+          <span class="category-name">Advanced</span>
+          <span class="category-count">12</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEST FOR -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Best For</div>
+      <div class="bestfor-list">
+        <span class="bestfor-tag">
+          <span class="bestfor-dot" style="background:#C9A96E;"></span>
+          Marketing
+        </span>
+        <span class="bestfor-tag">
+          <span class="bestfor-dot" style="background:#4ADE80;"></span>
+          SaaS
+        </span>
+        <span class="bestfor-tag">
+          <span class="bestfor-dot" style="background:#60A5FA;"></span>
+          Portfolio
+        </span>
+        <span class="bestfor-tag">
+          <span class="bestfor-dot" style="background:#F87171;"></span>
+          E-commerce
+        </span>
+        <span class="bestfor-tag">
+          <span class="bestfor-dot" style="background:#FBBF24;"></span>
+          Dashboard
+        </span>
+        <span class="bestfor-tag">
+          <span class="bestfor-dot" style="background:#C084FC;"></span>
+          Docs
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sidebar-footer">
+    <span class="sidebar-footer-dot"></span>
+    <span>@stsgs/ui v0.4.2</span>
+  </div>
+</aside>
+
+<!-- ══════════ MAIN ══════════ -->
+<div class="main">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb-path">
+      <span class="breadcrumb-scope">@stsgs/ui</span>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">components</span>
+    </div>
+    <span class="breadcrumb-spacer"></span>
+    <div class="breadcrumb-actions">
+      <button class="breadcrumb-action-btn">list</button>
+      <button class="breadcrumb-action-btn">grid</button>
+    </div>
+    <span class="breadcrumb-badge"><strong>20</strong> shown</span>
+  </div>
+
+  <!-- Card Grid -->
+  <div class="content">
+    <div class="card-grid">
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">accordion</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Vertically stacked collapsible panels with smooth expand/collapse transitions and keyboard navigation.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 142</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">alert</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Non-intrusive notification banners for status messages, warnings, and error feedback with dismiss action.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 87</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">alert-dialog</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Modal confirmation dialog for critical actions requiring explicit user acknowledgment before proceeding.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 156</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--sections">
+        <div class="card-header">
+          <span class="card-name">aspect-ratio</span>
+          <span class="card-layer card-layer--sections">sec</span>
+        </div>
+        <div class="card-desc">Constrains child content to a consistent width-to-height ratio, useful for media embeds and responsive containers.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 34</span>
+          <span class="card-badge">ref</span>
+        </div>
+      </div>
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">avatar</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">User identity indicator with image fallback, status indicator dot, and size variants for team displays.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 98</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--ui selected">
+        <div class="card-header">
+          <span class="card-name">badge</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Small status indicator or label for counts, tags, and categorical metadata attached to other elements.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 64</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--sections">
+        <div class="card-header">
+          <span class="card-name">bento-grid</span>
+          <span class="card-layer card-layer--sections">sec</span>
+        </div>
+        <div class="card-desc">Asymmetric grid layout system inspired by Bento OS, spanning cells for feature showcases and content blocks.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 203</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">breadcrumb</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Hierarchical navigation trail showing the current location within a nested route or file structure.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 52</span>
+          <span class="card-badge">ref</span>
+        </div>
+      </div>
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">button</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Primary interaction element with variant system (solid, ghost, outline), sizes, loading state, and icon slots.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 178</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--features">
+        <div class="card-header">
+          <span class="card-name">calendar</span>
+          <span class="card-layer card-layer--features">feat</span>
+        </div>
+        <div class="card-desc">Date selection grid with month navigation, range picking, disabled dates, and locale-aware formatting.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 312</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--sections">
+        <div class="card-header">
+          <span class="card-name">card</span>
+          <span class="card-layer card-layer--sections">sec</span>
+        </div>
+        <div class="card-desc">Versatile content container with header, body, and footer slots. Supports hover elevation and structured layouts.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 76</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--features">
+        <div class="card-header">
+          <span class="card-name">carousel</span>
+          <span class="card-layer card-layer--features">feat</span>
+        </div>
+        <div class="card-desc">Horizontal sliding content showcase with touch swipe, auto-play, dot indicators, and keyboard arrow navigation.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 267</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--features">
+        <div class="card-header">
+          <span class="card-name">chart</span>
+          <span class="card-layer card-layer--features">feat</span>
+        </div>
+        <div class="card-desc">Data visualization primitive wrapping Recharts with consistent theming, responsive sizing, and accessible alt text.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 189</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">checkbox</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Boolean input control with label association, indeterminate state, group behavior, and form integration.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 94</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--sections">
+        <div class="card-header">
+          <span class="card-name">cluster</span>
+          <span class="card-layer card-layer--sections">sec</span>
+        </div>
+        <div class="card-desc">Flexbox-based layout primitive for grouping inline items with consistent spacing and wrapping behavior.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 41</span>
+          <span class="card-badge">ref</span>
+        </div>
+      </div>
+
+      <div class="card card--features">
+        <div class="card-header">
+          <span class="card-name">code-block</span>
+          <span class="card-layer card-layer--features">feat</span>
+        </div>
+        <div class="card-desc">Syntax-highlighted code display with line numbers, copy-to-clipboard, language label, and filename header.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 224</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">collapsible</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Single-panel expand/collapse trigger with animated height transition and controlled open state via props.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 68</span>
+          <span class="card-badge">ref</span>
+        </div>
+      </div>
+
+      <div class="card card--ui">
+        <div class="card-header">
+          <span class="card-name">color-picker-input</span>
+          <span class="card-layer card-layer--ui">ui</span>
+        </div>
+        <div class="card-desc">Native color input wrapper with hex display, swatch preview, and preset palette for quick selection.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 115</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+      <div class="card card--features">
+        <div class="card-header">
+          <span class="card-name">column-browser</span>
+          <span class="card-layer card-layer--features">feat</span>
+        </div>
+        <div class="card-desc">Multi-column file/folder navigation inspired by macOS Finder, with drill-down and breadcrumb trail sync.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 348</span>
+          <span class="card-badge">ref</span>
+        </div>
+      </div>
+
+      <div class="card card--features">
+        <div class="card-header">
+          <span class="card-name">command</span>
+          <span class="card-layer card-layer--features">feat</span>
+        </div>
+        <div class="card-desc">Command palette overlay with fuzzy search, keyboard shortcuts, grouped results, and recent command history.</div>
+        <div class="card-footer">
+          <span class="card-meta"><span class="card-meta-icon">≡</span> 287</span>
+          <span class="card-badge">ref</span>
+          <span class="card-badge">cn</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="status-item"><span class="status-dot"></span> connected</span>
+    <span class="status-item">layout: auto-fill</span>
+    <span class="status-item">gap: 10px</span>
+    <span class="status-spacer"></span>
+    <span class="status-item">20 components</span>
+    <span class="status-item">3 layers</span>
+  </div>
+
+</div>
+
+<!-- ══════════ MINIMAL INTERACTIVITY ══════════ -->
+<script>
+// Layer filter toggle (CSS-only is primary, this adds active state)
+document.querySelectorAll('.layer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Category toggle
+document.querySelectorAll('.category-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// Card selection
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+  });
+});
+</script>
+
+</body>
+</html>

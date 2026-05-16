@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interface Studio — Layout Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & Base ────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-deep: #0D0B08;
+    --bg-base: #171411;
+    --bg-surface: #1E1A16;
+    --bg-hover: #26211C;
+    --text-primary: #F0E8DA;
+    --text-secondary: #9E9284;
+    --text-muted: #6D6358;
+    --text-dim: #463F37;
+    --border: #2A2520;
+    --border-active: #3D3630;
+    --accent: #C9A96E;
+    --ui-layer: #6EE7B7;
+    --sections-layer: #7DD3FC;
+    --features-layer: #D8B4FE;
+    --sidebar-w: 240px;
+    --breadcrumb-h: 48px;
+    --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── Staggered Fade-in ───────────────────────────── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Layout Shell ────────────────────────────────── */
+  .app {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    grid-template-rows: var(--breadcrumb-h) 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ─────────────────────────────────────── */
+  .sidebar {
+    grid-row: 1 / -1;
+    background: var(--bg-base);
+    border-right: 1px solid var(--border);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    animation: fadeInUp 0.5s ease both;
+  }
+
+  .sidebar-header {
+    padding: 20px 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .sidebar-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--accent), #A07840);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--bg-deep);
+    flex-shrink: 0;
+  }
+
+  .sidebar-title {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .sidebar-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .sidebar-search {
+    padding: 0 16px;
+    margin-bottom: 28px;
+  }
+
+  .search-box {
+    width: 100%;
+    padding: 9px 12px 9px 36px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+
+  .search-box::placeholder { color: var(--text-dim); }
+  .search-box:focus {
+    border-color: var(--border-active);
+    background: var(--bg-hover);
+    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.08);
+  }
+
+  .search-wrapper {
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    font-size: 13px;
+    pointer-events: none;
+  }
+
+  /* ── Sidebar Sections ────────────────────────────── */
+  .sidebar-section { padding: 0 16px; margin-bottom: 28px; }
+
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    padding: 0 4px;
+    margin-bottom: 10px;
+  }
+
+  /* Layers filter buttons */
+  .layer-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+
+  .layer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-size: 13px;
+    color: var(--text-secondary);
+    user-select: none;
+  }
+
+  .layer-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+  .layer-item.active { background: rgba(201, 169, 110, 0.08); color: var(--text-primary); }
+
+  .layer-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .layer-item:hover .layer-dot { transform: scale(1.3); }
+
+  .layer-dot.ui       { background: var(--ui-layer); }
+  .layer-dot.sections  { background: var(--sections-layer); }
+  .layer-dot.features  { background: var(--features-layer); }
+
+  .layer-name { flex: 1; }
+
+  .layer-count {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Category tags */
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 4px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .tag:hover { color: var(--text-secondary); border-color: var(--border); background: var(--bg-hover); }
+  .tag.active { color: var(--accent); border-color: rgba(201, 169, 110, 0.25); background: rgba(201, 169, 110, 0.06); }
+
+  /* Best For list */
+  .bestfor-list { list-style: none; display: flex; flex-direction: column; gap: 1px; }
+
+  .bestfor-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-size: 12px;
+    color: var(--text-muted);
+    user-select: none;
+  }
+
+  .bestfor-item:hover { background: var(--bg-hover); color: var(--text-secondary); }
+
+  .bestfor-icon {
+    font-size: 12px;
+    opacity: 0.6;
+    width: 16px;
+    text-align: center;
+  }
+
+  /* Sidebar footer */
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .sidebar-footer-text {
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .sidebar-footer-text span { color: var(--text-muted); }
+
+  /* ── Breadcrumb Bar ──────────────────────────────── */
+  .breadcrumb-bar {
+    background: var(--bg-base);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    gap: 8px;
+    animation: fadeInUp 0.4s ease 0.05s both;
+  }
+
+  .breadcrumb-sep {
+    color: var(--text-dim);
+    font-size: 11px;
+  }
+
+  .breadcrumb-item {
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.15s;
+    text-decoration: none;
+  }
+
+  .breadcrumb-item:hover { color: var(--text-secondary); }
+
+  .breadcrumb-item.current {
+    color: var(--text-primary);
+    font-weight: 500;
+    cursor: default;
+  }
+
+  .breadcrumb-scope {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .breadcrumb-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .breadcrumb-stat {
+    font-size: 11px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .breadcrumb-stat strong {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* ── Main Content ────────────────────────────────── */
+  .main {
+    background: var(--bg-deep);
+    padding: 32px;
+    overflow-y: auto;
+  }
+
+  .main-header {
+    margin-bottom: 32px;
+    animation: fadeInUp 0.5s ease 0.1s both;
+  }
+
+  .main-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .main-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  .main-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+    margin: 20px 0 0;
+    border-radius: 1px;
+  }
+
+  /* ── Component Grid ──────────────────────────────── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  /* ── Component Card ──────────────────────────────── */
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    animation: fadeInUp 0.45s ease both;
+  }
+
+  .card:hover {
+    border-color: var(--border-active);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.5), 0 2px 8px -2px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .card.selected {
+    border-color: rgba(201, 169, 110, 0.3);
+    box-shadow: 0 0 0 1px rgba(201, 169, 110, 0.08), 0 8px 32px -8px rgba(201, 169, 110, 0.1);
+  }
+
+  .card.selected::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: var(--accent);
+  }
+
+  /* Card header row */
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .card-name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  .card-layer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .card-layer-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .card-layer-dot.ui      { background: var(--ui-layer); opacity: 0.7; }
+  .card-layer-dot.sections { background: var(--sections-layer); opacity: 0.7; }
+  .card-layer-dot.features { background: var(--features-layer); opacity: 0.7; }
+
+  .card-layer-label {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .card-layer-label.ui      { color: var(--ui-layer); opacity: 0.65; }
+  .card-layer-label.sections { color: var(--sections-layer); opacity: 0.65; }
+  .card-layer-label.features { color: var(--features-layer); opacity: 0.65; }
+
+  /* Card description */
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+    margin-bottom: 16px;
+  }
+
+  /* Card meta row */
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 0;
+  }
+
+  .card-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-meta-item svg { opacity: 0.5; }
+
+  /* Divider + exports */
+  .card-bottom {
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+    padding-top: 14px;
+  }
+
+  .card-exports {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .export-tag {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text-dim);
+    background: rgba(255, 255, 255, 0.02);
+    padding: 2px 7px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .card:hover .export-tag {
+    color: var(--text-muted);
+    border-color: var(--border);
+  }
+
+  /* ── Stagger Delays ──────────────────────────────── */
+  .card:nth-child(1)  { animation-delay: 0.08s; }
+  .card:nth-child(2)  { animation-delay: 0.11s; }
+  .card:nth-child(3)  { animation-delay: 0.14s; }
+  .card:nth-child(4)  { animation-delay: 0.17s; }
+  .card:nth-child(5)  { animation-delay: 0.20s; }
+  .card:nth-child(6)  { animation-delay: 0.23s; }
+  .card:nth-child(7)  { animation-delay: 0.26s; }
+  .card:nth-child(8)  { animation-delay: 0.29s; }
+  .card:nth-child(9)  { animation-delay: 0.32s; }
+  .card:nth-child(10) { animation-delay: 0.35s; }
+  .card:nth-child(11) { animation-delay: 0.38s; }
+  .card:nth-child(12) { animation-delay: 0.41s; }
+  .card:nth-child(13) { animation-delay: 0.44s; }
+  .card:nth-child(14) { animation-delay: 0.47s; }
+  .card:nth-child(15) { animation-delay: 0.50s; }
+  .card:nth-child(16) { animation-delay: 0.53s; }
+  .card:nth-child(17) { animation-delay: 0.56s; }
+  .card:nth-child(18) { animation-delay: 0.59s; }
+  .card:nth-child(19) { animation-delay: 0.62s; }
+  .card:nth-child(20) { animation-delay: 0.65s; }
+
+  /* ── Scrollbar ───────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-active); }
+
+  /* ── Selection ───────────────────────────────────── */
+  ::selection { background: rgba(201, 169, 110, 0.2); color: var(--text-primary); }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══════ Sidebar ═══════ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">I</div>
+      <div>
+        <div class="sidebar-title">Interface Studio</div>
+        <div class="sidebar-subtitle">Layout Explorer</div>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="sidebar-search">
+      <div class="search-wrapper">
+        <span class="search-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </span>
+        <input class="search-box" type="text" placeholder="Filter components…" spellcheck="false">
+      </div>
+    </div>
+
+    <!-- Layers -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Layers</div>
+      <ul class="layer-list">
+        <li class="layer-item active" data-layer="all">
+          <span class="layer-dot" style="background: var(--text-dim);"></span>
+          <span class="layer-name">All components</span>
+          <span class="layer-count">87</span>
+        </li>
+        <li class="layer-item" data-layer="ui">
+          <span class="layer-dot ui"></span>
+          <span class="layer-name">ui</span>
+          <span class="layer-count">62</span>
+        </li>
+        <li class="layer-item" data-layer="sections">
+          <span class="layer-dot sections"></span>
+          <span class="layer-name">sections</span>
+          <span class="layer-count">15</span>
+        </li>
+        <li class="layer-item" data-layer="features">
+          <span class="layer-dot features"></span>
+          <span class="layer-name">features</span>
+          <span class="layer-count">10</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Categories -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Categories</div>
+      <div class="tag-cloud">
+        <span class="tag">Layout</span>
+        <span class="tag active">Interactive</span>
+        <span class="tag">Form</span>
+        <span class="tag">Navigation</span>
+        <span class="tag">Data Display</span>
+        <span class="tag">Overlay</span>
+        <span class="tag">Typography</span>
+        <span class="tag">Media</span>
+        <span class="tag">Utility</span>
+      </div>
+    </div>
+
+    <!-- Best For -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Best For</div>
+      <ul class="bestfor-list">
+        <li class="bestfor-item"><span class="bestfor-icon">◈</span> Design Systems</li>
+        <li class="bestfor-item"><span class="bestfor-icon">◈</span> SaaS Applications</li>
+        <li class="bestfor-item"><span class="bestfor-icon">◈</span> Documentation Sites</li>
+        <li class="bestfor-item"><span class="bestfor-icon">◈</span> Marketing Pages</li>
+        <li class="bestfor-item"><span class="bestfor-icon">◈</span> Admin Dashboards</li>
+        <li class="bestfor-item"><span class="bestfor-icon">◈</span> E-commerce</li>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-text">
+        <span>v2.4.0</span> &middot; 87 components &middot; <span>MIT License</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════ Breadcrumb ═══════ -->
+  <nav class="breadcrumb-bar">
+    <a class="breadcrumb-item" href="#">Library</a>
+    <span class="breadcrumb-sep">/</span>
+    <a class="breadcrumb-item" href="#">Packages</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-scope">@stsgs/ui</span>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-item current">Components</span>
+
+    <div class="breadcrumb-right">
+      <div class="breadcrumb-stat">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+        <strong>20</strong> shown
+      </div>
+      <div class="breadcrumb-stat">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+        <strong>87</strong> total
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════ Main Content ═══════ -->
+  <main class="main">
+    <div class="main-header">
+      <h1 class="main-title">Components</h1>
+      <p class="main-description">
+        A curated collection of composable interface primitives. Each component is designed for clarity, built for extensibility, and documented for real-world use.
+      </p>
+      <div class="main-divider"></div>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- 1 · Accordion -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Accordion</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          Vertically stacked collapsible panels that reveal hidden content one at a time. Supports single and multiple expand modes with smooth height animations and keyboard navigation.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            128 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Accordion</span>
+            <span class="export-tag">AccordionItem</span>
+            <span class="export-tag">AccordionTrigger</span>
+            <span class="export-tag">AccordionContent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 · Alert -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Alert</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          Contextual feedback messages for typical user actions. Includes semantic variants for info, warning, success, and error states with optional dismiss behavior and icon slots.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            84 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Alert</span>
+            <span class="export-tag">AlertTitle</span>
+            <span class="export-tag">AlertDescription</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 · Alert Dialog -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Alert Dialog</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A modal dialog that interrupts the user with critical information and requires explicit confirmation. Built on Radix primitives for accessible focus trapping and escape key handling.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            156 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">AlertDialog</span>
+            <span class="export-tag">AlertDialogTrigger</span>
+            <span class="export-tag">AlertDialogContent</span>
+            <span class="export-tag">AlertDialogAction</span>
+            <span class="export-tag">AlertDialogCancel</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 · Aspect Ratio -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Aspect Ratio</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          Consistently maintains a specified aspect ratio on any element. Essential for responsive media containers, video embeds, and image galleries that must preserve proportions across viewports.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            32 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">AspectRatio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 · Avatar -->
+      <div class="card selected" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Avatar</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          Represents a user or entity with an image, fallback initials, or status indicator. Supports grouping with overlap, multiple sizes, and presence detection with online and busy states.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            97 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Avatar</span>
+            <span class="export-tag">AvatarImage</span>
+            <span class="export-tag">AvatarFallback</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 · Badge -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Badge</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A small status descriptor for UI elements. Provides semantic color variants, outline and solid styles, and configurable sizing. Ideal for labels, counts, and status indicators.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            58 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Badge</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 · Bento Grid -->
+      <div class="card" data-layer="sections">
+        <div class="card-top">
+          <h3 class="card-name">Bento Grid</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot sections"></span>
+            <span class="card-layer-label sections">sections</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          An asymmetrical, editorial-style grid layout inspired by modern dashboard aesthetics. Supports mixed-span items, responsive breakpoints, and graceful degradation for simpler viewports.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            143 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">BentoGrid</span>
+            <span class="export-tag">BentoItem</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 · Breadcrumb -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Breadcrumb</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          Displays the path to the current resource using a hierarchy of links. Supports custom separators, truncation for deep nesting, and collapsible intermediate segments.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            72 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Breadcrumb</span>
+            <span class="export-tag">BreadcrumbItem</span>
+            <span class="export-tag">BreadcrumbSeparator</span>
+            <span class="export-tag">BreadcrumbEllipsis</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9 · Button -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Button</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          The foundational interactive element. Includes primary, secondary, ghost, destructive, and outline variants. Supports loading states, icon placement, sizing scale, and as-child composition.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            167 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Button</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 · Calendar -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Calendar</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A date picker grid with single and range selection modes. Integrates with form inputs, supports disabled dates and ranges, multiple months display, and locale-aware formatting.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            214 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Calendar</span>
+            <span class="export-tag">CalendarHeader</span>
+            <span class="export-tag">CalendarGrid</span>
+            <span class="export-tag">CalendarDay</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11 · Card -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Card</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A flexible content container with optional header, footer, and description sections. Supports hover elevation, selection states, and composable sub-components for structured layouts.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            91 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Card</span>
+            <span class="export-tag">CardHeader</span>
+            <span class="export-tag">CardTitle</span>
+            <span class="export-tag">CardDescription</span>
+            <span class="export-tag">CardContent</span>
+            <span class="export-tag">CardFooter</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 · Carousel -->
+      <div class="card" data-layer="features">
+        <div class="card-top">
+          <h3 class="card-name">Carousel</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot features"></span>
+            <span class="card-layer-label features">features</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A touch-friendly image and content slider with orientation awareness, snap scrolling, and loop behavior. Includes dot indicators, prev/next controls, and autoplay with pause on hover.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            189 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Carousel</span>
+            <span class="export-tag">CarouselContent</span>
+            <span class="export-tag">CarouselItem</span>
+            <span class="export-tag">CarouselPrevious</span>
+            <span class="export-tag">CarouselNext</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13 · Chart -->
+      <div class="card" data-layer="features">
+        <div class="card-top">
+          <h3 class="card-name">Chart</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot features"></span>
+            <span class="card-layer-label features">features</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          Data visualization primitives built on Recharts. Provides line, bar, area, and pie chart wrappers with consistent theming, accessible tooltips, responsive containers, and legend components.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            256 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">ChartContainer</span>
+            <span class="export-tag">ChartTooltip</span>
+            <span class="export-tag">ChartLegend</span>
+            <span class="export-tag">ChartTooltipContent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14 · Checkbox -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Checkbox</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A binary input control with checked, unchecked, and indeterminate states. Supports custom label positioning, form integration with React Hook Form, and group-level validation messages.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            64 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Checkbox</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15 · Cluster -->
+      <div class="card" data-layer="sections">
+        <div class="card-top">
+          <h3 class="card-name">Cluster</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot sections"></span>
+            <span class="card-layer-label sections">sections</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A flexbox-based layout primitive that groups related items with consistent wrapping gaps. Automatically distributes items along the inline axis and wraps at natural boundaries.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            45 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Cluster</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16 · Code Block -->
+      <div class="card" data-layer="features">
+        <div class="card-top">
+          <h3 class="card-name">Code Block</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot features"></span>
+            <span class="card-layer-label features">features</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          Syntax-highlighted code display with line numbers, language detection, copy-to-clipboard, and optional filename headers. Powered by Shiki for accurate multi-language token coloring.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            178 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">CodeBlock</span>
+            <span class="export-tag">CodeBlockHeader</span>
+            <span class="export-tag">CodeBlockCopy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 17 · Collapsible -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Collapsible</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A single expandable content region that toggles visibility. Lighter than Accordion for standalone use cases like FAQ items, advanced settings panels, and progressive disclosure patterns.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            54 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Collapsible</span>
+            <span class="export-tag">CollapsibleTrigger</span>
+            <span class="export-tag">CollapsibleContent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18 · Color Picker Input -->
+      <div class="card" data-layer="ui">
+        <div class="card-top">
+          <h3 class="card-name">Color Picker Input</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot ui"></span>
+            <span class="card-layer-label ui">ui</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A combined color swatch and text input for selecting colors via hex, RGB, or HSL values. Provides a native browser picker fallback, preset swatches, and opacity slider for alpha channel.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            201 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">ColorPickerInput</span>
+            <span class="export-tag">ColorSwatch</span>
+            <span class="export-tag">ColorSlider</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 19 · Column Browser -->
+      <div class="card" data-layer="features">
+        <div class="card-top">
+          <h3 class="card-name">Column Browser</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot features"></span>
+            <span class="card-layer-label features">features</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A macOS Finder-inspired multi-column navigation component for hierarchical data. Each selection opens a new column, enabling rapid drill-down through nested file trees and categories.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            312 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">ColumnBrowser</span>
+            <span class="export-tag">BrowserColumn</span>
+            <span class="export-tag">BrowserItem</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20 · Command -->
+      <div class="card" data-layer="features">
+        <div class="card-top">
+          <h3 class="card-name">Command</h3>
+          <div class="card-layer">
+            <span class="card-layer-dot features"></span>
+            <span class="card-layer-label features">features</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          A command palette for power-user keyboard-driven navigation. Features fuzzy search, grouped results, keyboard shortcuts display, and dialog mode. Inspired by VS Code and Spotlight.
+        </p>
+        <div class="card-meta">
+          <span class="card-meta-item">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            198 lines
+          </span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-exports">
+            <span class="export-tag">Command</span>
+            <span class="export-tag">CommandDialog</span>
+            <span class="export-tag">CommandInput</span>
+            <span class="export-tag">CommandList</span>
+            <span class="export-tag">CommandGroup</span>
+            <span class="export-tag">CommandItem</span>
+            <span class="export-tag">CommandSeparator</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /card-grid -->
+  </main>
+
+</div><!-- /app -->
+
+<!-- ═══════ Minimal Interactions ═══════ -->
+<script>
+  // Card selection toggle
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+    });
+  });
+
+  // Sidebar layer filtering
+  document.querySelectorAll('.layer-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.layer-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+
+      const layer = item.dataset.layer;
+      document.querySelectorAll('.card').forEach(card => {
+        if (layer === 'all' || card.dataset.layer === layer) {
+          card.style.display = '';
+          card.style.opacity = '0';
+          requestAnimationFrame(() => {
+            card.style.transition = 'opacity 0.3s ease';
+            card.style.opacity = '1';
+          });
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Tag cloud toggle
+  document.querySelectorAll('.tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      tag.classList.toggle('active');
+    });
+  });
+
+  // Sidebar search filter
+  document.querySelector('.search-box').addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+      const name = card.querySelector('.card-name').textContent.toLowerCase();
+      const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+      const match = name.includes(query) || desc.includes(query);
+      card.style.display = match ? '' : 'none';
+    });
+  });
+</script>
+
+</body>
+</html>
