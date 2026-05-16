@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI/UX Pro Max — Catalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   AURORA UI + GLASSMORPHISM
+   Сам стиль из каталога — страница демонстрирует себя
+   ═══════════════════════════════════════════ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep: #050510;
+  --bg-surface: rgba(255,255,255,0.04);
+  --bg-glass: rgba(255,255,255,0.06);
+  --bg-glass-hover: rgba(255,255,255,0.1);
+  --border-glass: rgba(255,255,255,0.08);
+  --border-glass-hover: rgba(255,255,255,0.18);
+  --text-primary: #F0F0FF;
+  --text-secondary: rgba(240,240,255,0.6);
+  --text-muted: rgba(240,240,255,0.35);
+  --accent-cyan: #00FFFF;
+  --accent-purple: #7B61FF;
+  --accent-pink: #FF00FF;
+  --accent-blue: #3B82F6;
+  --shadow-glow: 0 0 30px rgba(123,97,255,0.15);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══ AURORA BACKGROUND ═══ */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-bg .orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.35;
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+
+.aurora-bg .orb:nth-child(1) {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, #7B61FF, transparent 70%);
+  top: -10%; left: -5%;
+  animation-duration: 14s;
+}
+
+.aurora-bg .orb:nth-child(2) {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #00FFFF, transparent 70%);
+  top: 30%; right: -10%;
+  animation-duration: 18s;
+  animation-delay: -4s;
+}
+
+.aurora-bg .orb:nth-child(3) {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, #FF00FF, transparent 70%);
+  bottom: -5%; left: 30%;
+  animation-duration: 16s;
+  animation-delay: -8s;
+}
+
+.aurora-bg .orb:nth-child(4) {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #3B82F6, transparent 70%);
+  top: 60%; left: -8%;
+  animation-duration: 20s;
+  animation-delay: -2s;
+}
+
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(30px, -10px) scale(1.05); }
+}
+
+/* ═══ LAYOUT ═══ */
+.app-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ═══ HEADER ═══ */
+header {
+  padding: 32px 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(5,5,16,0.7);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: #000;
+}
+
+.logo-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: rgba(123,97,255,0.2);
+  color: var(--accent-purple);
+  border: 1px solid rgba(123,97,255,0.3);
+  letter-spacing: 0.05em;
+}
+
+/* Search */
+.search-box {
+  flex: 1;
+  max-width: 400px;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-glass);
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.search-box input:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px rgba(0,255,255,0.1);
+}
+
+.search-box input::placeholder { color: var(--text-muted); }
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Stats */
+.header-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.header-stats span { display: flex; align-items: center; gap: 6px; }
+.stat-dot { width: 6px; height: 6px; border-radius: 50%; }
+.stat-dot.styles { background: var(--accent-cyan); }
+.stat-dot.fonts { background: var(--accent-purple); }
+.stat-dot.colors { background: var(--accent-pink); }
+.stat-dot.ux { background: var(--accent-blue); }
+
+/* ═══ NAV TABS ═══ */
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 16px 0 8px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.nav-tab:hover {
+  background: var(--bg-glass);
+  color: var(--text-primary);
+}
+
+.nav-tab.active {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-glass-hover);
+  color: var(--text-primary);
+}
+
+.nav-tab .count {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(123,97,255,0.2);
+  color: var(--accent-purple);
+  margin-left: 6px;
+}
+
+/* ═══ SECTIONS ═══ */
+.section {
+  display: none;
+  padding: 32px 0 64px;
+  animation: fadeIn 400ms ease;
+}
+
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+/* ═══ GRID ═══ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══ GLASS CARD ═══ */
+.glass-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: var(--transition);
+  cursor: default;
+}
+
+.glass-card:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-glass-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+/* ═══ STYLE CARDS ═══ */
+.style-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.style-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.style-number {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.style-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(123,97,255,0.1);
+  color: rgba(200,200,255,0.7);
+  border: 1px solid rgba(123,97,255,0.15);
+}
+
+.style-colors {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.color-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.color-swatch:hover {
+  transform: scale(1.15);
+  z-index: 2;
+}
+
+.color-swatch .tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: 'Space Grotesk', monospace;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms;
+}
+
+.color-swatch:hover .tooltip { opacity: 1; }
+
+.style-best-for {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.style-best-for strong { color: var(--text-primary); font-weight: 500; }
+
+.style-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.meta-badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.meta-badge.perf { background: rgba(34,197,94,0.15); color: #22C55E; }
+.meta-badge.a11y { background: rgba(59,130,246,0.15); color: #3B82F6; }
+.meta-badge.mobile { background: rgba(168,85,247,0.15); color: #A855F7; }
+.meta-badge.convert { background: rgba(249,115,22,0.15); color: #F97316; }
+
+/* ═══ TYPOGRAPHY CARDS ═══ */
+.font-preview {
+  padding: 20px 0;
+  margin: 12px 0;
+  border-top: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.font-preview-heading {
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.font-preview-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.font-meta-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.font-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(0,255,255,0.08);
+  color: rgba(0,255,255,0.6);
+  border: 1px solid rgba(0,255,255,0.12);
+}
+
+/* ═══ COLOR PALETTE CARDS ═══ */
+.palette-card {
+  overflow: hidden;
+}
+
+.palette-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.palette-strip {
+  display: flex;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.palette-strip .swatch {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+  transition: flex 200ms ease;
+}
+
+.palette-strip .swatch:hover { flex: 2; }
+
+.palette-strip .swatch .tooltip {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-family: 'Space Grotesk', monospace;
+  opacity: 0;
+  transition: opacity 150ms;
+  white-space: nowrap;
+}
+
+.palette-strip .swatch:hover .tooltip { opacity: 1; }
+
+.palette-labels {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.palette-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  padding: 2px 6px;
+  background: var(--bg-glass);
+  border-radius: 4px;
+}
+
+.palette-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ═══ LANDING CARDS ═══ */
+.landing-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.flow-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(123,97,255,0.15);
+  color: var(--accent-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.landing-cta {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(249,115,22,0.12);
+  color: #F97316;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+/* ═══ UX GUIDELINES ═══ */
+.ux-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.ux-card {
+  padding: 20px;
+}
+
+.ux-category {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-cyan);
+  margin-bottom: 6px;
+}
+
+.ux-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.ux-do-dont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ux-do, .ux-dont {
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  line-height: 1.5;
+}
+
+.ux-do {
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.15);
+  color: rgba(34,197,94,0.85);
+}
+
+.ux-dont {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.15);
+  color: rgba(239,68,68,0.85);
+}
+
+.ux-severity {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.ux-severity.high { background: rgba(239,68,68,0.15); color: #EF4444; }
+.ux-severity.medium { background: rgba(249,115,22,0.15); color: #F97316; }
+.ux-severity.low { background: rgba(34,197,94,0.15); color: #22C55E; }
+
+/* ═══ HERO ═══ */
+.hero {
+  padding: 64px 0 32px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.hero h1 .gradient-text {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-stat-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ═══ FILTER BAR ═══ */
+.filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-btn:hover { background: var(--bg-glass); color: var(--text-primary); }
+
+.filter-btn.active {
+  background: rgba(123,97,255,0.15);
+  border-color: rgba(123,97,255,0.3);
+  color: var(--accent-purple);
+}
+
+/* ═══ NO RESULTS ═══ */
+.no-results {
+  text-align: center;
+  padding: 64px 0;
+  color: var(--text-muted);
+}
+
+.no-results .icon { font-size: 48px; margin-bottom: 16px; }
+.no-results p { font-size: 16px; }
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(123,97,255,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(123,97,255,0.5); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 640px) {
+  .header-inner { flex-direction: column; align-items: stretch; }
+  .search-box { max-width: 100%; }
+  .header-stats { justify-content: center; }
+  .hero h1 { font-size: 32px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .ux-do-dont { grid-template-columns: 1fr; }
+}
+
+/* ═══ COPY TOAST ═══ */
+.copy-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: rgba(123,97,255,0.9);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  transition: transform 300ms cubic-bezier(0.4,0,0.2,1);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.copy-toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- AURORA BACKGROUND -->
+<div class="aurora-bg">
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+</div>
+
+<div class="app-container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">UX</div>
+        <span class="logo-text">ui-ux-pro-max</span>
+        <span class="logo-badge">CATALOG</span>
+      </div>
+      <div class="search-box">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" id="searchInput" placeholder="Search styles, fonts, colors..." autocomplete="off">
+      </div>
+      <div class="header-stats">
+        <span><span class="stat-dot styles"></span>67 Styles</span>
+        <span><span class="stat-dot fonts"></span>56 Fonts</span>
+        <span><span class="stat-dot colors"></span>96 Palettes</span>
+        <span><span class="stat-dot ux"></span>98 UX Rules</span>
+      </div>
+    </div>
+
+    <!-- NAV TABS -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-section="hero">Home</button>
+      <button class="nav-tab" data-section="styles">Styles <span class="count">67</span></button>
+      <button class="nav-tab" data-section="typography">Typography <span class="count">56</span></button>
+      <button class="nav-tab" data-section="colors">Color Palettes <span class="count">96</span></button>
+      <button class="nav-tab" data-section="landing">Landing Patterns <span class="count">30</span></button>
+      <button class="nav-tab" data-section="ux">UX Guidelines <span class="count">98</span></button>
+    </nav>
+  </header>
+
+  <!-- ═══════════ HERO SECTION ═══════════ -->
+  <section class="section active" id="section-hero">
+    <div class="hero">
+      <h1>
+        Design Intelligence<br>
+        <span class="gradient-text">in Your Hands</span>
+      </h1>
+      <p>
+        Interactive catalog of the UI/UX Pro Max skill.
+        67 styles, 56 font pairs, 96 color palettes, 30 landing patterns, and 98 UX guidelines — all in one place.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">67</div>
+          <div class="hero-stat-label">UI Styles</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">56</div>
+          <div class="hero-stat-label">Font Pairs</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">96</div>
+          <div class="hero-stat-label">Color Palettes</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">30</div>
+          <div class="hero-stat-label">Landing Patterns</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">98</div>
+          <div class="hero-stat-label">UX Rules</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ STYLES SECTION ═══════════ -->
+  <section class="section" id="section-styles">
+    <h2 class="section-title">UI Styles</h2>
+    <p class="section-subtitle">67 design styles with colors, effects, and best-use recommendations</p>
+    <div class="filter-bar" id="styleFilters"></div>
+    <div class="card-grid" id="stylesGrid"></div>
+    <div class="no-results" id="stylesNoResults" style="display:none">
+      <div class="icon">&#128533;</div>
+      <p>No styles found. Try different keywords.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ TYPOGRAPHY SECTION ═══════════ -->
+  <section class="section" id="section-typography">
+    <h2 class="section-title">Typography Pairs</h2>
+    <p class="section-subtitle">56 curated font pairings with live preview and Google Fonts links</p>
+    <div class="filter-bar" id="typoFilters"></div>
+    <div class="card-grid" id="typoGrid"></div>
+  </section>
+
+  <!-- ═══════════ COLORS SECTION ═══════════ -->
+  <section class="section" id="section-colors">
+    <h2 class="section-title">Color Palettes</h2>
+    <p class="section-subtitle">96 ready-to-use palettes mapped to product types — click any swatch to copy hex</p>
+    <div class="filter-bar" id="colorFilters"></div>
+    <div class="card-grid" id="colorsGrid"></div>
+  </section>
+
+  <!-- ═══════════ LANDING SECTION ═══════════ -->
+  <section class="section" id="section-landing">
+    <h2 class="section-title">Landing Page Patterns</h2>
+    <p class="section-subtitle">30 proven page structures with section order, CTA placement, and conversion tips</p>
+    <div class="card-grid" id="landingGrid"></div>
+  </section>
+
+  <!-- ═══════════ UX GUIDELINES SECTION ═══════════ -->
+  <section class="section" id="section-ux">
+    <h2 class="section-title">UX Guidelines</h2>
+    <p class="section-subtitle">98 rules covering navigation, animation, accessibility, forms, and more</p>
+    <div class="filter-bar" id="uxFilters"></div>
+    <div class="ux-grid" id="uxGrid"></div>
+  </section>
+
+</div>
+
+<!-- COPY TOAST -->
+<div class="copy-toast" id="copyToast">Copied to clipboard!</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  DATA — встроенные данные из CSV навыка
+// ═══════════════════════════════════════════
+
+const STYLES = [
+  {n:"Minimalism & Swiss Style",tags:"Clean,simple,spacious,functional,white space,high contrast,geometric,sans-serif,grid-based",colors:["#000000","#FFFFFF","#F5F1E8","#808080","#B38B6D"],best:"Enterprise apps, dashboards, documentation sites, SaaS platforms, professional tools",perf:"Excellent",a11y:"WCAG AAA",mobile:"High",conv:"Medium",type:"General"},
+  {n:"Neumorphism",tags:"Soft UI,embossed,debossed,convex,concave,light source,subtle depth,rounded",colors:["#C8E0F4","#F5E0E8","#E8E8E8"],best:"Health/wellness apps, meditation platforms, fitness trackers",perf:"Good",a11y:"Low contrast",mobile:"Good",conv:"Medium",type:"General"},
+  {n:"Glassmorphism",tags:"Frosted glass,transparent,blurred background,layered,vibrant,depth,multi-layer",colors:["rgba(255,255,255,0.15)","#0080FF","#8B00FF","#FF1493","#20B2AA"],best:"Modern SaaS, financial dashboards, high-end corporate, lifestyle apps",perf:"Good",a11y:"4.5:1 ensure",mobile:"Good",conv:"High",type:"General"},
+  {n:"Brutalism",tags:"Raw,unpolished,stark,high contrast,plain text,default fonts,visible borders,asymmetric,anti-design",colors:["#FF0000","#0000FF","#FFFF00","#000000","#FFFFFF"],best:"Design portfolios, artistic projects, counter-culture brands, editorial/media",perf:"Excellent",a11y:"WCAG AAA",mobile:"Medium",conv:"Low",type:"General"},
+  {n:"3D & Hyperrealism",tags:"Depth,realistic textures,3D models,spatial navigation,tactile,skeuomorphic,rich detail,immersive",colors:["#001F3F","#228B22","#800020","#FFD700","#C0C0C0"],best:"Gaming, product showcase, immersive experiences, high-end e-commerce",perf:"Poor",a11y:"Not accessible",mobile:"Low",conv:"Medium",type:"General"},
+  {n:"Vibrant & Block-based",tags:"Bold,energetic,playful,block layout,geometric shapes,high color contrast,duotone,modern",colors:["#39FF14","#BF00FF","#FF1493","#00FFFF","#FFAA00"],best:"Startups, creative agencies, gaming, social media, youth-focused",perf:"Good",a11y:"Ensure WCAG",mobile:"High",conv:"High",type:"General"},
+  {n:"Dark Mode (OLED)",tags:"Dark theme,low light,high contrast,deep black,midnight blue,eye-friendly,OLED,night mode,power efficient",colors:["#000000","#121212","#0A0E27","#39FF14","#0080FF"],best:"Night-mode apps, coding platforms, entertainment, OLED devices",perf:"Excellent",a11y:"WCAG AAA",mobile:"High",conv:"Low",type:"General"},
+  {n:"Accessible & Ethical",tags:"High contrast,large text,keyboard navigation,screen reader,WCAG compliant,focus state,semantic",colors:["#1A1A2E","#16213E","#0F3460","#E94560"],best:"Government, healthcare, education, inclusive products, legal compliance",perf:"Excellent",a11y:"WCAG AAA",mobile:"High",conv:"High",type:"General"},
+  {n:"Claymorphism",tags:"Soft 3D,chunky,playful,toy-like,bubbly,thick borders,double shadows,rounded",colors:["#FDBCB4","#ADD8E6","#98FF98","#E6E6FA"],best:"Educational apps, children's apps, SaaS platforms, creative tools",perf:"Good",a11y:"Ensure 4.5:1",mobile:"High",conv:"High",type:"General"},
+  {n:"Aurora UI",tags:"Vibrant gradients,smooth blend,Northern Lights,mesh gradient,luminous,atmospheric,abstract",colors:["#0080FF","#FF1493","#00FFFF","#8B00FF"],best:"Modern SaaS, creative agencies, branding, music platforms, premium products",perf:"Good",a11y:"Text contrast",mobile:"Good",conv:"High",type:"General"},
+  {n:"Retro-Futurism",tags:"Vintage sci-fi,80s aesthetic,neon glow,geometric patterns,CRT scanlines,pixel art,cyberpunk,synthwave",colors:["#0080FF","#FF006E","#00FFFF","#1A1A2E","#5D34D0"],best:"Gaming, entertainment, music platforms, tech brands, cyberpunk",perf:"Moderate",a11y:"High contrast/strain",mobile:"Medium",conv:"Medium",type:"General"},
+  {n:"Flat Design",tags:"2D,minimalist,bold colors,no shadows,clean lines,simple shapes,typography-focused,modern,icon-heavy",colors:["#EF4444","#F97316","#3B82F6","#22C55E"],best:"Web apps, mobile apps, cross-platform, startup MVPs, SaaS, dashboards",perf:"Excellent",a11y:"WCAG AAA",mobile:"High",conv:"High",type:"General"},
+  {n:"Skeuomorphism",tags:"Realistic,texture,depth,3D appearance,real-world metaphors,shadows,gradients,tactile,detailed,material",colors:["#8B4513","#2F4F4F","#C0C0C0","#FFD700"],best:"Legacy apps, gaming, immersive storytelling, premium products, luxury",perf:"Poor",a11y:"Textures reduce readability",mobile:"Low",conv:"Medium",type:"General"},
+  {n:"Liquid Glass",tags:"Flowing glass,morphing,smooth transitions,fluid effects,translucent,animated blur,iridescent,chromatic aberration",colors:["#8B00FF","#0080FF","#FF1493","#00FFFF"],best:"Premium SaaS, high-end e-commerce, creative platforms, luxury portfolios",perf:"Moderate-Poor",a11y:"Text contrast",mobile:"Medium",conv:"High",type:"General"},
+  {n:"Motion-Driven",tags:"Animation-heavy,microinteractions,smooth transitions,scroll effects,parallax,entrance anim,page transitions",colors:["#22C55E","#EF4444","#3B82F6","#F59E0B"],best:"Portfolio sites, storytelling platforms, interactive experiences, creative SaaS",perf:"Good",a11y:"Prefers-reduced-motion",mobile:"Good",conv:"High",type:"General"},
+  {n:"Micro-interactions",tags:"Small animations,gesture-based,tactile feedback,subtle animations,contextual interactions,responsive",colors:["#22C55E","#EF4444","#F59E0B","#6366F1"],best:"Mobile apps, touchscreen UIs, productivity tools, consumer apps",perf:"Excellent",a11y:"Good",mobile:"High",conv:"High",type:"General"},
+  {n:"Inclusive Design",tags:"Accessible,color-blind friendly,high contrast,haptic feedback,voice interaction,screen reader,WCAG AAA,universal",colors:["#0F172A","#1E3A8A","#059669"],best:"Public services, education, healthcare, finance, government",perf:"Excellent",a11y:"WCAG AAA",mobile:"High",conv:"High",type:"General"},
+  {n:"Zero Interface",tags:"Minimal visible UI,voice-first,gesture-based,AI-driven,invisible controls,predictive,context-aware,ambient",colors:["#FAFAFA","#F0F0F0","#F5F1E8"],best:"Voice assistants, AI platforms, smart home, contextual computing",perf:"Excellent",a11y:"Excellent",mobile:"High",conv:"High",type:"General"},
+  {n:"Soft UI Evolution",tags:"Evolved soft UI,better contrast,modern aesthetics,subtle depth,accessibility-focused,improved shadows,hybrid",colors:["#87CEEB","#FFB6C1","#90EE90"],best:"Modern enterprise apps, SaaS platforms, health/wellness, business tools",perf:"Excellent",a11y:"WCAG AA+",mobile:"High",conv:"High",type:"General"},
+];
+
+const TYPOGRAPHY = [
+  {n:"Classic Elegant",cat:"Serif + Sans",h:"Playfair Display",b:"Inter",mood:"elegant, luxury, sophisticated, timeless, premium, editorial",best:"Luxury brands, fashion, spa, beauty, editorial, magazines"},
+  {n:"Modern Professional",cat:"Sans + Sans",h:"Poppins",b:"Open Sans",mood:"modern, professional, clean, corporate, friendly, approachable",best:"SaaS, corporate sites, business apps, startups"},
+  {n:"Tech Startup",cat:"Sans + Sans",h:"Space Grotesk",b:"DM Sans",mood:"tech, startup, modern, innovative, bold, futuristic",best:"Tech companies, startups, SaaS, developer tools, AI products"},
+  {n:"Editorial Classic",cat:"Serif + Serif",h:"Cormorant Garamond",b:"Libre Baskerville",mood:"editorial, classic, literary, traditional, refined, bookish",best:"Publishing, blogs, news sites, literary magazines"},
+  {n:"Minimal Swiss",cat:"Sans + Sans",h:"Inter",b:"Inter",mood:"minimal, clean, swiss, functional, neutral, professional",best:"Dashboards, admin panels, documentation, enterprise apps"},
+  {n:"Playful Creative",cat:"Display + Sans",h:"Fredoka",b:"Nunito",mood:"playful, friendly, fun, creative, warm, approachable",best:"Children's apps, educational, gaming, creative tools"},
+  {n:"Bold Statement",cat:"Display + Sans",h:"Bebas Neue",b:"Source Sans 3",mood:"bold, impactful, strong, dramatic, modern, headlines",best:"Marketing sites, portfolios, agencies, event pages"},
+  {n:"Wellness Calm",cat:"Serif + Sans",h:"Lora",b:"Raleway",mood:"calm, wellness, health, relaxing, natural, organic",best:"Health apps, wellness, spa, meditation, yoga"},
+  {n:"Developer Mono",cat:"Mono + Sans",h:"JetBrains Mono",b:"IBM Plex Sans",mood:"code, developer, technical, precise, functional, hacker",best:"Developer tools, documentation, code editors, tech blogs"},
+  {n:"Retro Vintage",cat:"Display + Serif",h:"Abril Fatface",b:"Merriweather",mood:"retro, vintage, nostalgic, dramatic, decorative, bold",best:"Vintage brands, breweries, restaurants, creative portfolios"},
+  {n:"Geometric Modern",cat:"Sans + Sans",h:"Outfit",b:"Work Sans",mood:"geometric, modern, clean, balanced, contemporary, versatile",best:"General purpose, portfolios, agencies, modern brands"},
+  {n:"Luxury Serif",cat:"Serif + Sans",h:"Cormorant",b:"Montserrat",mood:"luxury, high-end, fashion, elegant, refined, premium",best:"Fashion brands, luxury e-commerce, jewelry"},
+  {n:"Friendly SaaS",cat:"Sans + Sans",h:"Plus Jakarta Sans",b:"Plus Jakarta Sans",mood:"friendly, modern, saas, clean, approachable, professional",best:"SaaS products, web apps, dashboards, B2B"},
+  {n:"Crypto/Web3",cat:"Sans + Sans",h:"Orbitron",b:"Exo 2",mood:"crypto, web3, futuristic, tech, blockchain, digital",best:"Crypto platforms, NFT, blockchain, web3"},
+  {n:"Gaming Bold",cat:"Display + Sans",h:"Russo One",b:"Chakra Petch",mood:"gaming, bold, action, esports, competitive, energetic",best:"Gaming, esports, action games, competitive sports"},
+  {n:"Fashion Forward",cat:"Sans + Sans",h:"Syne",b:"Manrope",mood:"fashion, avant-garde, creative, bold, artistic, edgy",best:"Fashion brands, creative agencies, art galleries"},
+  {n:"Dashboard Data",cat:"Mono + Sans",h:"Fira Code",b:"Fira Sans",mood:"dashboard, data, analytics, code, technical, precise",best:"Dashboards, analytics, data visualization, admin panels"},
+  {n:"Accessibility First",cat:"Sans + Sans",h:"Atkinson Hyperlegible",b:"Atkinson Hyperlegible",mood:"accessible, readable, inclusive, WCAG, dyslexia-friendly, clear",best:"Accessibility-critical sites, government, healthcare"},
+  {n:"Chinese Simplified",cat:"Sans + Sans",h:"Noto Sans SC",b:"Noto Sans SC",mood:"chinese, simplified, modern, professional, multilingual, readable",best:"Simplified Chinese sites, mainland China market, business apps"},
+  {n:"Japanese Elegant",cat:"Serif + Sans",h:"Noto Serif JP",b:"Noto Sans JP",mood:"japanese, elegant, traditional, modern, multilingual, readable",best:"Japanese sites, Japanese restaurants, cultural sites"},
+];
+
+const COLORS = [
+  {n:"SaaS (General)",p:"#2563EB",s:"#3B82F6",c:"#F97316",bg:"#F8FAFC",t:"#1E293B",note:"Trust blue + orange CTA contrast"},
+  {n:"Micro SaaS",p:"#6366F1",s:"#818CF8",c:"#10B981",bg:"#F5F3FF",t:"#1E1B4B",note:"Indigo primary + emerald CTA"},
+  {n:"E-commerce",p:"#059669",s:"#10B981",c:"#F97316",bg:"#ECFDF5",t:"#064E3B",note:"Success green + urgency orange"},
+  {n:"E-commerce Luxury",p:"#1C1917",s:"#44403C",c:"#CA8A04",bg:"#FAFAF9",t:"#0C0A09",note:"Premium dark + gold accent"},
+  {n:"Healthcare App",p:"#0891B2",s:"#22D3EE",c:"#059669",bg:"#ECFEFF",t:"#164E63",note:"Calm cyan + health green"},
+  {n:"Fintech/Crypto",p:"#F59E0B",s:"#FBBF24",c:"#8B5CF6",bg:"#0F172A",t:"#F8FAFC",note:"Gold trust + purple tech"},
+  {n:"Gaming",p:"#7C3AED",s:"#A78BFA",c:"#F43F5E",bg:"#0F0F23",t:"#E2E8F0",note:"Neon purple + rose action"},
+  {n:"AI/Chatbot Platform",p:"#7C3AED",s:"#A78BFA",c:"#06B6D4",bg:"#FAF5FF",t:"#1E1B4B",note:"AI purple + cyan interactions"},
+  {n:"Cybersecurity",p:"#00FF41",s:"#0D0D0D",c:"#FF3333",bg:"#000000",t:"#E0E0E0",note:"Matrix green + alert red"},
+  {n:"Quantum Computing",p:"#00FFFF",s:"#7B61FF",c:"#FF00FF",bg:"#050510",t:"#E0E0FF",note:"Quantum cyan + interference purple"},
+  {n:"Space Tech / Aerospace",p:"#F8FAFC",s:"#94A3B8",c:"#3B82F6",bg:"#0B0B10",t:"#F8FAFC",note:"Star white + launch blue"},
+  {n:"Fitness/Gym App",p:"#F97316",s:"#FB923C",c:"#22C55E",bg:"#1F2937",t:"#F8FAFC",note:"Energy orange + success green"},
+  {n:"Restaurant/Food",p:"#DC2626",s:"#F87171",c:"#CA8A04",bg:"#FEF2F2",t:"#450A0A",note:"Appetizing red + warm gold"},
+  {n:"Beauty/Spa/Wellness",p:"#EC4899",s:"#F9A8D4",c:"#8B5CF6",bg:"#FDF2F8",t:"#831843",note:"Soft pink + lavender luxury"},
+  {n:"Luxury/Premium Brand",p:"#1C1917",s:"#44403C",c:"#CA8A04",bg:"#FAFAF9",t:"#0C0A09",note:"Premium black + gold accent"},
+  {n:"Creative Agency",p:"#EC4899",s:"#F472B6",c:"#06B6D4",bg:"#FDF2F8",t:"#831843",note:"Bold pink + cyan accent"},
+  {n:"Photography Studio",p:"#18181B",s:"#27272A",c:"#F8FAFC",bg:"#000000",t:"#FAFAFA",note:"Pure black + white contrast"},
+  {n:"Coffee Shop",p:"#78350F",s:"#92400E",c:"#FBBF24",bg:"#FEF3C7",t:"#451A03",note:"Coffee brown + warm gold"},
+  {n:"Spatial / Vision OS",p:"#FFFFFF",s:"#E5E5E5",c:"#007AFF",bg:"#888888",t:"#000000",note:"Glass white + system blue"},
+  {n:"NFT/Web3 Platform",p:"#8B5CF6",s:"#A78BFA",c:"#FBBF24",bg:"#0F0F23",t:"#F8FAFC",note:"Purple tech + gold value"},
+];
+
+const LANDING = [
+  {n:"Hero + Features + CTA",sections:"Hero with headline/image,Value prop,Key features (3-5),CTA section,Footer",cta:"Hero (sticky) + Bottom",conv:"Deep CTA placement. Use contrasting color (at least 7:1 contrast ratio). Sticky navbar CTA."},
+  {n:"Hero + Testimonials + CTA",sections:"Hero,Problem statement,Solution overview,Testimonials carousel,CTA",cta:"Hero (sticky) + Post-testimonials",conv:"Social proof before CTA. Use 3-5 testimonials. Include photo + name + role."},
+  {n:"Product Demo + Features",sections:"Hero,Product video/mockup (center),Feature breakdown per section,Comparison (optional),CTA",cta:"Video center + CTA right/bottom",conv:"Embedded product demo increases engagement. Auto-play video muted."},
+  {n:"Minimal Single Column",sections:"Hero headline,Short description,Benefit bullets (3 max),CTA,Footer",cta:"Center, large CTA button",conv:"Single CTA focus. Large typography. Lots of whitespace. Mobile-first."},
+  {n:"Funnel (3-Step Conversion)",sections:"Hero,Step 1 (problem),Step 2 (solution),Step 3 (action),CTA progression",cta:"Each step: mini-CTA. Final: main CTA",conv:"Progressive disclosure. Show only essential info per step."},
+  {n:"Bento Grid Showcase",sections:"Hero,Bento Grid (Key Features),Detail Cards,Tech Specs,CTA",cta:"Floating Action Button or Bottom",conv:"Scannable value props. High information density without clutter."},
+  {n:"Scroll-Triggered Storytelling",sections:"Intro hook,Chapter 1 (problem),Chapter 2 (journey),Chapter 3 (solution),Climax CTA",cta:"End of each chapter + Final climax CTA",conv:"Narrative increases time-on-page 3x. Use progress indicator."},
+  {n:"Pricing Page + CTA",sections:"Hero (pricing headline),Price comparison cards,Feature comparison table,FAQ section,Final CTA",cta:"Each card: CTA button. Sticky CTA in nav",conv:"Recommend starter plan (pre-select). Show annual discount (20-30%)."},
+  {n:"Video-First Hero",sections:"Hero with video background,Key features overlay,Benefits section,CTA",cta:"Overlay on video + Bottom section",conv:"86% higher engagement with video. Add captions for accessibility."},
+  {n:"Interactive 3D Configurator",sections:"Hero (Configurator),Feature Highlight (synced),Price/Specs,Purchase",cta:"Inside Configurator UI + Sticky Bottom",conv:"Increases ownership feeling. 360 view reduces return rates."},
+];
+
+const UX_GUIDELINES = [
+  {cat:"Navigation",title:"Smooth Scroll",do:"Use scroll-behavior: smooth on html element",dont:"Jump directly without transition",sev:"High"},
+  {cat:"Navigation",title:"Sticky Navigation",do:"Add padding-top to body equal to nav height",dont:"Let nav overlap first section content",sev:"Medium"},
+  {cat:"Navigation",title:"Active State",do:"Highlight active nav item with color/underline",dont:"No visual feedback on current location",sev:"Medium"},
+  {cat:"Animation",title:"Excessive Motion",do:"Animate 1-2 key elements per view maximum",dont:"Animate everything that moves",sev:"High"},
+  {cat:"Animation",title:"Duration Timing",do:"Use 150-300ms for micro-interactions",dont:"Use animations longer than 500ms for UI",sev:"Medium"},
+  {cat:"Animation",title:"Reduced Motion",do:"Check prefers-reduced-motion media query",dont:"Ignore accessibility motion settings",sev:"High"},
+  {cat:"Animation",title:"Loading States",do:"Use skeleton screens or spinners",dont:"Leave UI frozen with no feedback",sev:"High"},
+  {cat:"Layout",title:"Z-Index Management",do:"Define z-index scale system (10 20 30 50)",dont:"Use arbitrary large z-index values",sev:"High"},
+  {cat:"Layout",title:"Content Jumping",do:"Reserve space for async content",dont:"Let images/content push layout around",sev:"High"},
+  {cat:"Layout",title:"Container Width",do:"Limit max-width for text content (65-75ch)",dont:"Let text span full viewport width",sev:"Medium"},
+  {cat:"Touch",title:"Touch Target Size",do:"Minimum 44x44px touch targets",dont:"Tiny clickable areas",sev:"High"},
+  {cat:"Interaction",title:"Focus States",do:"Use visible focus rings on interactive elements",dont:"Remove focus outline without replacement",sev:"High"},
+  {cat:"Interaction",title:"Loading Buttons",do:"Disable button and show loading state",dont:"Allow multiple clicks during processing",sev:"High"},
+  {cat:"Interaction",title:"Error Feedback",do:"Show clear error messages near problem",dont:"Silent failures with no feedback",sev:"High"},
+  {cat:"Accessibility",title:"Color Contrast",do:"Minimum 4.5:1 ratio for normal text",dont:"Low contrast text",sev:"High"},
+  {cat:"Accessibility",title:"Color Only",do:"Use icons/text in addition to color",dont:"Red/green only for error/success",sev:"High"},
+  {cat:"Accessibility",title:"ARIA Labels",do:"Add aria-label for icon-only buttons",dont:"Icon buttons without labels",sev:"High"},
+  {cat:"Accessibility",title:"Keyboard Navigation",do:"All functionality accessible via keyboard",dont:"Keyboard traps or illogical tab order",sev:"High"},
+  {cat:"Performance",title:"Image Optimization",do:"Use appropriate size and format (WebP)",dont:"Unoptimized full-size images",sev:"High"},
+  {cat:"Performance",title:"Font Loading",do:"Use font-display swap or optional",dont:"Invisible text during font load",sev:"Medium"},
+  {cat:"Forms",title:"Input Labels",do:"Always show label above or beside input",dont:"Placeholder as only label",sev:"High"},
+  {cat:"Forms",title:"Inline Validation",do:"Validate on blur for most fields",dont:"Validate only on submit",sev:"Medium"},
+  {cat:"Responsive",title:"Mobile First",do:"Start with mobile styles then add breakpoints",dont:"Desktop-first causing mobile issues",sev:"Medium"},
+  {cat:"Responsive",title:"Readable Font Size",do:"Minimum 16px body text on mobile",dont:"Tiny text on mobile",sev:"High"},
+  {cat:"Feedback",title:"Empty States",do:"Show helpful message and action",dont:"Blank empty screens",sev:"Medium"},
+  {cat:"Feedback",title:"Toast Notifications",do:"Auto-dismiss after 3-5 seconds",dont:"Toasts that never disappear",sev:"Medium"},
+  {cat:"Typography",title:"Line Height",do:"Use 1.5-1.75 for body text",dont:"Cramped or excessive line height",sev:"Medium"},
+  {cat:"Typography",title:"Line Length",do:"Limit to 65-75 characters per line",dont:"Full-width text on large screens",sev:"Medium"},
+];
+
+// ═══════════════════════════════════════════
+//  RENDER FUNCTIONS
+// ═══════════════════════════════════════════
+
+function renderStyles(data) {
+  const grid = document.getElementById('stylesGrid');
+  const noRes = document.getElementById('stylesNoResults');
+  if (!data.length) { grid.innerHTML = ''; noRes.style.display = 'block'; return; }
+  noRes.style.display = 'none';
+
+  grid.innerHTML = data.map((s, i) => `
+    <div class="glass-card">
+      <div class="style-header">
+        <div class="style-name">${s.n}</div>
+        <div class="style-number">#${i+1}</div>
+      </div>
+      <div class="style-tags">
+        ${s.tags.split(',').slice(0,5).map(t => `<span class="tag">${t.trim()}</span>`).join('')}
+      </div>
+      <div class="style-colors">
+        ${s.colors.map(c => `
+          <div class="color-swatch" style="background:${c}" onclick="copyColor('${c}')">
+            <span class="tooltip">${c}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="style-best-for">
+        <strong>Best for:</strong> ${s.best}
+      </div>
+      <div class="style-meta">
+        <span class="meta-badge perf">${s.perf}</span>
+        <span class="meta-badge a11y">${s.a11y}</span>
+        <span class="meta-badge mobile">${s.mobile}</span>
+        <span class="meta-badge convert">${s.conv}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTypography(data) {
+  const grid = document.getElementById('typoGrid');
+  grid.innerHTML = data.map(f => `
+    <div class="glass-card">
+      <div class="style-header">
+        <div class="style-name">${f.n}</div>
+        <div class="style-number">${f.cat}</div>
+      </div>
+      <div class="font-preview">
+        <div class="font-preview-heading" style="font-family:'${f.h}',sans-serif">
+          ${f.h}
+        </div>
+        <div class="font-preview-body" style="font-family:'${f.b}',sans-serif">
+          The quick brown fox jumps over the lazy dog. ${f.b} makes body text readable and pleasant.
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">
+        <strong style="color:var(--text-primary)">Best for:</strong> ${f.best}
+      </div>
+      <div class="font-meta-row">
+        ${f.mood.split(',').slice(0,4).map(m => `<span class="font-tag">${m.trim()}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderColors(data) {
+  const grid = document.getElementById('colorsGrid');
+  grid.innerHTML = data.map(c => `
+    <div class="glass-card palette-card">
+      <div class="palette-name">${c.n}</div>
+      <div class="palette-strip">
+        <div class="swatch" style="background:${c.p}" onclick="copyColor('${c.p}')"><span class="tooltip">Primary ${c.p}</span></div>
+        <div class="swatch" style="background:${c.s}" onclick="copyColor('${c.s}')"><span class="tooltip">Secondary ${c.s}</span></div>
+        <div class="swatch" style="background:${c.c}" onclick="copyColor('${c.c}')"><span class="tooltip">CTA ${c.c}</span></div>
+        <div class="swatch" style="background:${c.bg}" onclick="copyColor('${c.bg}')"><span class="tooltip">BG ${c.bg}</span></div>
+        <div class="swatch" style="background:${c.t}" onclick="copyColor('${c.t}')"><span class="tooltip">Text ${c.t}</span></div>
+      </div>
+      <div class="palette-labels">
+        <span class="palette-label">Primary</span>
+        <span class="palette-label">Secondary</span>
+        <span class="palette-label">CTA</span>
+        <span class="palette-label">Background</span>
+        <span class="palette-label">Text</span>
+      </div>
+      <div class="palette-note">${c.note}</div>
+    </div>
+  `).join('');
+}
+
+function renderLanding(data) {
+  const grid = document.getElementById('landingGrid');
+  grid.innerHTML = data.map(l => {
+    const steps = l.sections.split(',');
+    return `
+      <div class="glass-card">
+        <div class="style-header">
+          <div class="style-name">${l.n}</div>
+        </div>
+        <div class="landing-flow">
+          ${steps.map((s, i) => `
+            <div class="flow-step">
+              <span class="flow-step-num">${i+1}</span>
+              <span>${s.trim()}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="landing-cta">CTA: ${l.cta}</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.5;">
+          ${l.conv}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderUx(data) {
+  const grid = document.getElementById('uxGrid');
+  grid.innerHTML = data.map(u => `
+    <div class="glass-card ux-card">
+      <div class="ux-category">${u.cat}</div>
+      <div class="ux-title">${u.title}</div>
+      <div class="ux-do-dont">
+        <div class="ux-do">&#10003; ${u.do}</div>
+        <div class="ux-dont">&#10007; ${u.dont}</div>
+      </div>
+      <span class="ux-severity ${u.sev.toLowerCase()}">${u.sev}</span>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════
+//  FILTERS
+// ═══════════════════════════════════════════
+
+function buildFilters(containerId, items, key) {
+  const container = document.getElementById(containerId);
+  const cats = [...new Set(items.map(i => i[key]))].sort();
+  container.innerHTML = `<button class="filter-btn active" data-val="all">All</button>` +
+    cats.map(c => `<button class="filter-btn" data-val="${c}">${c}</button>`).join('');
+
+  container.addEventListener('click', e => {
+    if (!e.target.classList.contains('filter-btn')) return;
+    container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    const val = e.target.dataset.val;
+    if (containerId === 'styleFilters') {
+      renderStyles(val === 'all' ? STYLES : STYLES.filter(s => s.type === val));
+    } else if (containerId === 'typoFilters') {
+      renderTypography(val === 'all' ? TYPOGRAPHY : TYPOGRAPHY.filter(f => f.cat === val));
+    } else if (containerId === 'uxFilters') {
+      renderUx(val === 'all' ? UX_GUIDELINES : UX_GUIDELINES.filter(u => u.cat === val));
+    }
+  });
+}
+
+// ═══════════════════════════════════════════
+//  SEARCH
+// ═══════════════════════════════════════════
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  const activeSection = document.querySelector('.section.active');
+
+  if (!q) {
+    // Reset to current tab's full data
+    const activeTab = document.querySelector('.nav-tab.active').dataset.section;
+    if (activeTab === 'styles') renderStyles(STYLES);
+    else if (activeTab === 'typography') renderTypography(TYPOGRAPHY);
+    else if (activeTab === 'colors') renderColors(COLORS);
+    else if (activeTab === 'landing') renderLanding(LANDING);
+    else if (activeTab === 'ux') renderUx(UX_GUIDELINES);
+    return;
+  }
+
+  // Search across all data, auto-switch to best match
+  const styleMatches = STYLES.filter(s =>
+    s.n.toLowerCase().includes(q) || s.tags.toLowerCase().includes(q) || s.best.toLowerCase().includes(q)
+  );
+  const typoMatches = TYPOGRAPHY.filter(f =>
+    f.n.toLowerCase().includes(q) || f.mood.toLowerCase().includes(q) || f.best.toLowerCase().includes(q) || f.h.toLowerCase().includes(q) || f.b.toLowerCase().includes(q)
+  );
+  const colorMatches = COLORS.filter(c =>
+    c.n.toLowerCase().includes(q) || c.note.toLowerCase().includes(q) || c.p.toLowerCase().includes(q)
+  );
+  const uxMatches = UX_GUIDELINES.filter(u =>
+    u.cat.toLowerCase().includes(q) || u.title.toLowerCase().includes(q) || u.do.toLowerCase().includes(q) || u.dont.toLowerCase().includes(q)
+  );
+
+  // Find section with most matches
+  const counts = [
+    {section:'styles', count:styleMatches.length},
+    {section:'typography', count:typoMatches.length},
+    {section:'colors', count:colorMatches.length},
+    {section:'ux', count:uxMatches.length},
+  ].filter(c => c.count > 0).sort((a,b) => b.count - a.count);
+
+  if (counts.length) {
+    switchSection(counts[0].section);
+    if (counts[0].section === 'styles') renderStyles(styleMatches);
+    else if (counts[0].section === 'typography') renderTypography(typoMatches);
+    else if (counts[0].section === 'colors') renderColors(colorMatches);
+    else if (counts[0].section === 'ux') renderUx(uxMatches);
+  }
+});
+
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
+
+function switchSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+  const section = document.getElementById('section-' + name);
+  const tab = document.querySelector(`.nav-tab[data-section="${name}"]`);
+  if (section) section.classList.add('active');
+  if (tab) tab.classList.add('active');
+}
+
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const name = tab.dataset.section;
+    switchSection(name);
+    // Reset search
+    document.getElementById('searchInput').value = '';
+    // Re-render full data
+    if (name === 'styles') renderStyles(STYLES);
+    else if (name === 'typography') renderTypography(TYPOGRAPHY);
+    else if (name === 'colors') renderColors(COLORS);
+    else if (name === 'landing') renderLanding(LANDING);
+    else if (name === 'ux') renderUx(UX_GUIDELINES);
+  });
+});
+
+// ═══════════════════════════════════════════
+//  UTILITIES
+// ═══════════════════════════════════════════
+
+function copyColor(hex) {
+  navigator.clipboard.writeText(hex).then(() => {
+    const toast = document.getElementById('copyToast');
+    toast.textContent = `Copied ${hex}`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+
+buildFilters('styleFilters', STYLES, 'type');
+buildFilters('typoFilters', TYPOGRAPHY, 'cat');
+buildFilters('uxFilters', UX_GUIDELINES, 'cat');
+
+renderStyles(STYLES);
+renderTypography(TYPOGRAPHY);
+renderColors(COLORS);
+renderLanding(LANDING);
+renderUx(UX_GUIDELINES);
+
+// Color filter — search-based
+document.getElementById('colorFilters').innerHTML = '';
+</script>
+</body>
+</html>
