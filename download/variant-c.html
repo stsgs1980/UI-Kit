@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interface Studio — Layout Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & Tokens ──────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-deep: #0B0B0F;
+    --bg-base: #111114;
+    --bg-surface: #16161A;
+    --bg-elevated: #1C1C21;
+    --bg-hover: #1E1E23;
+    --text-primary: #EDEDEF;
+    --text-secondary: #C8C8CC;
+    --text-muted: #82828E;
+    --text-dim: #5A5A66;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.12);
+    --border-active: rgba(200,169,126,0.35);
+    --accent: #C8A97E;
+    --accent-dim: rgba(200,169,126,0.15);
+    --accent-glow: rgba(200,169,126,0.06);
+    --ui-layer: #10B981;
+    --sections-layer: #3B82F6;
+    --features-layer: #8B5CF6;
+    --sidebar-w: 220px;
+    --header-h: 44px;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  }
+
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.5;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── Animations ──────────────────────────────────── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── App Shell ───────────────────────────────────── */
+  .app {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    grid-template-rows: var(--header-h) 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ─────────────────────────────────────── */
+  .sidebar {
+    grid-row: 1 / -1;
+    background: var(--bg-base);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    animation: fadeIn 0.4s ease both;
+  }
+
+  .sidebar-head {
+    padding: 16px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-logo {
+    width: 24px; height: 24px;
+    border-radius: 2px;
+    background: linear-gradient(135deg, var(--accent), #9E8658);
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 13px;
+    color: var(--bg-deep);
+    flex-shrink: 0;
+  }
+
+  .sidebar-title {
+    font-weight: 600; font-size: 13px;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .sidebar-search {
+    padding: 12px 12px 8px;
+  }
+
+  .search-wrap { position: relative; }
+
+  .search-icon {
+    position: absolute; left: 10px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim); font-size: 13px;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 7px 10px 7px 32px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .search-input::placeholder { color: var(--text-dim); }
+  .search-input:focus {
+    border-color: var(--border-hover);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+  }
+
+  /* Sidebar sections */
+  .sb-section { padding: 8px 12px; }
+
+  .sb-label {
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    padding: 0 4px; margin-bottom: 6px;
+  }
+
+  .layer-list { list-style: none; display: flex; flex-direction: column; gap: 1px; }
+
+  .layer-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 8px; border-radius: 2px;
+    cursor: pointer; font-size: 12px;
+    color: var(--text-secondary);
+    transition: background 0.12s, color 0.12s;
+    user-select: none;
+  }
+
+  .layer-item:hover { background: var(--bg-hover); }
+  .layer-item.active { background: var(--accent-dim); color: var(--text-primary); }
+
+  .layer-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .layer-count {
+    margin-left: auto;
+    font-size: 10px; color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Tags */
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 2px; }
+
+  .tag {
+    font-size: 10px; padding: 3px 8px;
+    border-radius: 100px;
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    cursor: pointer; transition: all 0.12s;
+    user-select: none;
+  }
+
+  .tag:hover { color: var(--text-secondary); border-color: var(--border); }
+  .tag.active { color: var(--accent); border-color: rgba(200,169,126,0.2); background: var(--accent-dim); }
+
+  /* Sidebar footer */
+  .sb-footer {
+    margin-top: auto;
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 10px; color: var(--text-dim);
+  }
+
+  /* ── Header Bar ──────────────────────────────────── */
+  .header-bar {
+    background: var(--bg-base);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 24px; gap: 6px;
+    animation: fadeIn 0.35s ease 0.05s both;
+  }
+
+  .bc-sep { color: var(--text-dim); font-size: 11px; }
+
+  .bc-item {
+    font-size: 12px; color: var(--text-muted);
+    cursor: pointer; transition: color 0.12s;
+    text-decoration: none;
+  }
+
+  .bc-item:hover { color: var(--text-secondary); }
+
+  .bc-item.current { color: var(--text-primary); font-weight: 500; cursor: default; }
+
+  .bc-scope {
+    font-family: var(--font-mono);
+    font-size: 12px; color: var(--accent);
+    font-weight: 500;
+  }
+
+  .bc-right {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 14px;
+  }
+
+  .bc-stat {
+    font-size: 10px; color: var(--text-dim);
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  .bc-stat strong { color: var(--text-muted); font-weight: 600; }
+
+  /* ── Main Content ────────────────────────────────── */
+  .main {
+    background: var(--bg-deep);
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  /* Page header — compact but premium */
+  .page-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.4s ease 0.08s both;
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .page-desc {
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .page-desc span { color: var(--accent); }
+
+  /* ── Card Grid ───────────────────────────────────── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  /* ── Component Card ──────────────────────────────── */
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    animation: fadeIn 0.35s ease both;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transform: translateY(-1px);
+  }
+
+  .card:hover .card-preview-overlay { opacity: 1; }
+  .card:hover .card-exports { opacity: 1; transform: translateY(0); }
+
+  .card.selected {
+    border-color: var(--border-active);
+    box-shadow: 0 0 0 1px rgba(200,169,126,0.06), 0 4px 24px rgba(200,169,126,0.08);
+  }
+
+  /* Left accent line — layer color */
+  .card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .card:hover::before { opacity: 1; }
+  .card[data-layer="ui"]::before      { background: var(--ui-layer); }
+  .card[data-layer="sections"]::before { background: var(--sections-layer); }
+  .card[data-layer="features"]::before { background: var(--features-layer); }
+
+  /* ── Preview Area ────────────────────────────────── */
+  .card-preview {
+    position: relative;
+    height: 148px;
+    background: var(--bg-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Subtle grid pattern background */
+  .card-preview::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.5;
+  }
+
+  /* Gradient overlay at bottom of preview */
+  .card-preview::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(transparent, var(--bg-surface));
+    pointer-events: none;
+  }
+
+  /* Component icon in preview */
+  .preview-icon {
+    position: relative;
+    z-index: 1;
+    opacity: 0.25;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .card:hover .preview-icon { opacity: 0.4; transform: scale(1.05); }
+
+  /* Hover overlay — shows exports */
+  .card-preview-overlay {
+    position: absolute; inset: 0;
+    background: rgba(11,11,15,0.7);
+    backdrop-filter: blur(4px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 2;
+  }
+
+  .overlay-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  .card-exports {
+    display: flex; flex-wrap: wrap;
+    gap: 4px; justify-content: center;
+    max-width: 200px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s 0.05s, transform 0.2s 0.05s;
+  }
+
+  .export-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-secondary);
+    background: rgba(255,255,255,0.06);
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ── Card Info ───────────────────────────────────── */
+  .card-info {
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-name {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-badge {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 10px; font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  .card-badge-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+  }
+
+  .card-badge-label { opacity: 0.6; }
+
+  .card-badge.ui       .card-badge-dot { background: var(--ui-layer); }
+  .card-badge.ui       .card-badge-label { color: var(--ui-layer); }
+  .card-badge.sections .card-badge-dot { background: var(--sections-layer); }
+  .card-badge.sections .card-badge-label { color: var(--sections-layer); }
+  .card-badge.features .card-badge-dot { background: var(--features-layer); }
+  .card-badge.features .card-badge-label { color: var(--features-layer); }
+
+  /* ── Stagger Delays ──────────────────────────────── */
+  .card:nth-child(1)  { animation-delay: 0.04s; }
+  .card:nth-child(2)  { animation-delay: 0.07s; }
+  .card:nth-child(3)  { animation-delay: 0.10s; }
+  .card:nth-child(4)  { animation-delay: 0.13s; }
+  .card:nth-child(5)  { animation-delay: 0.16s; }
+  .card:nth-child(6)  { animation-delay: 0.19s; }
+  .card:nth-child(7)  { animation-delay: 0.22s; }
+  .card:nth-child(8)  { animation-delay: 0.25s; }
+  .card:nth-child(9)  { animation-delay: 0.28s; }
+  .card:nth-child(10) { animation-delay: 0.31s; }
+  .card:nth-child(11) { animation-delay: 0.34s; }
+  .card:nth-child(12) { animation-delay: 0.37s; }
+  .card:nth-child(13) { animation-delay: 0.40s; }
+  .card:nth-child(14) { animation-delay: 0.43s; }
+  .card:nth-child(15) { animation-delay: 0.46s; }
+  .card:nth-child(16) { animation-delay: 0.49s; }
+  .card:nth-child(17) { animation-delay: 0.52s; }
+  .card:nth-child(18) { animation-delay: 0.55s; }
+  .card:nth-child(19) { animation-delay: 0.58s; }
+  .card:nth-child(20) { animation-delay: 0.61s; }
+  .card:nth-child(n+21) { animation-delay: 0.64s; }
+
+  /* ── Scrollbar ───────────────────────────────────── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.1); }
+
+  /* ── Selection ───────────────────────────────────── */
+  ::selection { background: rgba(200,169,126,0.18); color: var(--text-primary); }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══════ Sidebar ═══════ -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-logo">I</div>
+      <div class="sidebar-title">Interface Studio</div>
+    </div>
+
+    <div class="sidebar-search">
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </span>
+        <input class="search-input" type="text" placeholder="Filter components…" spellcheck="false">
+      </div>
+    </div>
+
+    <!-- Layers -->
+    <div class="sb-section">
+      <div class="sb-label">Layers</div>
+      <ul class="layer-list">
+        <li class="layer-item active">
+          <span class="layer-dot" style="background: var(--text-dim);"></span>
+          <span>All</span>
+          <span class="layer-count">87</span>
+        </li>
+        <li class="layer-item">
+          <span class="layer-dot" style="background: var(--ui-layer);"></span>
+          <span>ui</span>
+          <span class="layer-count">62</span>
+        </li>
+        <li class="layer-item">
+          <span class="layer-dot" style="background: var(--sections-layer);"></span>
+          <span>sections</span>
+          <span class="layer-count">15</span>
+        </li>
+        <li class="layer-item">
+          <span class="layer-dot" style="background: var(--features-layer);"></span>
+          <span>features</span>
+          <span class="layer-count">10</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Categories -->
+    <div class="sb-section">
+      <div class="sb-label">Categories</div>
+      <div class="tag-cloud">
+        <span class="tag active">Interactive</span>
+        <span class="tag">Layout</span>
+        <span class="tag">Form</span>
+        <span class="tag">Navigation</span>
+        <span class="tag">Data Display</span>
+        <span class="tag">Overlay</span>
+        <span class="tag">Typography</span>
+        <span class="tag">Media</span>
+      </div>
+    </div>
+
+    <div class="sb-footer">v2.4.0 · 87 components · MIT</div>
+  </aside>
+
+  <!-- ═══════ Header Bar ═══════ -->
+  <nav class="header-bar">
+    <a class="bc-item" href="#">Library</a>
+    <span class="bc-sep">/</span>
+    <a class="bc-item" href="#">Packages</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-scope">@stsgs/ui</span>
+    <span class="bc-sep">/</span>
+    <span class="bc-item current">Components</span>
+
+    <div class="bc-right">
+      <div class="bc-stat">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+        <strong>20</strong> shown
+      </div>
+      <div class="bc-stat">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+        <strong>87</strong> total
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════ Main Content ═══════ -->
+  <main class="main">
+    <div class="page-head">
+      <h1 class="page-title">Components</h1>
+      <p class="page-desc">
+        Composable primitives for <span>clarity</span>, built for <span>extensibility</span>.
+      </p>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- 1 · Accordion -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="8" y="8" width="40" height="8" rx="2"/>
+            <rect x="8" y="20" width="40" height="8" rx="2"/>
+            <rect x="8" y="32" width="40" height="8" rx="2"/>
+            <path d="M12 12l4 4-4 4M20 16h16" stroke-width="1.2"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Accordion</span>
+              <span class="export-chip">AccordionItem</span>
+              <span class="export-chip">AccordionTrigger</span>
+              <span class="export-chip">AccordionContent</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">accordion</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 2 · Alert -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="8" y="10" width="40" height="32" rx="2"/>
+            <circle cx="18" cy="26" r="2.5" fill="currentColor" stroke="none"/>
+            <path d="M18 32v1" stroke-width="2"/>
+            <line x1="26" y1="20" x2="42" y2="20"/>
+            <line x1="26" y1="26" x2="40" y2="26"/>
+            <line x1="26" y1="32" x2="38" y2="32"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Alert</span>
+              <span class="export-chip">AlertTitle</span>
+              <span class="export-chip">AlertDescription</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">alert</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 3 · Alert Dialog -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="6" y="10" width="44" height="36" rx="2"/>
+            <path d="M18 32h20"/>
+            <rect x="10" y="16" width="36" height="12" rx="1" stroke-dasharray="2 2"/>
+            <text x="28" y="24" text-anchor="middle" fill="currentColor" font-size="7" font-family="sans-serif" stroke="none" opacity="0.5">Are you sure?</text>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">AlertDialog</span>
+              <span class="export-chip">AlertDialogTrigger</span>
+              <span class="export-chip">AlertDialogContent</span>
+              <span class="export-chip">AlertDialogAction</span>
+              <span class="export-chip">AlertDialogCancel</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">alert-dialog</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 4 · Avatar -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <circle cx="22" cy="22" r="10"/>
+            <circle cx="36" cy="22" r="10"/>
+            <circle cx="36" cy="22" r="4" fill="currentColor" stroke="none" opacity="0.3"/>
+            <circle cx="22" cy="22" r="4" fill="currentColor" stroke="none" opacity="0.3"/>
+            <circle cx="38" cy="20" r="2" fill="var(--ui-layer)" stroke="none"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Avatar</span>
+              <span class="export-chip">AvatarImage</span>
+              <span class="export-chip">AvatarFallback</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">avatar</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 5 · Badge -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="8" y="20" width="18" height="16" rx="8"/>
+            <rect x="30" y="20" width="18" height="16" rx="8"/>
+            <rect x="8" y="20" width="18" height="16" rx="8" fill="currentColor" stroke="none" opacity="0.15"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Badge</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">badge</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 6 · Bento Grid -->
+      <div class="card" data-layer="sections">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="8" y="8" width="22" height="22" rx="2"/>
+            <rect x="34" y="8" width="14" height="10" rx="2"/>
+            <rect x="34" y="22" width="14" height="8" rx="2"/>
+            <rect x="8" y="34" width="14" height="14" rx="2"/>
+            <rect x="26" y="34" width="22" height="14" rx="2"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">BentoGrid</span>
+              <span class="export-chip">BentoItem</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">bento-grid</span>
+          <span class="card-badge sections"><span class="card-badge-dot"></span><span class="card-badge-label">sections</span></span>
+        </div>
+      </div>
+
+      <!-- 7 · Breadcrumb -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <path d="M8 28h4l6-8 6 16 6-12 6 8h12"/>
+            <circle cx="8" cy="28" r="2.5" fill="currentColor" stroke="none"/>
+            <circle cx="48" cy="32" r="2.5" fill="currentColor" stroke="none"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Breadcrumb</span>
+              <span class="export-chip">BreadcrumbItem</span>
+              <span class="export-chip">BreadcrumbSeparator</span>
+              <span class="export-chip">BreadcrumbEllipsis</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">breadcrumb</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 8 · Button -->
+      <div class="card selected" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="8" y="16" width="18" height="24" rx="2"/>
+            <rect x="30" y="16" width="18" height="24" rx="2" stroke-dasharray="3 2"/>
+            <rect x="8" y="16" width="18" height="24" rx="2" fill="var(--accent)" stroke="none" opacity="0.15"/>
+            <rect x="8" y="16" width="18" height="24" rx="2" stroke="var(--accent)" opacity="0.5"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Button</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">button</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 9 · Calendar -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="8" y="12" width="40" height="36" rx="2"/>
+            <line x1="8" y1="22" x2="48" y2="22"/>
+            <line x1="16" y1="8" x2="16" y2="14"/>
+            <line x1="40" y1="8" x2="40" y2="14"/>
+            <circle cx="20" cy="30" r="2" fill="currentColor" stroke="none"/>
+            <circle cx="28" cy="30" r="2" fill="var(--accent)" stroke="none"/>
+            <circle cx="36" cy="30" r="2" fill="currentColor" stroke="none"/>
+            <circle cx="20" cy="38" r="2" fill="currentColor" stroke="none"/>
+            <circle cx="28" cy="38" r="2" fill="currentColor" stroke="none"/>
+            <circle cx="36" cy="38" r="2" fill="currentColor" stroke="none"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Calendar</span>
+              <span class="export-chip">CalendarHeader</span>
+              <span class="export-chip">CalendarGrid</span>
+              <span class="export-chip">CalendarDay</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">calendar</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 10 · Card -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="8" y="8" width="40" height="40" rx="2"/>
+            <line x1="14" y1="18" x2="30" y2="18"/>
+            <line x1="14" y1="24" x2="42" y2="24"/>
+            <line x1="14" y1="30" x2="36" y2="30"/>
+            <line x1="14" y1="36" x2="32" y2="36"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Card</span>
+              <span class="export-chip">CardHeader</span>
+              <span class="export-chip">CardTitle</span>
+              <span class="export-chip">CardDescription</span>
+              <span class="export-chip">CardContent</span>
+              <span class="export-chip">CardFooter</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">card</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 11 · Carousel -->
+      <div class="card" data-layer="features">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="6" y="16" width="44" height="24" rx="2"/>
+            <rect x="12" y="20" width="18" height="16" rx="1" fill="currentColor" stroke="none" opacity="0.1"/>
+            <circle cx="28" cy="38" r="1.5" fill="var(--accent)" stroke="none"/>
+            <circle cx="24" cy="38" r="1.5" fill="currentColor" stroke="none" opacity="0.3"/>
+            <circle cx="32" cy="38" r="1.5" fill="currentColor" stroke="none" opacity="0.3"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Carousel</span>
+              <span class="export-chip">CarouselContent</span>
+              <span class="export-chip">CarouselItem</span>
+              <span class="export-chip">CarouselPrevious</span>
+              <span class="export-chip">CarouselNext</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">carousel</span>
+          <span class="card-badge features"><span class="card-badge-dot"></span><span class="card-badge-label">features</span></span>
+        </div>
+      </div>
+
+      <!-- 12 · Chart -->
+      <div class="card" data-layer="features">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <line x1="10" y1="44" x2="46" y2="44"/>
+            <line x1="10" y1="44" x2="10" y2="10"/>
+            <path d="M14 36 L22 28 L30 32 L38 18 L46 22" stroke="var(--accent)" stroke-width="2"/>
+            <path d="M14 36 L22 28 L30 32 L38 18 L46 22 L46 44 L14 44 Z" fill="var(--accent)" opacity="0.08"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">ChartContainer</span>
+              <span class="export-chip">ChartTooltip</span>
+              <span class="export-chip">ChartLegend</span>
+              <span class="export-chip">ChartTooltipContent</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">chart</span>
+          <span class="card-badge features"><span class="card-badge-dot"></span><span class="card-badge-label">features</span></span>
+        </div>
+      </div>
+
+      <!-- 13 · Checkbox -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="12" y="12" width="10" height="10" rx="2"/>
+            <rect x="12" y="26" width="10" height="10" rx="2"/>
+            <rect x="12" y="40" width="10" height="10" rx="2" opacity="0.4"/>
+            <path d="M14 17l2 2 4-4" stroke="var(--accent)" stroke-width="1.5"/>
+            <path d="M14 31l2 2 4-4" stroke="var(--accent)" stroke-width="1.5"/>
+            <line x1="28" y1="17" x2="44" y2="17"/>
+            <line x1="28" y1="31" x2="44" y2="31"/>
+            <line x1="28" y1="45" x2="44" y2="45" opacity="0.4"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Checkbox</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">checkbox</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 14 · Code Block -->
+      <div class="card" data-layer="features">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="6" y="10" width="44" height="36" rx="2"/>
+            <line x1="6" y1="20" x2="50" y2="20"/>
+            <circle cx="12" cy="15" r="2" fill="var(--accent)" stroke="none" opacity="0.6"/>
+            <circle cx="18" cy="15" r="2" fill="var(--ui-layer)" stroke="none" opacity="0.6"/>
+            <circle cx="24" cy="15" r="2" fill="var(--features-layer)" stroke="none" opacity="0.6"/>
+            <path d="M16 28l-4 4 4 4M24 28l4 4-4 4" stroke-width="1.2"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">CodeBlock</span>
+              <span class="export-chip">CodeBlockHeader</span>
+              <span class="export-chip">CodeBlockCopy</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">code-block</span>
+          <span class="card-badge features"><span class="card-badge-dot"></span><span class="card-badge-label">features</span></span>
+        </div>
+      </div>
+
+      <!-- 15 · Collapsible -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="8" y="8" width="40" height="14" rx="2"/>
+            <rect x="8" y="26" width="40" height="22" rx="2" stroke-dasharray="3 2"/>
+            <path d="M14 15h20M14 19h14" stroke-width="1"/>
+            <path d="M36 33l3 3-3 3" stroke-width="1.2"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Collapsible</span>
+              <span class="export-chip">CollapsibleTrigger</span>
+              <span class="export-chip">CollapsibleContent</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">collapsible</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 16 · Command -->
+      <div class="card" data-layer="features">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="6" y="10" width="44" height="36" rx="2"/>
+            <path d="M14 22h8M14 28h6M14 34h12" stroke-width="1"/>
+            <rect x="36" y="26" width="8" height="6" rx="1" fill="none"/>
+            <path d="M40 24v10" stroke-width="1"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Command</span>
+              <span class="export-chip">CommandDialog</span>
+              <span class="export-chip">CommandInput</span>
+              <span class="export-chip">CommandList</span>
+              <span class="export-chip">CommandItem</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">command</span>
+          <span class="card-badge features"><span class="card-badge-dot"></span><span class="card-badge-label">features</span></span>
+        </div>
+      </div>
+
+      <!-- 17 · Context Menu -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="10" y="8" width="32" height="40" rx="2"/>
+            <path d="M16 18h20M16 24h20M16 30h20M16 36h12" stroke-width="1"/>
+            <circle cx="40" cy="40" r="6" fill="var(--bg-elevated)" stroke="currentColor"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">ContextMenu</span>
+              <span class="export-chip">ContextMenuTrigger</span>
+              <span class="export-chip">ContextMenuContent</span>
+              <span class="export-chip">ContextMenuItem</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">context-menu</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 18 · Dialog -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="10" y="12" width="36" height="32" rx="2"/>
+            <line x1="10" y1="22" x2="46" y2="22"/>
+            <line x1="16" y1="17" x2="32" y2="17" stroke-width="1"/>
+            <path d="M22 32l4 4 8-8" stroke="var(--accent)" stroke-width="1.5"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Dialog</span>
+              <span class="export-chip">DialogTrigger</span>
+              <span class="export-chip">DialogContent</span>
+              <span class="export-chip">DialogHeader</span>
+              <span class="export-chip">DialogTitle</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">dialog</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 19 · Drawer -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="4" y="4" width="48" height="48" rx="2" opacity="0.2"/>
+            <rect x="30" y="4" width="22" height="48" rx="0" fill="var(--bg-surface)"/>
+            <line x1="30" y1="4" x2="30" y2="52"/>
+            <line x1="36" y1="16" x2="46" y2="16" stroke-width="1"/>
+            <line x1="36" y1="22" x2="46" y2="22" stroke-width="1"/>
+            <line x1="36" y1="28" x2="46" y2="28" stroke-width="1"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">Drawer</span>
+              <span class="export-chip">DrawerTrigger</span>
+              <span class="export-chip">DrawerContent</span>
+              <span class="export-chip">DrawerHeader</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">drawer</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+      <!-- 20 · Dropdown -->
+      <div class="card" data-layer="ui">
+        <div class="card-preview">
+          <svg class="preview-icon" width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" style="color:var(--text-secondary)">
+            <rect x="6" y="14" width="22" height="10" rx="2"/>
+            <path d="M12 19l5 3 5-3" stroke-width="1.2"/>
+            <rect x="6" y="30" width="22" height="18" rx="2"/>
+            <path d="M12 36h10M12 40h8M12 44h6" stroke-width="1"/>
+          </svg>
+          <div class="card-preview-overlay">
+            <span class="overlay-label">Exports</span>
+            <div class="card-exports">
+              <span class="export-chip">DropdownMenu</span>
+              <span class="export-chip">DropdownMenuTrigger</span>
+              <span class="export-chip">DropdownMenuContent</span>
+              <span class="export-chip">DropdownMenuItem</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">dropdown-menu</span>
+          <span class="card-badge ui"><span class="card-badge-dot"></span><span class="card-badge-label">ui</span></span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
