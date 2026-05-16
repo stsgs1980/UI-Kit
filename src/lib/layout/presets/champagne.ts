@@ -23,15 +23,15 @@ const champagne: PresetDefinition = {
     bgSurface: '#16161A',
     bgElevated: '#1E1E23',
 
-    textPrimary: '#EDEDEF',
-    textSecondary: '#C8C8CC',
-    textMuted: '#82828E',
-    textDim: '#8A8A96',
+    textPrimary: '#e5e5e5',
+    textSecondary: '#d4d4d4',
+    textMuted: '#a3a3a3',
+    textDim: '#737373',
 
     focusRing: '#C8A97E',
 
-    borderSubtle: 'rgba(255,255,255,0.08)',
-    borderDefault: 'rgba(255,255,255,0.1)',
+    borderSubtle: '#404040',
+    borderDefault: '#525252',
     borderBright: 'rgba(200,169,126,0.3)',
 
     accentPrimary: '#C8A97E',
@@ -40,27 +40,27 @@ const champagne: PresetDefinition = {
     accentAIGlow: '#9A846814',
 
     sidebarBg: '#0F0F13',
-    sidebarText: '#EDEDEF',
-    sidebarMuted: '#82828E',
+    sidebarText: '#e5e5e5',
+    sidebarMuted: '#a3a3a3',
     sidebarHover: '#16161A',
     sidebarBorder: 'rgba(200,169,126,0.08)',
 
     codeBg: '#0F0F13',
-    codeText: '#B0B0B8',
-    codeMuted: '#82828E',
+    codeText: '#d4d4d4',
+    codeMuted: '#a3a3a3',
     codeAccent: '#C8A97E',
 
-    cardBorder: 'rgba(255,255,255,0.08)',
+    cardBorder: '#404040',
     cardSelected: '#C8A97E',
     cardHover: '#16161A',
 
     cellBg: '#16161A',
     cellFeaturedBg: '#C8A97E10',
-    cellText: '#8A8A96',
+    cellText: '#a3a3a3',
     cellFeaturedText: '#C8A97E',
 
     textOnAccent: '#0B0B0F',
-    bgOnAccent: '#EDEDEF',
+    bgOnAccent: '#e5e5e5',
 
     cardShadow: '0 4px 24px rgba(0,0,0,0.12)',
 
