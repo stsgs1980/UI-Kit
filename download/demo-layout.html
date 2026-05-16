@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interface Studio — Layout Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bgDeep: #0F1117;
+    --bgBase: #181B23;
+    --bgSurface: #1E212B;
+    --textPrimary: #F0ECE5;
+    --textSecondary: #9CA3AF;
+    --textMuted: #6B7280;
+    --textDim: #4B5563;
+    --borderSubtle: #2A2D37;
+    --accentPrimary: #10B981;
+    --cornerRadius: 8px;
+    --fontMono: 'JetBrains Mono', monospace;
+    --fontBody: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bgDeep);
+    color: var(--textPrimary);
+    font-family: var(--fontBody);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    height: 48px;
+    background: var(--bgBase);
+    border-bottom: 1px solid var(--borderSubtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: relative;
+    z-index: 100;
+  }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .topbar-logo {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--textPrimary);
+    letter-spacing: -0.02em;
+  }
+  .topbar-logo span { color: var(--accentPrimary); }
+  .topbar-badge {
+    font-family: var(--fontMono);
+    font-size: 10px;
+    color: var(--accentPrimary);
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.2);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toggle-group {
+    display: flex;
+    background: var(--bgSurface);
+    border: 1px solid var(--borderSubtle);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .toggle-btn {
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: var(--fontBody);
+    color: var(--textMuted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .toggle-btn:hover { color: var(--textSecondary); }
+  .toggle-btn.active {
+    background: var(--accentPrimary);
+    color: #fff;
+  }
+  .toggle-btn svg { width: 14px; height: 14px; }
+
+  .topbar-hint {
+    font-size: 11px;
+    color: var(--textDim);
+    margin-left: 8px;
+  }
+
+  /* ── App shell ── */
+  .app {
+    display: flex;
+    height: calc(100vh - 48px);
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: var(--bgDeep);
+    border-right: 1px solid var(--borderSubtle);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .sidebar-search {
+    padding: 12px;
+    border-bottom: 1px solid var(--borderSubtle);
+  }
+  .sidebar-search input {
+    width: 100%;
+    padding: 7px 10px 7px 32px;
+    background: var(--bgSurface);
+    border: 1px solid var(--borderSubtle);
+    border-radius: 6px;
+    color: var(--textPrimary);
+    font-family: var(--fontBody);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .sidebar-search input::placeholder { color: var(--textDim); }
+  .sidebar-search input:focus { border-color: var(--accentPrimary); }
+  .sidebar-search-wrap {
+    position: relative;
+  }
+  .sidebar-search-icon {
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--textDim);
+    width: 14px;
+    height: 14px;
+  }
+
+  .sidebar-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+  .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+  .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+  .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--borderSubtle); border-radius: 4px; }
+
+  .sidebar-section {
+    margin-bottom: 4px;
+  }
+  .sidebar-section-header {
+    padding: 6px 16px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--textDim);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sidebar-section-header span {
+    font-family: var(--fontMono);
+    font-size: 10px;
+    color: var(--textDim);
+    font-weight: 400;
+  }
+
+  .layer-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 16px);
+    margin: 1px 8px;
+    padding: 6px 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: var(--textSecondary);
+    font-family: var(--fontBody);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+  }
+  .layer-btn:hover {
+    background: var(--bgSurface);
+    color: var(--textPrimary);
+  }
+  .layer-btn.active {
+    background: rgba(16,185,129,0.08);
+    border-color: rgba(16,185,129,0.15);
+    color: var(--accentPrimary);
+  }
+  .layer-btn-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .layer-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .layer-btn-count {
+    font-family: var(--fontMono);
+    font-size: 11px;
+    color: var(--textDim);
+    background: var(--bgSurface);
+    padding: 1px 6px;
+    border-radius: 999px;
+    min-width: 24px;
+    text-align: center;
+  }
+  .layer-btn.active .layer-btn-count {
+    background: rgba(16,185,129,0.15);
+    color: var(--accentPrimary);
+  }
+
+  .category-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 16px;
+    font-size: 12px;
+    color: var(--textMuted);
+    cursor: pointer;
+    transition: color 0.1s;
+  }
+  .category-item:hover { color: var(--textPrimary); }
+  .category-item-count {
+    font-family: var(--fontMono);
+    font-size: 10px;
+    color: var(--textDim);
+  }
+
+  .bestfor-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 16px;
+    font-size: 12px;
+    color: var(--textMuted);
+    cursor: pointer;
+    transition: color 0.1s;
+  }
+  .bestfor-item:hover { color: var(--textPrimary); }
+  .bestfor-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--textDim);
+  }
+
+  /* ── Main content ── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── Breadcrumb bar ── */
+  .breadcrumb-bar {
+    height: 40px;
+    min-height: 40px;
+    background: var(--bgBase);
+    border-bottom: 1px solid var(--borderSubtle);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 6px;
+  }
+  .breadcrumb-bar span {
+    font-family: var(--fontMono);
+    font-size: 13px;
+    color: var(--textMuted);
+  }
+  .breadcrumb-bar .bc-sep {
+    color: var(--textDim);
+    font-size: 11px;
+  }
+  .breadcrumb-bar .bc-current {
+    color: var(--textPrimary);
+    font-weight: 500;
+  }
+
+  /* ── Grid view (State 1) ── */
+  .grid-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .grid-area::-webkit-scrollbar { width: 6px; }
+  .grid-area::-webkit-scrollbar-track { background: transparent; }
+  .grid-area::-webkit-scrollbar-thumb { background: var(--borderSubtle); border-radius: 4px; }
+
+  .grid-area-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .grid-area-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--textPrimary);
+  }
+  .grid-area-subtitle {
+    font-size: 12px;
+    color: var(--textMuted);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--bgSurface);
+    border: 1px solid var(--borderSubtle);
+    border-radius: var(--cornerRadius);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.15s;
+  }
+  .card:hover {
+    border-color: rgba(16,185,129,0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .card:hover::before {
+    background: var(--accentPrimary);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .card-name {
+    font-family: var(--fontMono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--textPrimary);
+  }
+  .card-layer {
+    font-family: var(--fontMono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(99,102,241,0.12);
+    color: #818CF8;
+    border: 1px solid rgba(99,102,241,0.2);
+  }
+  .card-layer.layer-sections {
+    background: rgba(244,114,182,0.1);
+    color: #F472B6;
+    border-color: rgba(244,114,182,0.2);
+  }
+  .card-layer.layer-features {
+    background: rgba(251,191,36,0.1);
+    color: #FBBF24;
+    border-color: rgba(251,191,36,0.2);
+  }
+
+  .card-desc {
+    font-size: 12.5px;
+    color: var(--textSecondary);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 12px;
+    min-height: 38px;
+  }
+
+  .card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .card-badge {
+    font-family: var(--fontMono);
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--bgDeep);
+    color: var(--textDim);
+    border: 1px solid var(--borderSubtle);
+  }
+  .card-badge.highlight {
+    background: rgba(16,185,129,0.08);
+    color: var(--accentPrimary);
+    border-color: rgba(16,185,129,0.15);
+  }
+
+  /* ── Detail view (State 2) ── */
+  .detail-area {
+    flex: 1;
+    display: none;
+    overflow: hidden;
+  }
+  .detail-area.visible { display: flex; }
+  .grid-area.hidden { display: none; }
+
+  .contextual-bar {
+    width: 200px;
+    min-width: 200px;
+    background: var(--bgBase);
+    border-right: 1px solid var(--borderSubtle);
+    padding: 16px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .cb-header {
+    padding: 0 14px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--textDim);
+    margin-bottom: 8px;
+  }
+  .cb-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--textMuted);
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+  .cb-item:hover { color: var(--textPrimary); background: var(--bgSurface); }
+  .cb-item.active {
+    color: var(--accentPrimary);
+    background: rgba(16,185,129,0.06);
+  }
+  .cb-item-icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--textDim);
+  }
+  .cb-item.active .cb-item-icon { color: var(--accentPrimary); }
+
+  /* List panel */
+  .list-panel {
+    width: 210px;
+    min-width: 210px;
+    background: var(--bgDeep);
+    border-right: 1px solid var(--borderSubtle);
+    display: flex;
+    flex-direction: column;
+  }
+  .list-panel-header {
+    padding: 12px 14px 8px;
+  }
+  .list-panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--textMuted);
+    margin-bottom: 8px;
+  }
+  .list-filter {
+    width: 100%;
+    padding: 6px 8px;
+    background: var(--bgSurface);
+    border: 1px solid var(--borderSubtle);
+    border-radius: 5px;
+    color: var(--textPrimary);
+    font-family: var(--fontBody);
+    font-size: 12px;
+    outline: none;
+  }
+  .list-filter::placeholder { color: var(--textDim); }
+  .list-filter:focus { border-color: var(--accentPrimary); }
+
+  .list-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 8px;
+  }
+  .list-scroll::-webkit-scrollbar { width: 4px; }
+  .list-scroll::-webkit-scrollbar-thumb { background: var(--borderSubtle); border-radius: 4px; }
+
+  .list-item {
+    padding: 7px 10px;
+    font-family: var(--fontMono);
+    font-size: 12px;
+    color: var(--textMuted);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .list-item:hover { color: var(--textPrimary); background: var(--bgSurface); }
+  .list-item.active {
+    color: var(--accentPrimary);
+    background: rgba(16,185,129,0.08);
+  }
+  .list-item-variant {
+    font-size: 10px;
+    color: var(--textDim);
+  }
+
+  /* Preview panel */
+  .preview-panel {
+    flex: 1;
+    background: var(--bgBase);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .preview-panel-header {
+    height: 36px;
+    min-height: 36px;
+    background: var(--bgDeep);
+    border-bottom: 1px solid var(--borderSubtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+  .preview-panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--textMuted);
+  }
+  .preview-tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--bgSurface);
+    border-radius: 5px;
+    padding: 2px;
+  }
+  .preview-tab {
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--textDim);
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: var(--fontBody);
+    font-weight: 500;
+  }
+  .preview-tab.active {
+    background: var(--bgDeep);
+    color: var(--textPrimary);
+  }
+
+  .preview-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    overflow: auto;
+  }
+  .preview-mock {
+    background: var(--bgSurface);
+    border: 1px solid var(--borderSubtle);
+    border-radius: var(--cornerRadius);
+    padding: 48px 64px;
+    text-align: center;
+    position: relative;
+  }
+  .preview-mock-label {
+    font-family: var(--fontMono);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--textPrimary);
+    margin-bottom: 12px;
+  }
+  .preview-mock-sub {
+    font-size: 13px;
+    color: var(--textMuted);
+    margin-bottom: 32px;
+  }
+  .preview-mock-demo {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .mock-btn {
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--fontBody);
+    cursor: default;
+    border: none;
+  }
+  .mock-btn-primary {
+    background: var(--accentPrimary);
+    color: #fff;
+  }
+  .mock-btn-secondary {
+    background: var(--bgDeep);
+    color: var(--textPrimary);
+    border: 1px solid var(--borderSubtle);
+  }
+  .mock-btn-ghost {
+    background: transparent;
+    color: var(--textSecondary);
+    border: 1px solid var(--borderSubtle);
+  }
+  .mock-btn-destructive {
+    background: #DC2626;
+    color: #fff;
+  }
+  .mock-btn-outline {
+    background: transparent;
+    color: var(--accentPrimary);
+    border: 1px solid var(--accentPrimary);
+  }
+
+  /* Code panel */
+  .code-panel {
+    flex: 1;
+    background: var(--bgDeep);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .code-panel-header {
+    height: 36px;
+    min-height: 36px;
+    background: var(--bgBase);
+    border-bottom: 1px solid var(--borderSubtle);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+  }
+  .code-panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--textMuted);
+  }
+  .code-panel-tabs {
+    display: flex;
+    gap: 12px;
+  }
+  .code-tab {
+    font-size: 12px;
+    color: var(--textDim);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--fontMono);
+    padding: 0;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 8px;
+    margin-bottom: -8px;
+  }
+  .code-tab.active {
+    color: var(--textPrimary);
+    border-bottom-color: var(--accentPrimary);
+  }
+  .code-tab:hover { color: var(--textSecondary); }
+
+  .code-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .code-content::-webkit-scrollbar { width: 4px; }
+  .code-content::-webkit-scrollbar-thumb { background: var(--borderSubtle); border-radius: 4px; }
+
+  .code-block {
+    background: var(--bgSurface);
+    border: 1px solid var(--borderSubtle);
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-family: var(--fontMono);
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--textSecondary);
+    position: relative;
+    overflow-x: auto;
+  }
+  .code-block .kw { color: #C792EA; }
+  .code-block .str { color: #C3E88D; }
+  .code-block .fn { color: #82AAFF; }
+  .code-block .cm { color: var(--textDim); }
+  .code-block .var { color: #F0ECE5; }
+  .code-block .op { color: #89DDFF; }
+  .code-block .type { color: #FFCB6B; }
+  .code-copy {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-family: var(--fontBody);
+    color: var(--textDim);
+    background: var(--bgDeep);
+    border: 1px solid var(--borderSubtle);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .code-copy:hover { color: var(--textPrimary); border-color: var(--textMuted); }
+
+  .code-meta {
+    margin-bottom: 20px;
+  }
+  .code-meta-desc {
+    font-size: 13px;
+    color: var(--textSecondary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .code-meta-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .meta-badge {
+    font-family: var(--fontMono);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--bgSurface);
+    color: var(--textMuted);
+    border: 1px solid var(--borderSubtle);
+  }
+  .meta-badge.accent {
+    background: rgba(16,185,129,0.08);
+    color: var(--accentPrimary);
+    border-color: rgba(16,185,129,0.15);
+  }
+
+  .code-exports-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--textDim);
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+  .code-exports-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .export-chip {
+    font-family: var(--fontMono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--bgSurface);
+    color: var(--textSecondary);
+    border: 1px solid var(--borderSubtle);
+  }
+
+  /* ── State indicator ── */
+  .state-indicator {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bgSurface);
+    border: 1px solid var(--borderSubtle);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--textMuted);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .state-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accentPrimary);
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── Transitions ── */
+  .fade-in {
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TOP BAR ═══════════ -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">Interface<span>Studio</span></div>
+    <div class="topbar-badge">DEMO</div>
+  </div>
+  <div class="topbar-right">
+    <div class="toggle-group">
+      <button class="toggle-btn active" id="btnGrid" onclick="showGrid()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="1" width="5.5" height="5.5" rx="1"/><rect x="1" y="9.5" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="9.5" width="5.5" height="5.5" rx="1"/></svg>
+        All Components
+      </button>
+      <button class="toggle-btn" id="btnDetail" onclick="showDetail()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="10" height="14" rx="1"/><line x1="13" y1="4" x2="15" y2="4"/><line x1="13" y1="8" x2="15" y2="8"/><line x1="13" y1="12" x2="15" y2="12"/></svg>
+        Component Detail
+      </button>
+    </div>
+    <span class="topbar-hint">Click a card or toggle</span>
+  </div>
+</div>
+
+<!-- ═══════════ APP SHELL ═══════════ -->
+<div class="app">
+
+  <!-- ── LEFT SIDEBAR ── -->
+  <div class="sidebar">
+    <div class="sidebar-search">
+      <div class="sidebar-search-wrap">
+        <svg class="sidebar-search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
+        <input type="text" placeholder="Search components…">
+      </div>
+    </div>
+    <div class="sidebar-scroll">
+
+      <!-- LAYERS -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-header">Layers <span>87 total</span></div>
+        <button class="layer-btn active" onclick="selectLayer(this)">
+          <div class="layer-btn-left">
+            <div class="layer-dot" style="background:#818CF8"></div>
+            <span>ui/</span>
+          </div>
+          <span class="layer-btn-count">62</span>
+        </button>
+        <button class="layer-btn" onclick="selectLayer(this)">
+          <div class="layer-btn-left">
+            <div class="layer-dot" style="background:#F472B6"></div>
+            <span>sections/</span>
+          </div>
+          <span class="layer-btn-count">15</span>
+        </button>
+        <button class="layer-btn" onclick="selectLayer(this)">
+          <div class="layer-btn-left">
+            <div class="layer-dot" style="background:#FBBF24"></div>
+            <span>features/</span>
+          </div>
+          <span class="layer-btn-count">10</span>
+        </button>
+      </div>
+
+      <!-- CATEGORIES -->
+      <div class="sidebar-section" style="margin-top:12px">
+        <div class="sidebar-section-header">Categories</div>
+        <div class="category-item"><span>Classic</span><span class="category-item-count">10</span></div>
+        <div class="category-item"><span>Bento</span><span class="category-item-count">4</span></div>
+        <div class="category-item"><span>Artistic</span><span class="category-item-count">7</span></div>
+        <div class="category-item"><span>Math</span><span class="category-item-count">15</span></div>
+        <div class="category-item"><span>App</span><span class="category-item-count">2</span></div>
+        <div class="category-item"><span>Advanced</span><span class="category-item-count">13</span></div>
+      </div>
+
+      <!-- BEST FOR -->
+      <div class="sidebar-section" style="margin-top:12px">
+        <div class="sidebar-section-header">Best For</div>
+        <div class="bestfor-item"><div class="bestfor-dot"></div>Landing</div>
+        <div class="bestfor-item"><div class="bestfor-dot"></div>Dashboard</div>
+        <div class="bestfor-item"><div class="bestfor-dot"></div>Documentation</div>
+        <div class="bestfor-item"><div class="bestfor-dot"></div>E-commerce</div>
+        <div class="bestfor-item"><div class="bestfor-dot"></div>Portfolio</div>
+        <div class="bestfor-item"><div class="bestfor-dot"></div>SaaS</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+      <span>@stsgs</span><span class="bc-sep">/</span><span class="bc-current">ui</span>
+      <span style="margin-left:8px;font-family:var(--fontMono);font-size:12px;color:var(--textDim);background:var(--bgSurface);padding:2px 8px;border-radius:4px">62 components</span>
+    </div>
+
+    <!-- STATE 1: Grid View -->
+    <div class="grid-area" id="gridView">
+      <div class="grid-area-header">
+        <div class="grid-area-title">All Components</div>
+        <div class="grid-area-subtitle">ui/ — 62 components</div>
+      </div>
+      <div class="cards-grid" id="cardsGrid"></div>
+    </div>
+
+    <!-- STATE 2: Detail View -->
+    <div class="detail-area" id="detailView">
+      <!-- Contextual Bar -->
+      <div class="contextual-bar">
+        <div class="cb-header">Navigation</div>
+        <div class="cb-item active">
+          <div class="cb-item-icon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="1" width="5.5" height="5.5" rx="1"/><rect x="1" y="9.5" width="5.5" height="5.5" rx="1"/><rect x="9.5" y="9.5" width="5.5" height="5.5" rx="1"/></svg>
+          </div>
+          All Components
+        </div>
+        <div class="cb-item">
+          <div class="cb-item-icon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
+          </div>
+          Documentation
+        </div>
+        <div class="cb-item">
+          <div class="cb-item-icon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v12M2 8h12"/></svg>
+          </div>
+          Playground
+        </div>
+        <div class="cb-item">
+          <div class="cb-item-icon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2l8 6-8 6V2z"/></svg>
+          </div>
+          Examples
+        </div>
+        <div style="flex:1"></div>
+        <div style="padding:8px 14px;border-top:1px solid var(--borderSubtle);margin-top:8px">
+          <div style="font-size:10px;color:var(--textDim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Context</div>
+          <div style="font-family:var(--fontMono);font-size:12px;color:var(--accentPrimary)">ui/</div>
+        </div>
+      </div>
+
+      <!-- List Panel -->
+      <div class="list-panel">
+        <div class="list-panel-header">
+          <div class="list-panel-title">Components</div>
+          <input type="text" class="list-filter" placeholder="Filter…">
+        </div>
+        <div class="list-scroll" id="listPanel"></div>
+      </div>
+
+      <!-- Preview Panel -->
+      <div class="preview-panel">
+        <div class="preview-panel-header">
+          <span class="preview-panel-title">Preview</span>
+          <div class="preview-tabs">
+            <button class="preview-tab active">Default</button>
+            <button class="preview-tab">Hover</button>
+            <button class="preview-tab">Focus</button>
+          </div>
+        </div>
+        <div class="preview-content" id="previewContent">
+          <div class="preview-mock">
+            <div class="preview-mock-label" id="previewLabel">button</div>
+            <div class="preview-mock-sub" id="previewSub">Interactive preview</div>
+            <div class="preview-mock-demo" id="previewDemo"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code Panel -->
+      <div class="code-panel">
+        <div class="code-panel-header">
+          <span class="code-panel-title">Source</span>
+          <div class="code-panel-tabs">
+            <button class="code-tab active">Usage</button>
+            <button class="code-tab">Props</button>
+            <button class="code-tab">Source</button>
+          </div>
+        </div>
+        <div class="code-content" id="codeContent"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- State Indicator -->
+<div class="state-indicator" id="stateIndicator">
+  <div class="state-dot"></div>
+  <span id="stateLabel">State 1: Grid View</span>
+</div>
+
+<script>
+// ── Component Data ──
+const components = [
+  { name: 'accordion', layer: 'ui', desc: 'Vertically stacked content sections with smooth expand/collapse animations and keyboard navigation.', badges: ['68 lines', 'ref: 3', 'cn()', '6 exports'], exports: ['Accordion', 'AccordionItem', 'AccordionTrigger', 'AccordionContent'] },
+  { name: 'alert', layer: 'ui', desc: 'Prominent banner for critical messages. Supports semantic variants: default, info, warning, error, and success.', badges: ['42 lines', 'ref: 12', 'cn()', '3 exports'], exports: ['Alert', 'AlertTitle', 'AlertDescription'] },
+  { name: 'alert-dialog', layer: 'ui', desc: 'Modal overlay demanding user confirmation. Blocks interaction with the rest of the application.', badges: ['54 lines', 'ref: 5', 'cn()', '5 exports'], exports: ['AlertDialog', 'AlertDialogTrigger', 'AlertDialogContent', 'AlertDialogHeader', 'AlertDialogFooter'] },
+  { name: 'aspect-ratio', layer: 'ui', desc: 'Maintains consistent width-to-height ratios for media embeds, images, and containers.', badges: ['18 lines', 'ref: 2', 'cn()', '1 export'], exports: ['AspectRatio'] },
+  { name: 'avatar', layer: 'ui', desc: 'User profile image with fallback initials. Supports sizes, status indicators, and group stacking.', badges: ['36 lines', 'ref: 8', 'cn()', '3 exports'], exports: ['Avatar', 'AvatarImage', 'AvatarFallback'] },
+  { name: 'badge', layer: 'ui', desc: 'Small status descriptors for UI elements. Includes solid, outline, and ghost style variants.', badges: ['28 lines', 'ref: 15', 'cn()', '1 export'], exports: ['Badge'] },
+  { name: 'bento-grid', layer: 'features', desc: 'Responsive masonry-style layout system inspired by Apple\'s design language. Perfect for feature showcases.', badges: ['92 lines', 'ref: 4', 'cn()', '4 exports'], exports: ['BentoGrid', 'BentoCard', 'BentoHeader', 'BentoContent'] },
+  { name: 'breadcrumb', layer: 'ui', desc: 'Navigation trail showing the current page location. Supports custom separators and collapsed states.', badges: ['32 lines', 'ref: 6', 'cn()', '4 exports'], exports: ['Breadcrumb', 'BreadcrumbList', 'BreadcrumbItem', 'BreadcrumbSeparator'] },
+  { name: 'button', layer: 'ui', desc: 'Primary interaction element with multiple variants, sizes, and icon slot support. Built on Radix primitives.', badges: ['56 lines', 'ref: 24', 'cn()', '2 exports'], exports: ['Button', 'buttonVariants'] },
+  { name: 'calendar', layer: 'ui', desc: 'Date picker grid with range selection, disabled dates, and localization support via date-fns.', badges: ['124 lines', 'ref: 9', 'cn()', '3 exports'], exports: ['Calendar', 'CalendarHeader', 'CalendarDay'] },
+  { name: 'card', layer: 'ui', desc: 'Flexible container with header, content, and footer slots. Foundation for most dashboard layouts.', badges: ['38 lines', 'ref: 20', 'cn()', '4 exports'], exports: ['Card', 'CardHeader', 'CardContent', 'CardFooter'] },
+  { name: 'carousel', layer: 'ui', desc: 'Touch-friendly image and content slider with auto-play, navigation dots, and keyboard controls.', badges: ['148 lines', 'ref: 7', 'cn()', '6 exports'], exports: ['Carousel', 'CarouselContent', 'CarouselItem', 'CarouselPrevious', 'CarouselNext', 'CarouselDots'] },
+  { name: 'chart', layer: 'features', desc: 'Recharts wrapper with pre-styled themes. Supports line, bar, area, and pie charts out of the box.', badges: ['96 lines', 'ref: 3', 'cn()', '5 exports'], exports: ['ChartContainer', 'ChartTooltip', 'ChartTooltipContent', 'ChartLegend', 'ChartLegendContent'] },
+  { name: 'checkbox', layer: 'ui', desc: 'Form control for binary selections with indeterminate state support and custom styling.', badges: ['24 lines', 'ref: 10', 'cn()', '2 exports'], exports: ['Checkbox', 'checkboxVariants'] },
+  { name: 'cluster', layer: 'features', desc: 'Dynamic group layout that distributes items evenly with configurable gaps and wrapping behavior.', badges: ['34 lines', 'ref: 2', 'cn()', '1 export'], exports: ['Cluster'] },
+  { name: 'code-block', layer: 'ui', desc: 'Syntax-highlighted code display with copy button, line numbers, and language detection via Shiki.', badges: ['78 lines', 'ref: 6', 'cn()', '3 exports'], exports: ['CodeBlock', 'CodeBlockHeader', 'CodeBlockCopy'] },
+  { name: 'collapsible', layer: 'ui', desc: 'Expandable content region with height animations. Simpler alternative to accordion for single items.', badges: ['22 lines', 'ref: 4', 'cn()', '2 exports'], exports: ['Collapsible', 'CollapsibleTrigger'] },
+  { name: 'color-picker-input', layer: 'ui', desc: 'Compact color selection widget with hex input, preset swatches, and HSL sliders.', badges: ['86 lines', 'ref: 1', 'cn()', '4 exports'], exports: ['ColorPicker', 'ColorPickerTrigger', 'ColorPickerContent', 'ColorPickerSwatch'] },
+  { name: 'column-browser', layer: 'features', desc: 'macOS Finder-style multi-column navigation for hierarchical data structures.', badges: ['112 lines', 'ref: 1', 'cn()', '5 exports'], exports: ['ColumnBrowser', 'Column', 'ColumnItem', 'ColumnHeader', 'ColumnBreadcrumb'] },
+  { name: 'command', layer: 'ui', desc: 'Command palette component with fuzzy search, keyboard shortcuts, and command grouping.', badges: ['72 lines', 'ref: 8', 'cn()', '5 exports'], exports: ['Command', 'CommandDialog', 'CommandInput', 'CommandList', 'CommandItem'] },
+];
+
+// ── Render Grid Cards ──
+function renderGrid() {
+  const grid = document.getElementById('cardsGrid');
+  grid.innerHTML = components.map((c, i) => {
+    const layerClass = c.layer === 'features' ? 'layer-features' : c.layer === 'sections' ? 'layer-sections' : '';
+    const layerLabel = c.layer === 'features' ? 'features' : 'ui';
+    const layerColor = c.layer === 'features' ? 'layer-features' : '';
+    const highlightBadge = c.badges.find(b => b.includes('cn()')) ? 'highlight' : '';
+    return `
+      <div class="card fade-in" style="animation-delay:${i * 25}ms" onclick="showDetail('${c.name}')">
+        <div class="card-top">
+          <span class="card-name">${c.name}</span>
+          <span class="card-layer ${layerClass}">${layerLabel}</span>
+        </div>
+        <div class="card-desc">${c.desc}</div>
+        <div class="card-badges">
+          ${c.badges.map(b => `<span class="card-badge ${b.includes('cn()') ? 'highlight' : ''}">${b}</span>`).join('')}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Render Detail List ──
+function renderList(activeName) {
+  const list = document.getElementById('listPanel');
+  list.innerHTML = components.map(c => {
+    const variants = c.exports.length > 1 ? `${c.exports.length}` : '';
+    return `<div class="list-item ${c.name === activeName ? 'active' : ''}" onclick="selectDetail('${c.name}')">
+      <span>${c.name}</span>
+      ${variants ? `<span class="list-item-variant">${variants}</span>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ── Render Preview ──
+function renderPreview(name) {
+  const label = document.getElementById('previewLabel');
+  const sub = document.getElementById('previewSub');
+  const demo = document.getElementById('previewDemo');
+  label.textContent = name;
+
+  const comp = components.find(c => c.name === name);
+  sub.textContent = comp ? comp.desc.split('.')[0] + '.' : 'Interactive preview';
+
+  if (name === 'button') {
+    demo.innerHTML = `
+      <button class="mock-btn mock-btn-primary">Primary</button>
+      <button class="mock-btn mock-btn-secondary">Secondary</button>
+      <button class="mock-btn mock-btn-ghost">Ghost</button>
+      <button class="mock-btn mock-btn-destructive">Destructive</button>
+      <button class="mock-btn mock-btn-outline">Outline</button>`;
+  } else if (name === 'badge') {
+    demo.innerHTML = `
+      <span style="font-family:var(--fontBody);font-size:12px;padding:4px 12px;border-radius:999px;background:var(--accentPrimary);color:#fff">Default</span>
+      <span style="font-family:var(--fontBody);font-size:12px;padding:4px 12px;border-radius:999px;background:rgba(99,102,241,0.15);color:#818CF8">Secondary</span>
+      <span style="font-family:var(--fontBody);font-size:12px;padding:4px 12px;border-radius:999px;border:1px solid var(--borderSubtle);color:var(--textMuted)">Outline</span>
+      <span style="font-family:var(--fontBody);font-size:12px;padding:4px 12px;border-radius:999px;background:rgba(244,114,182,0.15);color:#F472B6">Destructive</span>`;
+  } else if (name === 'card') {
+    demo.innerHTML = `
+      <div style="background:var(--bgSurface);border:1px solid var(--borderSubtle);border-radius:var(--cornerRadius);width:280px;text-align:left">
+        <div style="padding:16px 16px 8px;font-weight:600;font-size:14px;color:var(--textPrimary)">Card Title</div>
+        <div style="padding:0 16px 16px;font-size:12px;color:var(--textSecondary)">Card description goes here with supporting text content.</div>
+        <div style="padding:8px 16px 16px;display:flex;gap:8px">
+          <span class="mock-btn mock-btn-primary" style="padding:5px 14px;font-size:12px">Action</span>
+          <span class="mock-btn mock-btn-ghost" style="padding:5px 14px;font-size:12px">Cancel</span>
+        </div>
+      </div>`;
+  } else if (name === 'alert') {
+    demo.innerHTML = `
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:var(--cornerRadius);padding:14px 18px;width:320px;text-align:left">
+        <div style="font-weight:600;font-size:13px;color:var(--accentPrimary);margin-bottom:4px">Heads up!</div>
+        <div style="font-size:12px;color:var(--textSecondary)">You can add components to your app using the CLI.</div>
+      </div>`;
+  } else if (name === 'accordion') {
+    demo.innerHTML = `
+      <div style="width:300px;text-align:left">
+        <div style="border-bottom:1px solid var(--borderSubtle);padding:12px 0;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:500;color:var(--textPrimary)">Is it accessible?</span>
+          <span style="color:var(--textMuted);font-size:16px">−</span>
+        </div>
+        <div style="padding:8px 0 14px;font-size:12px;color:var(--textSecondary);border-bottom:1px solid var(--borderSubtle)">Yes. It adheres to the WAI-ARIA design pattern.</div>
+        <div style="border-bottom:1px solid var(--borderSubtle);padding:12px 0;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:500;color:var(--textPrimary)">Is it styled?</span>
+          <span style="color:var(--textMuted);font-size:16px">+</span>
+        </div>
+        <div style="border-bottom:1px solid var(--borderSubtle);padding:12px 0;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:500;color:var(--textPrimary)">Is it animated?</span>
+          <span style="color:var(--textMuted);font-size:16px">+</span>
+        </div>
+      </div>`;
+  } else if (name === 'checkbox') {
+    demo.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--textPrimary);cursor:pointer">
+          <div style="width:16px;height:16px;border-radius:4px;background:var(--accentPrimary);display:flex;align-items:center;justify-content:center">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="1.5"><polyline points="2,5 4.5,7.5 8,3"/></svg>
+          </div>
+          Accept terms and conditions
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--textSecondary);cursor:pointer">
+          <div style="width:16px;height:16px;border-radius:4px;border:1.5px solid var(--borderSubtle)"></div>
+          Remember me
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--textMuted);cursor:pointer">
+          <div style="width:16px;height:16px;border-radius:4px;border:1.5px solid var(--borderSubtle);display:flex;align-items:center;justify-content:center">
+            <div style="width:8px;height:2px;background:var(--textMuted);border-radius:1px"></div>
+          </div>
+          Subscribe to newsletter
+        </label>
+      </div>`;
+  } else {
+    demo.innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="var(--textDim)" stroke-width="1.5">
+          <rect x="8" y="8" width="32" height="32" rx="4"/>
+          <path d="M16 24h16M24 16v16"/>
+        </svg>
+        <span style="font-family:var(--fontMono);font-size:12px;color:var(--textDim)">Interactive preview</span>
+        <span style="font-size:11px;color:var(--textDim)">Open in Playground for full editing</span>
+      </div>`;
+  }
+}
+
+// ── Render Code Panel ──
+function renderCode(name) {
+  const content = document.getElementById('codeContent');
+  const comp = components.find(c => c.name === name);
+  if (!comp) return;
+
+  const kebabToPascal = (s) => s.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('');
+
+  const mainExport = kebabToPascal(name);
+  const imports = comp.exports.slice(0, 3).join(', ');
+  const moreImports = comp.exports.length > 3 ? `, ${comp.exports.slice(3).join(', ')}` : '';
+
+  content.innerHTML = `
+    <div class="code-meta">
+      <div class="code-meta-desc">${comp.desc}</div>
+      <div class="code-meta-badges">
+        ${comp.badges.map(b => `<span class="meta-badge ${b.includes('cn()') ? 'accent' : ''}">${b}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="code-block">
+      <button class="code-copy">Copy</button>
+<span class="kw">import</span> { ${imports} } <span class="kw">from</span> <span class="str">"@stsgs/${comp.layer}/${name}"</span>${moreImports ? '\n' : ''}
+${moreImports ? `<span class="cm">// additional exports:</span>\n<span class="cm">// ${comp.exports.slice(3).join(', ')}</span>` : ''}
+    </div>
+
+    <div class="code-block">
+      <button class="code-copy">Copy</button>
+<span class="kw">export</span> <span class="kw">default function</span> <span class="fn">Page</span>() {
+  <span class="kw">return</span> (
+    <span class="op">&lt;</span><span class="type">${mainExport}</span><span class="op">&gt;</span>
+      <span class="cm">{/* Your content here */}</span>
+    <span class="op">&lt;/</span><span class="type">${mainExport}</span><span class="op">&gt;</span>
+  )
+}
+    </div>
+
+    <div class="code-exports-title">Exports</div>
+    <div class="code-exports-list">
+      ${comp.exports.map(e => `<span class="export-chip">${e}</span>`).join('')}
+    </div>
+  `;
+}
+
+// ── State Management ──
+let currentState = 'grid';
+let currentDetail = 'button';
+
+function showGrid() {
+  currentState = 'grid';
+  document.getElementById('gridView').classList.remove('hidden');
+  document.getElementById('detailView').classList.remove('visible');
+  document.getElementById('btnGrid').classList.add('active');
+  document.getElementById('btnDetail').classList.remove('active');
+  document.getElementById('stateLabel').textContent = 'State 1: Grid View';
+}
+
+function showDetail(name) {
+  currentState = 'detail';
+  currentDetail = name || currentDetail;
+  document.getElementById('gridView').classList.add('hidden');
+  document.getElementById('detailView').classList.add('visible');
+  document.getElementById('btnDetail').classList.add('active');
+  document.getElementById('btnGrid').classList.remove('active');
+  document.getElementById('stateLabel').textContent = `State 2: Component Detail — ${currentDetail}`;
+
+  renderList(currentDetail);
+  renderPreview(currentDetail);
+  renderCode(currentDetail);
+}
+
+function selectDetail(name) {
+  currentDetail = name;
+  renderList(name);
+  renderPreview(name);
+  renderCode(name);
+  document.getElementById('stateLabel').textContent = `State 2: Component Detail — ${name}`;
+}
+
+function selectLayer(btn) {
+  document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── Init ──
+renderGrid();
+</script>
+</body>
+</html>
