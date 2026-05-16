@@ -80,7 +80,7 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
   ]
 
   return (
-    <div style={{ flex: 1, display: 'flex', background: tokens.bgDeep, color: tokens.textPrimary, overflow: 'hidden', transition: 'background 0.3s, color 0.3s' }}>
+    <div style={{ flex: 1, display: 'flex', background: tokens.bgDeep, color: tokens.textPrimary, overflow: 'hidden', transition: 'background 0.3s, color 0.3s', minHeight: 0 }}>
       <ExplorerSidebar
         recipeCount={recipes.length}
         selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory}
@@ -92,7 +92,7 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
         searchQuery={searchQuery} onSearchChange={setSearchQuery}
       />
 
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
         {/* Breadcrumb bar */}
         <div data-slot="breadcrumb-bar" style={{
           height: 44, borderBottom: `1px solid ${tokens.borderSubtle}`,

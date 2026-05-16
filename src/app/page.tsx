@@ -21,9 +21,10 @@ function AppContent() {
 
   return (
     <div id="main-content" style={{
-      minHeight: '100vh', display: 'flex', flexDirection: 'column',
+      height: '100vh', display: 'flex', flexDirection: 'column',
       background: tokens.bgDeep, color: tokens.textPrimary,
       transition: 'background 0.3s, color 0.3s',
+      overflow: 'hidden',
     }}>
       <StudioHeader variant={variant} onVariantChange={setVariant} />
       {variant === 'studio' && <VariantPromptStudio recipes={recipes} />}

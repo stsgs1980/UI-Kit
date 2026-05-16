@@ -9,6 +9,7 @@ import { fontSize, fontWeight } from '@/lib/layout/tokens'
 import registryData from '@/data/component-registry.json'
 import { ExpandableLayers } from './expandable-layers'
 import { GoalFilters } from './goal-filters'
+import { SidebarCategories } from './sidebar-categories'
 
 // ─── Registry data ─────────────────────────────────────────
 
@@ -23,16 +24,7 @@ const LAYER_ITEMS = [
   { icon: '\u25C8', label: 'features/',   count: totals.features ?? 0,  key: 'features' },
 ]
 
-const CATEGORY_ITEMS = CATEGORIES.map(cat => ({
-  icon: categoryMeta[cat]?.label === 'Classic' ? '\u25A4'
-    : categoryMeta[cat]?.label === 'Bento' ? '\u2B21'
-    : categoryMeta[cat]?.label === 'Artistic' ? '\u25C8'
-    : categoryMeta[cat]?.label === 'Math' ? '\u25B3'
-    : categoryMeta[cat]?.label === 'App' ? '\u25C9'
-    : '\u2B1A',
-  label: categoryMeta[cat]?.label ?? cat,
-  key: cat,
-}))
+
 
 // ─── Sidebar ───────────────────────────────────────────────
 
@@ -111,52 +103,11 @@ export function ExplorerSidebar({
           filterSearch={searchQuery.toLowerCase()}
         />
 
-        {/* Categories */}
-        <div style={{ marginBottom: 4 }}>
-          <div style={{
-            fontSize: 9, fontWeight: fontWeight.bold, textTransform: 'uppercase',
-            letterSpacing: 1, color: tokens.sidebarMuted, padding: '10px 16px 4px',
-            fontFamily: tokens.fontFamilyBody,
-          }}>Categories</div>
-          {CATEGORY_ITEMS.map(item => {
-            const isActive = selectedCategory === item.key
-            const count = catCounts[item.key] ?? 0
-            return (
-              <button key={item.key}
-                onClick={() => onCategoryChange(selectedCategory === item.key ? null : item.key)}
-                aria-pressed={isActive} aria-label={item.label}
-                style={{
-                  fontSize: 12, fontFamily: tokens.fontFamilyBody,
-                  padding: '5px 16px', display: 'flex', alignItems: 'center', gap: 8,
-                  cursor: 'pointer', transition: 'background 0.15s',
-                  background: isActive ? `${tokens.accentPrimary}18` : 'transparent',
-                  borderRight: isActive ? `2px solid ${tokens.accentPrimary}` : '2px solid transparent',
-                  borderLeft: 'none', borderTop: 'none', borderBottom: 'none',
-                  color: isActive ? tokens.accentPrimary : tokens.sidebarText,
-                  width: '100%', textAlign: 'left',
-                }}
-                onMouseEnter={e => {
-                  if (!isActive) e.currentTarget.style.background = tokens.sidebarBorder
-                }}
-                onMouseLeave={e => {
-                  if (!isActive) e.currentTarget.style.background = 'transparent'
-                }}
-              >
-                <span style={{ fontSize: 12, opacity: isActive ? 1 : 0.5, width: 18, textAlign: 'center' }}>
-                  {item.icon}
-                </span>
-                {item.label}
-                {count > 0 && (
-                  <span style={{
-                    fontSize: 9, marginLeft: 'auto', background: `${tokens.sidebarBorder}`,
-                    padding: '1px 6px', borderRadius: 8, color: tokens.sidebarMuted,
-                    fontFamily: tokens.fontFamilyMono,
-                  }}>{count}</span>
-                )}
-              </button>
-            )
-          })}
-        </div>
+        <SidebarCategories
+          selected={selectedCategory}
+          onSelect={onCategoryChange}
+          counts={catCounts}
+        />
 
         <GoalFilters activeGoal={activeGoal} onGoalSelect={onGoalSelect} />
       </div>
