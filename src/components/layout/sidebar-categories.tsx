@@ -3,7 +3,7 @@
 import { categoryMeta } from '@/lib/layout/types'
 import { CATEGORIES } from '@/lib/layout/types'
 import { useLayoutTheme } from '@/lib/layout/theme'
-import { fontWeight } from '@/lib/layout/tokens'
+import { fontWeight, fontSizeInterp } from '@/lib/layout/tokens'
 
 const ITEMS = CATEGORIES.map(cat => ({
   icon: categoryMeta[cat]?.label === 'Classic' ? '\u25A4'
@@ -30,7 +30,7 @@ export function SidebarCategories({
   return (
     <div style={{ marginBottom: 4 }}>
       <div style={{
-        fontSize: 9, fontWeight: fontWeight.bold, textTransform: 'uppercase',
+        fontSize: fontSizeInterp[9], fontWeight: fontWeight.bold, textTransform: 'uppercase',
         letterSpacing: 1, color: tokens.sidebarMuted, padding: '10px 16px 4px',
         fontFamily: tokens.fontFamilyBody,
       }}>Categories</div>
@@ -42,7 +42,7 @@ export function SidebarCategories({
             onClick={() => onSelect(selected === item.key ? null : item.key)}
             aria-pressed={active} aria-label={item.label}
             style={{
-              fontSize: 12, fontFamily: tokens.fontFamilyBody,
+              fontSize: fontSizeInterp[12], fontFamily: tokens.fontFamilyBody,
               padding: '5px 16px', display: 'flex', alignItems: 'center', gap: 8,
               cursor: 'pointer', transition: 'background 0.15s',
               background: active ? `${tokens.accentPrimary}18` : 'transparent',
@@ -54,13 +54,13 @@ export function SidebarCategories({
             onMouseEnter={e => { if (!active) e.currentTarget.style.background = tokens.sidebarBorder }}
             onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent' }}
           >
-            <span style={{ fontSize: 12, opacity: active ? 1 : 0.5, width: 18, textAlign: 'center' }}>
+            <span style={{ fontSize: fontSizeInterp[12], opacity: active ? 1 : 0.5, width: 18, textAlign: 'center' }}>
               {item.icon}
             </span>
             {item.label}
             {count > 0 && (
               <span style={{
-                fontSize: 9, marginLeft: 'auto', background: `${tokens.sidebarBorder}`,
+                fontSize: fontSizeInterp[9], marginLeft: 'auto', background: `${tokens.sidebarBorder}`,
                 padding: '1px 6px', borderRadius: 8, color: tokens.sidebarMuted,
                 fontFamily: tokens.fontFamilyMono,
               }}>{count}</span>

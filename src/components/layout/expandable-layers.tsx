@@ -1,7 +1,7 @@
 'use client'
 
 import { useLayoutTheme } from '@/lib/layout/theme'
-import { fontWeight } from '@/lib/layout/tokens'
+import { fontWeight, fontSizeInterp } from '@/lib/layout/tokens'
 
 // ─── Types ────────────────────────────────────────────────
 
@@ -35,7 +35,7 @@ export function ExpandableLayers({
   return (
     <div style={{ marginBottom: 4 }}>
       <div style={{
-        fontSize: 9, fontWeight: fontWeight.bold, textTransform: 'uppercase',
+        fontSize: fontSizeInterp[9], fontWeight: fontWeight.bold, textTransform: 'uppercase',
         letterSpacing: 1, color: tokens.sidebarMuted, padding: '10px 16px 4px',
         fontFamily: tokens.fontFamilyBody,
       }}>Layers</div>
@@ -59,7 +59,7 @@ export function ExpandableLayers({
             aria-pressed={isActive}
             aria-label={item.label}
             style={{
-              fontSize: 12, fontFamily: tokens.fontFamilyBody,
+              fontSize: fontSizeInterp[12], fontFamily: tokens.fontFamilyBody,
               padding: '5px 16px', display: 'flex', alignItems: 'center', gap: 8,
               cursor: 'pointer', transition: 'background 0.15s',
               background: isActive ? `${tokens.accentPrimary}18` : 'transparent',
@@ -75,12 +75,12 @@ export function ExpandableLayers({
               if (!isActive) e.currentTarget.style.background = 'transparent'
             }}
           >
-            <span style={{ fontSize: 12, opacity: isActive ? 1 : 0.5, width: 18, textAlign: 'center' }}>
+            <span style={{ fontSize: fontSizeInterp[12], opacity: isActive ? 1 : 0.5, width: 18, textAlign: 'center' }}>
               {item.icon}
             </span>
             <span style={{ flex: 1 }}>{item.label}</span>
             <span style={{
-              fontSize: 9, background: `${tokens.sidebarBorder}`,
+              fontSize: fontSizeInterp[9], background: `${tokens.sidebarBorder}`,
               padding: '1px 6px', borderRadius: 8, color: tokens.sidebarMuted,
               fontFamily: tokens.fontFamilyMono,
             }}>

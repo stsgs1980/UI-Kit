@@ -3,7 +3,7 @@
 import type { ParsedPrompt } from '@/lib/layout/types'
 import { GOALS } from '@/lib/layout/types'
 import { useLayoutTheme } from '@/lib/layout/theme'
-import { fontSize, fontWeight } from '@/lib/layout/tokens'
+import { fontSize, fontSizeInterp, fontWeight } from '@/lib/layout/tokens'
 
 // ─── Goal Filters ─────────────────────────────────────────
 
@@ -18,7 +18,7 @@ export function GoalFilters({ activeGoal, onGoalSelect }: GoalFiltersProps) {
   return (
     <div style={{ marginBottom: 4 }}>
       <div style={{
-        fontSize: 9, fontWeight: fontWeight.bold, textTransform: 'uppercase',
+        fontSize: fontSizeInterp[9], fontWeight: fontWeight.bold, textTransform: 'uppercase',
         letterSpacing: 1, color: tokens.sidebarMuted, padding: '10px 16px 4px',
         fontFamily: tokens.fontFamilyBody,
       }}>Best For</div>
@@ -34,7 +34,7 @@ export function GoalFilters({ activeGoal, onGoalSelect }: GoalFiltersProps) {
             aria-pressed={isActive}
             aria-label={g.label}
             style={{
-              fontSize: 12, fontFamily: tokens.fontFamilyBody,
+              fontSize: fontSizeInterp[12], fontFamily: tokens.fontFamilyBody,
               padding: '5px 16px', display: 'flex', alignItems: 'center', gap: 8,
               cursor: 'pointer', transition: 'background 0.15s',
               background: isActive ? `${tokens.accentPrimary}18` : 'transparent',

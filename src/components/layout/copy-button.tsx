@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
 import type { ThemeTokens } from '@/lib/layout/theme-types'
-import { fontWeight } from '@/lib/layout/tokens'
+import { fontWeight, fontSizeInterp } from '@/lib/layout/tokens'
 
 // ─── Copy Button ──────────────────────────────────────────
 
@@ -22,7 +22,7 @@ export function CopyButton({ text, tokens }: { text: string; tokens: ThemeTokens
       background: copied ? tokens.accentPrimary : tokens.bgSurface,
       color: copied ? tokens.textOnAccent : tokens.textMuted,
       border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 5,
-      fontSize: 11, fontFamily: tokens.fontFamilyBody, fontWeight: fontWeight.medium,
+      fontSize: fontSizeInterp[11], fontFamily: tokens.fontFamilyBody, fontWeight: fontWeight.medium,
       transition: 'all 0.2s', marginLeft: 'auto',
     }}>
       {copied ? <Check width={12} height={12} /> : <Copy width={12} height={12} />}

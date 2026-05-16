@@ -51,18 +51,19 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* ─── Default theme fallback (zinc dark) ─── */
+/* ─── Default theme fallback (champagne dark) ─── */
 :root {
-  /* Fallback: if no [data-theme] is set, use zinc dark values */
-  --radius: 12px;
-  --background: #0A0A0F;
+  /* Champagne is the default preset — :root must match to prevent SSR flash.
+   * These values are overridden by [data-theme="..."] selectors once hydrated. */
+  --radius: 2px;
+  --background: #0B0B0F;
   --foreground: #e5e5e5;
   --card: #16161A;
   --card-foreground: #e5e5e5;
   --popover: #111114;
   --popover-foreground: #e5e5e5;
-  --primary: #10b981;
-  --primary-foreground: #0A0A0F;
+  --primary: #C8A97E;
+  --primary-foreground: #0B0B0F;
   --secondary: #1E1E23;
   --secondary-foreground: #d4d4d4;
   --muted: #16161A;
@@ -72,20 +73,49 @@
   --destructive: #ef4444;
   --border: #525252;
   --input: #525252;
-  --ring: #34d399;
+  --ring: #C8A97E;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: #1E293B;
-  --sidebar-foreground: #E2E8F0;
-  --sidebar-primary: #10b981;
-  --sidebar-primary-foreground: #0A0A0F;
-  --sidebar-accent: #334155;
-  --sidebar-accent-foreground: #E2E8F0;
-  --sidebar-border: rgba(255,255,255,0.08);
-  --sidebar-ring: #34d399;
+  --sidebar: #0F0F13;
+  --sidebar-foreground: #e5e5e5;
+  --sidebar-primary: #C8A97E;
+  --sidebar-primary-foreground: #0B0B0F;
+  --sidebar-accent: #16161A;
+  --sidebar-accent-foreground: #e5e5e5;
+  --sidebar-border: rgba(200,169,126,0.08);
+  --sidebar-ring: #C8A97E;
+
+  /* Typography — Fibonacci type scale + golden ratio line heights */
+  --stsgs-font-body: 'Inter', -apple-system, sans-serif;
+  --stsgs-font-display: 'Playfair Display', Georgia, serif;
+  --stsgs-font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --stsgs-font-weight-body: 300;
+  --stsgs-corner-radius: 2px;
+
+  --stsgs-fs-2xs: 5px;
+  --stsgs-fs-xs: 8px;
+  --stsgs-fs-sm: 10px;
+  --stsgs-fs-base: 13px;
+  --stsgs-fs-md: 14px;
+  --stsgs-fs-lg: 21px;
+  --stsgs-fs-xl: 34px;
+  --stsgs-fs-2xl: 55px;
+  --stsgs-fs-3xl: 89px;
+
+  --stsgs-lh-hero: 1.1;
+  --stsgs-lh-heading: 1.24;
+  --stsgs-lh-subhead: 1.38;
+  --stsgs-lh-body: 1.618;
+  --stsgs-lh-relaxed: 1.81;
+
+  --stsgs-ls-tight: -0.03em;
+  --stsgs-ls-normal: 0;
+  --stsgs-ls-wide: 0.03em;
+  --stsgs-ls-wider: 0.05em;
+  --stsgs-ls-widest: 0.08em;
 }
 
 @layer base {

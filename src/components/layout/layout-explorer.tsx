@@ -5,6 +5,7 @@ import { categoryMeta } from '@/lib/layout/types'
 import { CodeDrawer } from './code-drawer'
 import { ExplorerSidebar } from './explorer-sidebar'
 import { useLayoutTheme } from '@/lib/layout/theme'
+import { fontSizeInterp } from '@/lib/layout/tokens'
 import { useExplorerFilters } from './use-explorer-filters'
 import type { ViewTab, ViewMode } from './use-explorer-filters'
 import { useExplorerSelection } from './use-explorer-selection'
@@ -97,7 +98,7 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
         <div data-slot="breadcrumb-bar" style={{
           height: 55, borderBottom: `1px solid ${tokens.borderSubtle}`,
           display: 'flex', alignItems: 'center', padding: '0 21px',
-          background: tokens.bgBase, fontSize: 12, fontFamily: tokens.fontFamilyBody,
+          background: tokens.bgBase, fontSize: fontSizeInterp[12], fontFamily: tokens.fontFamilyBody,
         }}>
           <nav style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <a style={{ color: tokens.textDim, cursor: 'pointer' }}>Library</a>
@@ -111,7 +112,7 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
           {!activeComponent && (
             <div style={{
               marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10,
-              fontFamily: tokens.fontFamilyMono, fontSize: 11, color: tokens.textDim,
+              fontFamily: tokens.fontFamilyMono, fontSize: fontSizeInterp[11], color: tokens.textDim,
             }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2"><rect x="1" y="1" width="4" height="4" rx="0.5"/><rect x="7" y="1" width="4" height="4" rx="0.5"/><rect x="1" y="7" width="4" height="4" rx="0.5"/><rect x="7" y="7" width="4" height="4" rx="0.5"/></svg>

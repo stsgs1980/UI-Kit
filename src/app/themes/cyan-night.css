@@ -56,6 +56,31 @@
   --stsgs-font-weight-body: 400;
   --stsgs-corner-radius: 2px;
 
+  /* Fibonacci type scale (px) */
+  --stsgs-fs-2xs: 5px;
+  --stsgs-fs-xs: 8px;
+  --stsgs-fs-sm: 10px;
+  --stsgs-fs-base: 13px;
+  --stsgs-fs-md: 14px;
+  --stsgs-fs-lg: 21px;
+  --stsgs-fs-xl: 34px;
+  --stsgs-fs-2xl: 55px;
+  --stsgs-fs-3xl: 89px;
+
+  /* Golden ratio line heights (φ = 1.618) */
+  --stsgs-lh-hero: 1.1;
+  --stsgs-lh-heading: 1.24;
+  --stsgs-lh-subhead: 1.38;
+  --stsgs-lh-body: 1.618;
+  --stsgs-lh-relaxed: 1.81;
+
+  /* Golden ratio letter spacing */
+  --stsgs-ls-tight: -0.03em;
+  --stsgs-ls-normal: 0;
+  --stsgs-ls-wide: 0.03em;
+  --stsgs-ls-wider: 0.05em;
+  --stsgs-ls-widest: 0.08em;
+
   /* shadcn/ui bridge */
   --background: #080810;
   --foreground: #e5e5e5;

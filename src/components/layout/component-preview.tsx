@@ -7,7 +7,7 @@ import { UI_DEMO_MAP } from '@/data/ui-demos'
 import { ErrorBoundary } from './error-boundary'
 import { LazyPreview } from '@/components/lazy-preview'
 import type { ThemeTokens } from '@/lib/layout/theme-types'
-import { fontWeight } from '@/lib/layout/tokens'
+import { fontWeight, fontSizeInterp } from '@/lib/layout/tokens'
 
 // ─── Component Preview (card) ─────────────────────────────
 
@@ -87,16 +87,16 @@ export function ComponentPreview(info: PreviewInfo & { tokens: ThemeTokens }) {
           }}>{name}</div>
           {description && (
             <div style={{
-              fontSize: 11, fontFamily: tokens.fontFamilyBody, color: tokens.textMuted,
+              fontSize: fontSizeInterp[11], fontFamily: tokens.fontFamilyBody, color: tokens.textMuted,
               marginTop: 1, lineHeight: 1.4,
               overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             }}>{description}</div>
           )}
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 5 }}>
-            <span style={{ fontSize: 9, fontFamily: tokens.fontFamilyMono, color: tokens.textDim }}>{info.lines}L</span>
-            {isHook && <span style={{ fontSize: 9, fontFamily: tokens.fontFamilyMono, color: '#F59E0B' }}>hook</span>}
-            {info.hasForwardRef && <span style={{ fontSize: 9, fontFamily: tokens.fontFamilyMono, color: '#10B981' }}>fwdRef</span>}
-            {info.hasCn && <span style={{ fontSize: 9, fontFamily: tokens.fontFamilyMono, color: '#3B82F6' }}>cn()</span>}
+            <span style={{ fontSize: fontSizeInterp[9], fontFamily: tokens.fontFamilyMono, color: tokens.textDim }}>{info.lines}L</span>
+            {isHook && <span style={{ fontSize: fontSizeInterp[9], fontFamily: tokens.fontFamilyMono, color: '#F59E0B' }}>hook</span>}
+            {info.hasForwardRef && <span style={{ fontSize: fontSizeInterp[9], fontFamily: tokens.fontFamilyMono, color: '#10B981' }}>fwdRef</span>}
+            {info.hasCn && <span style={{ fontSize: fontSizeInterp[9], fontFamily: tokens.fontFamilyMono, color: '#3B82F6' }}>cn()</span>}
           </div>
         </div>
       </div>

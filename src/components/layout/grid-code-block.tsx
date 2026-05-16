@@ -5,7 +5,7 @@ import { Copy, Download, Check } from 'lucide-react'
 import type { LayoutRecipe } from '@/lib/layout/types'
 import { gapRemMap } from '@/lib/layout/types'
 import { useLayoutTheme } from '@/lib/layout/theme'
-import { radius, spacing } from '@/lib/layout/tokens'
+import { fontSizeInterp, radius, spacing } from '@/lib/layout/tokens'
 import { CodeHighlight } from './syntax-highlight'
 
 // ─── CSS Code Generator ─────────────────────────────────────
@@ -93,7 +93,7 @@ export function GridCodeBlock({ recipe }: { recipe: LayoutRecipe }) {
       <pre style={{
         margin: 0, padding: `${spacing.md}px ${spacing.base}px`,
         fontFamily: tokens.fontFamilyMono,
-        fontSize: 12, lineHeight: 1.7, color: '#E2E8F0',
+        fontSize: fontSizeInterp[12], lineHeight: 1.7, color: '#E2E8F0',
         overflowX: 'auto', whiteSpace: 'pre',
       }}>
         <CodeHighlight code={cssCode} />

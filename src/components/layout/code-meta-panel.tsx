@@ -1,7 +1,7 @@
 'use client'
 
 import type { ThemeTokens } from '@/lib/layout/theme-types'
-import { fontWeight } from '@/lib/layout/tokens'
+import { fontWeight, fontSizeInterp } from '@/lib/layout/tokens'
 import { CopyButton } from './copy-button'
 import { resolvePreview } from './preview-utils'
 
@@ -33,7 +33,7 @@ export function CodeMetaPanel({ comp, layer, meta, tokens }: {
       <div style={{ padding: 12 }}>
         <SectionLabel tokens={tokens}>Import</SectionLabel>
         <div style={{
-          fontSize: 11, fontFamily: tokens.fontFamilyMono, lineHeight: 1.6,
+          fontSize: fontSizeInterp[11], fontFamily: tokens.fontFamilyMono, lineHeight: 1.6,
           padding: '10px 12px', borderRadius: 6, background: tokens.bgDeep,
           border: `1px solid ${tokens.borderSubtle}`, color: tokens.textSecondary,
         }}>
@@ -48,7 +48,7 @@ export function CodeMetaPanel({ comp, layer, meta, tokens }: {
       {/* Description */}
       <div style={{ padding: '0 12px 12px' }}>
         <SectionLabel tokens={tokens}>Description</SectionLabel>
-        <div style={{ fontSize: 12, fontFamily: tokens.fontFamilyBody, color: tokens.textSecondary, lineHeight: 1.6 }}>{comp.description}</div>
+        <div style={{ fontSize: fontSizeInterp[12], fontFamily: tokens.fontFamilyBody, color: tokens.textSecondary, lineHeight: 1.6 }}>{comp.description}</div>
       </div>
       {/* Properties */}
       <div style={{ padding: '0 12px 12px', display: 'flex', flexWrap: 'wrap', gap: 4 }}>
@@ -62,7 +62,7 @@ export function CodeMetaPanel({ comp, layer, meta, tokens }: {
         <div style={{ padding: '0 12px 12px' }}>
           <SectionLabel tokens={tokens}>Exports</SectionLabel>
           {comp.exports.map(e => (
-            <div key={e} style={{ fontSize: 11, fontFamily: tokens.fontFamilyMono, color: tokens.textMuted, padding: '1px 0' }}>{e}</div>
+            <div key={e} style={{ fontSize: fontSizeInterp[11], fontFamily: tokens.fontFamilyMono, color: tokens.textMuted, padding: '1px 0' }}>{e}</div>
           ))}
         </div>
       )}
@@ -73,7 +73,7 @@ export function CodeMetaPanel({ comp, layer, meta, tokens }: {
 // ─── Tiny helpers ────────────────────────────────────────
 
 function SectionLabel({ tokens, children }: { tokens: ThemeTokens; children: React.ReactNode }) {
-  return <div style={{ fontSize: 9, color: tokens.textDim, fontFamily: tokens.fontFamilyMono, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.5px' }}>{children}</div>
+  return <div style={{ fontSize: fontSizeInterp[9], color: tokens.textDim, fontFamily: tokens.fontFamilyMono, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.5px' }}>{children}</div>
 }
 
 function Badge({ bg, color, children }: { bg: string; color: string; children: React.ReactNode }) {

@@ -7,7 +7,7 @@ import { UI_DEMO_MAP } from '@/data/ui-demos'
 import { HOOKS_API } from '@/data/hooks-api'
 import { ErrorBoundary } from './error-boundary'
 import type { ThemeTokens } from '@/lib/layout/theme-types'
-import { fontWeight } from '@/lib/layout/tokens'
+import { fontWeight, fontSizeInterp } from '@/lib/layout/tokens'
 import { CopyButton } from './copy-button'
 import { HookPreviewExpanded } from './hook-preview-expanded'
 
@@ -59,13 +59,13 @@ export function ExpandedCard(info: PreviewInfo & { tokens: ThemeTokens; onClose:
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', padding: '12px 16px', borderBottom: `1px solid ${tokens.borderSubtle}` }}>
           <span style={{
-            fontSize: 9, fontWeight: fontWeight.bold, fontFamily: tokens.fontFamilyMono,
+            fontSize: fontSizeInterp[9], fontWeight: fontWeight.bold, fontFamily: tokens.fontFamilyMono,
             padding: '2px 6px', borderRadius: 4,
             background: `${layerColor}20`, color: layerColor,
             textTransform: 'uppercase', letterSpacing: '0.5px',
           }}>{layer}</span>
           <span style={{ fontSize: 14, fontWeight: fontWeight.semibold, fontFamily: tokens.fontFamilyBody, color: tokens.textPrimary, marginLeft: 10 }}>{name}</span>
-          {description && <span style={{ fontSize: 12, fontFamily: tokens.fontFamilyBody, color: tokens.textMuted, marginLeft: 8 }}>{description}</span>}
+          {description && <span style={{ fontSize: fontSizeInterp[12], fontFamily: tokens.fontFamilyBody, color: tokens.textMuted, marginLeft: 8 }}>{description}</span>}
           <button onClick={onClose} aria-label="Close" style={{
             marginLeft: 'auto', width: 28, height: 28, borderRadius: 6,
             background: 'transparent', border: 'none', cursor: 'pointer',
@@ -96,7 +96,7 @@ export function ExpandedCard(info: PreviewInfo & { tokens: ThemeTokens; onClose:
         {/* Code + meta */}
         <div style={{ padding: '12px 16px', borderTop: `1px solid ${tokens.borderSubtle}`, display: 'flex', flexDirection: 'column', gap: 10 }}>
           <div style={{
-            fontSize: 12, fontFamily: tokens.fontFamilyMono,
+            fontSize: fontSizeInterp[12], fontFamily: tokens.fontFamilyMono,
             padding: '8px 12px', borderRadius: 6,
             background: tokens.bgDeep, color: tokens.textSecondary,
             border: `1px solid ${tokens.borderSubtle}`,

@@ -7,6 +7,7 @@ import { COMPONENT_MAP } from '@/data/component-map'
 import { HOOKS_API } from '@/data/hooks-api'
 import { ErrorBoundary } from './error-boundary'
 import type { ThemeTokens } from '@/lib/layout/theme-types'
+import { fontSizeInterp } from '@/lib/layout/tokens'
 
 // ─── Live Preview (component) ───────────────────────────
 
@@ -34,7 +35,7 @@ export function HookPreview({ name, tokens }: { name: string; tokens: ThemeToken
 
   return (
     <div style={{
-      width: '100%', fontFamily: tokens.fontFamilyMono, fontSize: 11,
+      width: '100%', fontFamily: tokens.fontFamilyMono, fontSize: fontSizeInterp[11],
       lineHeight: 1.6, color: tokens.textSecondary, padding: '4px 0',
     }}>
       {/* Signature */}
@@ -48,12 +49,12 @@ export function HookPreview({ name, tokens }: { name: string; tokens: ThemeToken
         <span style={{ color: tokens.textPrimary, fontWeight: 600 }}>{api.signature}</span>
       </div>
       {/* Return */}
-      <div style={{ fontSize: 9, color: tokens.textDim, marginBottom: 4 }}>
+      <div style={{ fontSize: fontSizeInterp[9], color: tokens.textDim, marginBottom: 4 }}>
         <span style={{ color: '#34D399' }}>returns</span> {api.returns}
       </div>
       {/* Params (compact) */}
       {api.params.length > 0 && (
-        <div style={{ fontSize: 9, color: tokens.textDim, marginBottom: 4 }}>
+        <div style={{ fontSize: fontSizeInterp[9], color: tokens.textDim, marginBottom: 4 }}>
           {api.params.map((p, i) => (
             <span key={p.name}>
               {i > 0 && <span style={{ color: tokens.borderDefault }}> · </span>}
@@ -66,7 +67,7 @@ export function HookPreview({ name, tokens }: { name: string; tokens: ThemeToken
       )}
       {/* Usage hint (first line only) */}
       <div style={{
-        fontSize: 9, color: tokens.textDim, marginTop: 4, paddingTop: 4,
+        fontSize: fontSizeInterp[9], color: tokens.textDim, marginTop: 4, paddingTop: 4,
         borderTop: `1px solid ${tokens.borderSubtle}`,
         overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
       }}>
@@ -88,7 +89,7 @@ export function PreviewPlaceholder({ name, tokens }: { name?: string; tokens: Th
       <div style={{
         width: 28, height: 28, borderRadius: '50%',
         border: `1px dashed ${tokens.borderDefault}`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: fontSizeInterp[12],
       }}>
         {'\u25CB'}
       </div>

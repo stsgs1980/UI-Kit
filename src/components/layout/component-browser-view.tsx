@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from 'react'
 import type { ThemeTokens } from '@/lib/layout/theme-types'
-import { fontWeight } from '@/lib/layout/tokens'
+import { fontWeight, fontSizeInterp } from '@/lib/layout/tokens'
 import registryData from '@/data/component-registry.json'
 import { LivePreview, HookPreview, PreviewPlaceholder, resolvePreview } from './preview-utils'
 import { UI_DEMO_MAP } from '@/data/ui-demos'
@@ -52,7 +52,7 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 8px', background: tokens.bgSurface, borderRadius: 6, border: `1px solid ${tokens.borderSubtle}` }}>
             <Search style={{ width: 11, height: 11, color: tokens.textDim, flexShrink: 0 }} />
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Filter..."
-              style={{ flex: 1, background: 'none', border: 'none', outline: 'none', fontSize: 11, fontFamily: tokens.fontFamilyBody, color: tokens.textPrimary }} />
+              style={{ flex: 1, background: 'none', border: 'none', outline: 'none', fontSize: fontSizeInterp[11], fontFamily: tokens.fontFamilyBody, color: tokens.textPrimary }} />
           </div>
         </div>
         <div style={{ flex: 1, overflowY: 'auto' }}>
@@ -60,7 +60,7 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
             const active = comp.name === activeComponent
             return (
               <button key={comp.name} onClick={() => onSelectComponent(comp.name)} style={{
-                width: '100%', textAlign: 'left', padding: '6px 12px', fontSize: 12,
+                width: '100%', textAlign: 'left', padding: '6px 12px', fontSize: fontSizeInterp[12],
                 fontFamily: tokens.fontFamilyMono, color: active ? meta.color : tokens.textSecondary,
                 background: active ? `${meta.color}10` : 'transparent', border: 'none', cursor: 'pointer',
                 borderBottom: `1px solid ${tokens.borderSubtle}40`, transition: 'background 0.1s, color 0.1s',
@@ -79,11 +79,11 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
       {/* Panel 2: Preview — equal share with code */}
       <div style={{ flex: '1 1 0', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         <div style={{ padding: '10px 16px', borderBottom: `1px solid ${tokens.borderSubtle}`, display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 9, fontWeight: fontWeight.bold, fontFamily: tokens.fontFamilyMono, padding: '2px 6px', borderRadius: 4, background: `${meta.color}15`, color: meta.color, textTransform: 'uppercase' }}>
+          <span style={{ fontSize: fontSizeInterp[9], fontWeight: fontWeight.bold, fontFamily: tokens.fontFamilyMono, padding: '2px 6px', borderRadius: 4, background: `${meta.color}15`, color: meta.color, textTransform: 'uppercase' }}>
             {selected?.layer ?? activeLayer}
           </span>
           <span style={{ fontSize: 14, fontWeight: fontWeight.semibold, color: tokens.textPrimary, fontFamily: tokens.fontFamilyBody }}>{selected?.name ?? 'Select a component'}</span>
-          {selected?.description && <span style={{ fontSize: 11, color: tokens.textMuted, fontFamily: tokens.fontFamilyBody, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selected.description}</span>}
+          {selected?.description && <span style={{ fontSize: fontSizeInterp[11], color: tokens.textMuted, fontFamily: tokens.fontFamilyBody, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selected.description}</span>}
         </div>
         <div style={{ flex: 1, overflow: 'auto', background: tokens.bgDeep, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
           <div style={{ width: '100%', maxWidth: 520, minHeight: 220, background: tokens.bgBase, border: `1px solid ${tokens.borderSubtle}`, borderRadius: tokens.cornerRadius, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

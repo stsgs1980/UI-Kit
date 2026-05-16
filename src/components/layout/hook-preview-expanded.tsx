@@ -3,7 +3,7 @@
 import { HOOKS_API } from '@/data/hooks-api'
 import { PreviewPlaceholder } from './preview-utils'
 import type { ThemeTokens } from '@/lib/layout/theme-types'
-import { fontWeight } from '@/lib/layout/tokens'
+import { fontWeight, fontSizeInterp } from '@/lib/layout/tokens'
 
 // ─── Hook Expanded Preview ────────────────────────────────
 
@@ -13,7 +13,7 @@ export function HookPreviewExpanded({ name, tokens }: { name: string; tokens: Th
 
   return (
     <div style={{
-      width: '100%', fontFamily: tokens.fontFamilyMono, fontSize: 11,
+      width: '100%', fontFamily: tokens.fontFamilyMono, fontSize: fontSizeInterp[11],
       lineHeight: 1.7, color: tokens.textSecondary,
     }}>
       {/* Signature block */}
@@ -61,7 +61,7 @@ export function HookPreviewExpanded({ name, tokens }: { name: string; tokens: Th
         borderRadius: 6, padding: '10px 12px',
       }}>
         <div style={{ fontSize: 10, color: tokens.textDim, marginBottom: 4 }}>Usage</div>
-        <pre style={{ margin: 0, whiteSpace: 'pre-wrap', fontSize: 11 }}>
+        <pre style={{ margin: 0, whiteSpace: 'pre-wrap', fontSize: fontSizeInterp[11] }}>
           {api.example.split('\n').map((line, i) => (
             <div key={i}>
               <span style={{ color: '#64748B' }}>{line}</span>

@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils'
 import { getComponentIcon } from './component-icons'
 import type { ThemeTokens } from '@/lib/layout/theme-types'
+import { fontSizeInterp } from '@/lib/layout/tokens'
 
 // ─── Types ──────────────────────────────────────────────────
 
@@ -34,10 +35,10 @@ export function ComponentGridView({
     <div data-slot="component-grid" style={{ flex: 1, overflowY: 'auto', padding: 21 }}>
       {title && (
         <div style={{ marginBottom: 13 }}>
-          <div style={{ fontSize: 16, fontWeight: 700, fontFamily: tokens.fontFamilyDisplay, color: tokens.textPrimary }}>
+          <div style={{ fontSize: fontSizeInterp[16], fontWeight: 700, fontFamily: tokens.fontFamilyDisplay, color: tokens.textPrimary }}>
             {title}
           </div>
-          <div style={{ fontSize: 12, fontFamily: tokens.fontFamilyBody, color: tokens.textSecondary, marginTop: 4 }}>
+          <div style={{ fontSize: fontSizeInterp[12], fontFamily: tokens.fontFamilyBody, color: tokens.textSecondary, marginTop: 4 }}>
             {components.length} components
           </div>
         </div>
@@ -96,7 +97,7 @@ export function ComponentGridView({
                   display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 12,
                 }}>
                   <span style={{
-                    fontSize: 11, fontWeight: 600, fontFamily: tokens.fontFamilyMono,
+                    fontSize: fontSizeInterp[11], fontWeight: 600, fontFamily: tokens.fontFamilyMono,
                     color: tokens.textMuted, textTransform: 'uppercase', letterSpacing: '0.08em',
                   }}>Exports</span>
                   <div className="export-chips" style={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>

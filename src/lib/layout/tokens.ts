@@ -82,17 +82,36 @@ export const radius = {
   full: 9999,
 } as const
 
-// ─── Typography Scale ────────────────────────────────────────
+// ─── Typography Scale (Fibonacci + Golden Ratio) ───────────────
+//
+// Major steps follow Fibonacci:  5 · 8 · 13 · 21 · 34 · 55 · 89
+// Intermediate steps use major-2nd ratio (×1.125) between Fib anchors.
+// This fills practical gaps while keeping the mathematical backbone.
+//
+//  5 ─── 8 ─── 10 ─ 12 ─ 13 ─ 14 ─ 16 ─ 21 ─ 34 ─ 55 ─ 89
+//  F(5)  F(6)   interp        F(7)  interp      F(8)  F(9)  F(10) F(11)
 
 export const fontSize = {
-  xs:   8,   // micro-labels, kbd hints
-  sm:   10,  // tags, badges, kbd
-  base: 13,  // meta, descriptions
-  md:   14,  // buttons, body text
-  lg:   21,  // card titles, subtitles
-  xl:   34,  // section headings
-  '2xl': 55, // page headings
-  '3xl': 89, // hero / display
+  // ── Fibonacci anchors ──
+  '2xs':  5,   // F(5) — layer counts, micro chips
+  xs:    8,    // F(6) — kbd hints, tiny badges, micro-labels
+  base: 13,    // F(7) — body text, nav buttons, descriptions
+  lg:   21,    // F(8) — card titles, subtitles, grid section headings
+  xl:   34,    // F(9) — page section headings
+  '2xl': 55,   // F(10) — page headings
+  '3xl': 89,   // F(11) — hero / display
+
+  // ── Interpolated (major-2nd ×1.125 between Fib anchors) ──
+  sm:   10,    // tags, export chips, mono labels
+  md:   14,    // brand names, component headings (between F7=13 and F8=21)
+} as const
+
+/** Intermediate sizes — numeric access for fine-tuned UI between anchors. */
+export const fontSizeInterp = {
+  9:  9,   // small mono labels, layer dots
+  11: 11,  // search inputs, breadcrumbs, secondary UI text
+  12: 12,  // sidebar nav items, category labels, meta info
+  16: 16,  // grid titles (between 13 and 21, closer to heading)
 } as const
 
 export const fontWeight = {
@@ -104,20 +123,34 @@ export const fontWeight = {
   black:     800,
 } as const
 
+// ─── Line Heights (Golden Ratio φ = 1.618) ───────────────────
+//   hero:    φ⁻¹·⁵ ≈ 1.10  (display, very tight)
+//   heading: 2/φ   ≈ 1.24  (headings, compact)
+//   subhead: φ⁻⁰·⁵ ≈ 1.38  (subheadings)
+//   body:    φ      = 1.618 (body text — the golden ratio)
+//   relaxed: φ + 0.19 ≈ 1.81 (comfortable reading)
+
 export const lineHeight = {
-  tight:  1.15,
-  snug:   1.35,
-  normal: 1.5,
-  relaxed: 1.7,
-  loose:  1.8,
+  hero:     1.1,
+  heading:  1.24,
+  subhead:  1.38,
+  body:     1.618,
+  relaxed:  1.81,
 } as const
 
+// ─── Letter Spacing (Golden Ratio derived) ────────────────────
+//   tight:    -0.03em
+//   normal:    0
+//   wide:      0.03em   (≈ φ × 0.019)
+//   wider:     0.05em
+//   widest:    0.08em   (≈ φ × 0.05)
+
 export const letterSpacing = {
-  tight:   '-0.02em',
+  tight:   '-0.03em',
   normal:  '0',
-  wide:    '0.05em',
-  wider:   '0.08em',
-  widest:  '0.12em',
+  wide:    '0.03em',
+  wider:   '0.05em',
+  widest:  '0.08em',
 } as const
 
 // ─── Shadows ──────────────────────────────────────────────────
