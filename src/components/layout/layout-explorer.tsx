@@ -5,7 +5,6 @@ import { categoryMeta } from '@/lib/layout/types'
 import { CodeDrawer } from './code-drawer'
 import { ExplorerSidebar } from './explorer-sidebar'
 import { useLayoutTheme } from '@/lib/layout/theme'
-import { fontSize, fontWeight } from '@/lib/layout/tokens'
 import { useExplorerFilters } from './use-explorer-filters'
 import type { ViewTab, ViewMode } from './use-explorer-filters'
 import { useExplorerSelection } from './use-explorer-selection'
@@ -94,21 +93,37 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
       />
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        {/* Contextual bar */}
-        <div style={{
-          height: 40, borderBottom: `1px solid ${tokens.borderSubtle}`,
+        {/* Breadcrumb bar */}
+        <div data-slot="breadcrumb-bar" style={{
+          height: 44, borderBottom: `1px solid ${tokens.borderSubtle}`,
           display: 'flex', alignItems: 'center', padding: '0 20px',
-          background: tokens.bgBase, transition: 'background 0.3s',
+          background: tokens.bgBase, fontSize: 12, fontFamily: tokens.fontFamilyBody,
         }}>
-          <div style={{
-            fontSize: 13, fontWeight: fontWeight.medium, fontFamily: tokens.fontFamilyMono, color: tokens.textDim,
-          }}>
-            <span style={{ color: activeComponent ? tokens.textPrimary : tokens.textMuted }}>
-              {activeComponent ? `${activeLayer}/${activeComponent}` : activeLayer ? `${activeLayer}/` : '@stsgs/ui'}
-            </span>
-          </div>
-
-          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }} />
+          <nav style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <a style={{ color: tokens.textDim, cursor: 'pointer' }}>Library</a>
+            <span style={{ color: tokens.textDim, opacity: 0.4 }}>/</span>
+            <a style={{ color: tokens.textDim, cursor: 'pointer' }}>Packages</a>
+            <span style={{ color: tokens.textDim, opacity: 0.4 }}>/</span>
+            <span style={{ fontFamily: tokens.fontFamilyMono, color: tokens.accentPrimary }}>@stsgs/ui</span>
+            <span style={{ color: tokens.textDim, opacity: 0.4 }}>/</span>
+            <span style={{ color: tokens.textPrimary, fontWeight: 600 }}>{activeComponent || activeLayer || 'Components'}</span>
+          </nav>
+          {!activeComponent && (
+            <div style={{
+              marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10,
+              fontFamily: tokens.fontFamilyMono, fontSize: 11, color: tokens.textDim,
+            }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2"><rect x="1" y="1" width="4" height="4" rx="0.5"/><rect x="7" y="1" width="4" height="4" rx="0.5"/><rect x="1" y="7" width="4" height="4" rx="0.5"/><rect x="7" y="7" width="4" height="4" rx="0.5"/></svg>
+                {(activeLayer ? (registryLayers[activeLayer] ?? []) : allComponents).length} shown
+              </span>
+              <span style={{ opacity: 0.3 }}>·</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M6 1L1 3.5v5L6 11l5-2.5v-5z"/><line x1="1" y1="3.5" x2="6" y2="6"/><line x1="6" y1="6" x2="11" y2="3.5"/><line x1="6" y1="6" x2="6" y2="11"/></svg>
+                {allComponents.length} total
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Content */}

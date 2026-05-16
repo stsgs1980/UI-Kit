@@ -1536,3 +1536,25 @@ Stage Summary:
 - No more page freeze from 62 simultaneous renders
 - No more broken portal-based component demos
 - Category state properly resets when switching between layouts and layer views
+
+---
+Task ID: 2
+Agent: main
+Task: Port variant-c.html approved design to React (component-grid-view.tsx + layout-explorer.tsx)
+
+Work Log:
+- Read variant-c.html (1079 lines) — extracted all design tokens, card structure, animations, overlay, grid pattern
+- Read existing component-grid-view.tsx (148 lines) — plain button cards, no SVG icons, no hover overlay
+- Read existing layout-explorer.tsx (134 lines) — simple contextual bar
+- Read component-registry.json — 87 components across ui/sections/features layers
+- Created component-icons.tsx (66 lines) — 21 SVG category icons via regex-based detection
+- Rewrote component-grid-view.tsx (139 lines) — premium card grid matching variant-c
+- Updated layout-explorer.tsx (149 lines) — breadcrumb bar with stats
+- Extended globals.css (+82 lines) — cardFadeIn animation, explorer-card CSS system
+- Verified build passes: npx next build ✓
+
+Stage Summary:
+- 4 files modified/created, all under 150-line anti-monolith limit
+- Card features: 148px preview with grid pattern, SVG icons, hover overlay with exports, left accent line, gold selected state, stagger animation
+- Breadcrumb: Library / Packages / @stsgs/ui / Components + shown/total stats
+- Build: compiled in 14.6s, all static pages generated
