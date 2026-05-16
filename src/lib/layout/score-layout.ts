@@ -16,6 +16,8 @@ export const WEIGHTS = {
   itemCountFit: 10,
   structureMatch: 15,
   viewportAwareness: 10,
+  widgetCapacity: 8,
+  densityMatch: 7,
 } as const
 
 // ─── Content Affinity Map ─────────────────────────────────────
@@ -99,6 +101,27 @@ export function scoreLayout(recipe: LayoutRecipe, input: LayoutAdviceInput): Lay
     structBonus += recipe.regions.some(r => r.name === 'footer') ? 5 : -3
   }
   score += Math.max(-WEIGHTS.structureMatch, Math.min(WEIGHTS.structureMatch, structBonus))
+
+  // Widget capacity bonus — recipe properties.maxWidgets/minWidgets
+  if (input.itemCount !== undefined && recipe.properties) {
+    const p = recipe.properties
+    if (input.itemCount >= p.minWidgets && input.itemCount <= p.maxWidgets) {
+      score += WEIGHTS.widgetCapacity
+      reasons.push(`Widget count ${input.itemCount} within range (${p.minWidgets}-${p.maxWidgets})`)
+    } else if (input.itemCount > p.maxWidgets) {
+      score -= 5
+      reasons.push(`Widget count ${input.itemCount} exceeds max ${p.maxWidgets}`)
+    }
+  }
+
+  // Content density bonus
+  if (input.contentDensity && recipe.properties) {
+    const p = recipe.properties
+    if (p.densitySupport.includes(input.contentDensity)) {
+      score += WEIGHTS.densityMatch
+      reasons.push(`Supports ${input.contentDensity} density`)
+    }
+  }
 
   score = Math.max(0, Math.min(100, score))
 

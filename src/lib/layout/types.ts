@@ -33,7 +33,18 @@ export interface LayoutRecipe {
   minHeight?: string
   preview: string
   css: string
+  properties: LayoutProperties
 }
+
+export interface LayoutProperties {
+  maxWidgets: number
+  minWidgets: number
+  densitySupport: Array<'sparse' | 'medium' | 'dense'>
+  animationCapacity: 'none' | 'light' | 'medium' | 'heavy'
+  printSupport: boolean
+}
+
+export type ContentDensity = 'sparse' | 'medium' | 'dense'
 
 export interface LayoutAdviceInput {
   goal: string
@@ -42,6 +53,7 @@ export interface LayoutAdviceInput {
   needsSidebar?: boolean
   needsHeader?: boolean
   needsFooter?: boolean
+  contentDensity?: ContentDensity
 }
 
 export interface LayoutRecommendation {

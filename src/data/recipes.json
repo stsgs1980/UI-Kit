@@ -49,7 +49,17 @@
     "gap": "none",
     "minHeight": "100vh",
     "preview": "+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n| BAR   |     CONTENT        |\n|       |                   |\n+-------+-------------------+",
-    "css": "grid-template-columns: 280px 1fr; min-height: 100vh"
+    "css": "grid-template-columns: 280px 1fr; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 30,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": true
+    }
   },
   {
     "structure": "sidebar-right",
@@ -101,7 +111,17 @@
     "gap": "none",
     "minHeight": "100vh",
     "preview": "+-------------------+-------+\n|                   |       |\n|     MAIN          | SIDE  |\n|     CONTENT        | BAR   |\n|                   |       |\n+-------------------+-------+",
-    "css": "grid-template-columns: 1fr 280px; min-height: 100vh"
+    "css": "grid-template-columns: 1fr 280px; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": true
+    }
   },
   {
     "structure": "top-nav",
@@ -153,7 +173,17 @@
     "gap": "none",
     "minHeight": "100vh",
     "preview": "+---------------------------+\n|         HEADER            |\n+---------------------------+\n|                           |\n|       MAIN CONTENT        |\n|                           |\n+---------------------------+\n|         FOOTER            |\n+---------------------------+",
-    "css": "grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header\" \"main\" \"footer\"; min-height: 100vh"
+    "css": "grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header\" \"main\" \"footer\"; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 40,
+      "minWidgets": 1,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": true
+    }
   },
   {
     "structure": "two-columns",
@@ -201,7 +231,17 @@
     },
     "gap": "lg",
     "preview": "+-------------+-------------+\n|             |             |\n|    LEFT     |    RIGHT    |\n|             |             |\n+-------------+-------------+",
-    "css": "grid-template-columns: 1fr 1fr; gap: lg"
+    "css": "grid-template-columns: 1fr 1fr; gap: lg",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 2,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": true
+    }
   },
   {
     "structure": "three-columns",
@@ -257,7 +297,17 @@
     },
     "gap": "md",
     "preview": "+---------+---------+---------+\n|         |         |         |\n|  LEFT   | CENTER  |  RIGHT  |\n|         |         |         |\n+---------+---------+---------+",
-    "css": "grid-template-columns: 1fr 1fr 1fr; gap: md"
+    "css": "grid-template-columns: 1fr 1fr 1fr; gap: md",
+    "properties": {
+      "maxWidgets": 30,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": true
+    }
   },
   {
     "structure": "holy-grail",
@@ -325,7 +375,16 @@
     "gap": "none",
     "minHeight": "100vh",
     "preview": "+-----------------------------+\n|          HEADER             |\n+-------+-------------+-------+\n|       |             |       |\n| SIDE  |    MAIN     | ASIDE |\n|       |             |       |\n+-------+-------------+-------+\n|          FOOTER             |\n+-----------------------------+",
-    "css": "grid-template-columns: 240px 1fr 240px; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header header\" \"sidebar main aside\" \"footer footer footer\"; min-height: 100vh"
+    "css": "grid-template-columns: 240px 1fr 240px; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header header\" \"sidebar main aside\" \"footer footer footer\"; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 1,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "light",
+      "printSupport": true
+    }
   },
   {
     "structure": "split-screen",
@@ -376,7 +435,17 @@
     },
     "gap": "none",
     "preview": "+-------------+-------------+\n|             |             |\n|             |             |\n|    LEFT     |    RIGHT    |\n|             |             |\n|             |             |\n+-------------+-------------+",
-    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: 100vh"
+    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: 100vh",
+    "properties": {
+      "maxWidgets": 4,
+      "minWidgets": 2,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "heavy",
+      "printSupport": false
+    }
   },
   {
     "structure": "cards-grid",
@@ -414,7 +483,17 @@
     },
     "gap": "lg",
     "preview": "+-------+-------+-------+\n| CARD  | CARD  | CARD  |\n+-------+-------+-------+\n| CARD  | CARD  | CARD  |\n+-------+-------+-------+",
-    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: lg"
+    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: lg",
+    "properties": {
+      "maxWidgets": 100,
+      "minWidgets": 3,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "magazine",
@@ -472,7 +551,16 @@
     },
     "gap": "lg",
     "preview": "+---------------------------+\n|          HERO             |\n|   (featured content)      |\n+-------------+-------------+\n|  PRIMARY    |  SECONDARY  |\n+-------------+-------------+",
-    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; grid-template-areas: \"hero hero\" \"primary secondary\"; gap: lg"
+    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; grid-template-areas: \"hero hero\" \"primary secondary\"; gap: lg",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 4,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": true
+    }
   },
   {
     "structure": "fullscreen-hero",
@@ -510,7 +598,16 @@
     },
     "gap": "none",
     "preview": "+---------------------------+\n|                           |\n|                           |\n|      [CENTERED]           |\n|      CONTENT              |\n|                           |\n|                           |\n+---------------------------+",
-    "css": "grid-template-columns: 1fr; grid-template-rows: 100vh"
+    "css": "grid-template-columns: 1fr; grid-template-rows: 100vh",
+    "properties": {
+      "maxWidgets": 6,
+      "minWidgets": 1,
+      "densitySupport": [
+        "sparse"
+      ],
+      "animationCapacity": "heavy",
+      "printSupport": false
+    }
   },
   {
     "structure": "bento-grid",
@@ -570,7 +667,17 @@
     },
     "gap": "md",
     "preview": "+-------+-------+---+---+\n|       |       | 1 | 2 |\n| HERO  | HERO  +---+---+\n|       |       | 3 | 4 |\n+-------+-------+---+---+\n|     WIDE CARD 5       |\n+-----------------------+",
-    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); grid-template-areas: \"hero hero card-1 card-2\" \"hero hero card-3 card-4\" \"card-5 card-5 card-5 card-5\"; gap: md"
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); grid-template-areas: \"hero hero card-1 card-2\" \"hero hero card-3 card-4\" \"card-5 card-5 card-5 card-5\"; gap: md",
+    "properties": {
+      "maxWidgets": 12,
+      "minWidgets": 3,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "heavy",
+      "printSupport": false
+    }
   },
   {
     "structure": "bento-sidebar",
@@ -627,7 +734,17 @@
     "gap": "md",
     "minHeight": "100vh",
     "preview": "+-------+-------+-------+---+\n|       | HERO  | HERO  | 1 |\n| SIDE  +-------+-------+---+\n| BAR   |   2   |   3   | 3 |\n+-------+-------+-------+---+",
-    "css": "grid-template-columns: 240px repeat(3, 1fr); grid-template-rows: repeat(2, 100px); grid-template-areas: \"sidebar hero hero card-1\" \"sidebar card-2 card-3 card-3\"; gap: md; min-height: 100vh"
+    "css": "grid-template-columns: 240px repeat(3, 1fr); grid-template-rows: repeat(2, 100px); grid-template-areas: \"sidebar hero hero card-1\" \"sidebar card-2 card-3 card-3\"; gap: md; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 4,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "bento-hero",
@@ -684,7 +801,17 @@
     },
     "gap": "md",
     "preview": "+---------------------------+\n|          HERO             |\n+-------+-------+---+-------+\n|  F1   |  F1   | F2| F3    |\n+-------+-------+   |       |\n|  F4   |  F4   +---+-------+\n+-------+-------+-----------+",
-    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: auto repeat(2, 80px); grid-template-areas: \"hero hero hero hero\" \"feature-1 feature-1 feature-2 feature-3\" \"feature-4 feature-4 feature-2 feature-3\"; gap: md"
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: auto repeat(2, 80px); grid-template-areas: \"hero hero hero hero\" \"feature-1 feature-1 feature-2 feature-3\" \"feature-4 feature-4 feature-2 feature-3\"; gap: md",
+    "properties": {
+      "maxWidgets": 12,
+      "minWidgets": 3,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "heavy",
+      "printSupport": false
+    }
   },
   {
     "structure": "bento-masonry",
@@ -720,7 +847,17 @@
     },
     "gap": "md",
     "preview": "+-------+-------+-------+\n| AAA   | BB    | C     |\n| AAA   |       +-------+\n| AAA   +-------+ DDD   |\n+-------+ EEE   | DDD   |\n| FF    | EEE   +-------+\n+-------+-------+ GGG   |",
-    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 50,
+      "minWidgets": 6,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "masonry-grid",
@@ -758,7 +895,17 @@
     },
     "gap": "md",
     "preview": "+---+---+---+\n| A | D | G |\n| A | D |   |\n|   | E | H |\n| B |   |   |\n| B | F | I |\n|   |   | I |\n| C |   |   |\n| C |   |   |\n+---+---+---+",
-    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 100,
+      "minWidgets": 6,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "asymmetric-grid",
@@ -807,7 +954,17 @@
     },
     "gap": "lg",
     "preview": "+-------------------+-----------+\n|                   |           |\n|    PRIMARY        | SECONDARY |\n|    (2/3 width)    | (1/3)     |\n|                   |           |\n+-------------------+-----------+",
-    "css": "grid-template-columns: 2fr 1fr; gap: lg"
+    "css": "grid-template-columns: 2fr 1fr; gap: lg",
+    "properties": {
+      "maxWidgets": 10,
+      "minWidgets": 2,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "span-grid",
@@ -864,7 +1021,16 @@
     },
     "gap": "md",
     "preview": "+-------------------+---+\n|   FEATURED        | 1 |\n|   (spans 2 cols)  +---+\n+-----+-----+-------+\n|  2  |  3  |   4       |\n+-----+-----+-----------+",
-    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto; grid-template-areas: \"featured featured card-1\" \"card-2 card-3 card-4\"; gap: md"
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto; grid-template-areas: \"featured featured card-1\" \"card-2 card-3 card-4\"; gap: md",
+    "properties": {
+      "maxWidgets": 15,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "overlap-grid",
@@ -907,7 +1073,16 @@
     },
     "gap": "none",
     "preview": "+---------------+\n|  BG  |  FG    |\n|    +--+--+    |\n|    |  |  |    |\n|    +--+--+    |\n+---------------+",
-    "css": "grid-template-columns: 1fr 1fr"
+    "css": "grid-template-columns: 1fr 1fr",
+    "properties": {
+      "maxWidgets": 8,
+      "minWidgets": 2,
+      "densitySupport": [
+        "sparse"
+      ],
+      "animationCapacity": "heavy",
+      "printSupport": false
+    }
   },
   {
     "structure": "honeycomb-grid",
@@ -944,7 +1119,17 @@
     },
     "gap": "md",
     "preview": "   / \\ / \\ / \\ \n  | A | B | C |\n   \\ / \\ / \\ / \n  / \\ / \\ / \\   \n | D | E | F |\n  \\ / \\ / \\ /   ",
-    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 6,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "mosaic-grid",
@@ -1004,7 +1189,17 @@
     },
     "gap": "md",
     "preview": "+-------+-------+---+---+\n|   1   |   1   | 2 | 3 |\n|   1   |   1   +---+---+\n+-------+-------+ 4 | 4 |\n|     5     | 5     | 5 |\n+-----------+-------+---+",
-    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); grid-template-areas: \"tile-1 tile-1 tile-2 tile-3\" \"tile-1 tile-1 tile-4 tile-4\" \"tile-5 tile-5 tile-5 tile-5\"; gap: md"
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); grid-template-areas: \"tile-1 tile-1 tile-2 tile-3\" \"tile-1 tile-1 tile-4 tile-4\" \"tile-5 tile-5 tile-5 tile-5\"; gap: md",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 4,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "responsive-grid",
@@ -1035,7 +1230,16 @@
     },
     "gap": "lg",
     "preview": "[280px] [280px] [280px] [280px]\n  ...    ...    ...    ...\n\n(Auto-fills based on container width)",
-    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: lg"
+    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: lg",
+    "properties": {
+      "maxWidgets": 50,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "fibonacci-grid",
@@ -1095,7 +1299,17 @@
     },
     "gap": "md",
     "preview": "+--+--+----+------+----------+\n|1 |1 | 2  |  3   |    5     |\n+--+--+----+------+----------+\n  Fibonacci: 1 1 2 3 5",
-    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; gap: md"
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; gap: md",
+    "properties": {
+      "maxWidgets": 12,
+      "minWidgets": 3,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "fibonacci-columns",
@@ -1147,7 +1361,16 @@
     },
     "gap": "md",
     "preview": "+------+----------+----------------+\n|      |          |                |\n| 1fr  | 1.618fr  |   2.618fr      |\n|      |          |                |\n+------+----------+----------------+",
-    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; gap: md"
+    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; gap: md",
+    "properties": {
+      "maxWidgets": 10,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "fibonacci-tiles",
@@ -1203,7 +1426,17 @@
     },
     "gap": "md",
     "preview": "+---+---+-------+--------+\n| 1 | 2 |       |        |\n+---+---+   3   |   3    |\n|   4   |       |        |\n+---+---+-------+--------+\n|      5       |   5     |\n+--------------+---------+",
-    "css": "grid-template-columns: 1fr 1fr 2fr 3fr; grid-template-rows: 1fr 1fr 2fr; grid-template-areas: \"tile-1 tile-2 tile-3 tile-3\" \"tile-4 tile-4 tile-3 tile-3\" \"tile-5 tile-5 tile-5 tile-5\"; gap: md"
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr; grid-template-rows: 1fr 1fr 2fr; grid-template-areas: \"tile-1 tile-2 tile-3 tile-3\" \"tile-4 tile-4 tile-3 tile-3\" \"tile-5 tile-5 tile-5 tile-5\"; gap: md",
+    "properties": {
+      "maxWidgets": 15,
+      "minWidgets": 4,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "fibonacci-responsive",
@@ -1238,7 +1471,16 @@
     },
     "gap": "md",
     "preview": "Desktop:  1|1|2| 3 |   5   \nTablet:   1| 2 |   3   \nMobile:   |   1   |",
-    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 12,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "fibonacci-masonry",
@@ -1269,7 +1511,17 @@
     },
     "gap": "md",
     "preview": "+---+-------+-----------+\n| A |   D   |     G     |\n| B |   D   |     G     |\n| B |       |     H     |\n| C |   E   |           |\n|   |   F   |     I     |\n+---+-------+-----------+",
-    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 30,
+      "minWidgets": 6,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "fibonacci-bento",
@@ -1320,7 +1572,17 @@
     },
     "gap": "md",
     "preview": "+---+---+-------+--------+\n| 1 | 2 |       HERO       |\n+---+---+-------+          |\n|    3    |      HERO       |\n+---------+----------------+",
-    "css": "grid-template-columns: 1fr 1fr 2fr 3fr; grid-template-rows: 1fr 2fr; grid-template-areas: \"card-1 card-2 hero hero\" \"card-3 card-3 hero hero\"; gap: md"
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr; grid-template-rows: 1fr 2fr; grid-template-areas: \"card-1 card-2 hero hero\" \"card-3 card-3 hero hero\"; gap: md",
+    "properties": {
+      "maxWidgets": 8,
+      "minWidgets": 3,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "heavy",
+      "printSupport": false
+    }
   },
   {
     "structure": "fibonacci-steps",
@@ -1381,7 +1643,16 @@
     },
     "gap": "md",
     "preview": "|1|1| 2 |  3  |    5    |\n  Each column wider by phi",
-    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: 1fr 1fr 2fr 3fr 5fr; grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 8,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "fibonacci-cascade",
@@ -1442,7 +1713,17 @@
     },
     "gap": "md",
     "preview": "|        S1           |\n   |      S2         |\n      |    S3      |\n         | S4    |",
-    "css": "grid-template-columns: 1fr 2fr 3fr 5fr; grid-template-rows: auto auto auto auto; grid-template-areas: \"section-1 section-1 section-1 section-1\" \". section-2 section-2 section-2\" \". . section-3 section-3\" \". . . section-4\"; gap: md"
+    "css": "grid-template-columns: 1fr 2fr 3fr 5fr; grid-template-rows: auto auto auto auto; grid-template-areas: \"section-1 section-1 section-1 section-1\" \". section-2 section-2 section-2\" \". . section-3 section-3\" \". . . section-4\"; gap: md",
+    "properties": {
+      "maxWidgets": 10,
+      "minWidgets": 3,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "golden-ratio-grid",
@@ -1492,7 +1773,17 @@
     },
     "gap": "lg",
     "preview": "+----------+------------------+\n|          |                  |\n|  38.2%   |     61.8%        |\n|  (minor) |     (major)      |\n|          |                  |\n+----------+------------------+",
-    "css": "grid-template-columns: 1fr 1.618fr; gap: lg"
+    "css": "grid-template-columns: 1fr 1.618fr; gap: lg",
+    "properties": {
+      "maxWidgets": 10,
+      "minWidgets": 2,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": true
+    }
   },
   {
     "structure": "phi-grid",
@@ -1545,7 +1836,16 @@
     },
     "gap": "md",
     "preview": "+------+----------+------------------+\n|      |          |                  |\n| 19%  |   31%    |      50%         |\n|      |          |                  |\n+------+----------+------------------+",
-    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; gap: md"
+    "css": "grid-template-columns: 1fr 1.618fr 2.618fr; gap: md",
+    "properties": {
+      "maxWidgets": 10,
+      "minWidgets": 2,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": true
+    }
   },
   {
     "structure": "rule-of-thirds",
@@ -1614,7 +1914,17 @@
     },
     "gap": "md",
     "preview": "+--------+--------+--------+\n| TL     | TC     | TR     |\n|   *    |        |   *    |\n+--------+--------+--------+\n| ML     | MC     | MR     |\n|        |   *    |        |\n+--------+--------+--------+\n| BL     | BC     | BR     |\n|   *    |        |   *    |\n+--------+--------+--------+\n  * = natural focal points",
-    "css": "grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; grid-template-areas: \"top-left top-center top-right\" \"mid-left mid-center mid-right\" \"bottom-left bottom-center bottom-right\"; gap: md"
+    "css": "grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; grid-template-areas: \"top-left top-center top-right\" \"mid-left mid-center mid-right\" \"bottom-left bottom-center bottom-right\"; gap: md",
+    "properties": {
+      "maxWidgets": 6,
+      "minWidgets": 2,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": true
+    }
   },
   {
     "structure": "harmonic-series",
@@ -1670,7 +1980,16 @@
     },
     "gap": "md",
     "preview": "+------------+------+----+---+\n|            |      |    |   |\n|   12fr     | 6fr  |4fr |3fr|\n|            |      |    |   |\n+------------+------+----+---+\n  Harmonic: 1, 1/2, 1/3, 1/4",
-    "css": "grid-template-columns: 12fr 6fr 4fr 3fr; gap: md"
+    "css": "grid-template-columns: 12fr 6fr 4fr 3fr; gap: md",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 4,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "prime-grid",
@@ -1705,7 +2024,16 @@
     },
     "gap": "md",
     "preview": "+---+---+---+---+---+\n|   |   |   |   |   |\n| 1 | 2 | 3 | 4 | 5 |\n|   |   |   |   |   |\n+---+---+---+---+---+\n  5 columns (prime)",
-    "css": "grid-template-columns: repeat(5, 1fr); grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: repeat(5, 1fr); grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 15,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "sqrt-grid",
@@ -1757,7 +2085,16 @@
     },
     "gap": "md",
     "preview": "+------+--------+----------+\n|      |        |          |\n| 1fr  | 1.41fr | 1.73fr   |\n|      |        |          |\n+------+--------+----------+\n  sqrt(1), sqrt(2), sqrt(3)",
-    "css": "grid-template-columns: 1fr 1.414fr 1.732fr; gap: md"
+    "css": "grid-template-columns: 1fr 1.414fr 1.732fr; gap: md",
+    "properties": {
+      "maxWidgets": 12,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "modular-grid",
@@ -1814,7 +2151,17 @@
     },
     "gap": "md",
     "preview": "+------+-------+---------+----------+\n|      |       |         |          |\n| 1fr  |1.25fr | 1.56fr  | 1.95fr   |\n|      |       |         |          |\n+------+-------+---------+----------+\n  Ratio: 1.25 (major third)",
-    "css": "grid-template-columns: 1fr 1.25fr 1.563fr 1.953fr; gap: md"
+    "css": "grid-template-columns: 1fr 1.25fr 1.563fr 1.953fr; gap: md",
+    "properties": {
+      "maxWidgets": 30,
+      "minWidgets": 4,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": true
+    }
   },
   {
     "structure": "dashboard",
@@ -1872,7 +2219,17 @@
     "gap": "none",
     "minHeight": "100vh",
     "preview": "+---------------------------+\n|         HEADER            |\n+-------+-------------------+\n|       |                   |\n| SIDE  |   WIDGET GRID     |\n| NAV   |   [1] [2] [3]     |\n|       |   [4] [5]         |\n+-------+-------------------+",
-    "css": "grid-template-columns: 260px 1fr; grid-template-rows: auto 1fr; grid-template-areas: \"header header\" \"sidebar main\"; min-height: 100vh"
+    "css": "grid-template-columns: 260px 1fr; grid-template-rows: auto 1fr; grid-template-areas: \"header header\" \"sidebar main\"; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 50,
+      "minWidgets": 4,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "blog",
@@ -1935,7 +2292,16 @@
     "gap": "none",
     "minHeight": "100vh",
     "preview": "+---------------------------+\n|         HEADER            |\n+-------------------+-------+\n|                   |       |\n|   MAIN CONTENT    | SIDE  |\n|   (articles)      | BAR   |\n|                   |       |\n+-------------------+-------+\n|         FOOTER            |\n+---------------------------+",
-    "css": "grid-template-columns: 2fr 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header\" \"main sidebar\" \"footer footer\"; min-height: 100vh"
+    "css": "grid-template-columns: 2fr 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header\" \"main sidebar\" \"footer footer\"; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "light",
+      "printSupport": true
+    }
   },
   {
     "structure": "grid-overlap",
@@ -1984,7 +2350,17 @@
     },
     "gap": "none",
     "preview": "+-------------------+\n|  BASE (z:0)      |\n|  +-------------+  |\n|  | OVERLAY z:1 |  |\n|  +-------------+  |\n+-------------------+",
-    "css": "grid-template-columns: 1fr"
+    "css": "grid-template-columns: 1fr",
+    "properties": {
+      "maxWidgets": 10,
+      "minWidgets": 2,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "heavy",
+      "printSupport": false
+    }
   },
   {
     "structure": "full-bleed",
@@ -2021,7 +2397,17 @@
     },
     "gap": "none",
     "preview": "+------+---content---+------+\n|      |  readable   |      |\n| full |  65ch max   | full |\n| bleed|  content    | bleed|\n+------+-------------+------+",
-    "css": "grid-template-columns: 1fr min(65ch, 100%) 1fr; grid-template-rows: auto"
+    "css": "grid-template-columns: 1fr min(65ch, 100%) 1fr; grid-template-rows: auto",
+    "properties": {
+      "maxWidgets": 10,
+      "minWidgets": 1,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": true
+    }
   },
   {
     "structure": "container-query-grid",
@@ -2055,7 +2441,17 @@
     },
     "gap": "md",
     "preview": "[Container Width >= 600px]\n+-------+-------+-------+\n| Card  | Card  | Card  |\n+-------+-------+-------+\n\n[Container Width < 600px]\n+-------------------+\n|      Card         |\n+-------------------+",
-    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 30,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "scroll-snap-grid",
@@ -2090,7 +2486,16 @@
     },
     "gap": "md",
     "preview": "[<--- scroll --->]\n+-------+-------+-------+-------+\n| Card  | Card  | Card  | Card  |\n| snap  | snap  | snap  | snap  |\n+-------+-------+-------+-------+",
-    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "animated-grid",
@@ -2138,7 +2543,17 @@
     "gap": "none",
     "minHeight": "100vh",
     "preview": "+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n| 280px |     (1fr)          |\n|  <->  |                   |\n+-------+-------------------+\n  <-> = animated width change",
-    "css": "grid-template-columns: 280px 1fr; min-height: 100vh"
+    "css": "grid-template-columns: 280px 1fr; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 3,
+      "densitySupport": [
+        "sparse",
+        "medium"
+      ],
+      "animationCapacity": "heavy",
+      "printSupport": false
+    }
   },
   {
     "structure": "subgrid-sync",
@@ -2172,7 +2587,17 @@
     },
     "gap": "md",
     "preview": "+-------+-------+-------+-------+\n| Parent| Grid  | Track | Align |\n+-------+-------+-------+-------+\n| Child | sub-  | grid  | syncs |\n| inherits columns from parent   |",
-    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 40,
+      "minWidgets": 4,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "auto-flow-column",
@@ -2208,7 +2633,17 @@
     },
     "gap": "md",
     "preview": "+---+---+---+\n| 1 | 4 | 7 |\n| 2 | 5 | 8 |\n| 3 | 6 | 9 |\n+---+---+---+\n  Vertical-first flow",
-    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 100,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "dense-packing",
@@ -2243,7 +2678,17 @@
     },
     "gap": "md",
     "preview": "+-------+-------+---+---+\n| BIG   | BIG   | 3 | 4 |\n| BIG   | BIG   +---+---+\n+-------+-------+ 5 | 6 |\n| 7     | 8     +---+---+\n+-------+-------+-------+",
-    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); gap: md"
+    "css": "grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 80px); gap: md",
+    "properties": {
+      "maxWidgets": 60,
+      "minWidgets": 5,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "login-split",
@@ -2291,7 +2736,16 @@
     },
     "gap": "none",
     "preview": "+-------------+-------------+\n|             |             |\n|    BRAND    |    FORM     |\n| illustration|   login     |\n|             |   form      |\n+-------------+-------------+",
-    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: 100vh"
+    "css": "grid-template-columns: 1fr 1fr; grid-template-rows: 100vh",
+    "properties": {
+      "maxWidgets": 2,
+      "minWidgets": 1,
+      "densitySupport": [
+        "sparse"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": false
+    }
   },
   {
     "structure": "form-label-input",
@@ -2326,7 +2780,17 @@
     },
     "gap": "md",
     "preview": "+--------+-------------------+\n| Label  | [Input..........] |\n| Label  | [Input..........] |\n|        | [Full-width btn ] |\n+--------+-------------------+",
-    "css": "grid-template-columns: auto 1fr; grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: auto 1fr; grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 2,
+      "densitySupport": [
+        "medium",
+        "dense"
+      ],
+      "animationCapacity": "light",
+      "printSupport": true
+    }
   },
   {
     "structure": "nav-logo-action",
@@ -2376,7 +2840,16 @@
     },
     "gap": "md",
     "preview": "+------+------------------+--------+\n| LOGO |   Nav Links      | [CTA]  |\n+------+------------------+--------+",
-    "css": "grid-template-columns: auto 1fr auto; grid-template-rows: auto; gap: md"
+    "css": "grid-template-columns: auto 1fr auto; grid-template-rows: auto; gap: md",
+    "properties": {
+      "maxWidgets": 3,
+      "minWidgets": 1,
+      "densitySupport": [
+        "sparse"
+      ],
+      "animationCapacity": "medium",
+      "printSupport": true
+    }
   },
   {
     "structure": "grid-template-shorthand",
@@ -2438,7 +2911,16 @@
     "gap": "none",
     "minHeight": "100vh",
     "preview": "+---------------------------+\n|         HEADER            |\n+-------+-------------------+\n|       |                   |\n| SIDE  |     MAIN          |\n|       |                   |\n+-------+-------------------+\n|         FOOTER            |\n+---------------------------+",
-    "css": "grid-template-columns: 240px 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header\" \"sidebar main\" \"footer footer\"; min-height: 100vh"
+    "css": "grid-template-columns: 240px 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: \"header header\" \"sidebar main\" \"footer footer\"; min-height: 100vh",
+    "properties": {
+      "maxWidgets": 30,
+      "minWidgets": 2,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   },
   {
     "structure": "implicit-named-lines",
@@ -2472,6 +2954,15 @@
     },
     "gap": "none",
     "preview": "+------+---content---+------+\n|      |  [content-  |      |\n| full |  start/end] | full |\n| area |  65ch max   | area |\n+------+-------------+------+",
-    "css": "grid-template-columns: 1fr minmax(0, 65ch) 1fr; grid-template-rows: auto"
+    "css": "grid-template-columns: 1fr minmax(0, 65ch) 1fr; grid-template-rows: auto",
+    "properties": {
+      "maxWidgets": 20,
+      "minWidgets": 3,
+      "densitySupport": [
+        "medium"
+      ],
+      "animationCapacity": "light",
+      "printSupport": false
+    }
   }
 ]
