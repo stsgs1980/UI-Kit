@@ -95,8 +95,8 @@ export function VariantLayoutExplorer({ recipes }: { recipes: LayoutRecipe[] }) 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
         {/* Breadcrumb bar */}
         <div data-slot="breadcrumb-bar" style={{
-          height: 44, borderBottom: `1px solid ${tokens.borderSubtle}`,
-          display: 'flex', alignItems: 'center', padding: '0 20px',
+          height: 55, borderBottom: `1px solid ${tokens.borderSubtle}`,
+          display: 'flex', alignItems: 'center', padding: '0 21px',
           background: tokens.bgBase, fontSize: 12, fontFamily: tokens.fontFamilyBody,
         }}>
           <nav style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

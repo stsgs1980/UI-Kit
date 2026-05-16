@@ -31,9 +31,9 @@ export function ComponentGridView({
   components, activeComponent, onSelectComponent, tokens, title,
 }: ComponentGridViewProps) {
   return (
-    <div data-slot="component-grid" style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
+    <div data-slot="component-grid" style={{ flex: 1, overflowY: 'auto', padding: 21 }}>
       {title && (
-        <div style={{ marginBottom: 16 }}>
+        <div style={{ marginBottom: 13 }}>
           <div style={{ fontSize: 16, fontWeight: 700, fontFamily: tokens.fontFamilyDisplay, color: tokens.textPrimary }}>
             {title}
           </div>
@@ -45,13 +45,13 @@ export function ComponentGridView({
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: 12,
+        gridTemplateColumns: 'repeat(auto-fill, minmax(233px, 1fr))',
+        gap: 13,
       }}>
         {components.map((comp, i) => {
           const lc = LAYER_COLORS[comp.layer] ?? LAYER_COLORS.ui
           const active = comp.name === activeComponent
-          const delay = Math.min(0.04 + i * 0.03, 0.64)
+          const delay = Math.min(0.03 + i * 0.02, 0.55)
 
           return (
             <button
@@ -73,7 +73,7 @@ export function ComponentGridView({
               <div className="explorer-card-accent" style={{ background: lc }} />
 
               {/* Preview area */}
-              <div className="explorer-card-preview" style={{ height: 148, background: tokens.bgElevated }}>
+              <div className="explorer-card-preview" style={{ height: 144, background: tokens.bgElevated }}>
                 <div style={{
                   position: 'relative', zIndex: 2,
                   display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%',
@@ -116,7 +116,7 @@ export function ComponentGridView({
               </div>
 
               {/* Info bar */}
-              <div data-slot="card-info" style={{ padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div data-slot="card-info" style={{ padding: '13px 13px', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{
                   fontSize: 13, fontWeight: 500, fontFamily: tokens.fontFamilyMono, color: tokens.textPrimary,
                   overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0,

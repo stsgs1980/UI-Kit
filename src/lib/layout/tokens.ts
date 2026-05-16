@@ -57,15 +57,15 @@ export const colors = {
 // ─── Spacing Scale ────────────────────────────────────────────
 
 export const spacing = {
-  xs: 4,
-  sm: 8,
-  md: 12,
-  base: 16,
-  lg: 20,
-  xl: 24,
-  '2xl': 32,
-  '3xl': 48,
-  '4xl': 64,
+  xs:   3,
+  sm:   5,
+  md:   8,
+  base: 13,
+  lg:   21,
+  xl:   34,
+  '2xl': 55,
+  '3xl': 89,
+  '4xl': 144,
 } as const
 
 // ─── Border Radius ────────────────────────────────────────────
@@ -85,14 +85,14 @@ export const radius = {
 // ─── Typography Scale ────────────────────────────────────────
 
 export const fontSize = {
-  xs:   9,   // micro-labels, kbd hints
+  xs:   8,   // micro-labels, kbd hints
   sm:   10,  // tags, badges, kbd
-  base: 12,  // meta, descriptions
-  md:   13,  // buttons, body text
-  lg:   15,  // card titles, subtitles
-  xl:   20,  // section headings, sidebar title
-  '2xl': 26, // page headings
-  '3xl': 42, // hero / display
+  base: 13,  // meta, descriptions
+  md:   14,  // buttons, body text
+  lg:   21,  // card titles, subtitles
+  xl:   34,  // section headings
+  '2xl': 55, // page headings
+  '3xl': 89, // hero / display
 } as const
 
 export const fontWeight = {

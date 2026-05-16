@@ -39,7 +39,7 @@ export function StudioHeader({
       transition: 'background 0.3s, border-color 0.3s',
     }}>
       <div style={{
-        height: 48, padding: '0 24px',
+        height: 55, padding: '0 21px',
         display: 'flex', alignItems: 'center',
       }}>
         {/* Brand */}

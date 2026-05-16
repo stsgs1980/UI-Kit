@@ -41,7 +41,7 @@ export function ComponentBrowserView({ activeLayer, activeComponent, tokens, onS
   return (
     <div style={{ display: 'flex', height: '100%', overflow: 'hidden' }}>
       {/* Panel 1: List — fixed compact width */}
-      <div style={{ width: 210, flexShrink: 0, borderRight: `1px solid ${tokens.borderSubtle}`, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ width: 233, flexShrink: 0, borderRight: `1px solid ${tokens.borderSubtle}`, display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '10px 12px', borderBottom: `1px solid ${tokens.borderSubtle}` }}>
           <div style={{ fontSize: 13, fontWeight: fontWeight.bold, color: tokens.textPrimary, fontFamily: tokens.fontFamilyDisplay }}>
             {activeLayer}/<span style={{ color: tokens.textMuted, fontWeight: fontWeight.regular }}> {meta.label}</span>

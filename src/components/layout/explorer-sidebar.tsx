@@ -55,7 +55,7 @@ export function ExplorerSidebar({
 
   return (
     <nav aria-label="Component navigation" style={{
-      width: 240, flexShrink: 0,
+      width: 233, flexShrink: 0,
       background: tokens.sidebarBg, color: tokens.sidebarText,
       display: 'flex', flexDirection: 'column',
       borderRight: `1px solid ${tokens.sidebarBorder}`,
