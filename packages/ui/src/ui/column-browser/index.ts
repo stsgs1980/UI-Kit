@@ -1,2 +1,2 @@
-export { ColumnBrowser } from './column-browser'
-export type { ColumnBrowserProps, ColumnCategory, BrowserItem, ColumnTab } from './column-browser'
+export * from './column-browser'
+export * from './column-tab'

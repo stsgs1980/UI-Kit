@@ -1,95 +1,88 @@
 'use client'
 
-import { forwardRef, type HTMLAttributes } from 'react'
+import * as React from 'react'
 import { cn } from '../../tokens/cn'
 
-// ─── Types ────────────────────────────────────────────────────
-
-export interface ColorPickerInputProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  /** Current hex color value (e.g. "#ff0000") */
+export interface ColorPickerInputProps {
+  /** Hex color value, e.g. "#C8A97E" */
   value: string
-  /** Change handler -- receives the full hex string */
+  /** Called with the new hex string when the user picks or types a color */
   onChange: (value: string) => void
-  /** Label text displayed above the control */
+  /** Optional label rendered above the control */
   label?: string
-  /** Whether to show the hex text input (default true) */
-  showHexInput?: boolean
-  /** Preset color swatches */
-  presets?: string[]
+  className?: string
 }
 
-// ─── ColorPickerInput Component ───────────────────────────────
+const HEX_RE = /^#[0-9A-Fa-f]{6}$/
 
-/**
- * ColorPickerInput -- native color picker combined with hex input and optional presets.
- *
- * Provides a compact color selection control with a clickable swatch,
- * an editable hex text field, and optional preset swatches.
- *
- * @example
- * ```tsx
- * <ColorPickerInput
- *   label="Primary Color"
- *   value={color}
- *   onChange={setColor}
- *   presets={['#ef4444', '#f59e0b', '#22c55e', '#3b82f6', '#8b5cf6']}
- * />
- * ```
- */
-export const ColorPickerInput = forwardRef<HTMLDivElement, ColorPickerInputProps>(
-  ({ value, onChange, label, showHexInput = true, presets, className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex flex-col gap-1.5', className)} {...props}>
-      {label && (
-        <label className="text-xs font-medium text-muted-foreground">{label}</label>
-      )}
-      <div className="flex items-center gap-2">
-        <div className="relative size-7 shrink-0 overflow-hidden rounded-md border border-border">
+export const ColorPickerInput = React.forwardRef<HTMLDivElement, ColorPickerInputProps>(
+  ({ value, onChange, label, className }, ref) => {
+    const [draft, setDraft] = React.useState(value)
+    const prevValid = React.useRef(value)
+
+    // Sync draft when external value changes
+    React.useEffect(() => {
+      setDraft(value)
+      prevValid.current = value
+    }, [value])
+
+    const handleSwatchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const next = e.target.value.toUpperCase()
+      prevValid.current = next
+      setDraft(next)
+      onChange(next)
+    }
+
+    const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setDraft(e.target.value)
+    }
+
+    const handleBlur = () => {
+      const normalized = draft.startsWith('#') ? draft : `#${draft}`
+      if (HEX_RE.test(normalized)) {
+        const hex = normalized.toUpperCase()
+        prevValid.current = hex
+        setDraft(hex)
+        onChange(hex)
+      } else {
+        // Reset to previous valid value
+        setDraft(prevValid.current)
+      }
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        e.currentTarget.blur()
+      }
+    }
+
+    return (
+      <div ref={ref} data-slot="color-picker-input" className={cn('flex flex-col gap-1.5', className)}>
+        {label && (
+          <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            {label}
+          </label>
+        )}
+        <div className="flex items-center gap-2 rounded-md border border-input bg-transparent px-3 py-1.5 text-sm shadow-xs transition-colors focus-within:border-ring focus-within:outline-none focus-within:ring-1 focus-within:ring-ring">
           <input
             type="color"
-            value={value.length === 4
-              ? `#${value[1]}${value[1]}${value[2]}${value[2]}${value[3]}${value[3]}`
-              : value
-            }
-            onChange={e => onChange(e.target.value)}
-            className="absolute inset-0 cursor-pointer"
-            aria-label={label ?? 'Pick a color'}
+            value={value}
+            onChange={handleSwatchChange}
+            aria-label={label ?? 'Color swatch'}
+            className="h-8 w-8 cursor-pointer rounded-full border-0 bg-transparent p-0 [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-full [&::-moz-color-swatch]:rounded-full border-0"
           />
-        </div>
-        {showHexInput && (
           <input
             type="text"
-            value={value}
-            onChange={e => {
-              const v = e.target.value
-              if (/^#([0-9a-fA-F]{0,6})$/.test(v)) onChange(v)
-            }}
-            maxLength={7}
-            className="h-7 w-24 rounded-md border border-border bg-transparent px-2 text-xs font-mono text-foreground outline-none focus:ring-1 focus:ring-primary"
-            placeholder="#000000"
-            aria-label={`${label ?? 'Color'} hex value`}
+            value={draft}
+            onChange={handleTextChange}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+            aria-label={label ?? 'Hex color value'}
+            className="min-w-[5.5rem] bg-transparent font-mono text-sm outline-none placeholder:text-muted-foreground"
           />
-        )}
-      </div>
-      {presets && presets.length > 0 && (
-        <div className="flex flex-wrap gap-1">
-          {presets.map((preset, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => onChange(preset)}
-              className={cn(
-                'size-5 rounded border transition-transform hover:scale-110',
-                value.toLowerCase() === preset.toLowerCase()
-                  ? 'border-foreground ring-1 ring-foreground/30'
-                  : 'border-border'
-              )}
-              style={{ backgroundColor: preset }}
-              aria-label={`Select ${preset}`}
-            />
-          ))}
         </div>
-      )}
-    </div>
-  )
+      </div>
+    )
+  },
 )
 ColorPickerInput.displayName = 'ColorPickerInput'

@@ -1,132 +1,107 @@
 'use client'
 
-import { forwardRef, type HTMLAttributes, type ReactNode } from 'react'
+import React, { useState, forwardRef } from 'react'
 import { cn } from '../../tokens/cn'
-import { CopyButton } from '../copy-button'
 
-// ─── Types ────────────────────────────────────────────────────
-
-export interface CodeBlockProps extends HTMLAttributes<HTMLDivElement> {
-  /** Code content to display */
+export interface CodeBlockProps {
+  /** The raw source code to display */
   code: string
-  /** Language identifier for syntax hint (display only) */
+  /** Language hint shown in the badge (default: "tsx") */
   language?: string
-  /** Filename shown in the chrome bar */
-  filename?: string
-  /** Whether to show line numbers (default true) */
+  /** Show line numbers on the left (default: true) */
   showLineNumbers?: boolean
-  /** Whether to show the copy button (default true) */
-  showCopyButton?: boolean
-  /** Whether to show the window chrome (default true) */
-  showChrome?: boolean
-  /** Maximum height with overflow scroll */
-  maxHeight?: string
-  /** Custom header content replacing the chrome bar */
-  header?: ReactNode
+  /** Show the copy-to-clipboard button (default: true) */
+  showCopy?: boolean
+  className?: string
 }
 
-// ─── CodeBlock Component ──────────────────────────────────────
+export const CodeBlock = forwardRef<HTMLPreElement, CodeBlockProps>(
+  ({ code, language = 'tsx', showLineNumbers = true, showCopy = true, className, ...props }, ref) => {
+    const [copied, setCopied] = useState(false)
 
-/**
- * CodeBlock -- VS Code-style code display with chrome, line numbers, and copy.
- *
- * A self-contained code viewer with optional window chrome bar (dots + filename),
- * line numbers, and an integrated copy button. Designed for presenting
- * generated code (CSS, HTML, JS, etc.) in tool and documentation pages.
- *
- * Note: This component does NOT include syntax highlighting. Wrap code in a
- * highlighting library (e.g. highlight.js, Prism) or pass pre-highlighted
- * markup via children.
- *
- * @example
- * ```tsx
- * <CodeBlock
- *   filename="button.tsx"
- *   language="tsx"
- *   code={`const Button = () => <button>Click</button>`}
- * />
- * ```
- */
-export const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
-  (
-    {
-      code,
-      language,
-      filename,
-      showLineNumbers = true,
-      showCopyButton = true,
-      showChrome = true,
-      maxHeight,
-      header,
-      className,
-      children,
-      ...props
-    },
-    ref
-  ) => {
     const lines = code.split('\n')
+
+    const handleCopy = async () => {
+      try {
+        await navigator.clipboard.writeText(code)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      } catch {
+        /* clipboard unavailable – silently ignore */
+      }
+    }
 
     return (
       <div
-        ref={ref}
-        className={cn('overflow-hidden rounded-lg border border-border bg-zinc-950 dark:bg-zinc-900', className)}
-        {...props}
+        data-slot="code-block"
+        className={cn('group relative rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 overflow-hidden', className)}
       >
-        {/* Chrome bar */}
-        {(showChrome || header) && (
-          <div className="flex items-center gap-3 border-b border-zinc-800 bg-zinc-900 px-4 py-2 dark:border-zinc-800">
-            {header ?? (
-              <>
-                <div className="flex gap-1.5">
-                  <span className="size-2.5 rounded-full bg-red-500/80" />
-                  <span className="size-2.5 rounded-full bg-yellow-500/80" />
-                  <span className="size-2.5 rounded-full bg-green-500/80" />
-                </div>
-                {filename && (
-                  <span className="text-xs text-zinc-400">{filename}</span>
+        {/* Top bar */}
+        <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-2">
+          <span className="text-xs font-medium text-zinc-500 select-none">Code</span>
+
+          <div className="flex items-center gap-3">
+            {/* Language badge */}
+            <span className="rounded-md bg-zinc-800 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-zinc-400">
+              {language}
+            </span>
+
+            {/* Copy button */}
+            {showCopy && (
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-600"
+                aria-label={copied ? 'Copied' : 'Copy code'}
+              >
+                {copied ? (
+                  <>
+                    {/* Check icon */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    {/* Copy icon */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg>
+                    Copy
+                  </>
                 )}
-                <div className="flex-1" />
-                {language && (
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">
-                    {language}
-                  </span>
-                )}
-              </>
+              </button>
             )}
           </div>
-        )}
-
-        {/* Code area */}
-        <div
-          className="overflow-auto text-xs leading-relaxed"
-          style={maxHeight ? { maxHeight } : undefined}
-        >
-          <pre className="p-4 font-mono">
-            <code>
-              {children ?? (
-                lines.map((line, i) => (
-                  <div key={i} className="flex">
-                    {showLineNumbers && (
-                      <span className="mr-4 inline-block w-6 shrink-0 select-none text-right text-zinc-600">
-                        {i + 1}
-                      </span>
-                    )}
-                    <span className="text-zinc-300">{line || ' '}</span>
-                  </div>
-                ))
-              )}
-            </code>
-          </pre>
         </div>
 
-        {/* Copy button */}
-        {showCopyButton && (
-          <div className="flex justify-end border-t border-zinc-800 bg-zinc-900/50 px-3 py-1.5">
-            <CopyButton value={code} size="sm" className="border-zinc-700 text-zinc-400 hover:text-zinc-200" />
-          </div>
-        )}
+        {/* Code area */}
+        <div className="overflow-x-auto">
+          <pre
+            ref={ref}
+            {...props}
+            className="flex min-h-0 text-[13px] leading-relaxed"
+          >
+            {showLineNumbers ? (
+              <table className="border-collapse w-full m-0">
+                <tbody>
+                  {lines.map((line, i) => (
+                    <tr key={i}>
+                      <td className="select-none border-r border-zinc-800 px-3 py-0 text-right align-top text-zinc-600 no-underline">
+                        {i + 1}
+                      </td>
+                      <td className="px-4 py-0 whitespace-pre">
+                        <code className="font-mono">{line}</code>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <code className="block px-4 py-3 font-mono whitespace-pre">{code}</code>
+            )}
+          </pre>
+        </div>
       </div>
     )
-  }
+  },
 )
+
 CodeBlock.displayName = 'CodeBlock'
