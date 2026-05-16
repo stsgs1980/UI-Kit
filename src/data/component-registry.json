@@ -87,6 +87,20 @@
         "hasCn": true
       },
       {
+        "name": "bento-grid",
+        "layer": "ui",
+        "lines": 103,
+        "description": "CSS Grid-based asymmetric layout inspired by Apple bento design. Each BentoItem spans configurable columns and rows for mixed-size card compositions. Ideal for feature showcases, dashboards, and marketing pages.",
+        "exports": [
+          "BentoGridProps",
+          "BentoItemProps",
+          "BentoGrid",
+          "BentoItem"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
         "name": "breadcrumb",
         "layer": "ui",
         "lines": 110,
@@ -195,6 +209,18 @@
         "hasCn": true
       },
       {
+        "name": "code-block",
+        "layer": "ui",
+        "lines": 133,
+        "description": "Syntax-highlighted code display with optional line numbers, language label badge, and one-click copy button. Monospace font with themed background. Supports multi-line snippets and loading skeleton state.",
+        "exports": [
+          "CodeBlockProps",
+          "CodeBlock"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
         "name": "collapsible",
         "layer": "ui",
         "lines": 34,
@@ -206,6 +232,33 @@
         ],
         "hasForwardRef": false,
         "hasCn": false
+      },
+      {
+        "name": "color-picker-input",
+        "layer": "ui",
+        "lines": 96,
+        "description": "Compact form control for hex color selection. Native color picker alongside hex text field with circular swatch preview. Validates hex format. For settings panels and theme customizers.",
+        "exports": [
+          "ColorPickerInputProps",
+          "ColorPickerInput"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "column-browser",
+        "layer": "ui",
+        "lines": 299,
+        "description": "Multi-column drill-down browser inspired by macOS Finder. Category columns where selecting an item populates the next. Supports deep hierarchies with breadcrumb navigation.",
+        "exports": [
+          "ColumnCategory",
+          "BrowserItem",
+          "ColumnTab",
+          "ColumnBrowserProps",
+          "ColumnBrowser"
+        ],
+        "hasForwardRef": false,
+        "hasCn": true
       },
       {
         "name": "command",
@@ -432,6 +485,19 @@
           "Label"
         ],
         "hasForwardRef": false,
+        "hasCn": true
+      },
+      {
+        "name": "layout",
+        "layer": "ui",
+        "lines": 239,
+        "description": "Page-level composition primitive with named slots (header, sidebar, content, footer). Manages responsive breakpoints to switch between sidebar and top-nav layouts.",
+        "exports": [
+          "LayoutProps",
+          "LayoutSlotProps",
+          "Layout"
+        ],
+        "hasForwardRef": true,
         "hasCn": true
       },
       {
@@ -1006,6 +1072,19 @@
           "StatItem",
           "StatsSectionProps",
           "StatsSection"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "testimonials-section",
+        "layer": "sections",
+        "lines": 120,
+        "description": "Social proof section displaying customer testimonials in card grid or carousel layout. Each card has avatar, name, role, quote text, and optional star rating.",
+        "exports": [
+          "Testimonial",
+          "TestimonialsSectionProps",
+          "TestimonialsSection"
         ],
         "hasForwardRef": true,
         "hasCn": true
