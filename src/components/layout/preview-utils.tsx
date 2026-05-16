@@ -18,6 +18,7 @@ export function LivePreview({ name, demo }: { name: string; demo: NonNullable<Re
       <div data-preview-isolate style={{
         position: 'relative', width: '100%',
         overflow: 'hidden',
+        transform: 'translateZ(0)',
       }}>
         <Comp {...demo.props}>{demo.children}</Comp>
       </div>

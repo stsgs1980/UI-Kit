@@ -6,9 +6,15 @@ export const DEMO_REGISTRY_B: Record<string, DemoConfig> = {
   // ── features (Layer 4) ──
   'command-palette': {
     props: {
-      open: false,
+      open: true,
       onClose: () => {},
       placeholder: 'Type a command...',
+      suggestions: [
+        { id: '1', label: 'Open Dashboard' },
+        { id: '2', label: 'Toggle Theme' },
+        { id: '3', label: 'View Components' },
+        { id: '4', label: 'Open Settings' },
+      ],
     },
   },
 
