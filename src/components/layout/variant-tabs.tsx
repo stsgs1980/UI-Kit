@@ -1,13 +1,13 @@
 'use client'
 
-import { Wand2, LayoutGrid, Monitor } from 'lucide-react'
+import { Wand2, LayoutGrid, Monitor, Grid3X3 } from 'lucide-react'
 import { useLayoutTheme } from '@/lib/layout/theme'
 import { ThemePresetSelector } from '@/components/layout/theme-preset-selector'
 import { fontSize, fontWeight } from '@/lib/layout/tokens'
 
 // ─── Types ────────────────────────────────────────────────
 
-export type Variant = 'studio' | 'explorer' | 'canvas'
+export type Variant = 'studio' | 'explorer' | 'canvas' | 'grids'
 
 interface VariantMeta {
   label: string
@@ -18,6 +18,7 @@ const VARIANTS: Record<Variant, VariantMeta> = {
   studio:   { label: 'Studio',   icon: Wand2 },
   explorer: { label: 'Explorer', icon: LayoutGrid },
   canvas:   { label: 'Canvas',   icon: Monitor },
+  grids:    { label: 'Grids',    icon: Grid3X3 },
 }
 
 // ─── Studio Header ────────────────────────────────────────

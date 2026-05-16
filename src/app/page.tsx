@@ -6,6 +6,7 @@ import recipesData from '@/data/recipes.json'
 import { VariantPromptStudio } from '@/components/layout/prompt-studio'
 import { VariantLayoutExplorer } from '@/components/layout/layout-explorer'
 import { VariantAICanvas } from '@/components/layout/ai-canvas'
+import { GoldenGridShowcase } from '@/components/layout/golden-grid'
 import { LayoutThemeProvider, useLayoutTheme } from '@/lib/layout/theme'
 import { ProjectThemeProvider } from '@/lib/layout/project-theme'
 import { StudioHeader } from '@/components/layout/variant-tabs'
@@ -30,6 +31,7 @@ function AppContent() {
       {variant === 'studio' && <VariantPromptStudio recipes={recipes} />}
       {variant === 'explorer' && <VariantLayoutExplorer recipes={recipes} />}
       {variant === 'canvas' && <VariantAICanvas recipes={recipes} />}
+      {variant === 'grids' && <GoldenGridShowcase />}
     </div>
   )
 }
