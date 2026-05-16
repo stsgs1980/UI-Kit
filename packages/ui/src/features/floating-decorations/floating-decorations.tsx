@@ -103,6 +103,7 @@ export const FloatingDecorations = forwardRef<HTMLDivElement, FloatingDecoration
     return (
       <div
         ref={ref}
+        data-slot="floating-decorations"
         className={cn('pointer-events-none absolute inset-0 overflow-hidden', className)}
         aria-hidden="true"
         {...props}

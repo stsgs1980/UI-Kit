@@ -34,7 +34,8 @@ export const ScifiTacticalMap = forwardRef<HTMLDivElement, ScifiTacticalMapProps
     const vLines = Math.floor(svgWidth / 40);
 
     return (
-      <div ref={ref} className={cn('bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)]', 'rounded-sm p-4 sm:p-5', className)}>
+      <div ref={ref} data-slot="scifi-tactical-map"
+        className={cn('bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)]', 'rounded-sm p-4 sm:p-5', className)}>
         {title && <h3 className="font-mono text-sm font-bold text-white mb-4">{title}</h3>}
 
         <div ref={innerRef} className="tactical-grid-overlay">

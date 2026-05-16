@@ -47,7 +47,8 @@ export const ScifiCorrelationDashboard = forwardRef<
   return (
     <section
       ref={ref}
-      className={cn('relative max-w-7xl mx-auto px-4 py-12 sm:py-16 sm:py-20', className)}
+      data-slot="scifi-correlation-dashboard"
+        className={cn('relative max-w-7xl mx-auto px-4 py-12 sm:py-16 sm:py-20', className)}
     >
       {/* Background effects */}
       <div className="absolute inset-0 scifi-grid-bg opacity-10 pointer-events-none" />

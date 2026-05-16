@@ -48,6 +48,7 @@ export const ScifiVersusPanel = forwardRef<HTMLDivElement, ScifiVersusPanelProps
     return (
       <div
         ref={ref}
+        data-slot="scifi-versus-panel"
         className={cn(
           'bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)]',
           'rounded-sm p-4 sm:p-5',

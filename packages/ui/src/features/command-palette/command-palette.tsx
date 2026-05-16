@@ -50,7 +50,7 @@ export const CommandPalette = forwardRef<HTMLDivElement, CommandPaletteProps>(
 
     return (
       <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 pt-[20vh] backdrop-blur-sm" onClick={onClose}>
-        <div ref={ref} className={cn('w-full max-w-lg overflow-hidden rounded-xl border border-border bg-background shadow-2xl', className)} onClick={e => e.stopPropagation()} {...props}>
+        <div ref={ref} data-slot="command-palette" className={cn('w-full max-w-lg overflow-hidden rounded-xl border border-border bg-background shadow-2xl', className)} onClick={e => e.stopPropagation()} {...props}>
           <div className="flex items-center gap-3 border-b border-border px-4 py-3">
             <input
               autoFocus

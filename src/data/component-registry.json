@@ -20,7 +20,7 @@
         "name": "alert",
         "layer": "ui",
         "lines": 67,
-        "description": "Non-modal inline status banner for communicating feedback to the user. Ships with four semantic variants \u2014 info, warning, error, and success \u2014 each with a matching icon and color treatment. Renders a title, optional description, and dismiss action. Ideal for form validation summaries, system notifications, and contextual tips.",
+        "description": "Non-modal inline status banner for communicating feedback to the user. Ships with four semantic variants — info, warning, error, and success — each with a matching icon and color treatment. Renders a title, optional description, and dismiss action. Ideal for form validation summaries, system notifications, and contextual tips.",
         "exports": [
           "Alert",
           "AlertTitle",
@@ -84,20 +84,6 @@
           "badgeVariants"
         ],
         "hasForwardRef": false,
-        "hasCn": true
-      },
-      {
-        "name": "bento-grid",
-        "layer": "ui",
-        "lines": 103,
-        "description": "CSS Grid-based asymmetric layout inspired by Apple's bento design. Each BentoItem spans a configurable number of columns and rows, enabling visually rich compositions of mixed-size cards. Includes a BentoGrid wrapper that defines column count and gap. Ideal for feature showcases, dashboards, and marketing pages.",
-        "exports": [
-          "BentoGridProps",
-          "BentoItemProps",
-          "BentoGrid",
-          "BentoItem"
-        ],
-        "hasForwardRef": true,
         "hasCn": true
       },
       {
@@ -209,22 +195,10 @@
         "hasCn": true
       },
       {
-        "name": "code-block",
-        "layer": "ui",
-        "lines": 133,
-        "description": "Syntax-highlighted code display component with optional line numbers, language label badge, and one-click copy button. Renders in a monospace font with a themed background. Supports multi-line code snippets and includes a loading skeleton state for async content. Built with data-slot attributes for easy theme overrides.",
-        "exports": [
-          "CodeBlockProps",
-          "CodeBlock"
-        ],
-        "hasForwardRef": true,
-        "hasCn": true
-      },
-      {
         "name": "collapsible",
         "layer": "ui",
         "lines": 34,
-        "description": "Primitive for conditionally showing/hiding content with a smooth CSS height animation. Wraps Radix Collapsible and exposes a Trigger component that toggles the open state. Simpler than Accordion \u2014 manages a single collapsible region. Used as a building block for mobile menus, advanced filters, and expandable sections.",
+        "description": "Primitive for conditionally showing/hiding content with a smooth CSS height animation. Wraps Radix Collapsible and exposes a Trigger component that toggles the open state. Simpler than Accordion — manages a single collapsible region. Used as a building block for mobile menus, advanced filters, and expandable sections.",
         "exports": [
           "Collapsible",
           "CollapsibleTrigger",
@@ -232,33 +206,6 @@
         ],
         "hasForwardRef": false,
         "hasCn": false
-      },
-      {
-        "name": "color-picker-input",
-        "layer": "ui",
-        "lines": 96,
-        "description": "Compact form control for selecting hex colors. Renders a native color picker input alongside a text field displaying the hex value, with a circular swatch preview. Validates input to ensure valid hex format. Designed for settings panels, theme customizers, and brand color configuration.",
-        "exports": [
-          "ColorPickerInputProps",
-          "ColorPickerInput"
-        ],
-        "hasForwardRef": true,
-        "hasCn": true
-      },
-      {
-        "name": "column-browser",
-        "layer": "ui",
-        "lines": 299,
-        "description": "Multi-column drill-down browser inspired by macOS Finder column view. Displays a chain of category columns where selecting an item in one column populates the next. Supports deeply nested hierarchies with breadcrumb-style navigation. Ideal for file explorers, category selectors, and data catalogs.",
-        "exports": [
-          "ColumnCategory",
-          "BrowserItem",
-          "ColumnTab",
-          "ColumnBrowserProps",
-          "ColumnBrowser"
-        ],
-        "hasForwardRef": false,
-        "hasCn": true
       },
       {
         "name": "command",
@@ -485,19 +432,6 @@
           "Label"
         ],
         "hasForwardRef": false,
-        "hasCn": true
-      },
-      {
-        "name": "layout",
-        "layer": "ui",
-        "lines": 239,
-        "description": "Page-level composition primitive that provides a top-nav or sidebar-based structure with named slots (header, sidebar, content, footer). Manages responsive breakpoints to switch between sidebar and top-nav layouts. Designed as the outermost shell for application pages with consistent navigation chrome.",
-        "exports": [
-          "LayoutProps",
-          "LayoutSlotProps",
-          "Layout"
-        ],
-        "hasForwardRef": true,
         "hasCn": true
       },
       {
@@ -1072,19 +1006,6 @@
           "StatItem",
           "StatsSectionProps",
           "StatsSection"
-        ],
-        "hasForwardRef": true,
-        "hasCn": true
-      },
-      {
-        "name": "testimonials-section",
-        "layer": "sections",
-        "lines": 120,
-        "description": "Customer testimonial carousel or grid displaying quotes with avatar, name, and role of each reviewer. Supports card, carousel, and stacked layout modes with navigation controls. Each Testimonial includes the quote text, author info, and optional star rating. Social proof section for landing pages.",
-        "exports": [
-          "Testimonial",
-          "TestimonialsSectionProps",
-          "TestimonialsSection"
         ],
         "hasForwardRef": true,
         "hasCn": true
@@ -1953,6 +1874,61 @@
         "exports": [
           "LandingPremiumProps",
           "LandingPremium"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-correlation-dashboard",
+        "layer": "features",
+        "lines": 133,
+        "description": "Dual-panel correlation dashboard rendering two side-by-side scrollable data tables with column headers, sparklines, correlation bars, a color-coded legend, and optional summary stat cards with background glow effects.",
+        "exports": [
+          "ScifiCorrelationDashboard"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-tracked-assets",
+        "layer": "features",
+        "lines": 108,
+        "description": "Scrollable list panel of tracked asset cards with an optional info bar showing total and high-threat counters, live radar badge, and threat-level color coding via animated progress bars.",
+        "exports": [
+          "ScifiTrackedAssets"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-versus-panel",
+        "layer": "features",
+        "lines": 150,
+        "description": "Dual-team versus comparison panel with team summary cards, an animated balance progress bar, stacked VS comparison bars with framer-motion entry animations, and an optional footer note.",
+        "exports": [
+          "ScifiVersusPanel"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-tactical-map",
+        "layer": "features",
+        "lines": 89,
+        "description": "SVG-based tactical map with animated grid lines, positioned markers with glow filters, text labels, a compass rose indicator, and a color-coded legend with scroll-triggered animations.",
+        "exports": [
+          "ScifiTacticalMap"
+        ],
+        "hasForwardRef": true,
+        "hasCn": true
+      },
+      {
+        "name": "scifi-period-selector",
+        "layer": "features",
+        "lines": 115,
+        "description": "Segmented period selector with a row of toggle buttons featuring glowing corner accents on inactive items and a bright fill on the active option, with framer-motion hover and tap interactions.",
+        "exports": [
+          "ScifiPeriodSelector"
         ],
         "hasForwardRef": true,
         "hasCn": true

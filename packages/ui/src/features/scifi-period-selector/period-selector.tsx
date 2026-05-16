@@ -57,7 +57,8 @@ export interface ScifiPeriodSelectorProps {
 export const ScifiPeriodSelector = forwardRef<HTMLDivElement, ScifiPeriodSelectorProps>(
   function ScifiPeriodSelector({ value, onChange, options, groupLabel = 'PERIOD', className }, ref) {
     return (
-      <div ref={ref} className={cn('flex items-center gap-3', className)}>
+      <div ref={ref} data-slot="scifi-period-selector"
+        className={cn('flex items-center gap-3', className)}>
         <span className="font-mono text-[9px] text-[#7070a0] tracking-wider uppercase select-none">
           {groupLabel}:
         </span>

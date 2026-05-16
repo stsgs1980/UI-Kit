@@ -65,6 +65,7 @@ export const ScifiTrackedAssets = forwardRef<HTMLDivElement, ScifiTrackedAssetsP
     return (
       <div
         ref={ref}
+        data-slot="scifi-tracked-assets"
         className={cn(
           'bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)]',
           'rounded-sm p-4 sm:p-5',
