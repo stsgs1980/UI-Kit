@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Grid — ASCII & Lines</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Neutral palette */
+  --n200: #e5e5e5;
+  --n300: #d4d4d4;
+  --n400: #a3a3a3;
+  --n500: #737373;
+  --n600: #525252;
+  --n700: #404040;
+
+  /* Fibonacci scale */
+  --fib-3: 1.5rem;
+  --fib-4: 2.5rem;
+  --fib-5: 4rem;
+  --fib-6: 6.5rem;
+  --phi: 1.618;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #fafafa;
+  color: var(--n700);
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.618;
+}
+
+/* ===== SECTION WRAPPER ===== */
+.section {
+  padding: var(--fib-5) var(--fib-6);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.625rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--n400);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--n700);
+  margin-bottom: 0.25rem;
+}
+
+.section-subtitle {
+  font-size: 0.75rem;
+  color: var(--n500);
+  margin-bottom: var(--fib-4);
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--n300);
+  margin: 0;
+}
+
+/* ===== ASCII GRID CELL ===== */
+.cell {
+  border: 1px solid var(--n300);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--fib-3);
+  position: relative;
+  min-height: 80px;
+  background: transparent;
+  transition: border-color 0.3s;
+}
+
+.cell:hover {
+  border-color: var(--n500);
+}
+
+.cell-label {
+  font-size: 0.625rem;
+  color: var(--n500);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.cell-ratio {
+  font-size: 0.5rem;
+  color: var(--n400);
+  margin-top: 0.25rem;
+}
+
+.cell-ascii {
+  font-size: 0.5rem;
+  color: var(--n300);
+  margin-top: 0.5rem;
+  white-space: pre;
+  line-height: 1.4;
+}
+
+.cell-dim {
+  position: absolute;
+  font-size: 0.4375rem;
+  color: var(--n400);
+  opacity: 0.6;
+}
+
+.cell-dim.top { top: 4px; right: 6px; }
+.cell-dim.bot { bottom: 4px; left: 6px; }
+
+/* ===== HERO ===== */
+.hero {
+  padding: var(--fib-6) var(--fib-6);
+  max-width: 1440px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-ascii {
+  font-size: 0.5rem;
+  color: var(--n300);
+  line-height: 1.2;
+  margin-bottom: var(--fib-4);
+  white-space: pre;
+}
+
+.hero h1 {
+  font-size: 4.25rem;
+  font-weight: 700;
+  color: var(--n700);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: var(--fib-3);
+}
+
+.hero h1 span {
+  color: var(--n400);
+}
+
+.hero p {
+  font-size: 1rem;
+  color: var(--n500);
+  max-width: 61.8%;
+  margin: 0 auto var(--fib-4);
+}
+
+.hero-scale {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: var(--fib-3);
+}
+
+.hero-scale .bar {
+  background: var(--n300);
+  width: 24px;
+  transition: background 0.3s;
+}
+
+.hero-scale .bar:hover { background: var(--n500); }
+
+/* ===== 1. GOLDEN SPLIT ===== */
+.golden-split {
+  display: grid;
+  grid-template-columns: 1fr 1.618fr;
+  gap: 0;
+  border: 1px solid var(--n300);
+  min-height: 320px;
+}
+
+.golden-split .cell:first-child {
+  border-right: 1px dashed var(--n400);
+}
+
+/* ===== 2. FIBONACCI COLUMNS ===== */
+.fib-columns {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 5fr;
+  gap: 0;
+  border: 1px solid var(--n300);
+  min-height: 200px;
+}
+
+.fib-columns .cell {
+  border-right: 1px dashed var(--n400);
+}
+
+.fib-columns .cell:last-child {
+  border-right: none;
+}
+
+/* ===== 3. PHI GRID 12-COL ===== */
+.phi-grid-visual {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
+  border: 1px solid var(--n300);
+  min-height: 240px;
+}
+
+.phi-grid-visual .cell {
+  border-right: 1px dashed var(--n400);
+  font-size: 0.5rem;
+}
+
+.phi-grid-visual .cell:last-child { border-right: none; }
+
+.phi-content-overlay {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
+  min-height: 240px;
+  position: relative;
+  margin-top: 0;
+}
+
+.phi-overlay-main {
+  grid-column: 1 / 8;
+  border: 1px solid var(--n300);
+  border-right: 1px dashed var(--n400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+}
+
+.phi-overlay-side {
+  grid-column: 8 / 13;
+  border: 1px solid var(--n300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== 4. SPIRAL GRID ===== */
+.spiral-grid {
+  display: grid;
+  grid-template-columns: 34fr 21fr 13fr 8fr;
+  grid-template-rows: 34fr 21fr;
+  gap: 0;
+  border: 1px solid var(--n300);
+  min-height: 340px;
+}
+
+.spiral-grid .cell {
+  border-right: 1px dashed var(--n400);
+  border-bottom: 1px dashed var(--n400);
+}
+
+.spiral-grid .cell:nth-child(4) { border-right: none; }
+.spiral-grid .cell:nth-child(8) { border-right: none; }
+.spiral-grid .cell:nth-child(5),
+.spiral-grid .cell:nth-child(6),
+.spiral-grid .cell:nth-child(7),
+.spiral-grid .cell:nth-child(8) { border-bottom: none; }
+
+/* ===== 5. BENTO GRID (6-col) ===== */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  gap: 0;
+  border: 1px solid var(--n300);
+}
+
+.bento-grid .cell {
+  border-right: 1px dashed var(--n400);
+  border-bottom: 1px dashed var(--n400);
+}
+
+/* Remove right border on last column cells */
+.bento-grid .cell:nth-child(6n) { border-right: none; }
+
+/* Bento spans */
+.bento-hero    { grid-column: 1 / 5; grid-row: 1 / 3; }
+.bento-stat1   { grid-column: 5 / 7; grid-row: 1; }
+.bento-stat2   { grid-column: 5 / 7; grid-row: 2; }
+.bento-mid     { grid-column: 1 / 4; grid-row: 3; }
+.bento-accent  { grid-column: 4 / 5; grid-row: 3; }
+.bento-supp1   { grid-column: 5 / 6; grid-row: 3; }
+.bento-supp2   { grid-column: 6 / 7; grid-row: 3; }
+
+/* ===== 6. BENTO 5-COL ===== */
+.bento5-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  gap: 0;
+  border: 1px solid var(--n300);
+}
+
+.bento5-grid .cell {
+  border-right: 1px dashed var(--n400);
+  border-bottom: 1px dashed var(--n400);
+}
+
+.bento5-main    { grid-column: 1 / 4; grid-row: 1 / 3; }
+.bento5-feat    { grid-column: 4 / 6; grid-row: 1; }
+.bento5-sm1     { grid-column: 4 / 5; grid-row: 2; }
+.bento5-sm2     { grid-column: 5 / 6; grid-row: 2; }
+
+/* ===== 7. ASYMMETRIC HOLY GRAIL ===== */
+.holy-grail {
+  display: grid;
+  grid-template-columns: 3fr 13fr 5fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 0;
+  border: 1px solid var(--n300);
+  min-height: 320px;
+}
+
+.holy-grail .cell { border-right: 1px dashed var(--n400); border-bottom: 1px dashed var(--n400); }
+
+.hg-header { grid-column: 1 / -1; border-right: none !important; }
+.hg-nav    { grid-column: 1; grid-row: 2; }
+.hg-main   { grid-column: 2; grid-row: 2; }
+.hg-aside  { grid-column: 3; grid-row: 2; border-right: none !important; }
+.hg-footer { grid-column: 1 / -1; border-right: none !important; border-bottom: none !important; }
+
+/* ===== 8. GOLDEN CARD GRID ===== */
+.golden-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--n300);
+}
+
+.golden-card {
+  border-right: 1px dashed var(--n400);
+  display: grid;
+  grid-template-rows: 1.618fr 1fr;
+}
+
+.golden-card:last-child { border-right: none; }
+
+.golden-card .card-top {
+  border-bottom: 1px dashed var(--n400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 130px;
+  padding: var(--fib-3);
+}
+
+.golden-card .card-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--fib-3);
+  min-height: 80px;
+}
+
+/* ===== 9. DIAGONAL FIBONACCI ===== */
+.diag-fib {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 5fr;
+  grid-template-rows: 5fr 3fr 2fr 1fr;
+  gap: 0;
+  border: 1px solid var(--n300);
+  min-height: 360px;
+}
+
+.diag-fib .cell {
+  border-right: 1px dashed var(--n400);
+  border-bottom: 1px dashed var(--n400);
+}
+
+/* ===== 10. MAGAZINE LAYOUT ===== */
+.magazine {
+  display: grid;
+  grid-template-columns: 5fr 3fr 2fr;
+  grid-template-rows: 8fr 5fr 3fr;
+  gap: 0;
+  border: 1px solid var(--n300);
+  min-height: 400px;
+}
+
+.magazine .cell {
+  border-right: 1px dashed var(--n400);
+  border-bottom: 1px dashed var(--n400);
+}
+
+.mag-lead    { grid-column: 1; grid-row: 1 / 3; }
+.mag-feature { grid-column: 2 / 4; grid-row: 1; }
+.mag-side    { grid-column: 2; grid-row: 2; }
+.mag-quick   { grid-column: 3; grid-row: 2 / 4; }
+.mag-bottom  { grid-column: 1 / 3; grid-row: 3; }
+
+/* ===== 11. DASHBOARD GOLDEN ===== */
+.dashboard {
+  display: grid;
+  grid-template-columns: 3fr 5fr 2fr;
+  grid-template-rows: auto 1fr 1.618fr;
+  gap: 0;
+  border: 1px solid var(--n300);
+  min-height: 400px;
+}
+
+.dashboard .cell {
+  border-right: 1px dashed var(--n400);
+  border-bottom: 1px dashed var(--n400);
+}
+
+.dash-kpi    { grid-column: 1 / -1; border-right: none !important; }
+.dash-filters { grid-column: 1; grid-row: 2 / 4; }
+.dash-chart1 { grid-column: 2 / 4; grid-row: 2; border-right: none !important; }
+.dash-table  { grid-column: 2 / 4; grid-row: 3; border-right: none !important; border-bottom: none !important; }
+
+/* ===== SPACING SCALE SECTION ===== */
+.spacing-demo {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  padding: var(--fib-4) 0;
+}
+
+.spacing-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spacing-bar .bar-fill {
+  background: transparent;
+  border: 1px solid var(--n300);
+  border-bottom: 2px solid var(--n500);
+  width: 48px;
+  transition: border-color 0.3s;
+}
+
+.spacing-bar:hover .bar-fill { border-color: var(--n500); }
+
+.spacing-bar .bar-label {
+  font-size: 0.5rem;
+  color: var(--n400);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.spacing-bar .bar-px {
+  font-size: 0.4375rem;
+  color: var(--n300);
+}
+
+/* ===== TYPO SCALE SECTION ===== */
+.typo-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.typo-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: var(--fib-3);
+  align-items: baseline;
+  border-bottom: 1px solid var(--n200);
+  padding: 0.5rem 0;
+}
+
+.typo-label {
+  font-size: 0.5rem;
+  color: var(--n400);
+  text-align: right;
+}
+
+.typo-sample {
+  color: var(--n600);
+}
+
+/* ===== NEUTRAL PALETTE SECTION ===== */
+.palette-row {
+  display: flex;
+  gap: 1px;
+  margin-bottom: var(--fib-3);
+}
+
+.palette-swatch {
+  flex: 1;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.palette-swatch .swatch-border {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--n300);
+}
+
+.palette-swatch .swatch-name {
+  font-size: 0.5rem;
+  color: var(--n500);
+  position: relative;
+  z-index: 1;
+}
+
+.palette-swatch .swatch-hex {
+  font-size: 0.4375rem;
+  color: var(--n400);
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== ASCII ART DECORATIONS ===== */
+.ascii-deco {
+  font-size: 0.4375rem;
+  color: var(--n300);
+  line-height: 1.2;
+  white-space: pre;
+  text-align: center;
+  margin: var(--fib-4) 0;
+}
+
+/* ===== ANGLE MARKERS ===== */
+.phi-marker {
+  position: absolute;
+  font-size: 0.4375rem;
+  color: var(--n400);
+  background: #fafafa;
+  padding: 0 4px;
+}
+
+.phi-marker.left { left: 38.2%; top: -7px; }
+.phi-marker.right { left: 61.8%; top: -7px; }
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: var(--fib-5) var(--fib-6);
+  max-width: 1440px;
+  margin: 0 auto;
+  border-top: 1px solid var(--n300);
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.625rem;
+  color: var(--n400);
+}
+
+/* ===== RATIO LABELS ===== */
+.ratio-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.ratio-bracket {
+  height: 1px;
+  background: var(--n300);
+  position: relative;
+}
+
+.ratio-text {
+  font-size: 0.5rem;
+  color: var(--n400);
+  white-space: nowrap;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .section { padding: var(--fib-4); }
+  .hero { padding: var(--fib-5) var(--fib-4); }
+  .hero h1 { font-size: 2.625rem; }
+}
+
+@media (max-width: 768px) {
+  .golden-split { grid-template-columns: 1fr; }
+  .fib-columns { grid-template-columns: 1fr 1.618fr; }
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento5-grid { grid-template-columns: 1fr; }
+  .holy-grail { grid-template-columns: 1fr; }
+  .dashboard { grid-template-columns: 1fr; }
+  .magazine { grid-template-columns: 1fr; }
+  .golden-cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="hero-ascii">
+    +-----------------------------------------------+
+    |  ///  ///  ////  /////  /////  ////  ///  ///  |
+    |  ///  ///  ////  /////  /////  ////  ///  ///  |
+    +-----------------------------------------------+</div>
+  <h1>GOLDEN<span>.</span>GRID</h1>
+  <p>ASCII & straight lines only. Every layout rendered as wireframe with Fibonacci proportions and neutral palette. No fills, no gradients — pure structure.</p>
+  <div class="hero-scale">
+    <div class="bar" style="height:8px"></div>
+    <div class="bar" style="height:13px"></div>
+    <div class="bar" style="height:21px"></div>
+    <div class="bar" style="height:34px"></div>
+    <div class="bar" style="height:55px"></div>
+    <div class="bar" style="height:89px"></div>
+  </div>
+  <div style="font-size:0.5rem;color:var(--n400);letter-spacing:0.2em;">
+    8 &mdash; 13 &mdash; 21 &mdash; 34 &mdash; 55 &mdash; 89
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 1. GOLDEN SPLIT ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 01</div>
+  <div class="section-title">Golden Split</div>
+  <div class="section-subtitle">grid-template-columns: 1fr 1.618fr &mdash; the foundational phi ratio</div>
+
+  <div style="position:relative">
+    <span class="phi-marker left">38.2%</span>
+    <span class="phi-marker right">61.8%</span>
+    <div class="golden-split">
+      <div class="cell">
+        <div class="cell-label">1fr</div>
+        <div class="cell-ratio">38.2%</div>
+        <div class="cell-ascii">
++-------+
+|       |
+|  SID  |
+|       |
++-------+</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">1.618fr</div>
+        <div class="cell-ratio">61.8%</div>
+        <div class="cell-ascii">
++-------------+
+|             |
+|   CONTENT   |
+|             |
++-------------+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ratio-line">
+    <div class="ratio-bracket" style="flex:1"></div>
+    <div class="ratio-text">1</div>
+    <div class="ratio-bracket" style="flex:0.25"></div>
+    <div class="ratio-text">:</div>
+    <div class="ratio-bracket" style="flex:0.25"></div>
+    <div class="ratio-text">1.618</div>
+    <div class="ratio-bracket" style="flex:1.618"></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 2. FIBONACCI COLUMNS ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 02</div>
+  <div class="section-title">Fibonacci Columns</div>
+  <div class="section-subtitle">grid-template-columns: 1fr 2fr 3fr 5fr &mdash; each column follows the Fibonacci sequence</div>
+
+  <div class="fib-columns">
+    <div class="cell">
+      <div class="cell-label">1fr</div>
+      <div class="cell-ratio">F(1)</div>
+      <div class="cell-ascii">+--+
+|||
++--+</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">2fr</div>
+      <div class="cell-ratio">F(2)</div>
+      <div class="cell-ascii">+----+
+|  |
++----+</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">3fr</div>
+      <div class="cell-ratio">F(3)</div>
+      <div class="cell-ascii">+------+
+|    |
++------+</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">5fr</div>
+      <div class="cell-ratio">F(4)</div>
+      <div class="cell-ascii">+----------+
+|        |
++----------+</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    1 : 2 : 3 : 5 &mdash;&mdash; Fibonacci ratio progression &mdash;&mdash; 1 : 2 : 3 : 5
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 3. PHI GRID 12-COL ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 03</div>
+  <div class="section-title">Phi Grid (12-column)</div>
+  <div class="section-subtitle">12-column grid with golden cut at 7:5 &mdash; compatible with standard design systems</div>
+
+  <!-- Column numbers -->
+  <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:0;margin-bottom:2px">
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">1</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">2</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">3</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">4</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">5</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">6</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">7</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">8</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">9</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">10</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">11</div>
+    <div style="text-align:center;font-size:0.375rem;color:var(--n400)">12</div>
+  </div>
+
+  <div class="phi-content-overlay">
+    <div class="phi-overlay-main">
+      <div class="cell-label">MAIN &mdash; 7 cols</div>
+      <div class="cell-ratio">58.3% (close to 61.8%)</div>
+      <div class="cell-ascii">
++-------------------------+
+|                         |
+|     7 / 12 = 0.583     |
+|     phi approx          |
+|                         |
++-------------------------+</div>
+    </div>
+    <div class="phi-overlay-side">
+      <div class="cell-label">SIDE &mdash; 5 cols</div>
+      <div class="cell-ratio">41.7%</div>
+      <div class="cell-ascii">
++---------------+
+|               |
+|   5 / 12      |
+|               |
++---------------+</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 4. SPIRAL GRID ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 04</div>
+  <div class="section-title">Fibonacci Spiral Grid</div>
+  <div class="section-subtitle">grid-template-columns: 34fr 21fr 13fr 8fr &mdash; decreasing Fibonacci proportions</div>
+
+  <div class="spiral-grid">
+    <div class="cell">
+      <div class="cell-label">34fr</div>
+      <div class="cell-ratio">HERO</div>
+      <div class="cell-ascii">
++...................+
+|                   |
+|    34 / 76        |
+|    = 44.7%        |
+|                   |
++...................+</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">21fr</div>
+      <div class="cell-ascii">+...........+
+|           |
++...........+</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">13fr</div>
+      <div class="cell-ascii">+.......+
+|       |
++-------+</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">8fr</div>
+      <div class="cell-ascii">+-----+
++-----+</div>
+    </div>
+    <!-- Row 2 -->
+    <div class="cell">
+      <div class="cell-label">34fr</div>
+      <div class="cell-ratio">continued</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">21fr</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">13fr</div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">8fr</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    34 : 21 : 13 : 8 &mdash;&mdash; each step divides by phi &mdash;&mdash; 34/21=1.619  21/13=1.615  13/8=1.625
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 5. BENTO GRID 6-COL ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 05</div>
+  <div class="section-title">Bento Grid (6-column Golden)</div>
+  <div class="section-subtitle">Japanese bento box meets golden ratio &mdash; hero 4:2 split = 66.7% close to 61.8%</div>
+
+  <div class="bento-grid">
+    <div class="cell bento-hero">
+      <div class="cell-label">HERO</div>
+      <div class="cell-ratio">4 of 6 cols / 2 rows</div>
+      <div class="cell-ascii">
++---------------------------+
+|                           |
+|     4/6 = 66.7%          |
+|     ~ golden dominant     |
+|                           |
+|                           |
++---------------------------+</div>
+    </div>
+    <div class="cell bento-stat1">
+      <div class="cell-label">STAT-1</div>
+      <div class="cell-ratio">2 cols</div>
+      <div class="cell-ascii">+--------+
+| ## ##  |
++--------+</div>
+    </div>
+    <div class="cell bento-stat2">
+      <div class="cell-label">STAT-2</div>
+      <div class="cell-ratio">2 cols</div>
+      <div class="cell-ascii">+--------+
+| ## ##  |
++--------+</div>
+    </div>
+    <div class="cell bento-mid">
+      <div class="cell-label">MID-BAND</div>
+      <div class="cell-ratio">3 of 6 cols</div>
+    </div>
+    <div class="cell bento-accent">
+      <div class="cell-label">ACCENT</div>
+      <div class="cell-ratio">1 col</div>
+    </div>
+    <div class="cell bento-supp1">
+      <div class="cell-label">SUP-A</div>
+    </div>
+    <div class="cell bento-supp2">
+      <div class="cell-label">SUP-B</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    +==================+========+
+    |                  | STAT-1 |
+    |      HERO        +--------+
+    |    4 cols x 2    | STAT-2 |
+    +========+=========+========+
+    | MID-3  | ACC-1   |A | B  |
+    +========+=========+========+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 6. BENTO 5-COL ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 06</div>
+  <div class="section-title">Bento Grid (5-column Asymmetric)</div>
+  <div class="section-subtitle">3:2 split &mdash; closest to phi in 5 columns (1.5 vs 1.618)</div>
+
+  <div class="bento5-grid">
+    <div class="cell bento5-main">
+      <div class="cell-label">MAIN</div>
+      <div class="cell-ratio">3 of 5 cols / 2 rows</div>
+      <div class="cell-ascii">
++-------------------+
+|                   |
+|   3/5 = 60%       |
+|   ~ phi approx    |
+|                   |
++-------------------+</div>
+    </div>
+    <div class="cell bento5-feat">
+      <div class="cell-label">FEATURE</div>
+      <div class="cell-ratio">2 cols</div>
+    </div>
+    <div class="cell bento5-sm1">
+      <div class="cell-label">SM-A</div>
+      <div class="cell-ratio">1 col</div>
+    </div>
+    <div class="cell bento5-sm2">
+      <div class="cell-label">SM-B</div>
+      <div class="cell-ratio">1 col</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    +============+======+
+    |            | FEAT |
+    |   MAIN     +==+===+
+    |  3 x 2    |A | B |
+    +============+==+===+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 7. HOLY GRAIL ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 07</div>
+  <div class="section-title">Asymmetric Holy Grail</div>
+  <div class="section-subtitle">grid-template-columns: 3fr 13fr 5fr &mdash; Fibonacci proportions for nav / main / aside</div>
+
+  <div class="holy-grail">
+    <div class="cell hg-header">
+      <div class="cell-label">HEADER &mdash; full width</div>
+      <div class="cell-ascii">+=============================================+</div>
+    </div>
+    <div class="cell hg-nav">
+      <div class="cell-label">NAV</div>
+      <div class="cell-ratio">3fr</div>
+      <div class="cell-ascii">+----+
+|nav |
+|    |
++----+</div>
+    </div>
+    <div class="cell hg-main">
+      <div class="cell-label">MAIN CONTENT</div>
+      <div class="cell-ratio">13fr</div>
+      <div class="cell-ascii">+----------------------+
+|                      |
+|     13/21 = 61.9%   |
+|     = phi dominant   |
+|                      |
++----------------------+</div>
+    </div>
+    <div class="cell hg-aside">
+      <div class="cell-label">ASIDE</div>
+      <div class="cell-ratio">5fr</div>
+      <div class="cell-ascii">+--------+
+| aside  |
++--------+</div>
+    </div>
+    <div class="cell hg-footer">
+      <div class="cell-label">FOOTER &mdash; full width</div>
+      <div class="cell-ascii">+=============================================+</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    3 : 13 : 5  &mdash;&mdash;  13/(3+13+5) = 13/21 = 0.619  &mdash;&mdash;  phi = 0.618
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 8. GOLDEN CARD GRID ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 08</div>
+  <div class="section-title">Golden Card Grid</div>
+  <div class="section-subtitle">Card internal layout: grid-template-rows: 1.618fr 1fr &mdash; golden ratio within each card</div>
+
+  <div class="golden-cards">
+    <div class="golden-card">
+      <div class="card-top">
+        <div class="cell-label">1.618fr</div>
+        <div class="cell-ascii">+-----------+
+|  visual   |
+|  61.8%    |
++-----------+</div>
+      </div>
+      <div class="card-bottom">
+        <div class="cell-label">1fr</div>
+        <div class="cell-ratio">38.2%</div>
+      </div>
+    </div>
+    <div class="golden-card">
+      <div class="card-top">
+        <div class="cell-label">1.618fr</div>
+        <div class="cell-ascii">+-----------+
+|  visual   |
+|  61.8%    |
++-----------+</div>
+      </div>
+      <div class="card-bottom">
+        <div class="cell-label">1fr</div>
+        <div class="cell-ratio">38.2%</div>
+      </div>
+    </div>
+    <div class="golden-card">
+      <div class="card-top">
+        <div class="cell-label">1.618fr</div>
+        <div class="cell-ascii">+-----------+
+|  visual   |
+|  61.8%    |
++-----------+</div>
+      </div>
+      <div class="card-bottom">
+        <div class="cell-label">1fr</div>
+        <div class="cell-ratio">38.2%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 9. DIAGONAL FIBONACCI ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 09</div>
+  <div class="section-title">Diagonal Fibonacci</div>
+  <div class="section-subtitle">Columns: 1fr 2fr 3fr 5fr / Rows: 5fr 3fr 2fr 1fr &mdash; diagonal visual flow</div>
+
+  <div class="diag-fib">
+    <div class="cell"><div class="cell-label">1fr</div><div class="cell-ratio">5fr row</div></div>
+    <div class="cell"><div class="cell-label">2fr</div></div>
+    <div class="cell"><div class="cell-label">3fr</div></div>
+    <div class="cell"><div class="cell-label">5fr</div></div>
+    <div class="cell"><div class="cell-label"></div><div class="cell-ratio">3fr</div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+    <div class="cell"><div class="cell-label"></div><div class="cell-ratio">2fr</div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+    <div class="cell"><div class="cell-label"></div><div class="cell-ratio">1fr</div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+    <div class="cell"><div class="cell-label"></div></div>
+  </div>
+
+  <div class="ascii-deco">
+    1fr\  .   .   .   &lt;&mdash;&mdash; smallest column, tallest row
+    2fr \  .   .   .   &mdash;&mdash; visual weight flows diagonally
+    3fr  \  .   .   .   &mdash;&mdash; from large+short to small+tall
+    5fr   \  .   .   .   &lt;&mdash;&mdash; widest column, shortest row
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 10. MAGAZINE LAYOUT ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 10</div>
+  <div class="section-title">Magazine Layout</div>
+  <div class="section-subtitle">grid-template-columns: 5fr 3fr 2fr &mdash; editorial composition with golden proportions</div>
+
+  <div class="magazine">
+    <div class="cell mag-lead">
+      <div class="cell-label">LEAD STORY</div>
+      <div class="cell-ratio">5fr col / 2 rows</div>
+      <div class="cell-ascii">
++----------+
+|          |
+|  LEAD    |
+|  5/(5+3+2)|
+|  = 50%   |
+|          |
++----------+</div>
+    </div>
+    <div class="cell mag-feature">
+      <div class="cell-label">FEATURE</div>
+      <div class="cell-ratio">3+2 cols</div>
+    </div>
+    <div class="cell mag-side">
+      <div class="cell-label">SIDE</div>
+      <div class="cell-ratio">3fr</div>
+    </div>
+    <div class="cell mag-quick">
+      <div class="cell-label">QUICK</div>
+      <div class="cell-ratio">2fr / 2 rows</div>
+    </div>
+    <div class="cell mag-bottom">
+      <div class="cell-label">BOTTOM ROW</div>
+      <div class="cell-ratio">5+3 cols</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    +==========+======+====+
+    |          |  FEATURE   |
+    |   LEAD   +======+====+
+    |          | SIDE |QUICK|
+    +==========+======+     |
+    | BOTTOM ROW      |     |
+    +=================+=====+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== 11. DASHBOARD GOLDEN ==================== -->
+<div class="section">
+  <div class="section-label">Pattern 11</div>
+  <div class="section-title">Dashboard Golden</div>
+  <div class="section-subtitle">grid-template-columns: 3fr 5fr 2fr &mdash; data density with visual balance</div>
+
+  <div class="dashboard">
+    <div class="cell dash-kpi">
+      <div class="cell-label">KPI BAR &mdash; full width</div>
+      <div class="cell-ascii">+---+---+---+---+---+</div>
+    </div>
+    <div class="cell dash-filters">
+      <div class="cell-label">FILTERS</div>
+      <div class="cell-ratio">3fr</div>
+      <div class="cell-ascii">+----+
+|flt |
+|    |
+|    |
++----+</div>
+    </div>
+    <div class="cell dash-chart1">
+      <div class="cell-label">CHART</div>
+      <div class="cell-ratio">5+2 cols</div>
+      <div class="cell-ascii">+------------------+
+|   __/\/\/\__     |
++------------------+</div>
+    </div>
+    <div class="cell dash-table">
+      <div class="cell-label">DATA TABLE</div>
+      <div class="cell-ratio">5+2 cols / 1.618fr</div>
+      <div class="cell-ascii">
++------------------+
+| row | data | val |
+| row | data | val |
++------------------+</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    3 : 5 : 2  &mdash;&mdash;  5/(3+5+2) = 5/10 = 50% main  &mdash;&mdash; 3:2 sidebar = 1.5 ~ phi/1.08
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== SPACING SCALE ==================== -->
+<div class="section">
+  <div class="section-label">System</div>
+  <div class="section-title">Fibonacci Spacing Scale</div>
+  <div class="section-subtitle">All spacing, gaps, and padding follow the Fibonacci sequence with 8px base unit</div>
+
+  <div class="spacing-demo">
+    <div class="spacing-bar">
+      <div class="bar-fill" style="height:8px"></div>
+      <div class="bar-label">fib-1</div>
+      <div class="bar-px">8px</div>
+    </div>
+    <div class="spacing-bar">
+      <div class="bar-fill" style="height:13px"></div>
+      <div class="bar-label">fib-2</div>
+      <div class="bar-px">13px</div>
+    </div>
+    <div class="spacing-bar">
+      <div class="bar-fill" style="height:24px"></div>
+      <div class="bar-label">fib-3</div>
+      <div class="bar-px">24px</div>
+    </div>
+    <div class="spacing-bar">
+      <div class="bar-fill" style="height:40px"></div>
+      <div class="bar-label">fib-4</div>
+      <div class="bar-px">40px</div>
+    </div>
+    <div class="spacing-bar">
+      <div class="bar-fill" style="height:64px"></div>
+      <div class="bar-label">fib-5</div>
+      <div class="bar-px">64px</div>
+    </div>
+    <div class="spacing-bar">
+      <div class="bar-fill" style="height:104px"></div>
+      <div class="bar-label">fib-6</div>
+      <div class="bar-px">104px</div>
+    </div>
+    <div class="spacing-bar">
+      <div class="bar-fill" style="height:168px"></div>
+      <div class="bar-label">fib-7</div>
+      <div class="bar-px">168px</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    8 -- 13 -- 21 -- 34 -- 55 -- 89 -- 144    Fibonacci px values
+    |     |     |     |     |     |     |
+    0.5r  0.8r  1.3r  2.1r  3.4r  5.6r  9.0r  rem equivalents
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== TYPOGRAPHY SCALE ==================== -->
+<div class="section">
+  <div class="section-label">System</div>
+  <div class="section-title">Fibonacci Typography Scale</div>
+  <div class="section-subtitle">Font sizes derived from the Fibonacci sequence, creating consistent visual hierarchy</div>
+
+  <div class="typo-demo">
+    <div class="typo-row">
+      <div class="typo-label">text-xs / 10px</div>
+      <div class="typo-sample" style="font-size:0.625rem">The quick brown fox jumps over the lazy dog</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-label">text-sm / 12px</div>
+      <div class="typo-sample" style="font-size:0.75rem">The quick brown fox jumps over the lazy dog</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-label">text-base / 16px</div>
+      <div class="typo-sample" style="font-size:1rem">The quick brown fox jumps over the lazy dog</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-label">text-md / 20px</div>
+      <div class="typo-sample" style="font-size:1.25rem">The quick brown fox jumps over the lazy dog</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-label">text-lg / 26px</div>
+      <div class="typo-sample" style="font-size:1.625rem">The quick brown fox jumps over the lazy dog</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-label">text-xl / 42px</div>
+      <div class="typo-sample" style="font-size:2.625rem">Golden Ratio Typography</div>
+    </div>
+    <div class="typo-row">
+      <div class="typo-label">text-2xl / 68px</div>
+      <div class="typo-sample" style="font-size:4.25rem;letter-spacing:-0.04em">1.618</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== NEUTRAL PALETTE ==================== -->
+<div class="section">
+  <div class="section-label">System</div>
+  <div class="section-title">Neutral Palette</div>
+  <div class="section-subtitle">The entire page uses only these 6 neutral tones &mdash; no color, pure structure</div>
+
+  <div class="palette-row">
+    <div class="palette-swatch" style="background:var(--n200)">
+      <div class="swatch-border"></div>
+      <div class="swatch-name">neutral-200</div>
+      <div class="swatch-hex">#e5e5e5</div>
+    </div>
+    <div class="palette-swatch" style="background:var(--n300)">
+      <div class="swatch-border"></div>
+      <div class="swatch-name">neutral-300</div>
+      <div class="swatch-hex">#d4d4d4</div>
+    </div>
+    <div class="palette-swatch" style="background:var(--n400)">
+      <div class="swatch-border"></div>
+      <div class="swatch-name">neutral-400</div>
+      <div class="swatch-hex">#a3a3a3</div>
+    </div>
+    <div class="palette-swatch" style="background:var(--n500)">
+      <div class="swatch-border"></div>
+      <div class="swatch-name">neutral-500</div>
+      <div class="swatch-hex">#737373</div>
+    </div>
+    <div class="palette-swatch" style="background:var(--n600)">
+      <div class="swatch-border"></div>
+      <div class="swatch-name">neutral-600</div>
+      <div class="swatch-hex">#525252</div>
+    </div>
+    <div class="palette-swatch" style="background:var(--n700)">
+      <div class="swatch-border"></div>
+      <div class="swatch-name">neutral-700</div>
+      <div class="swatch-hex">#404040</div>
+    </div>
+  </div>
+
+  <div class="ascii-deco">
+    +----------+----------+----------+----------+----------+----------+
+    | ntl-200  | ntl-300  | ntl-400  | ntl-500  | ntl-600  | ntl-700  |
+    | #e5e5e5  | #d4d4d4  | #a3a3a3  | #737373  | #525252  | #404040  |
+    | 90%      | 83%      | 64%      | 45%      | 32%      | 25%      |
+    +----------+----------+----------+----------+----------+----------+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== FOOTER ==================== -->
+<div class="footer">
+  <div class="ascii-deco">
+    +-----------------------------------------------------------------+
+    |  GOLDEN.GRID  |  phi = 1.618  |  Fibonacci  |  Neutral Only   |
+    +-----------------------------------------------------------------+
+    |  11 patterns  |  ASCII lines  |  No fills   |  Pure structure  |
+    +-----------------------------------------------------------------+
+  </div>
+  <p style="margin-top:1rem">golden-grid v1.1 &mdash; every line follows phi</p>
+</div>
+
+</body>
+</html>

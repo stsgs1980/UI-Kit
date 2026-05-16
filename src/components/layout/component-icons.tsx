@@ -27,7 +27,6 @@ function getCategory(n: string): string {
   if (/tooltip|popover|hover-card/.test(s)) return 'tooltip'
   if (/hook|provider/.test(s)) return 'code'
   if (/section|hero|footer|navbar|cta|faq|feature|logo|newsletter|testimonial|stagger|contact|banner|cloud|browser/.test(s)) return 'section'
-  if (/scifi/.test(s)) return 'scifi'
   return 'default'
 }
 
@@ -52,7 +51,6 @@ const I: Record<string, React.ReactNode> = {
   tooltip: <><rect x="12" y="8" width="32" height="16" rx="3"/><path d="M24 24l-4 8h8z"/><line x1="18" y1="16" x2="38" y2="16" opacity=".4"/></>,
   code: <><path d="M20 16l-8 12 8 12"/><path d="M36 16l8 12-8 12"/><line x1="32" y1="12" x2="24" y2="44"/></>,
   section: <><rect x="8" y="8" width="40" height="8" rx="2"/><rect x="8" y="20" width="18" height="28" rx="2" opacity=".6"/><rect x="30" y="20" width="18" height="13" rx="2" opacity=".4"/><rect x="30" y="37" width="18" height="11" rx="2" opacity=".4"/></>,
-  scifi: <><rect x="6" y="10" width="44" height="28" rx="3"/><polyline points="14,32 22,24 30,28 38,18 44,22"/><line x1="6" y1="42" x2="50" y2="42"/><circle cx="44" cy="36" r="2" fill="currentColor" opacity=".6"/></>,
   default: <><rect x="10" y="10" width="36" height="36" rx="3"/><line x1="16" y1="18" x2="34" y2="18"/><line x1="16" y1="24" x2="40" y2="24" opacity=".5"/><line x1="16" y1="30" x2="36" y2="30" opacity=".5"/></>,
 }
 

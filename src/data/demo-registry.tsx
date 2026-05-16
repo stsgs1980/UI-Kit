@@ -7,10 +7,6 @@ import { EXTENDED_DEMOS_A_DATA } from './demo-registry-extended-a-data'
 import { EXTENDED_DEMOS_A_DATA_B } from './demo-registry-extended-a-data-b'
 import { DEMO_REGISTRY_A } from './demo-registry-a'
 import { DEMO_REGISTRY_B } from './demo-registry-b'
-import { DATA_DEMOS } from './demo-scifi-data'
-import { MONITORING_DEMOS } from './demo-scifi-monitoring'
-import { OPERATIONS_DEMOS } from './demo-scifi-operations'
-import { BROWSING_DEMOS } from './demo-scifi-browsing'
 
 /**
  * Demo registry — provides preview props for each renderable component.
@@ -28,10 +24,6 @@ export const DEMO_REGISTRY: Record<string, DemoConfig> = {
   ...EXTENDED_DEMOS_A_DATA_B,
   ...DEMO_REGISTRY_A,
   ...DEMO_REGISTRY_B,
-  ...DATA_DEMOS,
-  ...MONITORING_DEMOS,
-  ...OPERATIONS_DEMOS,
-  ...BROWSING_DEMOS,
 }
 
 // ─── Helper ────────────────────────────────────────────────
