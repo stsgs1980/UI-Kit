@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next.js + Tailwind CSS (Sage UI Style)</title>
+    <style>
+        :root {
+            --color-base: #A8AEAA;
+            --color-v1:   #848F89;
+            --color-v2:   #65726A;
+            --color-v3:   #323E37;
+            --color-v4:   #0F1511;
+            --background: #ffffff;
+            --foreground: var(--color-v4);
+            --card: #ffffff;
+            --card-foreground: var(--color-v4);
+            --primary: var(--color-v3);
+            --primary-hover: var(--color-v4);
+            --primary-active: #000000;
+            --primary-foreground: #ffffff;
+            --secondary: #F3F4F3;
+            --secondary-hover: #E5E7E6;
+            --secondary-foreground: var(--color-v4);
+            --muted: #FAFAFA;
+            --muted-foreground: var(--color-v2);
+            --border: #E1E3E2;
+            --input: #F3F4F3;
+            --ring: var(--color-v2);
+            --accent: #ec4899;
+            --accent-foreground: #ffffff;
+            --success: #10b981;
+            --warning: #d97706;
+            --error: #ef4444;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --radius: 0.5rem;
+            --radius-sm: 0.25rem;
+            --radius-lg: 0.75rem;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 2px 0 rgb(15 21 17 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(15 21 17 / 0.1), 0 2px 4px -2px rgb(15 21 17 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(15 21 17 / 0.1), 0 4px 6px -4px rgb(15 21 17 / 0.1);
+        }
+        .dark {
+            --background: var(--color-v4);
+            --foreground: var(--color-base);
+            --card: #162018;
+            --card-foreground: var(--color-base);
+            --primary: var(--color-v1);
+            --primary-hover: var(--color-base);
+            --primary-active: #d1d6d3;
+            --primary-foreground: var(--color-v4);
+            --secondary: var(--color-v3);
+            --secondary-hover: var(--color-v2);
+            --secondary-foreground: var(--color-base);
+            --muted: #0F1511;
+            --muted-foreground: var(--color-v1);
+            --border: var(--color-v3);
+            --input: #1A241F;
+            --ring: var(--color-v1);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2; font-weight: 700; color: var(--foreground);
+            margin-bottom: 0.75em; letter-spacing: -0.025em;
+        }
+        h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } h3 { font-size: 1.5rem; } h4 { font-size: 1.25rem; }
+        p { margin-bottom: 1rem; color: var(--muted-foreground); }
+        code, pre {
+            font-family: var(--font-mono); background-color: var(--muted);
+            padding: 0.2em 0.4em; border-radius: var(--radius-sm);
+            font-size: 0.875em; color: var(--primary);
+        }
+        :focus-visible { outline: none; box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring); }
+        .container { width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+        .flex { display: flex; } .flex-col { flex-direction: column; } .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; } .justify-center { justify-content: center; }
+        .gap-2 { gap: 0.5rem; } .gap-4 { gap: 1rem; } .gap-6 { gap: 1.5rem; }
+        .grid { display: grid; } .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); } .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        @media (max-width: 768px) { .grid-cols-2, .grid-cols-3 { grid-template-columns: 1fr; } .md-hidden { display: none; } }
+        .text-center { text-align: center; } .text-sm { font-size: 0.875rem; } .text-lg { font-size: 1.125rem; }
+        .font-medium { font-weight: 500; } .font-bold { font-weight: 700; } .text-muted-foreground { color: var(--muted-foreground); }
+        .mt-4 { margin-top: 1rem; } .mt-8 { margin-top: 2rem; } .mb-4 { margin-bottom: 1rem; } .mb-8 { margin-bottom: 2rem; }
+        .brand-logo { width: 20px; height: 20px; fill: currentColor; display: inline-block; vertical-align: middle; }
+        .brand-logo-lg { width: 24px; height: 24px; }
+        header {
+            position: sticky; top: 0; z-index: 50;
+            background-color: var(--background); border-bottom: 1px solid var(--border); padding: 1rem 0;
+        }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.625rem 1.25rem; font-size: 0.95rem; font-weight: 600;
+            border-radius: var(--radius); border: 1px solid transparent;
+            cursor: pointer; transition: all 0.2s ease; text-decoration: none; white-space: nowrap;
+        }
+        .btn:active:not(:disabled) { transform: scale(0.98); } .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-primary { background-color: var(--primary); color: var(--primary-foreground); box-shadow: var(--shadow-sm); }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-secondary { background-color: var(--secondary); color: var(--secondary-foreground); border-color: var(--border); }
+        .btn-secondary:hover { background-color: var(--secondary-hover); }
+        .btn-ghost { background-color: transparent; color: var(--foreground); }
+        .btn-ghost:hover { background-color: var(--secondary); color: var(--primary); }
+        .btn-outline { background-color: transparent; border-color: var(--border); color: var(--foreground); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background-color: var(--secondary); }
+        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.875rem; }
+        .card {
+            background-color: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .form-group { margin-bottom: 1.25rem; }
+        .label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--foreground); }
+        .input, .textarea, .select {
+            width: 100%; padding: 0.625rem 0.875rem; font-size: 0.95rem;
+            background-color: var(--input); border: 1px solid var(--border);
+            border-radius: var(--radius); color: var(--foreground);
+            transition: border-color 0.2s, box-shadow 0.2s; font-family: inherit;
+        }
+        .input:focus, .textarea:focus, .select:focus {
+            outline: none; border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(101, 114, 106, 0.1);
+        }
+        .input::placeholder { color: var(--muted-foreground); }
+        .badge {
+            display: inline-flex; align-items: center; padding: 0.125rem 0.625rem;
+            border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; border: 1px solid transparent;
+        }
+        .badge-primary { background: rgba(50, 62, 55, 0.1); color: var(--primary); border-color: var(--border); }
+        .badge-success { background: #ecfdf5; color: var(--success); border-color: #a7f3d0; }
+        .badge-warning { background: #fffbeb; color: var(--warning); border-color: #fde68a; }
+        .badge-secondary { background: var(--secondary); color: var(--muted-foreground); }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--input); border: 1px solid var(--border);
+            transition: .3s; border-radius: var(--radius-full);
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 18px; width: 18px;
+            left: 2px; bottom: 2px; background-color: white;
+            transition: .3s; border-radius: 50%; box-shadow: var(--shadow-sm);
+        }
+        input:checked + .slider { background-color: var(--primary); border-color: var(--primary); }
+        input:checked + .slider:before { transform: translateX(20px); }
+        .tabs { display: flex; flex-direction: column; width: 100%; }
+        .tab-list { display: flex; border-bottom: 1px solid var(--border); gap: 1rem; margin-bottom: 1.5rem; }
+        .tab-trigger {
+            padding-bottom: 0.75rem; background: none; border: none;
+            border-bottom: 2px solid transparent; color: var(--muted-foreground);
+            font-weight: 500; cursor: pointer; transition: all 0.2s;
+        }
+        .tab-trigger:hover { color: var(--primary); }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        .tab-trigger.active { color: var(--primary); border-bottom-color: var(--primary); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .accordion-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 0.5rem; overflow: hidden; }
+        .accordion-trigger {
+            width: 100%; padding: 1rem; background: var(--card); border: none;
+            text-align: left; font-weight: 600; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            color: var(--foreground); list-style: none;
+        }
+        .accordion-trigger::-webkit-details-marker { display: none; }
+        .accordion-trigger:hover { background: var(--secondary); }
+        .accordion-trigger::after { content: '+'; font-size: 1.25rem; transition: transform 0.2s; }
+        details[open] .accordion-trigger::after { content: '-'; }
+        .accordion-content { padding: 1rem; border-top: 1px solid var(--border); color: var(--muted-foreground); background: var(--background); }
+        .toast {
+            position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem;
+            background: var(--card); border: 1px solid var(--border);
+            border-left: 4px solid var(--primary); border-radius: var(--radius);
+            box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 1rem;
+            transform: translateY(150%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+        .toast.show { transform: translateY(0); }
+        .icon { width: 20px; height: 20px; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+        .icon-lg { width: 48px; height: 48px; color: var(--primary); }
+        .icon-box { margin-bottom: 1rem; }
+        .alert { padding: 1rem; border-radius: var(--radius); border: 1px solid transparent; }
+        .alert-success { background: #ecfdf5; border-color: var(--success); color: var(--success); }
+        .alert-error { background: #fef2f2; border-color: var(--error); color: var(--error); }
+        .footer-link {
+            display: flex; align-items: center; gap: 0.5rem;
+            color: var(--foreground); text-decoration: none; opacity: 0.8;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .footer-link:hover { opacity: 1; color: var(--primary); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <svg class="icon" style="width: 24px; height: 24px; color: var(--primary);" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <span class="font-bold text-lg">NextWind</span>
+            </div>
+            <nav class="flex items-center gap-6 md-hidden">
+                <a href="#features" class="text-sm font-medium" style="color: var(--foreground); text-decoration: none;">Преимущества</a>
+                <a href="#details" class="text-sm font-medium" style="color: var(--muted-foreground); text-decoration: none;">Детали</a>
+                <a href="#faq" class="text-sm font-medium" style="color: var(--muted-foreground); text-decoration: none;">FAQ</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle" aria-label="Переключить тему">
+                    <span class="slider"></span>
+                </label>
+                <a href="https://nextjs.org" target="_blank" class="btn btn-primary btn-sm" aria-label="Документация Next.js">
+                    <svg class="brand-logo brand-logo-lg" viewBox="0 0 180 180" fill="currentColor">
+                        <mask id="mask0_408_134" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="180">
+                            <circle cx="90" cy="90" r="90" fill="black"/>
+                        </mask>
+                        <g mask="url(#mask0_408_134)">
+                            <circle cx="90" cy="90" r="90" fill="currentColor"/>
+                            <path d="M149.508 157.52L69.142 54H54V125.97H66.1136V69.3836L139.999 164.845C143.333 162.614 146.509 160.165 149.508 157.52Z" fill="var(--background)" fill-opacity="0.9"/>
+                            <rect x="115" y="54" width="12" height="72" fill="var(--background)" fill-opacity="0.9"/>
+                        </g>
+                    </svg>
+                    <span>Документация</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <section class="text-center" style="padding: 5rem 0;">
+            <div class="badge badge-primary mb-4">Full-Stack Solution</div>
+            <h1 style="margin-bottom: 1.5rem; font-size: 3rem; letter-spacing: -0.04em;">Next.js + Tailwind CSS</h1>
+            <h2 style="margin-top: -1rem; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 500; color: var(--color-v2);">Современный стандарт веб-разработки</h2>
+            <p style="max-width: 600px; margin: 0 auto 2.5rem auto; font-size: 1.125rem;">
+                Комбинация серверного рендеринга Next.js и утилитарного подхода Tailwind CSS.
+                Максимальная производительность, скорость разработки и эстетичный дизайн.
+            </p>
+            <div class="flex justify-center gap-4">
+                <button class="btn btn-primary" onclick="showToast('Создание проекта началось...')">Создать проект</button>
+                <button class="btn btn-outline" onclick="window.open('https://tailwindcss.com', '_blank')" aria-label="Изучить Tailwind CSS">
+                    <svg class="brand-logo brand-logo-lg" viewBox="0 0 54 33" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M27 0C22.2 0 17.7 1.5 14.1 4.2L16.5 7.5C19.2 5.4 22.5 4.2 26.1 4.2C34.8 4.2 41.7 11.1 41.7 19.8C41.7 24 40.2 27.9 37.5 30.9L40.2 33.3C43.8 29.4 45.9 24.3 45.9 19.2C45.9 8.4 37.5 0 27 0ZM9.9 6.9L7.5 4.2C2.7 8.4 0 14.7 0 21.3C0 27.9 2.7 34.2 7.5 38.4L9.9 35.7C5.7 32.1 3.6 27 3.6 21.6C3.6 16.2 5.7 10.8 9.9 6.9ZM27 10.8C20.4 10.8 15 16.2 15 22.8C15 25.8 16.2 28.5 18 30.6L20.7 28.2C19.5 26.7 18.9 24.9 18.9 22.8C18.9 18 22.8 14.1 27.6 14.1C29.7 14.1 31.5 14.7 33 16.2L35.4 13.5C33.3 11.7 30.3 10.8 27 10.8Z"/>
+                    </svg>
+                    Изучить Tailwind
+                </button>
+            </div>
+        </section>
+        <section id="features" class="grid grid-cols-3 gap-6 mb-8">
+            <div class="card">
+                <div class="icon-box mb-4"><svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                <h3>Высокая производительность</h3>
+                <p>Next.js оптимизирует загрузку благодаря SSR и SSG, а Tailwind очищает неиспользуемый CSS (JIT), делая сайты невероятно легкими.</p>
+            </div>
+            <div class="card">
+                <div class="icon-box mb-4"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <h3>Надежность и SEO</h3>
+                <p>Идеальное решение для коммерческих проектов. Отличная индексация поисковиками благодаря серверной генерации контента.</p>
+            </div>
+            <div class="card">
+                <div class="icon-box mb-4"><svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+                <h3>Современный DX</h3>
+                <p>Легкая настройка темной темы, адаптивность из коробки и поддержка горячей замены модулей (Hot Module Replacement).</p>
+            </div>
+        </section>
+        <section class="mb-8">
+            <div class="flex items-center gap-2 mb-4">
+                <h2 style="margin: 0;">Быстрый старт</h2>
+                <span class="badge badge-secondary">Setup</span>
+            </div>
+            <div class="card">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <div class="form-group">
+                            <label class="label" for="project-name">Название проекта</label>
+                            <input type="text" id="project-name" class="input" placeholder="my-awesome-app">
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="framework">Фреймворк стилей</label>
+                            <select id="framework" class="select">
+                                <option>Tailwind CSS (Рекомендуется)</option>
+                                <option>CSS Modules</option>
+                                <option>Styled Components</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label class="label" for="type">Тип проекта</label>
+                            <textarea id="type" class="textarea" rows="3" placeholder="Например: E-commerce, LMS, Landing Page..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">Дополнительно</label>
+                            <div class="flex items-center gap-4">
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> TypeScript</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> ESLint</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"> Src Directory</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 flex justify-end gap-2">
+                    <button class="btn btn-ghost">Отмена</button>
+                    <button class="btn btn-primary" onclick="showToast('Конфигурация сохранена!')">Сгенерировать</button>
+                </div>
+            </div>
+        </section>
+        <section id="details" class="grid grid-cols-2 gap-6 mb-8">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <h2 style="margin: 0;">Сравнение подходов</h2>
+                    <span class="badge badge-secondary">Analysis</span>
+                </div>
+                <div class="card">
+                    <div class="tabs" id="demo-tabs">
+                        <div class="tab-list" role="tablist">
+                            <button class="tab-trigger active" role="tab" aria-selected="true" aria-controls="panel-next" id="tab-next" onclick="switchTab(event, 'panel-next')" tabindex="0">Next.js</button>
+                            <button class="tab-trigger" role="tab" aria-selected="false" aria-controls="panel-tailwind" id="tab-tailwind" onclick="switchTab(event, 'panel-tailwind')" tabindex="-1">Tailwind CSS</button>
+                        </div>
+                        <div id="panel-next" class="tab-content active" role="tabpanel" aria-labelledby="tab-next">
+                            <p>React-фреймворк, предоставляющий ключевые функции: гибридный статический и серверный рендеринг, поддержка TypeScript, умная сборка, маршрутизация файловой системы и многое другое.</p>
+                            <div class="mt-4 p-3" style="background: var(--secondary); border-radius: var(--radius-sm);"><code class="text-sm">npx create-next-app@latest</code></div>
+                        </div>
+                        <div id="panel-tailwind" class="tab-content" role="tabpanel" aria-labelledby="tab-tailwind">
+                            <p>Utility-first CSS-фреймворк для быстрого создания пользовательских интерфейсов. Позволяет создавать уникальные дизайны, не покидая HTML.</p>
+                            <div class="mt-4 p-3" style="background: var(--secondary); border-radius: var(--radius-sm);"><code class="text-sm">npm install -D tailwindcss postcss autoprefixer</code></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="faq">
+                <div class="flex items-center gap-2 mb-4">
+                    <h2 style="margin: 0;">Частые вопросы</h2>
+                    <span class="badge badge-secondary">FAQ</span>
+                </div>
+                <div class="accordion-item"><details open><summary class="accordion-trigger">Сложно ли выучить Tailwind?</summary><div class="accordion-content">Первое время может казаться, что HTML загрязнен классами. Но через пару дней вы запоминаете основные классы и верстаете в 2-3 раза быстрее, чем с обычным CSS.</div></details></div>
+                <div class="accordion-item"><details><summary class="accordion-trigger">Нужен ли Redux с Next.js?</summary><div class="accordion-content">Не всегда. В Next.js 13+ с App Router и Server Components часто можно обойтись стандартными React Context или встроенными состояниями, а для серверных данных — Server Actions.</div></details></div>
+                <div class="accordion-item"><details><summary class="accordion-trigger">Как это влияет на SEO?</summary><div class="accordion-content">Положительно. Next.js позволяет рендерить контент на сервере, что поисковики любят больше, чем пустые div-ы от чистого Client-Side React.</div></details></div>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2>Статус экосистемы</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="alert alert-success"><strong>Shadcn/ui доступен!</strong> Идеально дополняет этот стек, предоставляя красивые компоненты на Radix UI.</div>
+                <div class="alert alert-error"><strong>Внимание:</strong> Не забудьте настроить .gitignore, чтобы не коммитить папку .next.</div>
+            </div>
+        </section>
+    </main>
+    <footer style="border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 4rem; background: var(--muted);">
+        <div class="container flex flex-col items-center justify-between text-center gap-4">
+            <div class="font-bold text-lg">NextWind Stack</div>
+            <div class="text-sm text-muted-foreground">Создано с любовью к веб-технологиям.</div>
+            <div class="flex gap-6">
+                <a href="https://vercel.com" target="_blank" class="footer-link" aria-label="Vercel">
+                    <svg class="brand-logo" viewBox="0 0 76 65" fill="currentColor"><path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/></svg>
+                    <span class="text-sm font-medium">Vercel</span>
+                </a>
+                <a href="https://github.com" target="_blank" class="footer-link" aria-label="GitHub">
+                    <svg class="brand-logo" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                    <span class="text-sm font-medium">GitHub</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+    <div id="toast" class="toast">
+        <svg class="icon" style="color: var(--primary);" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        <span id="toast-message">Notification</span>
+    </div>
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+            themeToggle.checked = true;
+        }
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) { htmlElement.classList.add('dark'); localStorage.setItem('theme', 'dark'); }
+            else { htmlElement.classList.remove('dark'); localStorage.setItem('theme', 'light'); }
+        });
+        function switchTab(event, panelId) {
+            event.preventDefault();
+            const container = document.getElementById('demo-tabs');
+            if (!container) return;
+            container.querySelectorAll('.tab-trigger').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); t.setAttribute('tabindex', '-1'); });
+            container.querySelectorAll('.tab-content').forEach(c => { c.classList.remove('active'); });
+            const clickedTab = event.currentTarget;
+            clickedTab.classList.add('active'); clickedTab.setAttribute('aria-selected', 'true'); clickedTab.setAttribute('tabindex', '0');
+            const targetPanel = document.getElementById(panelId);
+            if (targetPanel) targetPanel.classList.add('active');
+        }
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-message');
+            msg.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+    </script>
+</body>
+</html>

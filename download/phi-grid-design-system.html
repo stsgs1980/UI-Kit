@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phi-Grid Design System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --font-sans: 'Manrope', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --c-base: #A8AEAA;
+            --c-v1:   #848F89;
+            --c-v2:   #65726A;
+            --c-v3:   #323E37;
+            --c-v4:   #0F1511;
+            --bg-body: #FFFFFF;
+            --fg-body: var(--c-v4);
+            --bg-card: #FFFFFF;
+            --fg-card: var(--c-v3);
+            --bg-input: #FFFFFF;
+            --fg-input: var(--c-v4);
+            --border-input: var(--c-base);
+            --bg-primary: var(--c-v2);
+            --fg-primary: #FFFFFF;
+            --bg-secondary: #F4F4F4;
+            --fg-secondary: var(--c-v3);
+            --fg-muted: var(--c-v1);
+            --border-color: #E5E5E5;
+            --radius: 0.5rem;
+        }
+        .dark {
+            --bg-body: var(--c-v4);
+            --fg-body: var(--c-base);
+            --bg-card: var(--c-v3);
+            --fg-card: var(--c-base);
+            --bg-input: var(--c-v3);
+            --fg-input: var(--c-base);
+            --border-input: var(--c-v2);
+            --bg-primary: var(--c-base);
+            --fg-primary: var(--c-v4);
+            --bg-secondary: var(--c-v3);
+            --fg-secondary: var(--c-base);
+            --fg-muted: var(--c-v1);
+            --border-color: var(--c-v2);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-body);
+            color: var(--fg-body);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75em;
+            line-height: 1.2;
+            color: var(--fg-body);
+        }
+        :focus-visible {
+            outline: 2px solid var(--c-v2);
+            outline-offset: 2px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        .grid { display: grid; gap: 1.5rem; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .flex { display: flex; gap: 1rem; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+        .text-lg { font-size: 1.125rem; }
+        .font-bold { font-weight: 700; }
+        .font-mono { font-family: var(--font-mono); }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-8 { margin-top: 2rem; }
+        .phi-box {
+            border: 1px dashed var(--c-v1);
+            background-color: rgba(128, 128, 128, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            border-radius: 4px;
+            position: relative;
+        }
+        .phi-box::after {
+            content: attr(data-w) "x" attr(data-h);
+            position: absolute;
+            bottom: 2px;
+            right: 4px;
+            font-size: 0.6rem;
+            opacity: 0.6;
+        }
+        .phi-fill {
+            background-color: var(--c-v2);
+            opacity: 0.2;
+            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0;
+            z-index: 0;
+        }
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky; top: 0;
+            background-color: var(--bg-body);
+            z-index: 50;
+        }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.75rem 1.5rem; font-weight: 700;
+            border-radius: var(--radius);
+            cursor: pointer; transition: all 0.2s; border: none; text-decoration: none;
+            font-family: var(--font-sans);
+        }
+        .btn-primary { background-color: var(--bg-primary); color: var(--fg-primary); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-ghost { background: transparent; color: var(--fg-body); border: 1px solid var(--border-color); font-weight: 600; }
+        .btn-ghost:hover { background-color: var(--bg-secondary); border-color: var(--fg-muted); }
+        .card {
+            background-color: var(--bg-card);
+            color: var(--fg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover { border-color: var(--c-v2); transform: translateY(-2px); }
+        .input {
+            width: 100%; padding: 0.75rem 1rem;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-input);
+            color: var(--fg-input);
+            border-radius: var(--radius);
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .input:focus { border-color: var(--c-v2); outline: none; }
+        .input::placeholder { color: var(--fg-muted); opacity: 0.7; }
+        .surface-dark {
+            background-color: var(--c-v3);
+            color: var(--c-base);
+            border: 1px solid var(--c-v2);
+        }
+        .surface-light {
+            background-color: var(--c-base);
+            color: var(--c-v4);
+            border: 1px solid var(--c-v4);
+        }
+        .badge {
+            display: inline-block; padding: 0.25rem 0.75rem;
+            border-radius: 99px; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .badge-dark { background: var(--c-v3); color: var(--c-base); }
+        .badge-light { background: var(--c-v2); color: white; }
+        .icon {
+            width: 20px; height: 20px; stroke: currentColor;
+            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; fill: none;
+        }
+        .icon-lg { width: 48px; height: 48px; color: var(--c-v2); }
+        .theme-switch-wrapper { display: flex; align-items: center; }
+        .theme-switch { display: none; }
+        .theme-label {
+            cursor: pointer; width: 44px; height: 24px; background: var(--bg-input);
+            border: 1px solid var(--border-color); border-radius: 99px; position: relative;
+            transition: 0.3s;
+        }
+        .theme-label::after {
+            content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px;
+            background: var(--c-v1); border-radius: 50%; transition: 0.3s;
+        }
+        .theme-switch:checked + .theme-label { background: var(--c-v2); border-color: var(--c-v2); }
+        .theme-switch:checked + .theme-label::after { transform: translateX(20px); background: white; }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            color: var(--fg-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .data-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .col-id { width: 10%; }
+        .col-main { width: 55%; }
+        .col-meta { width: 35%; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <svg class="icon" viewBox="0 0 24 24" style="color: var(--c-v2); width: 28px; height: 28px;">
+                    <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                    <line x1="9" y1="12" x2="15" y2="12"></line>
+                    <line x1="9" y1="16" x2="15" y2="16"></line>
+                    <line x1="9" y1="8" x2="15" y2="8"></line>
+                </svg>
+                <div class="flex-col">
+                    <span class="font-bold text-lg" style="line-height: 1; letter-spacing: -0.03em;">Phi-Grid</span>
+                    <span class="text-xs font-mono" style="color: var(--fg-muted); letter-spacing: 0.1em;">DESIGN SYSTEM</span>
+                </div>
+            </div>
+            <div class="theme-switch-wrapper">
+                <input type="checkbox" id="theme-toggle" class="theme-switch">
+                <label for="theme-toggle" class="theme-label" aria-label="Переключить тему"></label>
+            </div>
+        </div>
+    </header>
+    <main class="container mt-8">
+        <section class="mb-8">
+            <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1;">
+                Математика<br>в Интерфейсе
+            </h1>
+            <p style="max-width: 600px; color: var(--fg-muted); margin-bottom: 2.5rem; font-size: 1.125rem; font-weight: 500;">
+                Система шаблонов, основанная на золотом сечении и последовательности Фибоначчи (1, 2, 3, 5, 8, 13, 21, 34, 55).
+                Гармония на уровне кода.
+            </p>
+            <div class="flex gap-2">
+                <button class="btn btn-primary">Документация</button>
+                <button class="btn btn-ghost">Figma Kit</button>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-sm font-bold mb-4 font-mono" style="color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em;">Level 0: Fibonacci Scale</h2>
+            <div class="flex" style="gap: 0.5rem; overflow-x: auto; padding-bottom: 1rem;">
+                <div class="phi-box" style="width: 2rem; height: 2rem;" data-w="2" data-h="2"></div>
+                <div class="phi-box" style="width: 3rem; height: 3rem;" data-w="3" data-h="3"></div>
+                <div class="phi-box" style="width: 5rem; height: 3rem;" data-w="5" data-h="3"></div>
+                <div class="phi-box" style="width: 8rem; height: 3rem;" data-w="8" data-h="3"></div>
+                <div class="phi-box" style="width: 13rem; height: 5rem;" data-w="13" data-h="5"></div>
+                <div class="phi-box" style="width: 21rem; height: 8rem;" data-w="21" data-h="8">
+                    <div class="phi-fill"></div>
+                    <span style="z-index:1">Golden Unit</span>
+                </div>
+                <div class="phi-box" style="width: 34rem; height: 13rem;" data-w="34" data-h="13"></div>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-sm font-bold mb-4 font-mono" style="color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em;">Level 1: Layout Templates (L-Templates)</h2>
+            <div class="card mb-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-sm font-bold font-mono">TEMPLATE L-55 (Desktop)</h3>
+                    <span class="text-xs font-mono text-muted">Width: 55 units</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 13ch 34ch 8ch; gap: 0.5rem; height: 100px;">
+                    <div class="phi-box" style="border-color: var(--c-v2); background: rgba(101, 114, 106, 0.2);" data-w="13" data-h="21">MENU</div>
+                    <div class="phi-box" style="border-color: var(--c-v2); background: rgba(168, 174, 170, 0.2);" data-w="34" data-h="21">MAIN CONTENT</div>
+                    <div class="phi-box" style="border-color: var(--c-v2); background: rgba(132, 143, 137, 0.2);" data-w="8" data-h="21">ADS</div>
+                </div>
+            </div>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-sm font-bold font-mono">TEMPLATE L-34 (Tablet)</h3>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 21ch 13ch; gap: 0.5rem; height: 80px;">
+                        <div class="phi-box" style="border-color: var(--c-v2);" data-w="21" data-h="21">CONTENT</div>
+                        <div class="phi-box" style="border-color: var(--c-v1);" data-w="13" data-h="21">SIDEBAR</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-sm font-bold font-mono">TEMPLATE L-21 (Mobile)</h3>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 21ch; gap: 0.5rem; height: 80px;">
+                        <div class="phi-box" style="border-color: var(--c-v2);" data-w="21" data-h="21">SINGLE COLUMN</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-sm font-bold mb-4 font-mono" style="color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em;">Component Templates (C-Templates)</h2>
+            <div class="grid grid-2">
+                <div class="card" style="background-color: var(--bg-body); border: 1px dashed var(--border-color);">
+                    <h3 class="text-sm font-bold font-mono mb-4">C-TOAST (Action)</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); margin-bottom: 1rem;">
+                        <div class="flex items-center gap-2">
+                            <span style="font-size: 1.2rem;">&#x2139;&#xFE0F;</span>
+                            <span class="text-sm">Доступна новая версия</span>
+                        </div>
+                        <button class="btn" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; background: var(--bg-primary); color: var(--fg-primary);">Обновить</button>
+                    </div>
+                    <div class="flex font-mono text-xs" style="color: var(--fg-muted);">
+                        <div style="width: 14.2%; text-align: center;">[5]<br>Icon</div>
+                        <div style="width: 61.8%; text-align: center;">[34]<br>Text</div>
+                        <div style="width: 23%; text-align: center;">[13]<br>Action</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-sm font-bold font-mono mb-4">C-BTN (Hierarchy)</h3>
+                    <div class="flex flex-col gap-3">
+                        <button class="btn btn-primary" style="width: 100%;">Primary (Width 21)</button>
+                        <button class="btn btn-ghost" style="width: 100%;">Secondary (Width 21)</button>
+                        <div class="flex justify-between mt-2 font-mono text-xs text-muted">
+                            <span>Small: 13</span>
+                            <span>Medium: 21</span>
+                            <span>Large: 34</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-sm font-bold mb-4 font-mono" style="color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em;">Data Templates (D-Templates)</h2>
+            <div class="grid grid-2">
+                <div class="card" style="overflow: hidden; padding: 0;">
+                    <div style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+                        <h3 class="text-sm font-bold font-mono">D-TABLE (Users)</h3>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-id">ID</th>
+                                    <th class="col-main">USERNAME / EMAIL</th>
+                                    <th class="col-meta">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-mono text-muted">#001</td>
+                                    <td>
+                                        <div class="font-bold">Alex Stone</div>
+                                        <div class="text-xs text-muted">alex@phi-grid.com</div>
+                                    </td>
+                                    <td><span class="badge badge-dark">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-mono text-muted">#002</td>
+                                    <td>
+                                        <div class="font-bold">Maria Grey</div>
+                                        <div class="text-xs text-muted">maria@phi-grid.com</div>
+                                    </td>
+                                    <td><span class="badge badge-light">Offline</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="padding: 0.5rem; background: var(--bg-body); font-size: 0.7rem; color: var(--fg-muted); text-align: center; font-family: var(--font-mono);">
+                        Cols: 5 + 34 + 13
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-sm font-bold font-mono mb-4">D-TIMELINE (Vertical)</h3>
+                    <div style="position: relative; padding-left: 2rem; border-left: 2px solid var(--border-color);">
+                        <div style="position: relative; margin-bottom: 2rem;">
+                            <div style="position: absolute; left: -2.35rem; top: 0; width: 10px; height: 10px; background: var(--bg-primary); border-radius: 50%; border: 2px solid var(--bg-card);"></div>
+                            <div class="text-xs font-mono text-muted mb-1">10:00 AM</div>
+                            <div class="text-sm font-bold mb-1">Project Kickoff</div>
+                            <div class="text-xs text-muted">Initial meeting with stakeholders...</div>
+                        </div>
+                        <div style="position: relative;">
+                            <div style="position: absolute; left: -2.35rem; top: 0; width: 10px; height: 10px; background: var(--c-v1); border-radius: 50%; border: 2px solid var(--bg-card);"></div>
+                            <div class="text-xs font-mono text-muted mb-1">02:30 PM</div>
+                            <div class="text-sm font-bold mb-1">Design Review</div>
+                            <div class="text-xs text-muted">Checking the golden ratio grids.</div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-xs font-mono text-muted text-center">
+                        Rhythm: 13 (Event) + 8 (Gap) = 21
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer style="border-top: 1px solid var(--border-color); padding: 3rem 0; margin-top: 4rem;">
+        <div class="container text-center text-sm font-mono" style="color: var(--fg-muted);">
+            PHI-GRID SYSTEM // FIBONACCI SEQUENCE // 2023
+        </div>
+    </footer>
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        if (localStorage.getItem('theme') === 'light') {
+            html.classList.remove('dark');
+            toggle.checked = false;
+        } else {
+            html.classList.add('dark');
+            toggle.checked = true;
+        }
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>
