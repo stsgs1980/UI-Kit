@@ -1,14 +1,50 @@
-# @stsgs/ui — Interface Studio
+# @stsgs/ui - Interface Studio
 
 > Context-aware interface builder: layout + theme + components from a single prompt.
 >
 > Repository: [github.com/stsgs1980/UI-Kit](https://github.com/stsgs1980/UI-Kit)
 
+
+[![Next.js](https://img.shields.io/badge/Next.js-black?style=flat-square)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-61DAFB?style=flat-square)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square)](https://www.typescriptlang.org)
+[![Tailwind_CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square)](https://tailwindcss.com)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
+
+## Table of Contents
+
+- [What It Does](#what-it-does)
+- [Three Engines](#three-engines)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Clone the repository](#clone-the-repository)
+- [Install dependencies](#install-dependencies)
+- [Build all packages](#build-all-packages)
+- [Run development mode](#run-development-mode)
+- [Create a new project](#create-a-new-project)
+- [Add components to existing project](#add-components-to-existing-project)
+- [Scan for violations](#scan-for-violations)
+- [Sync AI rules](#sync-ai-rules)
+- [Architecture: 6-Layer Dependency Direction](#architecture:-6-layer-dependency-direction)
+- [Dual Theme System](#dual-theme-system)
+- [5 Theme Presets](#5-theme-presets)
+- [Import Patterns](#import-patterns)
+- [Anti-Monolith Rules (7 Rules)](#anti-monolith-rules-7-rules)
+- [Collections](#collections)
+- [Project Structure](#project-structure)
+- [Development Rules](#development-rules)
+- [Agent Rules (Mandatory)](#agent-rules-mandatory)
+- [Development Phases](#development-phases)
+- [License](#license)
+
 ## What It Does
 
 @stsgs/ui is an **Interface Studio** -- not just a component library. It takes a context (goal, audience, style) and produces a ready-to-use interface: layout + theme + components + code.
 
-```
+```bash
 INPUT:  "SaaS landing for fintech, premium style"
   |
   +-- Layout Engine  --> Holy Grail (score: 94/100)
@@ -45,52 +81,51 @@ OUTPUT: Live preview + exportable code + tokens
 - **Framework** -- Next.js 16, React 19
 - **Language** -- TypeScript 5.7+ (strict mode)
 - **Styling** -- Tailwind CSS 4, shadcn/ui, Radix UI primitives
-- **Build** -- pnpm 9.15+, Turborepo monorepo, tsup
+- **Build** -- Bun, Turborepo monorepo, tsup
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 20+
-- pnpm 9.15+
 
 ### Installation
 
 ```bash
-# Clone the repository
+## Clone the repository
 git clone https://github.com/stsgs1980/UI-Kit.git
 cd UI-Kit
 
-# Install dependencies
-pnpm install
+## Install dependencies
+npm install
 
-# Build all packages
-pnpm build
+## Build all packages
+npm run build
 
-# Run development mode
-pnpm dev
+## Run development mode
+npm run dev
 ```
 
 ### Quick Start (CLI)
 
 ```bash
-# Create a new project
+## Create a new project
 npx create-stsgs-app my-project
 
-# Add components to existing project
+## Add components to existing project
 npx stsgs add Button
 npx stsgs add @dashboard-kit
 
-# Scan for violations
+## Scan for violations
 npx stsgs scan
 
-# Sync AI rules
+## Sync AI rules
 npx stsgs ai sync
 ```
 
 ## Architecture: 6-Layer Dependency Direction
 
-```
+```sql
 tokens/ -> ui/ -> sections/ -> features/ -> hooks/ -> providers/
 ```
 
@@ -195,7 +230,7 @@ UI-Kit/
 - Next.js 16 + React 19
 - TypeScript 5.7+ strict mode
 - Tailwind CSS 4 + shadcn/ui + Radix UI
-- pnpm + Turborepo
+- Bun + Turborepo
 
 ### Code Style
 
@@ -234,6 +269,5 @@ See `docs/planning/phase-plan.md` for the full Wave Plan (Wave 1-4) and componen
 
 MIT
 
----
 
 Built with: Next.js 16 + React 19 + TypeScript + Tailwind CSS 4 + shadcn/ui + Radix UI
