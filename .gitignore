@@ -9,3 +9,6 @@ dist/
 coverage/
 *.db
 *.sqlite
+upload/
+download/
+tool-results/
